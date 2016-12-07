@@ -1,0 +1,753 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="第十周（2016/11/29-2016/12/05）工作内容
+研究点：编写能自动生成ROS nodes的软件工具。比如对于图像识别来讲，用户加入训练的图片或图像，可以训练成一个具有图像识别能力的节点。用户傻瓜式生成它之后，便可直接使用这个ROS节点加入到自己的机器人架构中。
+BOSCH公司已经有人在2015年8月发布了基于嵌入式 STM32F4Discovery 平台的实时ROS中间件开发项目。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WeeklyReport">
+<meta property="og:url" content="http://hujun1413.github.io/2016/01/26/OSLab_WeeklyReport/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="第十周（2016/11/29-2016/12/05）工作内容
+研究点：编写能自动生成ROS nodes的软件工具。比如对于图像识别来讲，用户加入训练的图片或图像，可以训练成一个具有图像识别能力的节点。用户傻瓜式生成它之后，便可直接使用这个ROS节点加入到自己的机器人架构中。
+BOSCH公司已经有人在2015年8月发布了基于嵌入式 STM32F4Discovery 平台的实时ROS中间件开发项目。">
+<meta property="og:updated_time" content="2016-12-07T10:13:08.748Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WeeklyReport">
+<meta name="twitter:description" content="第十周（2016/11/29-2016/12/05）工作内容
+研究点：编写能自动生成ROS nodes的软件工具。比如对于图像识别来讲，用户加入训练的图片或图像，可以训练成一个具有图像识别能力的节点。用户傻瓜式生成它之后，便可直接使用这个ROS节点加入到自己的机器人架构中。
+BOSCH公司已经有人在2015年8月发布了基于嵌入式 STM32F4Discovery 平台的实时ROS中间件开发项目。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> WeeklyReport | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                WeeklyReport
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-01-26T21:35:26+08:00" content="2016-01-26">
+              2016-01-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/OSLab/" itemprop="url" rel="index">
+                    <span itemprop="name">OSLab</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/01/26/OSLab_WeeklyReport/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/26/OSLab_WeeklyReport/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="第十周（2016-11-29-2016-12-05）"><a href="#第十周（2016-11-29-2016-12-05）" class="headerlink" title="第十周（2016/11/29-2016/12/05）"></a>第十周（2016/11/29-2016/12/05）</h3><h4 id="工作内容"><a href="#工作内容" class="headerlink" title="工作内容"></a>工作内容</h4><ul>
+<li>研究点：编写能自动生成ROS nodes的软件工具。比如对于图像识别来讲，用户加入训练的图片或图像，可以训练成一个具有图像识别能力的节点。用户傻瓜式生成它之后，便可直接使用这个ROS节点加入到自己的机器人架构中。</li>
+<li>BOSCH公司已经有人在2015年8月发布了基于嵌入式 STM32F4Discovery 平台的实时ROS中间件开发项目。</li>
+<li>听老师讲课</li>
+<li>看《设备驱动程序》</li>
+<li>学习LLVM</li>
+<li>毕设定题加选题</li>
+</ul>
+<h4 id="下周计划"><a href="#下周计划" class="headerlink" title="下周计划"></a>下周计划</h4><ul>
+<li>继续学习LLVM</li>
+<li>继续看《设备驱动程序》</li>
+</ul>
+<a id="more"></a>
+<h3 id="第九周（2016-11-23-2016-11-28）"><a href="#第九周（2016-11-23-2016-11-28）" class="headerlink" title="第九周（2016/11/23-2016/11/28）"></a>第九周（2016/11/23-2016/11/28）</h3><h4 id="工作内容-1"><a href="#工作内容-1" class="headerlink" title="工作内容"></a>工作内容</h4><ul>
+<li>刷题准备周末的编程竞赛</li>
+<li>修改源码并编译运行在真实机器人上</li>
+<li>正在了解ROS运行时每个文件的作用</li>
+</ul>
+<h4 id="下周计划-1"><a href="#下周计划-1" class="headerlink" title="下周计划"></a>下周计划</h4><ul>
+<li>继续看Kobuki源码</li>
+<li>抽空看看LLVM</li>
+</ul>
+<h3 id="第八周（2016-11-15-2016-11-22）"><a href="#第八周（2016-11-15-2016-11-22）" class="headerlink" title="第八周（2016/11/15-2016/11/22）"></a>第八周（2016/11/15-2016/11/22）</h3><h4 id="工作内容-2"><a href="#工作内容-2" class="headerlink" title="工作内容"></a>工作内容</h4><ul>
+<li>Kobuki上没有装ROS，只是将ROS通用格式的数据转换然后驱动底盘</li>
+<li>安装LLVM</li>
+<li>安装Kobuki源码（遇到问题后解决）</li>
+<li>刷题准备周末的编程竞赛，弃疗gg</li>
+</ul>
+<h4 id="下周计划-2"><a href="#下周计划-2" class="headerlink" title="下周计划"></a>下周计划</h4><ul>
+<li>继续看Kobuki源码</li>
+<li>抽空看看LLVM</li>
+</ul>
+<h3 id="第七周（2016-11-08-2016-11-14）"><a href="#第七周（2016-11-08-2016-11-14）" class="headerlink" title="第七周（2016/11/08-2016/11/14）"></a>第七周（2016/11/08-2016/11/14）</h3><h4 id="工作内容-3"><a href="#工作内容-3" class="headerlink" title="工作内容"></a>工作内容</h4><ul>
+<li>能在模拟器中控制Nao的关节运动（但目前不清楚为什么动和为什么不动），由于Naoqi和ROS结合方面的资料太少，摸索起来将投入的代价太大，打算先从简单的Kobuki开始练手</li>
+<li>基本知道怎么控制Kobuki底盘</li>
+</ul>
+<h4 id="下周计划-3"><a href="#下周计划-3" class="headerlink" title="下周计划"></a>下周计划</h4><ul>
+<li>先利用Kobuki底盘，熟悉ROS在真实机器人上的开发流程及原理</li>
+<li>之后有机会再考虑重新用ROS控制Nao</li>
+<li>调研：Kobuki上装的是不是ROS，找方法验证</li>
+</ul>
+<h3 id="第六周（2016-11-01-2016-11-07）"><a href="#第六周（2016-11-01-2016-11-07）" class="headerlink" title="第六周（2016/11/01-2016/11/07）"></a>第六周（2016/11/01-2016/11/07）</h3><h4 id="工作内容-4"><a href="#工作内容-4" class="headerlink" title="工作内容"></a>工作内容</h4><ul>
+<li>完成了自动更新小应用客户端的开发，正在上线测试</li>
+<li>总结开发小应用过程中学习的知识</li>
+<li>调研ROS：kobuki底盘，Asus Xtion，Arduino</li>
+<li>在本机上能显示Nao的模型图<h4 id="下周计划-4"><a href="#下周计划-4" class="headerlink" title="下周计划"></a>下周计划</h4></li>
+<li>用ROS远程控制Nao</li>
+<li>考虑购买怎样的硬件来练习ROS的使用</li>
+<li>考虑毕设的定题</li>
+</ul>
+<h3 id="第五周（2016-10-24-2016-10-30）"><a href="#第五周（2016-10-24-2016-10-30）" class="headerlink" title="第五周（2016/10/24-2016/10/30）"></a>第五周（2016/10/24-2016/10/30）</h3><h4 id="工作内容-5"><a href="#工作内容-5" class="headerlink" title="工作内容"></a>工作内容</h4><ul>
+<li>总结CNCC2016大会的经历</li>
+<li>毕设方向：<ol>
+<li>做个机器人方向好玩的（如：VR结合小车，NAO）</li>
+<li>做系统方向</li>
+</ol>
+</li>
+<li>完成了自动更新小应用的服务器端开发及部分客户端开发</li>
+</ul>
+<h4 id="下周计划-5"><a href="#下周计划-5" class="headerlink" title="下周计划"></a>下周计划</h4><ul>
+<li>区FIT9区2楼找谭志鹏看VR眼镜的项目</li>
+<li>继续完成小应用的客户端开发</li>
+</ul>
+<h3 id="第四周（2016-10-17-2016-10-23）"><a href="#第四周（2016-10-17-2016-10-23）" class="headerlink" title="第四周（2016/10/17-2016/10/23）"></a>第四周（2016/10/17-2016/10/23）</h3><h4 id="工作内容-6"><a href="#工作内容-6" class="headerlink" title="工作内容"></a>工作内容</h4><ul>
+<li>参加CNCC2016大会</li>
+</ul>
+<h4 id="下周计划-6"><a href="#下周计划-6" class="headerlink" title="下周计划"></a>下周计划</h4><ul>
+<li>整理总结CNCC2016大会的经历</li>
+<li>继续学习ROS,to do:NAO上跑ROS</li>
+</ul>
+<h3 id="第三周（2016-10-10-2016-10-16）"><a href="#第三周（2016-10-10-2016-10-16）" class="headerlink" title="第三周（2016/10/10-2016/10/16）"></a>第三周（2016/10/10-2016/10/16）</h3><h4 id="工作内容-7"><a href="#工作内容-7" class="headerlink" title="工作内容"></a>工作内容</h4><ul>
+<li>阅读《ros_by_example_1_indigo》到Page164</li>
+<li>学习了底盘控制和SLAM相关的几个案例</li>
+<li>泛读《A Gentle Introduction to ROS》作为总结</li>
+<li>问题：ubuntu虚拟机内无法使用内置摄像头，使计算机视觉相关的样例无法演示，之后有需要时再解决。</li>
+</ul>
+<h4 id="下周计划-7"><a href="#下周计划-7" class="headerlink" title="下周计划"></a>下周计划</h4><ul>
+<li>尝试自己编写一个机器人模型并进行仿真</li>
+<li>to do:NAO上跑ROS</li>
+</ul>
+<h3 id="第二周（2016-10-03-2016-10-09）"><a href="#第二周（2016-10-03-2016-10-09）" class="headerlink" title="第二周（2016/10/03-2016/10/09）"></a>第二周（2016/10/03-2016/10/09）</h3><h4 id="工作内容-8"><a href="#工作内容-8" class="headerlink" title="工作内容"></a>工作内容</h4><ul>
+<li>搜集ROS学习的资料，正在阅读《ros_by_example_1_indigo》(ROS最佳入门书籍)</li>
+<li>了解到：ROS并不是一个实时的框架，但ROS可以嵌入实时程序。Willow Garage的PR2机器人使用了一种叫做<a href="http://wiki.ros.org/pr2_etherCAT" target="_blank" rel="external">pr2_etherCAT</a>的系统来实时发送或接收ROS消息。ROS也可以与<a href="http://www.willowgarage.com/blog/2009/06/10/orocos-rtt-and-ros-integrated" target="_blank" rel="external">Orocos实时工具包</a>无缝集成。<br>研究点可以考虑：对ROS的实时性进行调研和改进</li>
+</ul>
+<h4 id="下周计划-8"><a href="#下周计划-8" class="headerlink" title="下周计划"></a>下周计划</h4><ul>
+<li>继续阅读《ros_by_example_1_indigo》，争取初步掌握ROS的概念和基本用法</li>
+<li>学习几个案例，用以展示</li>
+<li>to do:NAO上跑ROS</li>
+</ul>
+<h3 id="第一周（2016-09-26-2016-10-02）"><a href="#第一周（2016-09-26-2016-10-02）" class="headerlink" title="第一周（2016/09/26-2016/10/02）"></a>第一周（2016/09/26-2016/10/02）</h3><h4 id="工作内容-9"><a href="#工作内容-9" class="headerlink" title="工作内容"></a>工作内容</h4><ul>
+<li>安装ROS</li>
+<li>简单学习Linux和Vim基础</li>
+<li>学习ROS.org上的<a href="http://wiki.ros.org/cn/ROS/Tutorials" target="_blank" rel="external">Tutorials</a></li>
+</ul>
+<h4 id="下周计划-9"><a href="#下周计划-9" class="headerlink" title="下周计划"></a>下周计划</h4><ul>
+<li>继续学习ROS教程</li>
+<li><font color="red">从ROS中找研究点，争取早日确定研究方向</font>
+
+</li>
+</ul>
+<h3 id="报销相关："><a href="#报销相关：" class="headerlink" title="报销相关："></a>报销相关：</h3><h4 id="自己信息："><a href="#自己信息：" class="headerlink" title="自己信息："></a>自己信息：</h4><p>转账银行：中国邮政储蓄银行股份有限公司北太平庄支行<br>账户名：胡君<br>账号：6221 5010 0000 4787 057</p>
+<h4 id="统计，贴票，签字，找财务"><a href="#统计，贴票，签字，找财务" class="headerlink" title="统计，贴票，签字，找财务"></a>统计，贴票，签字，找财务</h4>
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/26/bugList/" rel="next" title="bugList">
+                <i class="fa fa-chevron-left"></i> bugList
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/28/杂积累基础/" rel="prev" title="杂积累基础">
+                杂积累基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/01/26/OSLab_WeeklyReport/"
+           data-title="WeeklyReport" data-url="http://hujun1413.github.io/2016/01/26/OSLab_WeeklyReport/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第十周（2016-11-29-2016-12-05）"><span class="nav-number">1.</span> <span class="nav-text">第十周（2016/11/29-2016/12/05）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作内容"><span class="nav-number">1.1.</span> <span class="nav-text">工作内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下周计划"><span class="nav-number">1.2.</span> <span class="nav-text">下周计划</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第九周（2016-11-23-2016-11-28）"><span class="nav-number">2.</span> <span class="nav-text">第九周（2016/11/23-2016/11/28）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作内容-1"><span class="nav-number">2.1.</span> <span class="nav-text">工作内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下周计划-1"><span class="nav-number">2.2.</span> <span class="nav-text">下周计划</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第八周（2016-11-15-2016-11-22）"><span class="nav-number">3.</span> <span class="nav-text">第八周（2016/11/15-2016/11/22）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作内容-2"><span class="nav-number">3.1.</span> <span class="nav-text">工作内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下周计划-2"><span class="nav-number">3.2.</span> <span class="nav-text">下周计划</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第七周（2016-11-08-2016-11-14）"><span class="nav-number">4.</span> <span class="nav-text">第七周（2016/11/08-2016/11/14）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作内容-3"><span class="nav-number">4.1.</span> <span class="nav-text">工作内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下周计划-3"><span class="nav-number">4.2.</span> <span class="nav-text">下周计划</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第六周（2016-11-01-2016-11-07）"><span class="nav-number">5.</span> <span class="nav-text">第六周（2016/11/01-2016/11/07）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作内容-4"><span class="nav-number">5.1.</span> <span class="nav-text">工作内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下周计划-4"><span class="nav-number">5.2.</span> <span class="nav-text">下周计划</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五周（2016-10-24-2016-10-30）"><span class="nav-number">6.</span> <span class="nav-text">第五周（2016/10/24-2016/10/30）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作内容-5"><span class="nav-number">6.1.</span> <span class="nav-text">工作内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下周计划-5"><span class="nav-number">6.2.</span> <span class="nav-text">下周计划</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四周（2016-10-17-2016-10-23）"><span class="nav-number">7.</span> <span class="nav-text">第四周（2016/10/17-2016/10/23）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作内容-6"><span class="nav-number">7.1.</span> <span class="nav-text">工作内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下周计划-6"><span class="nav-number">7.2.</span> <span class="nav-text">下周计划</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三周（2016-10-10-2016-10-16）"><span class="nav-number">8.</span> <span class="nav-text">第三周（2016/10/10-2016/10/16）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作内容-7"><span class="nav-number">8.1.</span> <span class="nav-text">工作内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下周计划-7"><span class="nav-number">8.2.</span> <span class="nav-text">下周计划</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二周（2016-10-03-2016-10-09）"><span class="nav-number">9.</span> <span class="nav-text">第二周（2016/10/03-2016/10/09）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作内容-8"><span class="nav-number">9.1.</span> <span class="nav-text">工作内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下周计划-8"><span class="nav-number">9.2.</span> <span class="nav-text">下周计划</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一周（2016-09-26-2016-10-02）"><span class="nav-number">10.</span> <span class="nav-text">第一周（2016/09/26-2016/10/02）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#工作内容-9"><span class="nav-number">10.1.</span> <span class="nav-text">工作内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下周计划-9"><span class="nav-number">10.2.</span> <span class="nav-text">下周计划</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#报销相关："><span class="nav-number">11.</span> <span class="nav-text">报销相关：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#自己信息："><span class="nav-number">11.1.</span> <span class="nav-text">自己信息：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计，贴票，签字，找财务"><span class="nav-number">11.2.</span> <span class="nav-text">统计，贴票，签字，找财务</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

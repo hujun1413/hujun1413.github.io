@@ -1,0 +1,648 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="构造Json的参考博文：http://www.cnblogs.com/lanxuezaipiao/archive/2013/05/23/3096001.htmlhttp://blog.csdn.net/xiazdong/article/details/7059573http://blog.csdn.net/lianqiangjava/article/details/20800723">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java中调用接口返回Json后进行解析">
+<meta property="og:url" content="http://hujun1413.github.io/2016/05/07/java中调用接口返回Json后进行解析/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="构造Json的参考博文：http://www.cnblogs.com/lanxuezaipiao/archive/2013/05/23/3096001.htmlhttp://blog.csdn.net/xiazdong/article/details/7059573http://blog.csdn.net/lianqiangjava/article/details/20800723">
+<meta property="og:updated_time" content="2016-12-07T10:13:08.752Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java中调用接口返回Json后进行解析">
+<meta name="twitter:description" content="构造Json的参考博文：http://www.cnblogs.com/lanxuezaipiao/archive/2013/05/23/3096001.htmlhttp://blog.csdn.net/xiazdong/article/details/7059573http://blog.csdn.net/lianqiangjava/article/details/20800723">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> java中调用接口返回Json后进行解析 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                java中调用接口返回Json后进行解析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-07T16:35:26+08:00" content="2016-05-07">
+              2016-05-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/07/java中调用接口返回Json后进行解析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/07/java中调用接口返回Json后进行解析/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>构造Json的参考博文：<br><a href="http://www.cnblogs.com/lanxuezaipiao/archive/2013/05/23/3096001.html" target="_blank" rel="external">http://www.cnblogs.com/lanxuezaipiao/archive/2013/05/23/3096001.html</a><br><a href="http://blog.csdn.net/xiazdong/article/details/7059573" target="_blank" rel="external">http://blog.csdn.net/xiazdong/article/details/7059573</a><br><a href="http://blog.csdn.net/lianqiangjava/article/details/20800723" target="_blank" rel="external">http://blog.csdn.net/lianqiangjava/article/details/20800723</a><br><a id="more"></a> </p>
+<h3 id="java中调用接口返回Json后进行解析"><a href="#java中调用接口返回Json后进行解析" class="headerlink" title="java中调用接口返回Json后进行解析"></a>java中调用接口返回Json后进行解析</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">DetailsFromId</span><span class="params">(String _id)</span></span>&#123;</span><br><span class="line">    id = _id;</span><br><span class="line">    String url = <span class="string">"http://10.1.1.66:5656/linking?type=uri&amp;uri="</span> + id;</span><br><span class="line">    System.out.println(url);</span><br><span class="line">    url = &#123;  <span class="string">"title"</span>: &#123;    <span class="string">"zh"</span>: <span class="string">"\u8bef\u89e3"</span>  &#125;,   <span class="string">"url"</span>: <span class="string">"http://xlore.org/sigInfo.action?uri=/http://xlore.org/instance/4033831"</span>,   <span class="string">"abstract"</span>: &#123;    <span class="string">"en"</span>: <span class="string">""</span>,     <span class="string">"zh"</span>: <span class="string">"\u4e2d\u3002"</span>  &#125;,   <span class="string">"uri"</span>: <span class="string">"http://xlore.org/instance/4033831"</span>,   <span class="string">"type"</span>: [    &#123;      <span class="string">"en"</span>: <span class="string">"Albums by Hong Kong artists"</span>,       <span class="string">"zh"</span>: <span class="string">"\u9999\u6e2f\u97f3\u4e50\u4e13\u8f91"</span>    &#125;,     &#123;      <span class="string">"en"</span>: <span class="string">"2012 singles"</span>,       <span class="string">"zh"</span>: <span class="string">"2012\u5e74\u5355\u66f2"</span>    &#125;,     &#123;      <span class="string">"zh"</span>: <span class="string">"\u8bb8\u5ef7\u94ff\u97f3\u4e50\u4e13\u8f91"</span>    &#125;  ],   <span class="string">"related_item"</span>: [    <span class="string">"http://xlore.org/instance/57758"</span>,     <span class="string">"http://xlore.org/instance/173848"</span>]&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    StringBuilder json = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        URL oracle = <span class="keyword">new</span> URL(url);</span><br><span class="line">        URLConnection yc = oracle.openConnection();</span><br><span class="line">        BufferedReader in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(</span><br><span class="line">                                    yc.getInputStream()));</span><br><span class="line">        String inputLine = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">while</span> ( (inputLine = in.readLine()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">            json.append(inputLine);</span><br><span class="line">        &#125;</span><br><span class="line">        in.close();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(json.toString());   <span class="comment">//接口返回的Json内容</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    JSONObject jsonObject = JSONObject.fromObject(json.toString());</span><br><span class="line">    Map&lt;String, Object&gt; map = (Map&lt;String, Object&gt;) JSONObject.toBean(jsonObject, Map.class);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//Map&lt;String, JSONObject&gt; map = (Map&lt;String, JSONObject&gt;) JSONObject.toBean(jsonObject, Map.class);</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*JSONObject jsonObject1 = JSONObject.fromObject(map.get("title").toString());</span><br><span class="line">    Map&lt;String, Object&gt; map1 = (Map&lt;String, Object&gt;) JSONObject.toBean(jsonObject, Map.class);</span><br><span class="line">    </span><br><span class="line">    System.out.println(map1.get("zh"));*/</span></span><br><span class="line">    <span class="comment">//Map&lt;String, JSONObject&gt; map1 = (Map&lt;String, JSONObject&gt;) JSONObject.toBean(temp, Map.class);</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//JSONObject jsonObject1 = JSONObject.fromObject(jsonObject.getString("title"));</span></span><br><span class="line">    <span class="comment">//System.out.println(jsonObject1.getString("en"));</span></span><br><span class="line">    <span class="comment">//System.out.println(jsonObject1.getString("zh"));</span></span><br><span class="line"></span><br><span class="line">    Map&lt;String, Object&gt; map1 = (Map&lt;String, Object&gt;) JSONObject.toBean(jsonObject.getJSONObject(<span class="string">"title"</span>), Map.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//System.out.println(map1.get("en"));</span></span><br><span class="line">    <span class="comment">//System.out.println(map1.get("zh"));</span></span><br><span class="line">    String temp = String.valueOf(map1.get(<span class="string">"en"</span>));</span><br><span class="line">    <span class="keyword">if</span>(!<span class="string">"null"</span>.equals(temp))&#123;</span><br><span class="line">        enTitle = temp;   <span class="comment">//当map1中不含"en"时，temp的值为"null"，注意不是null</span></span><br><span class="line">    &#125;</span><br><span class="line">    temp = String.valueOf(map1.get(<span class="string">"zh"</span>));</span><br><span class="line">    <span class="keyword">if</span>(!<span class="string">"null"</span>.equals(String.valueOf(map1.get(<span class="string">"zh"</span>))))&#123;</span><br><span class="line">        zhTitle = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    System.out.println(enTitle);</span><br><span class="line">    System.out.println(zhTitle);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//System.out.println(map.get("url"));</span></span><br><span class="line">    <span class="keyword">this</span>.url = String.valueOf(map.get(<span class="string">"url"</span>));</span><br><span class="line">    System.out.println(<span class="keyword">this</span>.url);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//JSONObject jsonObject2 = JSONObject.fromObject(jsonObject.getString("abstract"));</span></span><br><span class="line">    <span class="comment">//System.out.println(jsonObject2.getString("en"));</span></span><br><span class="line">    <span class="comment">//System.out.println(jsonObject2.getString("zh"));</span></span><br><span class="line">    Map&lt;String, Object&gt; map2 = (Map&lt;String, Object&gt;) JSONObject.toBean(jsonObject.getJSONObject(<span class="string">"abstract"</span>), Map.class);</span><br><span class="line">    <span class="comment">//System.out.println(map2.get("en"));</span></span><br><span class="line">    <span class="comment">//System.out.println(map2.get("zh"));</span></span><br><span class="line">    temp = String.valueOf(map2.get(<span class="string">"en"</span>));</span><br><span class="line">    <span class="keyword">if</span>(!<span class="string">"null"</span>.equals(temp))&#123;</span><br><span class="line">        enAbstract = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    temp = String.valueOf(map2.get(<span class="string">"zh"</span>));</span><br><span class="line">    <span class="keyword">if</span>(!<span class="string">"null"</span>.equals(temp))&#123;</span><br><span class="line">        zhAbstract = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println(enAbstract);</span><br><span class="line">    System.out.println(zhAbstract);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    JSONArray jary = jsonObject.getJSONArray(<span class="string">"type"</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;jary.size();i++) &#123;</span><br><span class="line">        JSONObject obj = jary.getJSONObject(i);</span><br><span class="line">        Map&lt;String, Object&gt; map3 = (Map&lt;String, Object&gt;) JSONObject.toBean(obj, Map.class);</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        temp = String.valueOf(map3.get(<span class="string">"en"</span>));</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">"null"</span>.equals(temp))&#123;</span><br><span class="line">            temp = <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        enType.add(temp);</span><br><span class="line">        System.out.println(temp);</span><br><span class="line">        </span><br><span class="line">        temp = String.valueOf(map3.get(<span class="string">"zh"</span>));</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">"null"</span>.equals(temp))&#123;</span><br><span class="line">            temp = <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        zhType.add(temp);</span><br><span class="line">        System.out.println(temp);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    related_items.addAll(jsonObject.getJSONArray(<span class="string">"related_item"</span>));   <span class="comment">//得到的Value为数组</span></span><br><span class="line">    <span class="keyword">for</span>(String tem: related_items)</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(tem);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/14/Eclipse启动报错/" rel="next" title="Eclipse启动报错java.lang.NoClassDefFoundError">
+                <i class="fa fa-chevron-left"></i> Eclipse启动报错java.lang.NoClassDefFoundError
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/05/26/java中Object转String/" rel="prev" title="java Object转String">
+                java Object转String <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/07/java中调用接口返回Json后进行解析/"
+           data-title="java中调用接口返回Json后进行解析" data-url="http://hujun1413.github.io/2016/05/07/java中调用接口返回Json后进行解析/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#java中调用接口返回Json后进行解析"><span class="nav-number">1.</span> <span class="nav-text">java中调用接口返回Json后进行解析</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

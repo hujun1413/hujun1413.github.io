@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/01/28/%E6%9D%82%E7%A7%AF%E7%B4%AF%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2016-12-07T10:15:00.044Z</lastmod>
+    <data>
+        <display>
+        <title>杂积累基础</title>
+        <pubTime>2016-01-28T11:25:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="积累" url="http://hujun1413.github.io/categories/%E7%A7%AF%E7%B4%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/11/13/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2016-12-07T10:13:08.754Z</lastmod>
+    <data>
+        <display>
+        <title>自己动手写操作系统笔记</title>
+        <pubTime>2016-11-13T12:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="操作系统" url="http://hujun1413.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/04/13/java%E5%88%A4%E6%96%ADtxt%E6%96%87%E4%BB%B6%E7%9A%84%E7%BC%96%E7%A0%81/</loc>
+    <lastmod>2016-12-07T10:13:08.753Z</lastmod>
+    <data>
+        <display>
+        <title>java判断txt文件的编码</title>
+        <pubTime>2016-04-13T08:35:26.000Z</pubTime>
+        
+        <tag>编码 </tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://hujun1413.github.io/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/04/12/%E5%A4%A7%E5%88%9B%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2016-12-07T10:13:08.753Z</lastmod>
+    <data>
+        <display>
+        <title>大创总结</title>
+        <pubTime>2016-04-12T08:25:26.000Z</pubTime>
+        
+        <tag>总结 </tag>
+         
+         
+           
+             
+              <breadCrumb title="随笔" url="http://hujun1413.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/05/07/java%E4%B8%AD%E8%B0%83%E7%94%A8%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9EJson%E5%90%8E%E8%BF%9B%E8%A1%8C%E8%A7%A3%E6%9E%90/</loc>
+    <lastmod>2016-12-07T10:13:08.752Z</lastmod>
+    <data>
+        <display>
+        <title>java中调用接口返回Json后进行解析</title>
+        <pubTime>2016-05-07T08:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Java" url="http://hujun1413.github.io/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/05/26/java%E4%B8%ADObject%E8%BD%ACString/</loc>
+    <lastmod>2016-12-07T10:13:08.752Z</lastmod>
+    <data>
+        <display>
+        <title>java Object转String</title>
+        <pubTime>2016-05-26T08:25:26.000Z</pubTime>
+        
+        <tag>类型转换 </tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://hujun1413.github.io/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/07/22/java%20%E5%AF%B9%E6%95%B0%E7%BB%84%E9%99%8D%E5%BA%8F%E6%8E%92%E5%BA%8F%E5%B9%B6%E8%BE%93%E5%87%BA%E5%85%B6%E4%B8%8B%E6%A0%87/</loc>
+    <lastmod>2016-12-07T10:13:08.751Z</lastmod>
+    <data>
+        <display>
+        <title>java 对数组降序排序并输出其下标</title>
+        <pubTime>2016-07-22T08:35:26.000Z</pubTime>
+        
+        <tag>数组排序 </tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://hujun1413.github.io/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/04/07/hello-world/</loc>
+    <lastmod>2016-12-07T10:13:08.751Z</lastmod>
+    <data>
+        <display>
+        <title>Hello World</title>
+        <pubTime>2016-04-07T08:25:26.000Z</pubTime>
+        
+        <tag>hexo </tag>
+         
+         
+           
+             
+              <breadCrumb title="随笔" url="http://hujun1413.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/01/26/bugList/</loc>
+    <lastmod>2016-12-07T10:13:08.750Z</lastmod>
+    <data>
+        <display>
+        <title>bugList</title>
+        <pubTime>2016-01-26T11:25:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="积累" url="http://hujun1413.github.io/categories/%E7%A7%AF%E7%B4%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/26/Vim%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2016-12-07T10:13:08.750Z</lastmod>
+    <data>
+        <display>
+        <title>Vim基础</title>
+        <pubTime>2016-09-26T11:25:26.000Z</pubTime>
+        
+        <tag>Vim </tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://hujun1413.github.io/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/10/13/ROS_By_Example/</loc>
+    <lastmod>2016-12-07T10:13:08.749Z</lastmod>
+    <data>
+        <display>
+        <title>ROS_By_Example笔记</title>
+        <pubTime>2016-10-13T12:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/26/QT%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2016-12-07T10:13:08.749Z</lastmod>
+    <data>
+        <display>
+        <title>积累基础</title>
+        <pubTime>2016-09-26T11:25:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="QT" url="http://hujun1413.github.io/categories/QT/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/01/26/OSLab_WeeklyReport/</loc>
+    <lastmod>2016-12-07T10:13:08.748Z</lastmod>
+    <data>
+        <display>
+        <title>WeeklyReport</title>
+        <pubTime>2016-01-26T13:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/04/07/Markdown%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</loc>
+    <lastmod>2016-12-07T10:13:08.748Z</lastmod>
+    <data>
+        <display>
+        <title>Markdown基本用法</title>
+        <pubTime>2016-04-07T03:25:26.000Z</pubTime>
+        
+        <tag>Markdown </tag>
+         
+         
+           
+             
+              <breadCrumb title="随笔" url="http://hujun1413.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/26/Linux%E7%A7%AF%E7%B4%AF%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2016-12-07T10:13:08.741Z</lastmod>
+    <data>
+        <display>
+        <title>Linux积累基础</title>
+        <pubTime>2016-09-26T11:25:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Linux" url="http://hujun1413.github.io/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/04/08/Git%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2016-12-07T10:13:08.729Z</lastmod>
+    <data>
+        <display>
+        <title>Git基础</title>
+        <pubTime>2016-04-08T08:26:26.000Z</pubTime>
+        
+        <tag>Git </tag>
+         
+         
+           
+             
+              <breadCrumb title="Git" url="http://hujun1413.github.io/categories/Git/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/04/14/Eclipse%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99/</loc>
+    <lastmod>2016-12-07T10:13:08.666Z</lastmod>
+    <data>
+        <display>
+        <title>Eclipse启动报错java.lang.NoClassDefFoundError</title>
+        <pubTime>2016-04-14T08:25:26.000Z</pubTime>
+        
+        <tag>Bug </tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://hujun1413.github.io/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/10/25/CNCC%E8%AE%B2%E5%BA%A7%E8%AE%B0%E5%BD%95/</loc>
+    <lastmod>2016-12-07T10:13:08.589Z</lastmod>
+    <data>
+        <display>
+        <title>CNCC讲座记录</title>
+        <pubTime>2016-10-25T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="随笔" url="http://hujun1413.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/10/25/CNCC2016%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2016-12-07T10:13:08.318Z</lastmod>
+    <data>
+        <display>
+        <title>CNCC2016总结</title>
+        <pubTime>2016-10-25T08:25:26.000Z</pubTime>
+        
+        <tag>总结 </tag>
+         
+         
+           
+             
+              <breadCrumb title="随笔" url="http://hujun1413.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/26/C++STL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</loc>
+    <lastmod>2016-12-07T10:13:08.316Z</lastmod>
+    <data>
+        <display>
+        <title>C++STL常用函数</title>
+        <pubTime>2016-09-26T08:25:26.000Z</pubTime>
+        
+        <tag>STL </tag>
+         
+         
+           
+             
+              <breadCrumb title="C++" url="http://hujun1413.github.io/categories/C/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/28/8.%E7%BC%96%E5%86%99%E7%AE%80%E5%8D%95%E7%9A%84%E6%B6%88%E6%81%AF%E5%8F%91%E5%B8%83%E5%99%A8%E5%92%8C%E8%AE%A2%E9%98%85%E5%99%A8/</loc>
+    <lastmod>2016-12-07T10:13:07.982Z</lastmod>
+    <data>
+        <display>
+        <title>8.编写简单的消息发布器和订阅器及测试</title>
+        <pubTime>2016-09-28T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/28/9.%E7%BC%96%E5%86%99%E7%AE%80%E5%8D%95%E7%9A%84Service%E5%92%8CClient/</loc>
+    <lastmod>2016-12-07T10:13:07.982Z</lastmod>
+    <data>
+        <display>
+        <title>9.编写简单的Service和Client及测试,roawtf入门</title>
+        <pubTime>2016-09-28T12:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/27/7.ROS%E6%B6%88%E6%81%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%88%9B%E5%BB%BA/</loc>
+    <lastmod>2016-12-07T10:13:07.978Z</lastmod>
+    <data>
+        <display>
+        <title>7.创建ROS消息和ROS服务</title>
+        <pubTime>2016-09-27T13:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/27/6.ROSrqt_console%E5%92%8Croslaunch/</loc>
+    <lastmod>2016-12-07T10:13:07.978Z</lastmod>
+    <data>
+        <display>
+        <title>6.ROS的rqt_console 和 roslaunch</title>
+        <pubTime>2016-09-27T12:35:26.000Z</pubTime>
+        
+        <tag>rqt_console </tag>
+         
+        <tag>roslaunch </tag>
+         
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/26/4.ROS%E8%8A%82%E7%82%B9%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%92%8C%E5%8F%82%E6%95%B0/</loc>
+    <lastmod>2016-12-07T10:13:07.977Z</lastmod>
+    <data>
+        <display>
+        <title>4.ROS节点，服务和参数</title>
+        <pubTime>2016-09-26T13:35:26.000Z</pubTime>
+        
+        <tag>roscore </tag>
+         
+        <tag>rosnode </tag>
+         
+        <tag>rosrun </tag>
+         
+        <tag>rosservice </tag>
+         
+        <tag>rosparam </tag>
+         
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/26/3.%E5%88%9B%E5%BB%BA%E5%92%8C%E7%BC%96%E8%AF%91ROS%E7%A8%8B%E5%BA%8F%E5%8C%85/</loc>
+    <lastmod>2016-12-07T10:13:07.977Z</lastmod>
+    <data>
+        <display>
+        <title>3.创建和编译ROS程序包</title>
+        <pubTime>2016-09-26T12:39:26.000Z</pubTime>
+        
+        <tag>catkin_make </tag>
+         
+        <tag>catkin_create_pkg </tag>
+         
+        <tag>rospack depends1 </tag>
+         
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/27/5.ROS%E8%AF%9D%E9%A2%98/</loc>
+    <lastmod>2016-12-07T10:13:07.977Z</lastmod>
+    <data>
+        <display>
+        <title>5.ROS话题</title>
+        <pubTime>2016-09-27T10:35:26.000Z</pubTime>
+        
+        <tag>rostopic </tag>
+         
+        <tag>rosmsg </tag>
+         
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/26/2.ROS%20Indigo%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2016-12-07T10:13:07.976Z</lastmod>
+    <data>
+        <display>
+        <title>2.ROS文件系统介绍</title>
+        <pubTime>2016-09-26T12:35:26.000Z</pubTime>
+        
+        <tag>rospack find </tag>
+         
+        <tag>roscd </tag>
+         
+        <tag>rosls </tag>
+         
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/11/14/12.ROS-Kobuki/</loc>
+    <lastmod>2016-12-07T10:13:07.976Z</lastmod>
+    <data>
+        <display>
+        <title>12.ROS-Kobuki</title>
+        <pubTime>2016-11-14T12:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/11/07/11.ROS-Nao/</loc>
+    <lastmod>2016-12-07T10:13:07.973Z</lastmod>
+    <data>
+        <display>
+        <title>11.ROS-Nao</title>
+        <pubTime>2016-11-07T12:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/26/1.ROS%20Indigo%E5%AE%89%E8%A3%85%E5%88%B0Ubuntu14.04/</loc>
+    <lastmod>2016-12-07T10:13:07.972Z</lastmod>
+    <data>
+        <display>
+        <title>1.ROS Indigo安装到Ubuntu14.04并配置环境</title>
+        <pubTime>2016-09-26T12:34:26.000Z</pubTime>
+        
+        <tag>rosdep </tag>
+         
+        <tag>source </tag>
+         
+        <tag>catkin_make </tag>
+         
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/29/10.%E5%BD%95%E5%88%B6%E5%92%8C%E5%9B%9E%E6%94%BE%E6%95%B0%E6%8D%AE/</loc>
+    <lastmod>2016-12-07T10:13:07.972Z</lastmod>
+    <data>
+        <display>
+        <title>10.录制和回放数据</title>
+        <pubTime>2016-09-29T12:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/26/0.%E4%BB%80%E4%B9%88%E6%98%AFROS/</loc>
+    <lastmod>2016-12-07T10:13:07.962Z</lastmod>
+    <data>
+        <display>
+        <title>0.ROS是什么</title>
+        <pubTime>2016-09-26T12:33:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/11/09/0.LLVM/</loc>
+    <lastmod>2016-12-07T10:13:07.961Z</lastmod>
+    <data>
+        <display>
+        <title>0.LLVM基础</title>
+        <pubTime>2016-11-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="LLVM" url="http://hujun1413.github.io/categories/LLVM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+</urlset>

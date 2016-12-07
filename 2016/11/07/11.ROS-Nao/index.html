@@ -1,0 +1,656 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="安装Naoqi SDKNaoqi12345678910mkdir ~/naoqicd ~/naoqitar xzf naoqi-sdk-2.1.3.3-linux64.tar.gztar xzf pynaoqi-python2.7-2.1.3.3-linux64.tar.gz~/naoqi/naoqi-sdk-2.1.3.3-linux64/naoqiecho &apos;export PYTHONPATH">
+<meta property="og:type" content="article">
+<meta property="og:title" content="11.ROS-Nao">
+<meta property="og:url" content="http://hujun1413.github.io/2016/11/07/11.ROS-Nao/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="安装Naoqi SDKNaoqi12345678910mkdir ~/naoqicd ~/naoqitar xzf naoqi-sdk-2.1.3.3-linux64.tar.gztar xzf pynaoqi-python2.7-2.1.3.3-linux64.tar.gz~/naoqi/naoqi-sdk-2.1.3.3-linux64/naoqiecho &apos;export PYTHONPATH">
+<meta property="og:updated_time" content="2016-12-07T10:13:07.973Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="11.ROS-Nao">
+<meta name="twitter:description" content="安装Naoqi SDKNaoqi12345678910mkdir ~/naoqicd ~/naoqitar xzf naoqi-sdk-2.1.3.3-linux64.tar.gztar xzf pynaoqi-python2.7-2.1.3.3-linux64.tar.gz~/naoqi/naoqi-sdk-2.1.3.3-linux64/naoqiecho &apos;export PYTHONPATH">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 11.ROS-Nao | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                11.ROS-Nao
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-07T20:35:26+08:00" content="2016-11-07">
+              2016-11-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ROS/" itemprop="url" rel="index">
+                    <span itemprop="name">ROS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/07/11.ROS-Nao/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/07/11.ROS-Nao/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="安装Naoqi-SDK"><a href="#安装Naoqi-SDK" class="headerlink" title="安装Naoqi SDK"></a>安装Naoqi SDK</h2><h3 id="Naoqi"><a href="#Naoqi" class="headerlink" title="Naoqi"></a>Naoqi</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/naoqi</span><br><span class="line"><span class="built_in">cd</span> ~/naoqi</span><br><span class="line">tar xzf naoqi-sdk-2.1.3.3-linux64.tar.gz</span><br><span class="line">tar xzf pynaoqi-python2.7-2.1.3.3-linux64.tar.gz</span><br><span class="line"></span><br><span class="line">~/naoqi/naoqi-sdk-2.1.3.3-linux64/naoqi</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PYTHONPATH=~/naoqi/pynaoqi-python2.7-2.1.3.3-linux64:$PYTHONPATH'</span> &gt;&gt; ~/.bashrc</span><br><span class="line"></span><br><span class="line">python</span><br><span class="line">from naoqi import ALProxy</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="ROS-packages-for-the-Nao-robot"><a href="#ROS-packages-for-the-Nao-robot" class="headerlink" title="ROS packages for the Nao robot"></a>ROS packages for the Nao robot</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install ros-indigo-driver-base ros-indigo-move-base-msgs ros-indigo-octomap ros-indigo-octomap-msgs ros-indigo-humanoid-msgs ros-indigo-humanoid-nav-msgs ros-indigo-camera-info-manager ros-indigo-camera-info-manager-py</span><br><span class="line"></span><br><span class="line">sudo apt-get install ros-indigo-nao-robot</span><br></pre></td></tr></table></figure>
+<h2 id="Installing-ROS-on-a-remote-PC-to-control-Nao"><a href="#Installing-ROS-on-a-remote-PC-to-control-Nao" class="headerlink" title="Installing ROS on a remote PC to control Nao"></a>Installing ROS on a remote PC to control Nao</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src</span><br><span class="line">vim .rosinstall</span><br><span class="line">wstool update</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line">catkin_make</span><br></pre></td></tr></table></figure>
+<h2 id="Starting-the-bridge-on-a-real-NAO"><a href="#Starting-the-bridge-on-a-real-NAO" class="headerlink" title="Starting the bridge on a real NAO"></a>Starting the bridge on a real NAO</h2><h4 id="Displaying-NAO-in-RVIZ"><a href="#Displaying-NAO-in-RVIZ" class="headerlink" title="Displaying NAO in RVIZ"></a>Displaying NAO in RVIZ</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br><span class="line">roslaunch nao_bringup nao_full_py.launch nao_ip:=127.0.0.1 roscore_ip:=127.0.0.1</span><br><span class="line">rosrun rviz rviz</span><br></pre></td></tr></table></figure>
+<h2 id="Launching-ROS-on-a-virtual-NAOqi"><a href="#Launching-ROS-on-a-virtual-NAOqi" class="headerlink" title="Launching ROS on a virtual NAOqi"></a>Launching ROS on a virtual NAOqi</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br><span class="line"></span><br><span class="line">~/naoqi/naoqi-sdk-2.1.3.3-linux64/naoqi --verbose --broker-ip 127.0.0.1</span><br><span class="line"></span><br><span class="line">LD_LIBRARY_PATH=~/naoqi/naoqi-sdk-2.1.3.3-linux64/lib:<span class="variable">$LD_LIBRARY_PATH</span> NAO_IP=127.0.0.1 roslaunch naoqi_driver_py naoqi_driver.launch</span><br><span class="line"><span class="comment">#动关节</span></span><br><span class="line"></span><br><span class="line">roslaunch nao_description robot_state_publisher.launch</span><br><span class="line"></span><br><span class="line">roslaunch nao_description display.launch</span><br><span class="line"><span class="comment">#展示模型</span></span><br><span class="line"></span><br><span class="line">rosrun naoqi_driver_py naoqi_moveto.py</span><br><span class="line">rosrun naoqi_driver_py naoqi_node.py</span><br><span class="line"></span><br><span class="line">rosrun rqt_console rqt_console   <span class="comment">#控制台显示日志</span></span><br><span class="line">rqt_graph  <span class="comment">#显示节点信息</span></span><br><span class="line"></span><br><span class="line">rostopic pub -1 /cmd_vel geometry_msgs/Twist <span class="string">'&#123;linear: &#123;x: 1.0, y: 0.0, z: 0.0&#125;, angular: &#123;x: 0.0, y: 0.0, z: 0.0&#125;&#125;'</span></span><br><span class="line"></span><br><span class="line">rostopic pub -1 /cmd_vel geometry_msgs/Twist <span class="string">'&#123;linear: &#123;x: 0.0, y: 0.0, z: 0.0&#125;, angular: &#123;x: 0.0, y: 0.0, z: 0.0&#125;&#125;'</span></span><br></pre></td></tr></table></figure>
+<p>Node: /base_footprint<br>Time: 13:40:56.072809725 (2016-11-11)<br>Severity: Warn<br>Published Topics: /rosout, /tf</p>
+<p>MessageFilter [target=r_sole odom ]: Discarding message from [/joint_state_publisher] due to empty frame_id.  This message will only print once.</p>
+<p>Location:<br>/opt/ros/indigo/include/tf/message_filter.h:MessageFilter<m>::testMessage:354</m></p>
+<hr>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/25/CNCC讲座记录/" rel="next" title="CNCC讲座记录">
+                <i class="fa fa-chevron-left"></i> CNCC讲座记录
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/09/0.LLVM/" rel="prev" title="0.LLVM基础">
+                0.LLVM基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/07/11.ROS-Nao/"
+           data-title="11.ROS-Nao" data-url="http://hujun1413.github.io/2016/11/07/11.ROS-Nao/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Naoqi-SDK"><span class="nav-number">1.</span> <span class="nav-text">安装Naoqi SDK</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Naoqi"><span class="nav-number">1.1.</span> <span class="nav-text">Naoqi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ROS-packages-for-the-Nao-robot"><span class="nav-number">1.2.</span> <span class="nav-text">ROS packages for the Nao robot</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Installing-ROS-on-a-remote-PC-to-control-Nao"><span class="nav-number">2.</span> <span class="nav-text">Installing ROS on a remote PC to control Nao</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Starting-the-bridge-on-a-real-NAO"><span class="nav-number">3.</span> <span class="nav-text">Starting the bridge on a real NAO</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Displaying-NAO-in-RVIZ"><span class="nav-number">3.0.1.</span> <span class="nav-text">Displaying NAO in RVIZ</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Launching-ROS-on-a-virtual-NAOqi"><span class="nav-number">4.</span> <span class="nav-text">Launching ROS on a virtual NAOqi</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

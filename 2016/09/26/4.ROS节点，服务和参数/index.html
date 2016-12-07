@@ -1,0 +1,704 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="roscore,rosnode,rosrun,rosservice,rosparam," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="ROS节点图概念概述
+Nodes:节点,一个节点即为一个可执行文件，它可以通过ROS与其它节点进行通信。
+Messages:消息，消息是一种ROS数据类型，用于订阅或发布到一个话题。
+Topics:话题,节点可以发布消息到话题，也可以订阅话题以接收消息。
+Master:节点管理器(主机)，ROS名称服务 (比如帮助节点找到彼此)。
+rosout: ROS中相当于stdout/stderr。
+ros">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.ROS节点，服务和参数">
+<meta property="og:url" content="http://hujun1413.github.io/2016/09/26/4.ROS节点，服务和参数/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="ROS节点图概念概述
+Nodes:节点,一个节点即为一个可执行文件，它可以通过ROS与其它节点进行通信。
+Messages:消息，消息是一种ROS数据类型，用于订阅或发布到一个话题。
+Topics:话题,节点可以发布消息到话题，也可以订阅话题以接收消息。
+Master:节点管理器(主机)，ROS名称服务 (比如帮助节点找到彼此)。
+rosout: ROS中相当于stdout/stderr。
+ros">
+<meta property="og:updated_time" content="2016-12-07T10:13:07.977Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4.ROS节点，服务和参数">
+<meta name="twitter:description" content="ROS节点图概念概述
+Nodes:节点,一个节点即为一个可执行文件，它可以通过ROS与其它节点进行通信。
+Messages:消息，消息是一种ROS数据类型，用于订阅或发布到一个话题。
+Topics:话题,节点可以发布消息到话题，也可以订阅话题以接收消息。
+Master:节点管理器(主机)，ROS名称服务 (比如帮助节点找到彼此)。
+rosout: ROS中相当于stdout/stderr。
+ros">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 4.ROS节点，服务和参数 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                4.ROS节点，服务和参数
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-26T21:35:26+08:00" content="2016-09-26">
+              2016-09-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ROS/" itemprop="url" rel="index">
+                    <span itemprop="name">ROS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/26/4.ROS节点，服务和参数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/26/4.ROS节点，服务和参数/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="ROS节点"><a href="#ROS节点" class="headerlink" title="ROS节点"></a><font color="red">ROS节点</font></h2><h3 id="图概念概述"><a href="#图概念概述" class="headerlink" title="图概念概述"></a>图概念概述</h3><ul>
+<li>Nodes:节点,一个节点即为一个可执行文件，它可以通过ROS与其它节点进行通信。</li>
+<li>Messages:消息，消息是一种ROS数据类型，用于订阅或发布到一个话题。</li>
+<li>Topics:话题,节点可以发布消息到话题，也可以订阅话题以接收消息。</li>
+<li>Master:节点管理器(主机)，ROS名称服务 (比如帮助节点找到彼此)。</li>
+<li>rosout: ROS中相当于stdout/stderr。</li>
+<li>roscore: 主机+ rosout + 参数服务器 (参数服务器会在后面介绍)。</li>
+</ul>
+<a id="more"></a>
+<h3 id="roscore"><a href="#roscore" class="headerlink" title="roscore"></a>roscore</h3><p>roscore 是你在运行所有ROS程序前首先要运行的命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用rosnode"><a href="#使用rosnode" class="headerlink" title="使用rosnode"></a>使用rosnode</h3><p>rosnode 显示当前运行的ROS节点信息。rosnode list 指令列出活跃的节点:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosnode list</span><br></pre></td></tr></table></figure></p>
+<p>rosnode info 命令返回的是关于一个特定节点的信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosnode info /rosout</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用-rosrun"><a href="#使用-rosrun" class="headerlink" title="使用 rosrun"></a>使用 rosrun</h3><p>rosrun 允许你使用包名直接运行一个包内的节点(而不需要知道这个包的路径)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rosrun turtlesim turtlesim_node</span><br><span class="line">rosrun turtlesim turtlesim_node __name:=my_turtle  //自定义package的命名</span><br></pre></td></tr></table></figure></p>
+<h3 id="清除rosnode列表"><a href="#清除rosnode列表" class="headerlink" title="清除rosnode列表"></a>清除rosnode列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosnode cleanup</span><br></pre></td></tr></table></figure>
+<h2 id="ROS服务和参数"><a href="#ROS服务和参数" class="headerlink" title="ROS服务和参数"></a><font color="red">ROS服务和参数</font></h2><h3 id="ROS-Services"><a href="#ROS-Services" class="headerlink" title="ROS Services"></a>ROS Services</h3><p>服务（services）是节点之间通讯的另一种方式。服务允许节点发送请求（request） 并获得一个响应（response）<br>rosservice可以很轻松的使用 ROS 客户端/服务器框架提供的服务。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rosservice list         输出可用服务的信息</span><br><span class="line">rosservice call         调用带参数的服务</span><br><span class="line">rosservice type         输出服务类型</span><br><span class="line">rosservice find         依据类型寻找服务find services by service type</span><br><span class="line">rosservice uri          输出服务的ROSRPC uri</span><br></pre></td></tr></table></figure></p>
+<h4 id="rosservice-list"><a href="#rosservice-list" class="headerlink" title="rosservice list"></a>rosservice list</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosservice list</span><br></pre></td></tr></table></figure>
+<p>list 命令显示turtlesim节点提供了9个服务：重置（reset）, 清除（clear）, 再生（spawn）, 终止（kill）, turtle1/set_pen, /turtle1/teleport_absolute, /turtle1/teleport_relative, turtlesim/get_loggers, and turtlesim/set_logger_level. 同时还有另外两个rosout节点提供的服务: /rosout/get_loggers and /rosout/set_logger_level.</p>
+<h4 id="rosservice-type"><a href="#rosservice-type" class="headerlink" title="rosservice type"></a>rosservice type</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosservice type clear</span><br></pre></td></tr></table></figure>
+<h4 id="rosservice-type-1"><a href="#rosservice-type-1" class="headerlink" title="rosservice type"></a>rosservice type</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosservice call clear</span><br></pre></td></tr></table></figure>
+<p>查看再生（spawn）服务的信息，我们来了解带参数的服务:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosservice type spawn| rossrv show</span><br></pre></td></tr></table></figure></p>
+<p>这个服务使得我们可以在给定的位置和角度生成一只新的乌龟。名字参数是可选的，这里我们不设具体的名字，让turtlesim自动创建一个。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosservice call spawn 2 2 0.2 &quot;&quot;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Using-rosparam"><a href="#Using-rosparam" class="headerlink" title="Using rosparam"></a>Using rosparam</h3><p>rosparam使得我们能够存储并操作ROS <a href="http://wiki.ros.org/参数服务器（Parameter%20Server）" target="_blank" rel="external">参数服务器（Parameter Server）</a>上的数据。参数服务器能够存储整型、浮点、布尔、字符串、字典和列表等数据类型。rosparam使用YAML标记语言的语法。一般而言，YAML的表述很自然：1 是整型, 1.0 是浮点型, one是字符串, true是布尔, [1, 2, 3]是整型列表, {a: b, c: d}是字典. rosparam有很多指令可以用来操作参数，如下所示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rosparam set            设置参数</span><br><span class="line">rosparam get            获取参数</span><br><span class="line">rosparam load           从文件读取参数</span><br><span class="line">rosparam dump           向文件中写入参数</span><br><span class="line">rosparam delete         删除参数</span><br><span class="line">rosparam list           列出参数名</span><br></pre></td></tr></table></figure></p>
+<h4 id="rosparam-list"><a href="#rosparam-list" class="headerlink" title="rosparam list"></a>rosparam list</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rosparam list</span><br></pre></td></tr></table></figure>
+<p>返回：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/background_b</span><br><span class="line">/background_g</span><br><span class="line">/background_r</span><br><span class="line">/rosdistro</span><br><span class="line">/roslaunch/uris/host_ubuntu__57662</span><br><span class="line">/rosversion</span><br><span class="line">/run_id</span><br></pre></td></tr></table></figure></p>
+<h4 id="rosparam-set-and-rosparam-get"><a href="#rosparam-set-and-rosparam-get" class="headerlink" title="rosparam set and rosparam get"></a>rosparam set and rosparam get</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rosparam set background_r 150</span><br><span class="line">rosservice call clear</span><br><span class="line">rosparam get background_g</span><br><span class="line">rosparam get /</span><br></pre></td></tr></table></figure>
+<h4 id="rosparam-dump-and-rosparam-load"><a href="#rosparam-dump-and-rosparam-load" class="headerlink" title="rosparam dump and rosparam load"></a>rosparam dump and rosparam load</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rosparam dump params.yaml</span><br><span class="line">rosparam load params.yaml catkin_ws</span><br><span class="line">rosparam get catkin_ws/background_b</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/roscore/" rel="tag">#roscore</a>
+          
+            <a href="/tags/rosnode/" rel="tag">#rosnode</a>
+          
+            <a href="/tags/rosrun/" rel="tag">#rosrun</a>
+          
+            <a href="/tags/rosservice/" rel="tag">#rosservice</a>
+          
+            <a href="/tags/rosparam/" rel="tag">#rosparam</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/26/3.创建和编译ROS程序包/" rel="next" title="3.创建和编译ROS程序包">
+                <i class="fa fa-chevron-left"></i> 3.创建和编译ROS程序包
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/27/5.ROS话题/" rel="prev" title="5.ROS话题">
+                5.ROS话题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/26/4.ROS节点，服务和参数/"
+           data-title="4.ROS节点，服务和参数" data-url="http://hujun1413.github.io/2016/09/26/4.ROS节点，服务和参数/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ROS节点"><span class="nav-number">1.</span> <span class="nav-text">ROS节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图概念概述"><span class="nav-number">1.1.</span> <span class="nav-text">图概念概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#roscore"><span class="nav-number">1.2.</span> <span class="nav-text">roscore</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用rosnode"><span class="nav-number">1.3.</span> <span class="nav-text">使用rosnode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-rosrun"><span class="nav-number">1.4.</span> <span class="nav-text">使用 rosrun</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#清除rosnode列表"><span class="nav-number">1.5.</span> <span class="nav-text">清除rosnode列表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROS服务和参数"><span class="nav-number">2.</span> <span class="nav-text">ROS服务和参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ROS-Services"><span class="nav-number">2.1.</span> <span class="nav-text">ROS Services</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rosservice-list"><span class="nav-number">2.1.1.</span> <span class="nav-text">rosservice list</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rosservice-type"><span class="nav-number">2.1.2.</span> <span class="nav-text">rosservice type</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rosservice-type-1"><span class="nav-number">2.1.3.</span> <span class="nav-text">rosservice type</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-rosparam"><span class="nav-number">2.2.</span> <span class="nav-text">Using rosparam</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rosparam-list"><span class="nav-number">2.2.1.</span> <span class="nav-text">rosparam list</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rosparam-set-and-rosparam-get"><span class="nav-number">2.2.2.</span> <span class="nav-text">rosparam set and rosparam get</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rosparam-dump-and-rosparam-load"><span class="nav-number">2.2.3.</span> <span class="nav-text">rosparam dump and rosparam load</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

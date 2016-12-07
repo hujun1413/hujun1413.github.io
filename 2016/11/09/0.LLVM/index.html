@@ -1,0 +1,692 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="安装
+在官网下载页下载LLVM3.2版本的llvm3.2和clang3.2的source code压缩包
+解压后安装：./configure,make,sudo make install">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0.LLVM基础">
+<meta property="og:url" content="http://hujun1413.github.io/2016/11/09/0.LLVM/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="安装
+在官网下载页下载LLVM3.2版本的llvm3.2和clang3.2的source code压缩包
+解压后安装：./configure,make,sudo make install">
+<meta property="og:updated_time" content="2016-12-07T10:13:07.961Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="0.LLVM基础">
+<meta name="twitter:description" content="安装
+在官网下载页下载LLVM3.2版本的llvm3.2和clang3.2的source code压缩包
+解压后安装：./configure,make,sudo make install">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 0.LLVM基础 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                0.LLVM基础
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-09T18:35:26+08:00" content="2016-11-09">
+              2016-11-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/LLVM/" itemprop="url" rel="index">
+                    <span itemprop="name">LLVM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/09/0.LLVM/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/09/0.LLVM/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
+<li>在<a href="http://llvm.org/releases/download.html" target="_blank" rel="external">官网下载页</a>下载LLVM3.2版本的llvm3.2和clang3.2的source code压缩包</li>
+<li>解压后安装：./configure,make,sudo make install<a id="more"></a>
+</li>
+</ul>
+<h3 id="LLVM-Command-Guide"><a href="#LLVM-Command-Guide" class="headerlink" title="LLVM Command Guide"></a><a href="http://sunxfancy.github.io/llvm-cn/CommandGuide/index.html" target="_blank" rel="external">LLVM Command Guide</a></h3><ul>
+<li>llvm-as 将人类可读的 .ll 文件汇编成字节代码</li>
+<li>llvm-dis 将字节代码文件反编成人类可读的 .ll 文件</li>
+<li>opt 在一个字节代码文件上运行一系列的 LLVM 到 LLVM 的优化</li>
+<li>llc 为一个字节代码文件生成本机器代码</li>
+<li>lli 直接运行使用 JIT 编译器或者解释器编译成字节代码的程序(运行.bc文件或.ll文件)</li>
+<li>llvm-link 将几个字节代码文件连接成一个</li>
+<li>llvm-ar 打包字节代码文件</li>
+<li>llvm-lib LLVM lib.exe compatible library tool</li>
+<li>llvm-nm 在 打印出LLVM中间格式或者object文件的符号表（2014年5月14日更新）</li>
+<li>llvm-config 打印出配置时 LLVM 编译选项、库、等等</li>
+<li>llvm-diff 比较两个模块的结构</li>
+</ul>
+<blockquote>
+<p>llvm-ranlib 为 llvm-ar 打包的文件创建索引<br>llvm-prof 将 ‘llvmprof.out’ raw 数据格式化成人类可读的报告<br>llvm-ld 带有可装载的运行时优化支持的通用目标连接器<br>llvmc 一个通用的可定制的编译器驱动<br>bugpoint 自动案例测试减速器<br>llvm-extract 从 LLVM 字节代码文件中解压出一个函数<br>llvm-bcanalyzer 字节代码分析器 （分析二进制编码本身，而不是它代表的程序）<br>FileCheck 灵活的文件验证器，广泛的被测试工具利用<br>tblgen 目标描述阅读器和生成器<br>lit        LLVM 集成测试器，用于运行测试<br>AddressSanitizer  一个快速内存错误探测器</p>
+</blockquote>
+<h3 id="LLVM-IR"><a href="#LLVM-IR" class="headerlink" title="LLVM IR"></a>LLVM IR</h3><p>根据编译原理知识，编译器不是直接将源语言翻译为目标语言，而是翻译为一种“中间语言”，我们编译器从业人员称之为“IR”<br>传统的静态编译器分为三个阶段：前端、优化和后端。<br>LLVM IR主要有三种格式：一种是在内存中的编译中间语言(我们无法通过文件的形式得到)；一种是硬盘上存储的二进制中间语言（以.bc结尾），最后一种是可读的中间格式（以.ll结尾）。这三种中间格式是完全相等的。<br><a href="http://blog.sina.com.cn/s/blog_49b6b6d001011gik.html" target="_blank" rel="external">LLVM的IR基本语法简介</a><br><a href="http://llvm.org/docs/LangRef.html" target="_blank" rel="external">LLVM Language Reference Manual</a><br>简单举例：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//hello.c </span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> c;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">while</span>(count &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(a &gt; b)</span><br><span class="line">        &#123;</span><br><span class="line">            c = a+b;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"c1 = %d\n"</span>,c);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            c = a-b;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"c2 = %d\n"</span>,c);</span><br><span class="line">        &#125;</span><br><span class="line">        --count;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">//hello.ll </span><br><span class="line">; ModuleID = 'hello.c'</span><br><span class="line">target datalayout = "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f32:32:32-f64:64:64-v64:64:64-v128:128:128-a0:0:64-s0:64:64-f80:128:128-n8:16:32:64-S128"</span><br><span class="line">target triple = "x86_64-unknown-linux-gnu"</span><br><span class="line"></span><br><span class="line">@.str = private unnamed_addr constant [9 x i8] c"c1 = %d\0A\00", align 1</span><br><span class="line">@.str1 = private unnamed_addr constant [9 x i8] c"c2 = %d\0A\00", align 1</span><br><span class="line"></span><br><span class="line">define i32 @main() nounwind uwtable &#123;</span><br><span class="line">entry:</span><br><span class="line">  %retval = alloca i32, align 4</span><br><span class="line">  %a = alloca i32, align 4</span><br><span class="line">  %b = alloca i32, align 4</span><br><span class="line">  %c = alloca i32, align 4</span><br><span class="line">  %count = alloca i32, align 4</span><br><span class="line">  store i32 0, i32* %retval</span><br><span class="line">  store i32 1, i32* %a, align 4</span><br><span class="line">  store i32 2, i32* %b, align 4</span><br><span class="line">  store i32 3, i32* %count, align 4</span><br><span class="line">  br label %while.cond</span><br><span class="line"></span><br><span class="line">while.cond:                                       ; preds = %if.end, %entry</span><br><span class="line">  %0 = load i32* %count, align 4</span><br><span class="line">  %cmp = icmp sgt i32 %0, 0</span><br><span class="line">  br i1 %cmp, label %while.body, label %while.end</span><br><span class="line"></span><br><span class="line">while.body:                                       ; preds = %while.cond</span><br><span class="line">  %1 = load i32* %a, align 4</span><br><span class="line">  %2 = load i32* %b, align 4</span><br><span class="line">  %cmp1 = icmp sgt i32 %1, %2</span><br><span class="line">  br i1 %cmp1, label %if.then, label %if.else</span><br><span class="line"></span><br><span class="line">if.then:                                          ; preds = %while.body</span><br><span class="line">  %3 = load i32* %a, align 4</span><br><span class="line">  %4 = load i32* %b, align 4</span><br><span class="line">  %add = add nsw i32 %3, %4</span><br><span class="line">  store i32 %add, i32* %c, align 4</span><br><span class="line">  %5 = load i32* %c, align 4</span><br><span class="line">  %call = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([9 x i8]* @.str, i32 0, i32 0), i32 %5)</span><br><span class="line">  br label %if.end</span><br><span class="line"></span><br><span class="line">if.else:                                          ; preds = %while.body</span><br><span class="line">  %6 = load i32* %a, align 4</span><br><span class="line">  %7 = load i32* %b, align 4</span><br><span class="line">  %sub = sub nsw i32 %6, %7</span><br><span class="line">  store i32 %sub, i32* %c, align 4</span><br><span class="line">  %8 = load i32* %c, align 4</span><br><span class="line">  %call2 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([9 x i8]* @.str1, i32 0, i32 0), i32 %8)</span><br><span class="line">  br label %if.end</span><br><span class="line"></span><br><span class="line">if.end:                                           ; preds = %if.else, %if.then</span><br><span class="line">  %9 = load i32* %count, align 4</span><br><span class="line">  %dec = add nsw i32 %9, -1</span><br><span class="line">  store i32 %dec, i32* %count, align 4</span><br><span class="line">  br label %while.cond</span><br><span class="line"></span><br><span class="line">while.end:                                        ; preds = %while.cond</span><br><span class="line">  ret i32 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">declare i32 @printf(i8*, ...)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>@代表全局变量，%代表局部变量</li>
+<li><blockquote>
+<p>%a = alloca i32, align 4 alloca<br>alloca指令用于分配内存堆栈给当前执行的函数,当这个函数返回其调用者（我自己对于caller的翻译）时自动释放。<br>i32表示32位，4字节<br>align 4表示向4“对齐”：即便数据没有占用4个字节，也要为其分配4字节，这样使得llvm  IR在保证了数据格式一致性的前提条件下，定义数据型时非常灵活，不仅可以任意定义整形和浮点型的长度(iX,iXX,iXXX………)，甚至还允许使用不同的数制，比如你需要使用64进制数字，那就只要i48, align 6即可。</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p> %0 = load i32<em> %a, align 4<br>store i32 1, i32</em> %a, align 4<br>load是“装载”，即读出内容，store则是写入；</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p> %add = add nsw i32 %0, %1<br>Add是加,Sub是减,Mul是乘,Div是除,Rems是求余<br>前头加f的是浮点运算，加u的是返回无符号整型值（unsigned integer）加s返回的是有符号的；</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="LLVM工具链使用"><a href="#LLVM工具链使用" class="headerlink" title="LLVM工具链使用"></a>LLVM工具链使用</h3><p><a href="http://www.cnblogs.com/ggjucheng/archive/2011/12/14/2287738.html" target="_blank" rel="external">Linuc GCC常用命令</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">gcc test.c -o <span class="built_in">test</span>                        <span class="comment">#直接从源代码生成可执行文件</span></span><br><span class="line">实际流程：.c--&gt;.i--&gt;.s--&gt;.o--&gt;.elf</span><br><span class="line"></span><br><span class="line">gcc -E test.c -o test.i 或 gcc -E test.c(不生成test.i，只在终端显示)   <span class="comment">#预处理Preprocessing（加入包含的库,生成中间文件.i）</span></span><br><span class="line">gcc -S test.i -o test.s 或 gcc -S test.i(默认生成test.s)   <span class="comment">#编译为汇编Compilation（编译器生成汇编代码.s）</span></span><br><span class="line">gcc -c test.s -o test.o 或 gcc -c test.s(默认生成test.o)  <span class="comment">#汇编Assembly（汇编器将汇编代码翻译成机器语言指令，把这些指令打包成一种叫做可重定位目标程序格式，并保存在.o文件中）</span></span><br><span class="line">gcc test.o -o <span class="built_in">test</span> 或 gcc test.o(默认生成test.o)   <span class="comment">#链接Linking（将目标文件链接成可执行文件）</span></span><br><span class="line"></span><br><span class="line">gcc test.i/test.s/test.o -o <span class="built_in">test</span>   <span class="comment">#均生成可执行文件test.elf</span></span><br><span class="line">gcc -O1 test.c -o <span class="built_in">test</span></span><br><span class="line"><span class="comment">#使用编译优化级别1编译程序。级别为1~3，级别越大优化效果越好，但编译时间越长。</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">vim hello.c</span><br><span class="line"></span><br><span class="line">clang hello.c -o hello      <span class="comment">#生成可执行文件</span></span><br><span class="line">./hello</span><br><span class="line"><span class="comment">#或者</span></span><br><span class="line">clang -O3 -emit-llvm hello.c -c -o hello.bc    <span class="comment">#生成二进制中间表示语言.bc文件</span></span><br><span class="line">lli hello.bc</span><br><span class="line"><span class="comment">#或者：</span></span><br><span class="line">clang -O3 -emit-llvm hello.c -S -o hello.ll    <span class="comment">#生成人类可读的 .ll 文件</span></span><br><span class="line">lli hello.ll</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">llvm-dis hello.bc -o hello.ll   <span class="comment">#.bc文件反汇编成.ll文件</span></span><br><span class="line">或：llvm-dis &lt; hello.bc (终端显示但不生成.ll文件)</span><br><span class="line">    llvm-dis &lt; hello.bc | less （less打开但不生成.ll文件）</span><br><span class="line">    llvm-dis hello.bc (生成默认的hello.ll文件)</span><br><span class="line"></span><br><span class="line">llvm-as hello.ll -o hello.bc    <span class="comment">#.ll文件汇编成.bc文件</span></span><br><span class="line"></span><br><span class="line">llc hello.bc -o hello.s  <span class="comment">#.bc或.ll文件生成汇编代码.s文件</span></span><br><span class="line">llc hello.ll -o hello.s</span><br><span class="line"></span><br><span class="line">gcc -c hello.s -o hello.o</span><br><span class="line">gcc hello.o -o hello</span><br><span class="line"></span><br><span class="line">实际流程：.c--&gt;.ll/.bc--&gt;.s--&gt;.o--&gt;.elf</span><br><span class="line"><span class="comment">#.ll文件类似与汇编文件.s，而.bc文件类似于目标文件.o</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/07/11.ROS-Nao/" rel="next" title="11.ROS-Nao">
+                <i class="fa fa-chevron-left"></i> 11.ROS-Nao
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/13/自己动手写操作系统/" rel="prev" title="自己动手写操作系统笔记">
+                自己动手写操作系统笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/09/0.LLVM/"
+           data-title="0.LLVM基础" data-url="http://hujun1413.github.io/2016/11/09/0.LLVM/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LLVM-Command-Guide"><span class="nav-number">2.</span> <span class="nav-text">LLVM Command Guide</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LLVM-IR"><span class="nav-number">3.</span> <span class="nav-text">LLVM IR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LLVM工具链使用"><span class="nav-number">4.</span> <span class="nav-text">LLVM工具链使用</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

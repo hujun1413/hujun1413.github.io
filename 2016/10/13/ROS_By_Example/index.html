@@ -1,0 +1,671 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="网址记录
+Beginner
+tf
+actionlib">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS_By_Example笔记">
+<meta property="og:url" content="http://hujun1413.github.io/2016/10/13/ROS_By_Example/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="网址记录
+Beginner
+tf
+actionlib">
+<meta property="og:updated_time" content="2016-12-07T10:13:08.749Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ROS_By_Example笔记">
+<meta name="twitter:description" content="网址记录
+Beginner
+tf
+actionlib">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> ROS_By_Example笔记 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ROS_By_Example笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-13T20:35:26+08:00" content="2016-10-13">
+              2016-10-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ROS/" itemprop="url" rel="index">
+                    <span itemprop="name">ROS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/13/ROS_By_Example/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/13/ROS_By_Example/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="网址记录"><a href="#网址记录" class="headerlink" title="网址记录"></a>网址记录</h3><ul>
+<li><a href="http://wiki.ros.org/ROS/Tutorials" target="_blank" rel="external">Beginner</a></li>
+<li><a href="http://wiki.ros.org/tf/Tutorials" target="_blank" rel="external">tf</a></li>
+<li><a href="http://wiki.ros.org/actionlib/Tutorials" target="_blank" rel="external">actionlib</a><a id="more"></a></li>
+<li><a href="http://docs.ros.org/indigo/api/rviz/html/user_guide/" target="_blank" rel="external">RViz User’s Guide</a></li>
+<li><a href="http://www.ros.org/browse/list.php?package_type=package&amp;distro=indigo" target="_blank" rel="external">Browsing packages for indigo</a></li>
+<li><a href="http://wiki.ros.org/catkin/CMakeLists.txt" target="_blank" rel="external">catkin/CMakeLists.txt</a></li>
+<li><a href="http://blog.csdn.net/zyh821351004/article/details/52143309" target="_blank" rel="external"> ROS中nodelet的使用</a></li>
+<li><a href="http://blog.csdn.net/zqxf123456789/article/details/52497833" target="_blank" rel="external">launch文件介绍</a></li>
+</ul>
+<h3 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/src</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/pirobot/rbx1.git</span><br><span class="line"><span class="built_in">cd</span> rbx1</span><br><span class="line">git checkout indigo-devel</span><br><span class="line"><span class="built_in">cd</span> ~/catkin_ws</span><br><span class="line">catkin_make</span><br><span class="line"><span class="built_in">source</span> ~/catkin_ws/devel/setup.bash</span><br><span class="line">rospack profile</span><br></pre></td></tr></table></figure>
+<h3 id="TurtleBot机器人底盘的模拟"><a href="#TurtleBot机器人底盘的模拟" class="headerlink" title="TurtleBot机器人底盘的模拟"></a>TurtleBot机器人底盘的模拟</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br><span class="line">roslaunch rbx1_bringup fake_turtlebot.launch</span><br><span class="line">rosrun rviz rviz <span class="_">-d</span> `rospack find rbx1_nav`/sim.rviz</span><br><span class="line"></span><br><span class="line">rostopic pub -r 10 /cmd_vel geometry_msgs/Twist <span class="string">'&#123;linear: &#123;x: 0.2, y: 0, z: 0&#125;, angular: &#123;x: 0, y: 0, z: 0.5&#125;&#125;'</span></span><br><span class="line"></span><br><span class="line">rostopic pub -1 /cmd_vel geometry_msgs/Twist <span class="string">'&#123;linear: &#123;x: 0.2, y: 0, z: 0&#125;, angular: &#123;x: 0, y: 0, z: 0&#125;&#125;'</span>; rostopic pub -r 10 /cmd_vel geometry_msgs/Twist <span class="string">'&#123;linear: &#123;x: 0.2, y: 0, z: 0&#125;, angular: &#123;x: 0, y: 0, z: 0.5&#125;&#125;'</span></span><br><span class="line"></span><br><span class="line">rostopic pub -1 /cmd_vel geometry_msgs/Twist <span class="string">'&#123;&#125;'</span></span><br><span class="line"></span><br><span class="line">rosrun rbx1_nav timed_out_and_back.py</span><br><span class="line"></span><br><span class="line">rosrun rbx1_nav odom_out_and_back.py</span><br><span class="line"></span><br><span class="line">rosrun rbx1_nav nav_square.py</span><br><span class="line"></span><br><span class="line"><span class="comment">#键盘或者手柄控制</span></span><br><span class="line">sudo apt-get install ros-indigo-joystick-drivers \</span><br><span class="line">ros-indigo-turtlebot-teleop</span><br><span class="line"></span><br><span class="line">roslaunch rbx1_nav keyboard_teleop.launch</span><br><span class="line"></span><br><span class="line"><span class="comment">#虚拟摇杆</span></span><br><span class="line">arbotix_gui</span><br><span class="line"></span><br><span class="line"><span class="comment">#Interactive Markers</span></span><br><span class="line">sudo apt-get install ros-indigo-turtlebot-interactive-markers</span><br><span class="line"></span><br><span class="line">roslaunch rbx1_bringup fake_turtlebot.launch</span><br><span class="line"></span><br><span class="line">rosrun rviz rviz <span class="_">-d</span> `rospack find rbx1_nav`/interactive_markers.rviz</span><br><span class="line"></span><br><span class="line">roslaunch rbx1_nav interactive_markers.launch</span><br></pre></td></tr></table></figure>
+<h3 id="SLAM-Map-Building-with-TurtleBot"><a href="#SLAM-Map-Building-with-TurtleBot" class="headerlink" title="SLAM Map Building with TurtleBot"></a><a href="http://wiki.ros.org/turtlebot_navigation/Tutorials/Build%20a%20map%20with%20SLAM" target="_blank" rel="external">SLAM Map Building with TurtleBot</a></h3><h3 id="Testing-move-base-in-the-ArbotiX-Simulator（路径规划）"><a href="#Testing-move-base-in-the-ArbotiX-Simulator（路径规划）" class="headerlink" title="Testing move_base in the ArbotiX Simulator（路径规划）"></a>Testing move_base in the ArbotiX Simulator（路径规划）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">roslaunch rbx1_bringup fake_turtlebot.launch</span><br><span class="line">roslaunch rbx1_nav fake_move_base_blank_map.launch</span><br><span class="line">rosrun rviz rviz <span class="_">-d</span> `rospack find rbx1_nav`/nav.rviz</span><br><span class="line"></span><br><span class="line">rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped \</span><br><span class="line"><span class="string">'&#123; header: &#123; frame_id: "map" &#125;, pose: &#123; position: &#123; x: 1.0, y: 0, z: 0 &#125;, orientation: &#123; x: 0, y: 0, z: 0, w: 1 &#125; &#125; &#125;'</span></span><br><span class="line"></span><br><span class="line">rostopic pub /move_base_simple/goal geometry_msgs/PoseStamped \</span><br><span class="line"><span class="string">'&#123; header: &#123; frame_id: "map" &#125;, pose: &#123; position: &#123; x: 0, y: 0, z: 0 &#125;, orientation: &#123; x: 0, y: 0, z: 0, w: 1 &#125; &#125; &#125;'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#动态修改参数</span></span><br><span class="line">rosrun rqt_reconfigure rqt_reconfigure</span><br></pre></td></tr></table></figure>
+<h3 id="Navigating-a-Square-using-move-base（走正方形）"><a href="#Navigating-a-Square-using-move-base（走正方形）" class="headerlink" title="Navigating a Square using move_base（走正方形）"></a>Navigating a Square using move_base（走正方形）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">roslaunch rbx1_bringup fake_turtlebot.launch</span><br><span class="line">roslaunch rbx1_nav fake_move_base_blank_map.launch</span><br><span class="line">rosrun rviz rviz <span class="_">-d</span> `rospack find rbx1_nav`/nav.rviz</span><br><span class="line"></span><br><span class="line">rosrun rbx1_nav move_base_square.py</span><br></pre></td></tr></table></figure>
+<h3 id="Avoiding-Simulated-Obstacles（避障）"><a href="#Avoiding-Simulated-Obstacles（避障）" class="headerlink" title="Avoiding Simulated Obstacles（避障）"></a>Avoiding Simulated Obstacles（避障）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">roslaunch rbx1_bringup fake_turtlebot.launch</span><br><span class="line">rosparam delete /move_base</span><br><span class="line"></span><br><span class="line">roslaunch rbx1_nav fake_move_base_map_with_obstacles.launch</span><br><span class="line"></span><br><span class="line">rosrun rviz rviz <span class="_">-d</span> `rospack find rbx1_nav`/nav_obstacles.rviz</span><br><span class="line"></span><br><span class="line">rosrun rbx1_nav move_base_square.py</span><br></pre></td></tr></table></figure>
+<h3 id="Navigation-and-Localization-using-a-Map-and-amcl（导航与定位）"><a href="#Navigation-and-Localization-using-a-Map-and-amcl（导航与定位）" class="headerlink" title="Navigation and Localization using a Map and amcl（导航与定位）"></a>Navigation and Localization using a Map and amcl（导航与定位）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">roslaunch rbx1_bringup fake_turtlebot.launch</span><br><span class="line"></span><br><span class="line">roslaunch rbx1_nav fake_amcl.launch map:=<span class="built_in">test</span>_map.yaml</span><br><span class="line"></span><br><span class="line">rosrun rviz rviz <span class="_">-d</span> `rospack find rbx1_nav`/amcl.rviz</span><br></pre></td></tr></table></figure>
+<h3 id="Fully-Autonomous-Navigation（随机位置自动漫游）"><a href="#Fully-Autonomous-Navigation（随机位置自动漫游）" class="headerlink" title="Fully Autonomous Navigation（随机位置自动漫游）"></a>Fully Autonomous Navigation（随机位置自动漫游）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">roscore</span><br><span class="line"></span><br><span class="line">rqt_console &amp;</span><br><span class="line"></span><br><span class="line">roslaunch rbx1_nav fake_nav_test.launch</span><br><span class="line"></span><br><span class="line">rosrun rviz rviz <span class="_">-d</span> `rospack find rbx1_nav`/amcl.rviz</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">所用节点：</span><br><span class="line">/arbotix</span><br><span class="line">/fake_localization</span><br><span class="line">/map_server</span><br><span class="line">/move_base</span><br><span class="line">/nav_<span class="built_in">test</span></span><br><span class="line">/robot_state_publisher</span><br><span class="line">/rosout</span><br><span class="line">/rviz_1476674751821829778</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/29/10.录制和回放数据/" rel="next" title="10.录制和回放数据">
+                <i class="fa fa-chevron-left"></i> 10.录制和回放数据
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/25/CNCC2016总结/" rel="prev" title="CNCC2016总结">
+                CNCC2016总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/13/ROS_By_Example/"
+           data-title="ROS_By_Example笔记" data-url="http://hujun1413.github.io/2016/10/13/ROS_By_Example/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#网址记录"><span class="nav-number">1.</span> <span class="nav-text">网址记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码下载"><span class="nav-number">2.</span> <span class="nav-text">源码下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TurtleBot机器人底盘的模拟"><span class="nav-number">3.</span> <span class="nav-text">TurtleBot机器人底盘的模拟</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SLAM-Map-Building-with-TurtleBot"><span class="nav-number">4.</span> <span class="nav-text">SLAM Map Building with TurtleBot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Testing-move-base-in-the-ArbotiX-Simulator（路径规划）"><span class="nav-number">5.</span> <span class="nav-text">Testing move_base in the ArbotiX Simulator（路径规划）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Navigating-a-Square-using-move-base（走正方形）"><span class="nav-number">6.</span> <span class="nav-text">Navigating a Square using move_base（走正方形）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Avoiding-Simulated-Obstacles（避障）"><span class="nav-number">7.</span> <span class="nav-text">Avoiding Simulated Obstacles（避障）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Navigation-and-Localization-using-a-Map-and-amcl（导航与定位）"><span class="nav-number">8.</span> <span class="nav-text">Navigation and Localization using a Map and amcl（导航与定位）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fully-Autonomous-Navigation（随机位置自动漫游）"><span class="nav-number">9.</span> <span class="nav-text">Fully Autonomous Navigation（随机位置自动漫游）</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
