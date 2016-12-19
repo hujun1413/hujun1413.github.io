@@ -2,6 +2,7 @@
 title:  ROS_By_Example笔记
 date: 2016-10-13 20:35:26 # 文章生成时间，一般不改
 categories:   # 文章分类目录，参数可省略
+    - OSLab
     - ROS
 tags:   # 文章标签，参数可省略
 ---
@@ -9,13 +10,13 @@ tags:   # 文章标签，参数可省略
 * [Beginner](http://wiki.ros.org/ROS/Tutorials)
 * [tf](http://wiki.ros.org/tf/Tutorials)
 * [actionlib](http://wiki.ros.org/actionlib/Tutorials)
-<!--more-->
 * [RViz User's Guide](http://docs.ros.org/indigo/api/rviz/html/user_guide/)
 * [Browsing packages for indigo](http://www.ros.org/browse/list.php?package_type=package&distro=indigo)
 * [catkin/CMakeLists.txt](http://wiki.ros.org/catkin/CMakeLists.txt)
 * [ ROS中nodelet的使用](http://blog.csdn.net/zyh821351004/article/details/52143309)
 * [launch文件介绍](http://blog.csdn.net/zqxf123456789/article/details/52497833)
 
+<!--more-->
 ### 源码下载
 ```bash
 cd ~/catkin_ws/src

@@ -2,9 +2,10 @@
 title:  Eclipse启动报错java.lang.NoClassDefFoundError
 date: 2016-04-14 16:25:26 # 文章生成时间，一般不改
 categories:   # 文章分类目录，参数可省略
+    - 编程语言
     - Java
 tags:   # 文章标签，参数可省略
-    - Bug
+    - 
 ---
 今天一打开Eclipse就报错，java.lang.NoClassDefFoundError
 <!--more-->
