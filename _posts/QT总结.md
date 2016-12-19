@@ -1,7 +1,8 @@
 ---
-title: 积累基础
+title: QT总结
 date: 2016-09-26 19:25:26 # 文章生成时间，一般不改
 categories:   # 文章分类目录，参数可省略
+    - 集成开发环境
     - QT
 tags:   # 文章标签，参数可省略
 ---
@@ -24,6 +25,7 @@ for (int i = 0; i < list.size(); ++i)
     .arg(fileInfo.fileName()).arg(fileInfo.filePath());
 }
 ```
+<!--more-->
 ## 获得当前时间
 ```C++
 QDateTime dateTime;
@@ -228,7 +230,7 @@ void TcpSocket::sendFile(int id, QString fileName)
      }
 }
 ```
-###接收端
+### 接收端
 ```C++
 connect(socket,SIGNAL(readyRead()),this,SLOT(updateServerProgress()));
 totalBytes = 0;

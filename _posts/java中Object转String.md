@@ -2,9 +2,9 @@
 title:  java Object转String
 date: 2016-05-26 16:25:26 # 文章生成时间，一般不改
 categories:   # 文章分类目录，参数可省略
+    - 编程语言
     - Java
 tags:   # 文章标签，参数可省略
-    - 类型转换
 ---
 Object转为String的几种形式
 

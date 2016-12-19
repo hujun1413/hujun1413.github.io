@@ -2,9 +2,9 @@
 title:  Bash基础
 date: 2016-11-13 20:35:26 # 文章生成时间，一般不改
 categories:   # 文章分类目录，参数可省略
-    - Linux
-tags:   # 文章标签，参数可省略
+    - 编程语言
     - Bash
+tags:   # 文章标签，参数可省略
 ---
 ### 打印
 ```bash
@@ -18,6 +18,8 @@ echo "$a"  #输出5
 echo $a  #输出5
 echo "a"  #输出a
 ```
+<!--more-->
+
 ### 执行
 ```bash
 bash hello.sh

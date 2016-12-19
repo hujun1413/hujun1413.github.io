@@ -17,9 +17,12 @@ mkdir blog
 cd blog
 git init
 
-git add readme.txt   / git add --all 
-git commit -m "write a readme file"
+git add readme.txt
+git add .   #添加所有文件
+git add --all  #当有文件被删除时，用此命令确认删除
+               #用于将这些工作区内已删除的文件从版本库中删除
 
+git commit -m "write a readme file"
 git commit -a -m ""  #不提交新创建的，但把修改的和删除的都提交
 git commit --help  #查看帮助
 ```
@@ -45,7 +48,7 @@ git reset HEAD [file name,eg:readme.txt]  #撤销暂存区的修改
 git checkout -- [file name,eg:readme.txt]  #丢弃工作区的修改
 已commit:
 版本回退：
-git reset --hard HEAD [version number,eg:ea345]
+git reset --hard HEAD/[version number,eg:ea345]
 ```
 
 ### 删除文件
@@ -62,21 +65,24 @@ git checkout -- test.txt  #从版本库恢复工作区内已删除的文件
 ssh-keygen -t rsa -C "hujun1413.bupt.edu.cn"
 #在github的ADD SSH KEY中粘贴.ssh/id_rsa.pub的内容
 git remote add origin git@github.com:hujun1413/hujun1413.github.io.git
+
+git push -u origin hexo
+git push origin hexo
 ```
 
 ### 从远程库克隆
 ```bash
 git clone git://github.com:xx/xxx.git  #不支持push
 git clone git@github.com:hujun1413/hujun1413.github.io.git 
-git clone -b hexo https://github.com/hujun1413/hujun1413.github.io.git 
-#只克隆仓库中的hexo分支
+git clone -b hexo https://github.com/hujun1413/hujun1413.github.io.git --depth 1 blog
+#只克隆仓库中的hexo分支,克隆深度为1，存在当前目录的blog文件夹下
 
 #解决方案：将远程主机的url修改成SSH/HTTP协议(每次都要输密码)
 git remote set-url origin git@github.com:hujun1413/hujun1413.github.io.git
 git remote set-url origin https://github.com/hujun1413/hujun1413.github.io.git
 ```
 
-### 创建合并分支
+### 创建/合并/删除分支
 ```bash
 git branch hexo    #创建分支
 git checkout hexo    #切换分支
@@ -87,11 +93,13 @@ git branch      #查看本地分支
 git branch -a   #查看所有分支
 git branch -r   #查看远程分支
 git branch -d/-D hexo  #删除hexo分支，-D强制删除
+git branch -r -d origin/hongchangfirst #删除在本地的远程分支
 
 git merge hexo  #将当前分支与hexo 分支进行合并
 git merge --no-ff -m "merge with no-ff" dev   #--no-ff参数，表示禁用Fast forward：
 
 git rebase origin/master   #合并，但把另一个分支的最新commit改变为当前分支的基础。
+                           #让分支历史看起来像没有经过任何合并
 ```
 
 ### 解决冲突
@@ -140,6 +148,9 @@ git push origin --tags
 
 如果远程主机的版本比本地版本更新，推送时Git会报错，要求先在本地做git pull合并差异，然后再推送到远程主机。这时，如果你一定要推送，可以使用--force选项。
 git push --force origin   #远程主机上更新的版本被覆盖
+
+git push origin :article    #删除远程的article分支
+git push origin article     #当前分支推送至远程，若远程不存在则创建之
 ```
 
 ### remote 
@@ -160,6 +171,16 @@ git remote set-url origin git@github.com:hujun1413/hujun1413.github.io.git
 #更改主机的url
 ```
 
+### 删除远程的提交记录
+```bash
+git reset --hard [version number,eg:ea345]  #回退到某个版本
+git push --force    #强行推送至远程，远程的提交记录则只到该次提交，之后的提交均被删除
+
+#或直接删除远程分支后重新提交建立新的分支
+git push origin :article
+git push origin article
+```
+
 ### 其他
 ```bash
 git clean -df    #清理git的本地缓存
@@ -167,15 +188,6 @@ git rm --cached bundle/xxxx  删除子模组
 git gc  #压缩历史信息来节约磁盘和内容空间
 git branch --set-upstream master origin/next  #指定master分支追踪origin/next分支
 ```
-
-
-
-
-
-你想让分支历史看起来像没有经过任何合并一样，你也许可以用 git rebase:
-git remote -v
-
-git fetch origin hexo
 
 取得项目的 Git 仓库
 有两种取得 Git 项目仓库的方法。第一种是在现存的目录下，通过导入所有文件来创建新的 Git 仓库。第二种是从已有的 Git 仓库克隆出一个新的镜像仓库来。
