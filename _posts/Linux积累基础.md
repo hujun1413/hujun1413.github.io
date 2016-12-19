@@ -1,0 +1,108 @@
+---
+title: Linux积累基础
+date: 2016-09-26 19:25:26 # 文章生成时间，一般不改
+categories:   # 文章分类目录，参数可省略
+    - Linux
+tags:   # 文章标签，参数可省略
+---
+## Linux内核的主要模块（或组件）
+分以下几个部分：存储管理、CPU和进程管理、文件系统、设备管理和驱动、网络通信，以及系统的初始化（引导）、系统调用等。
+Linux是一个一体化内核（monolithic kernel）系统。“内核”指的是一个提供硬件抽象层、磁盘及文件系统控制、多任务等功能的系统软件。一个内核不是一套完整的操作系统。一套基于Linux内核的完整操作系统叫作Linux操作系统，或是GNU/Linux。
+## linux中~和/的区别
+### /是目录层的分隔、表示符。
+只有一个/表明是root，/etc/表明是根目录下面的etc目录（当然目录最后不需要/，但有/直接表明他是目录，没有末尾的/，那么/etc需要检测一下确定是目录还是文件，虽然习惯上/etc绝对是目录）
+<!--more-->
+### ~是一个代位符，表明的是个人目录的地址。
+因为每个用户都有自己的个人目录地址，所以用~作为统一替代这个根据用户不同而不同但有规可循的地址，来保证某些情况下的兼容问题。
+如果以root账号登陆
+~代表/root/
+如果以name登陆
+~代表/home/name/
+## [对 Linux 新手非常有用的 20 个命令](http://www.oschina.net/translate/useful-linux-commands-for-newbies)
+## [cat主要有三大功能](http://www.cnblogs.com/perfy/archive/2012/07/23/2605550.html)：
+1. 一次显示整个文件。$ cat filename
+2. 从键盘创建一个文件。$ cat > filename  
+   只能创建新文件,不能编辑已有文件.
+3. 将几个文件合并为一个文件： $cat file1 file2 > file
+
+## [man命令](http://man.linuxde.net/man)
+man命令是Linux下的帮助指令，通过man指令可以查看Linux中的指令帮助、配置文件帮助和编程帮助等信息。
+
+来自: http://man.linuxde.net/man
+## [五种开源协议(GPL,LGPL,BSD,MIT,Apache)](http://www.oschina.net/question/54100_9455)
+
+## RPC(Remote Procedure Call Protocol，远程过程调用)
+## DNS
+DNS（Domain Name Server，域名服务器）是进行域名(domain name)和与之相对应的IP地址 (IP address)转换的服务器。域名服务器是指保存有该网络中所有主机的域名和对应IP地址，并具有将域名转换为IP地址功能的服务器。其中域名必须对应一个IP地址，一个IP地址可以有多个域名，而IP地址不一定有域名。域名系统采用类似目录树的等级结构。
+
+## Doxygen/Source Insight
+* Doxygen 是一个程序的文件产生工具，可将程序中的特定批注转换成为说明文件。
+
+* Source Insight是一个面向项目开发的程序编辑器和代码浏览器，它拥有内置的对C/C++, C#和Java等程序的分析。能分析源代码并在工作的同时动态维护它自己的符号数据库，并自动显示有用的上下文信息。
+
+## [交叉编译](http://baike.baidu.com/link?url=uE8Fmbd-jYNq2UlrLHDU8KTTlj4nDVbCAL0TlLhs2AtsN4Xa14hyrHH4Lpm_dU3ua97fiyQHtZgC2PlFicz_gZDIPpdvCq6Z0diXXMM-FkbRd9HTdhcHyPUjKdUL66_G)
+简单地说，就是在一个平台上生成另一个平台上的可执行代码。同一个体系结构可以运行不同的操作系统；同样，同一个操作系统也可以在不同的体系结构上运行。举例来说，我们常说的x86 Linux平台实际上是Intel x86体系结构和Linux for x86操作系统的统称；而x86 WinNT平台实际上是Intel x86体系结构和Windows NT for x86操作系统的简称。
+
+要进行交叉编译，我们需要在主机平台上安装对应的交叉编译工具链（cross compilation tool chain），然后用这个交叉编译工具链编译我们的源代码，最终生成可在目标平台上运行的代码。常见的交叉编译例子如下：
+
+* 在Windows PC上，利用ADS（ARM 开发环境），使用armcc编译器，则可编译出针对ARM CPU的可执行代码。
+* 在Linux PC上，利用arm-linux-gcc编译器，可编译出针对Linux ARM平台的可执行代码。
+* 在Windows PC上，利用cygwin环境，运行arm-elf-gcc编译器，可编译出针对ARM CPU的可执行代码。
+
+## [linux下查看TCP端口所属进程/线程](http://blog.csdn.net/morphad/article/details/16867851)
+进程查看命令：
+
+* ps -aux    查看所有进程
+* ps ax | grep sublime  //查找sublime的进程
+* ls -l /proc/[pid]/fd/   查看进程打开的文件的链接(pipe/socket)，后面的数字是iNode号
+* head -n 1 /proc/net/tcp 查看tcp的详细信息，如iNode号，IP和端口号
+
+## [./configure,make,sudo make install的作用](http://www.linuxidc.com/Linux/2011-02/32211.htm)
+```bash
+sudo dpkg -i sougou_64.deb   #安装下载好的安装包命令
+sudo apt-get -f install  #修复依赖关系
+```
+
+
+## [Ubuntu apt-get彻底卸载软件包](http://blog.csdn.net/get_set/article/details/51276609)
+```bash
+sudo apt-get purge ros-indigo-kobuki ros-indigo-kobuki-core
+sudo apt-get autoremove
+```
+
+## 使用GUI来管理文件,在文件管理器中使用root权限。
+```bash
+sudo nautilus
+```
+
+## 简单操作
+### ctrl + alt + T    打开终端
+### cd .. &ensp;&ensp;&ensp;&ensp; cd - &ensp;&ensp;&ensp;&ensp; cd ~
+“..”代表上一级目录、“~”代表HOME目录、“-”代表前一目录。
+### markdown显示多个空格用A&ensp;&ensp;&ensp;B
+```
+A&ensp;B
+```
+### .bin 文件是在 Linux 和类 Unix 操作系统上的自执行文件。
+安装.bin文件的方法：
+```linux
+sudo chmod +x filename.bin
+sudo ./filename.bin
+```
+### ubuntu下按ctrl+h隐藏或显示隐藏的文件夹
+### ubuntu进入root:
+> su或sudo su，通过sudo运行su，用的是当前用户密码，而su默认是root密码。
+
+* 初次使用Unbutu发现无法切换到Root权限状态，可以按如下到步骤做：
+先设置root到密码：sudo passwd root ；
+在控制台直接输入：su root ，并输入密码；
+就可以获得root权限了。
+如何想在文件管理器中使用root权限，只要在控制台输入：sudo nautilus；
+
+* su命令和su -命令最大的本质区别就是：前者只是切换了root身份，但Shell环境仍然是普通用户的Shell；而后者连用户和Shell环境一起切换成root身份了。只有切换了Shell环境才不会出现PATH环境变量错误。su切换成root用户以后，pwd一下，发现工作目录仍然是普通用户的工作目录；而用su -命令切换以后，工作目录变成root的工作目录了。用echo $PATH命令看一下su和su -以后的环境变量有何不同。以此类推，要从当前用户切换到其它用户也一样，应该使用su -命令。
+  
+* sudo : 暂时切换到超级用户模式以执行超级用户权限，提示输入密码时该密码为当前用户的密码，而不是超级账户的密码。不过有时间限制，Ubuntu默认为一次时长15分钟。
+su ： 切换到某某用户模式，提示输入密码时该密码为切换后账户的密码，用法为“su 账户名称”。如果后面不加账户时系统默认为root账户，密码也为超级账户的密码。没有时间限制。
+sudo -i: 为了频繁的执行某些只有超级用户才能执行的权限，而不用每次输入密码，可以使用该命令。提示输入密码时该密码为当前账户的密码。没有时间限制。执行该命令后提示符变为“#”而不是“$”。想退回普通账户时可以执行“exit”或“logout” 。
+### [Linux的.a、.so和.o文件生成与使用](http://blog.csdn.net/chlele0105/article/details/23691147)
+
