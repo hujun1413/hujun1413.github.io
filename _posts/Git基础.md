@@ -127,6 +127,10 @@ git fetch origin hexo
 git checkout -b tmp origin/hexo  #在origin/master的基础上，创建一个新分支
 git checkout hexo
 git merge tmp
+
+#远程强制覆盖本地
+git fetch origin hexo
+git reset --hard origin/hexo
 ```
 
 ### pull
