@@ -1,0 +1,694 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Linux内核的主要模块（或组件）分以下几个部分：存储管理、CPU和进程管理、文件系统、设备管理和驱动、网络通信，以及系统的初始化（引导）、系统调用等。Linux是一个一体化内核（monolithic kernel）系统。“内核”指的是一个提供硬件抽象层、磁盘及文件系统控制、多任务等功能的系统软件。一个内核不是一套完整的操作系统。一套基于Linux内核的完整操作系统叫作Linux操作系统，或是GN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux积累基础(16/09/26-16/12/19)">
+<meta property="og:url" content="http://hujun1413.github.io/2016/09/26/Linux积累基础(160926-161219)/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="Linux内核的主要模块（或组件）分以下几个部分：存储管理、CPU和进程管理、文件系统、设备管理和驱动、网络通信，以及系统的初始化（引导）、系统调用等。Linux是一个一体化内核（monolithic kernel）系统。“内核”指的是一个提供硬件抽象层、磁盘及文件系统控制、多任务等功能的系统软件。一个内核不是一套完整的操作系统。一套基于Linux内核的完整操作系统叫作Linux操作系统，或是GN">
+<meta property="og:updated_time" content="2016-12-19T07:16:43.366Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux积累基础(16/09/26-16/12/19)">
+<meta name="twitter:description" content="Linux内核的主要模块（或组件）分以下几个部分：存储管理、CPU和进程管理、文件系统、设备管理和驱动、网络通信，以及系统的初始化（引导）、系统调用等。Linux是一个一体化内核（monolithic kernel）系统。“内核”指的是一个提供硬件抽象层、磁盘及文件系统控制、多任务等功能的系统软件。一个内核不是一套完整的操作系统。一套基于Linux内核的完整操作系统叫作Linux操作系统，或是GN">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Linux积累基础(16/09/26-16/12/19) | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linux积累基础(16/09/26-16/12/19)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-26T19:25:26+08:00" content="2016-09-26">
+              2016-09-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/26/Linux积累基础(160926-161219)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/26/Linux积累基础(160926-161219)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Linux内核的主要模块（或组件）"><a href="#Linux内核的主要模块（或组件）" class="headerlink" title="Linux内核的主要模块（或组件）"></a>Linux内核的主要模块（或组件）</h2><p>分以下几个部分：存储管理、CPU和进程管理、文件系统、设备管理和驱动、网络通信，以及系统的初始化（引导）、系统调用等。<br>Linux是一个一体化内核（monolithic kernel）系统。“内核”指的是一个提供硬件抽象层、磁盘及文件系统控制、多任务等功能的系统软件。一个内核不是一套完整的操作系统。一套基于Linux内核的完整操作系统叫作Linux操作系统，或是GNU/Linux。</p>
+<h2 id="linux中-和-的区别"><a href="#linux中-和-的区别" class="headerlink" title="linux中~和/的区别"></a>linux中~和/的区别</h2><h3 id="是目录层的分隔、表示符。"><a href="#是目录层的分隔、表示符。" class="headerlink" title="/是目录层的分隔、表示符。"></a>/是目录层的分隔、表示符。</h3><p>只有一个/表明是root，/etc/表明是根目录下面的etc目录（当然目录最后不需要/，但有/直接表明他是目录，没有末尾的/，那么/etc需要检测一下确定是目录还是文件，虽然习惯上/etc绝对是目录）<br><a id="more"></a></p>
+<h3 id="是一个代位符，表明的是个人目录的地址。"><a href="#是一个代位符，表明的是个人目录的地址。" class="headerlink" title="~是一个代位符，表明的是个人目录的地址。"></a>~是一个代位符，表明的是个人目录的地址。</h3><p>因为每个用户都有自己的个人目录地址，所以用~作为统一替代这个根据用户不同而不同但有规可循的地址，来保证某些情况下的兼容问题。<br>如果以root账号登陆<br>~代表/root/<br>如果以name登陆<br>~代表/home/name/</p>
+<h2 id="对-Linux-新手非常有用的-20-个命令"><a href="#对-Linux-新手非常有用的-20-个命令" class="headerlink" title="对 Linux 新手非常有用的 20 个命令"></a><a href="http://www.oschina.net/translate/useful-linux-commands-for-newbies" target="_blank" rel="external">对 Linux 新手非常有用的 20 个命令</a></h2><h2 id="cat主要有三大功能："><a href="#cat主要有三大功能：" class="headerlink" title="cat主要有三大功能："></a><a href="http://www.cnblogs.com/perfy/archive/2012/07/23/2605550.html" target="_blank" rel="external">cat主要有三大功能</a>：</h2><ol>
+<li>一次显示整个文件。$ cat filename</li>
+<li>从键盘创建一个文件。$ cat &gt; filename<br>只能创建新文件,不能编辑已有文件.</li>
+<li>将几个文件合并为一个文件： $cat file1 file2 &gt; file</li>
+</ol>
+<h2 id="man命令"><a href="#man命令" class="headerlink" title="man命令"></a><a href="http://man.linuxde.net/man" target="_blank" rel="external">man命令</a></h2><p>man命令是Linux下的帮助指令，通过man指令可以查看Linux中的指令帮助、配置文件帮助和编程帮助等信息。</p>
+<p>来自: <a href="http://man.linuxde.net/man" target="_blank" rel="external">http://man.linuxde.net/man</a></p>
+<h2 id="五种开源协议-GPL-LGPL-BSD-MIT-Apache"><a href="#五种开源协议-GPL-LGPL-BSD-MIT-Apache" class="headerlink" title="五种开源协议(GPL,LGPL,BSD,MIT,Apache)"></a><a href="http://www.oschina.net/question/54100_9455" target="_blank" rel="external">五种开源协议(GPL,LGPL,BSD,MIT,Apache)</a></h2><h2 id="RPC-Remote-Procedure-Call-Protocol，远程过程调用"><a href="#RPC-Remote-Procedure-Call-Protocol，远程过程调用" class="headerlink" title="RPC(Remote Procedure Call Protocol，远程过程调用)"></a>RPC(Remote Procedure Call Protocol，远程过程调用)</h2><h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><p>DNS（Domain Name Server，域名服务器）是进行域名(domain name)和与之相对应的IP地址 (IP address)转换的服务器。域名服务器是指保存有该网络中所有主机的域名和对应IP地址，并具有将域名转换为IP地址功能的服务器。其中域名必须对应一个IP地址，一个IP地址可以有多个域名，而IP地址不一定有域名。域名系统采用类似目录树的等级结构。</p>
+<h2 id="Doxygen-Source-Insight"><a href="#Doxygen-Source-Insight" class="headerlink" title="Doxygen/Source Insight"></a>Doxygen/Source Insight</h2><ul>
+<li><p>Doxygen 是一个程序的文件产生工具，可将程序中的特定批注转换成为说明文件。</p>
+</li>
+<li><p>Source Insight是一个面向项目开发的程序编辑器和代码浏览器，它拥有内置的对C/C++, C#和Java等程序的分析。能分析源代码并在工作的同时动态维护它自己的符号数据库，并自动显示有用的上下文信息。</p>
+</li>
+</ul>
+<h2 id="交叉编译"><a href="#交叉编译" class="headerlink" title="交叉编译"></a><a href="http://baike.baidu.com/link?url=uE8Fmbd-jYNq2UlrLHDU8KTTlj4nDVbCAL0TlLhs2AtsN4Xa14hyrHH4Lpm_dU3ua97fiyQHtZgC2PlFicz_gZDIPpdvCq6Z0diXXMM-FkbRd9HTdhcHyPUjKdUL66_G" target="_blank" rel="external">交叉编译</a></h2><p>简单地说，就是在一个平台上生成另一个平台上的可执行代码。同一个体系结构可以运行不同的操作系统；同样，同一个操作系统也可以在不同的体系结构上运行。举例来说，我们常说的x86 Linux平台实际上是Intel x86体系结构和Linux for x86操作系统的统称；而x86 WinNT平台实际上是Intel x86体系结构和Windows NT for x86操作系统的简称。</p>
+<p>要进行交叉编译，我们需要在主机平台上安装对应的交叉编译工具链（cross compilation tool chain），然后用这个交叉编译工具链编译我们的源代码，最终生成可在目标平台上运行的代码。常见的交叉编译例子如下：</p>
+<ul>
+<li>在Windows PC上，利用ADS（ARM 开发环境），使用armcc编译器，则可编译出针对ARM CPU的可执行代码。</li>
+<li>在Linux PC上，利用arm-linux-gcc编译器，可编译出针对Linux ARM平台的可执行代码。</li>
+<li>在Windows PC上，利用cygwin环境，运行arm-elf-gcc编译器，可编译出针对ARM CPU的可执行代码。</li>
+</ul>
+<h2 id="linux下查看TCP端口所属进程-线程"><a href="#linux下查看TCP端口所属进程-线程" class="headerlink" title="linux下查看TCP端口所属进程/线程"></a><a href="http://blog.csdn.net/morphad/article/details/16867851" target="_blank" rel="external">linux下查看TCP端口所属进程/线程</a></h2><p>进程查看命令：</p>
+<ul>
+<li>ps -aux    查看所有进程</li>
+<li>ps ax | grep sublime  //查找sublime的进程</li>
+<li>ls -l /proc/[pid]/fd/   查看进程打开的文件的链接(pipe/socket)，后面的数字是iNode号</li>
+<li>head -n 1 /proc/net/tcp 查看tcp的详细信息，如iNode号，IP和端口号</li>
+</ul>
+<h2 id="configure-make-sudo-make-install的作用"><a href="#configure-make-sudo-make-install的作用" class="headerlink" title="./configure,make,sudo make install的作用"></a><a href="http://www.linuxidc.com/Linux/2011-02/32211.htm" target="_blank" rel="external">./configure,make,sudo make install的作用</a></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo dpkg -i sougou_64.deb   <span class="comment">#安装下载好的安装包命令</span></span><br><span class="line">sudo apt-get <span class="_">-f</span> install  <span class="comment">#修复依赖关系</span></span><br></pre></td></tr></table></figure>
+<h2 id="Ubuntu-apt-get彻底卸载软件包"><a href="#Ubuntu-apt-get彻底卸载软件包" class="headerlink" title="Ubuntu apt-get彻底卸载软件包"></a><a href="http://blog.csdn.net/get_set/article/details/51276609" target="_blank" rel="external">Ubuntu apt-get彻底卸载软件包</a></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get purge ros-indigo-kobuki ros-indigo-kobuki-core</span><br><span class="line">sudo apt-get autoremove</span><br></pre></td></tr></table></figure>
+<h2 id="使用GUI来管理文件-在文件管理器中使用root权限。"><a href="#使用GUI来管理文件-在文件管理器中使用root权限。" class="headerlink" title="使用GUI来管理文件,在文件管理器中使用root权限。"></a>使用GUI来管理文件,在文件管理器中使用root权限。</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo nautilus</span><br></pre></td></tr></table></figure>
+<h2 id="简单操作"><a href="#简单操作" class="headerlink" title="简单操作"></a>简单操作</h2><h3 id="ctrl-alt-T-打开终端"><a href="#ctrl-alt-T-打开终端" class="headerlink" title="ctrl + alt + T    打开终端"></a>ctrl + alt + T    打开终端</h3><h3 id="cd-ensp-ensp-ensp-ensp-cd-ensp-ensp-ensp-ensp-cd"><a href="#cd-ensp-ensp-ensp-ensp-cd-ensp-ensp-ensp-ensp-cd" class="headerlink" title="cd .. &ensp;&ensp;&ensp;&ensp; cd - &ensp;&ensp;&ensp;&ensp; cd ~"></a>cd .. &ensp;&ensp;&ensp;&ensp; cd - &ensp;&ensp;&ensp;&ensp; cd ~</h3><p>“..”代表上一级目录、“~”代表HOME目录、“-”代表前一目录。</p>
+<h3 id="markdown显示多个空格用A-ensp-ensp-ensp-B"><a href="#markdown显示多个空格用A-ensp-ensp-ensp-B" class="headerlink" title="markdown显示多个空格用A&ensp;&ensp;&ensp;B"></a>markdown显示多个空格用A&ensp;&ensp;&ensp;B</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A&amp;ensp;B</span><br></pre></td></tr></table></figure>
+<h3 id="bin-文件是在-Linux-和类-Unix-操作系统上的自执行文件。"><a href="#bin-文件是在-Linux-和类-Unix-操作系统上的自执行文件。" class="headerlink" title=".bin 文件是在 Linux 和类 Unix 操作系统上的自执行文件。"></a>.bin 文件是在 Linux 和类 Unix 操作系统上的自执行文件。</h3><p>安装.bin文件的方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x filename.bin</span><br><span class="line">sudo ./filename.bin</span><br></pre></td></tr></table></figure></p>
+<h3 id="ubuntu下按ctrl-h隐藏或显示隐藏的文件夹"><a href="#ubuntu下按ctrl-h隐藏或显示隐藏的文件夹" class="headerlink" title="ubuntu下按ctrl+h隐藏或显示隐藏的文件夹"></a>ubuntu下按ctrl+h隐藏或显示隐藏的文件夹</h3><h3 id="ubuntu进入root"><a href="#ubuntu进入root" class="headerlink" title="ubuntu进入root:"></a>ubuntu进入root:</h3><blockquote>
+<p>su或sudo su，通过sudo运行su，用的是当前用户密码，而su默认是root密码。</p>
+</blockquote>
+<ul>
+<li><p>初次使用Unbutu发现无法切换到Root权限状态，可以按如下到步骤做：<br>先设置root到密码：sudo passwd root ；<br>在控制台直接输入：su root ，并输入密码；<br>就可以获得root权限了。<br>如何想在文件管理器中使用root权限，只要在控制台输入：sudo nautilus；</p>
+</li>
+<li><p>su命令和su -命令最大的本质区别就是：前者只是切换了root身份，但Shell环境仍然是普通用户的Shell；而后者连用户和Shell环境一起切换成root身份了。只有切换了Shell环境才不会出现PATH环境变量错误。su切换成root用户以后，pwd一下，发现工作目录仍然是普通用户的工作目录；而用su -命令切换以后，工作目录变成root的工作目录了。用echo $PATH命令看一下su和su -以后的环境变量有何不同。以此类推，要从当前用户切换到其它用户也一样，应该使用su -命令。</p>
+</li>
+<li><p>sudo : 暂时切换到超级用户模式以执行超级用户权限，提示输入密码时该密码为当前用户的密码，而不是超级账户的密码。不过有时间限制，Ubuntu默认为一次时长15分钟。<br>su ： 切换到某某用户模式，提示输入密码时该密码为切换后账户的密码，用法为“su 账户名称”。如果后面不加账户时系统默认为root账户，密码也为超级账户的密码。没有时间限制。<br>sudo -i: 为了频繁的执行某些只有超级用户才能执行的权限，而不用每次输入密码，可以使用该命令。提示输入密码时该密码为当前账户的密码。没有时间限制。执行该命令后提示符变为“#”而不是“$”。想退回普通账户时可以执行“exit”或“logout” 。</p>
+<h3 id="Linux的-a、-so和-o文件生成与使用"><a href="#Linux的-a、-so和-o文件生成与使用" class="headerlink" title="Linux的.a、.so和.o文件生成与使用"></a><a href="http://blog.csdn.net/chlele0105/article/details/23691147" target="_blank" rel="external">Linux的.a、.so和.o文件生成与使用</a></h3></li>
+</ul>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/26/QT总结/" rel="next" title="QT总结">
+                <i class="fa fa-chevron-left"></i> QT总结
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/26/0.什么是ROS/" rel="prev" title="0.ROS是什么">
+                0.ROS是什么 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/26/Linux积累基础(160926-161219)/"
+           data-title="Linux积累基础(16/09/26-16/12/19)" data-url="http://hujun1413.github.io/2016/09/26/Linux积累基础(160926-161219)/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ofl6ycl3e.bkt.clouddn.com/avatar.png"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">37</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux内核的主要模块（或组件）"><span class="nav-number">1.</span> <span class="nav-text">Linux内核的主要模块（或组件）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux中-和-的区别"><span class="nav-number">2.</span> <span class="nav-text">linux中~和/的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#是目录层的分隔、表示符。"><span class="nav-number">2.1.</span> <span class="nav-text">/是目录层的分隔、表示符。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#是一个代位符，表明的是个人目录的地址。"><span class="nav-number">2.2.</span> <span class="nav-text">~是一个代位符，表明的是个人目录的地址。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对-Linux-新手非常有用的-20-个命令"><span class="nav-number">3.</span> <span class="nav-text">对 Linux 新手非常有用的 20 个命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cat主要有三大功能："><span class="nav-number">4.</span> <span class="nav-text">cat主要有三大功能：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#man命令"><span class="nav-number">5.</span> <span class="nav-text">man命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五种开源协议-GPL-LGPL-BSD-MIT-Apache"><span class="nav-number">6.</span> <span class="nav-text">五种开源协议(GPL,LGPL,BSD,MIT,Apache)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RPC-Remote-Procedure-Call-Protocol，远程过程调用"><span class="nav-number">7.</span> <span class="nav-text">RPC(Remote Procedure Call Protocol，远程过程调用)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS"><span class="nav-number">8.</span> <span class="nav-text">DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Doxygen-Source-Insight"><span class="nav-number">9.</span> <span class="nav-text">Doxygen/Source Insight</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#交叉编译"><span class="nav-number">10.</span> <span class="nav-text">交叉编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux下查看TCP端口所属进程-线程"><span class="nav-number">11.</span> <span class="nav-text">linux下查看TCP端口所属进程/线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#configure-make-sudo-make-install的作用"><span class="nav-number">12.</span> <span class="nav-text">./configure,make,sudo make install的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ubuntu-apt-get彻底卸载软件包"><span class="nav-number">13.</span> <span class="nav-text">Ubuntu apt-get彻底卸载软件包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用GUI来管理文件-在文件管理器中使用root权限。"><span class="nav-number">14.</span> <span class="nav-text">使用GUI来管理文件,在文件管理器中使用root权限。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单操作"><span class="nav-number">15.</span> <span class="nav-text">简单操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ctrl-alt-T-打开终端"><span class="nav-number">15.1.</span> <span class="nav-text">ctrl + alt + T    打开终端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cd-ensp-ensp-ensp-ensp-cd-ensp-ensp-ensp-ensp-cd"><span class="nav-number">15.2.</span> <span class="nav-text">cd ..      cd -      cd ~</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#markdown显示多个空格用A-ensp-ensp-ensp-B"><span class="nav-number">15.3.</span> <span class="nav-text">markdown显示多个空格用A   B</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bin-文件是在-Linux-和类-Unix-操作系统上的自执行文件。"><span class="nav-number">15.4.</span> <span class="nav-text">.bin 文件是在 Linux 和类 Unix 操作系统上的自执行文件。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ubuntu下按ctrl-h隐藏或显示隐藏的文件夹"><span class="nav-number">15.5.</span> <span class="nav-text">ubuntu下按ctrl+h隐藏或显示隐藏的文件夹</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ubuntu进入root"><span class="nav-number">15.6.</span> <span class="nav-text">ubuntu进入root:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux的-a、-so和-o文件生成与使用"><span class="nav-number">15.7.</span> <span class="nav-text">Linux的.a、.so和.o文件生成与使用</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

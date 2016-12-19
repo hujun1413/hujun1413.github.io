@@ -82,16 +82,16 @@
 
 
 
-<meta name="description" content="一般模式：删除、复制与粘贴类命令x,X                      x为向后删除一个字符，X为先前删除一个字符nx(n代表数字)             向后删除n个字符dd                       删除当前行D                        删除当前行所有字符，试成为空行ndd(n代表数字)            删除光标所在行的向下n列d1G">
+<meta name="description" content="插入i 在当前光标插入I 在当前行最前插入A 在当前行最后插入O 在光标上一行最前插入">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vim基础">
 <meta property="og:url" content="http://hujun1413.github.io/2016/09/26/Vim基础/index.html">
 <meta property="og:site_name" content="胡君的个人博客">
-<meta property="og:description" content="一般模式：删除、复制与粘贴类命令x,X                      x为向后删除一个字符，X为先前删除一个字符nx(n代表数字)             向后删除n个字符dd                       删除当前行D                        删除当前行所有字符，试成为空行ndd(n代表数字)            删除光标所在行的向下n列d1G">
-<meta property="og:updated_time" content="2016-12-07T10:13:08.750Z">
+<meta property="og:description" content="插入i 在当前光标插入I 在当前行最前插入A 在当前行最后插入O 在光标上一行最前插入">
+<meta property="og:updated_time" content="2016-12-19T07:14:13.717Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vim基础">
-<meta name="twitter:description" content="一般模式：删除、复制与粘贴类命令x,X                      x为向后删除一个字符，X为先前删除一个字符nx(n代表数字)             向后删除n个字符dd                       删除当前行D                        删除当前行所有字符，试成为空行ndd(n代表数字)            删除光标所在行的向下n列d1G">
+<meta name="twitter:description" content="插入i 在当前光标插入I 在当前行最前插入A 在当前行最后插入O 在光标上一行最前插入">
 
 
 
@@ -304,7 +304,17 @@
       
 
       
-        <h2 id="一般模式：删除、复制与粘贴类命令"><a href="#一般模式：删除、复制与粘贴类命令" class="headerlink" title="一般模式：删除、复制与粘贴类命令"></a>一般模式：删除、复制与粘贴类命令</h2><p>x,X                      x为向后删除一个字符，X为先前删除一个字符<br>nx(n代表数字)             向后删除n个字符<br>dd                       删除当前行<br>D                        删除当前行所有字符，试成为空行<br>ndd(n代表数字)            删除光标所在行的向下n列<br>d1G                      删除光标所在行到第一行的所有数据<br>dG                       删除光标所在行到最后一行的所有数据<br><a id="more"></a><br>yy                       复制光标所在行<br>y1G                      复制光标所在行到第一行的所有数据<br>yG                       复制光标所在行到最后一行的所有数据<br>ynj(n代表数字)            复制光标所在行向下n+1行<br>dnj(n代表数字)            删除光标所在行向下n+1行<br>p,P                      p为复制的数据粘贴在光标的下一行，P为复制的数据粘贴在光标的上一行<br>J                        将光标所在行与下一行的数据结合成一行<br>u                        恢复前一个动作(undo)</p>
+        <h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p>i 在当前光标插入<br>I 在当前行最前插入<br>A 在当前行最后插入<br>O 在光标上一行最前插入<br><a id="more"></a></p>
+<h2 id="复制-剪切-粘贴"><a href="#复制-剪切-粘贴" class="headerlink" title="复制/剪切/粘贴"></a>复制/剪切/粘贴</h2><p>v d 进入可视模式后剪切<br>dd 剪切当前行<br>dnd 剪切n行<br>v y 进入可视模式后复制<br>yy 复制当前行<br>yny 复制n行<br>p 粘贴</p>
+<h2 id="光标移动"><a href="#光标移动" class="headerlink" title="光标移动"></a>光标移动</h2><p>ctrl+f 向下翻一页<br>ctrl+b 向上翻一页<br>ctrl+u 向上翻半页<br>ctrl+d 向下翻半页<br>j 向上移动一行<br>k 向下移动一行<br>h 向左移动一个字符<br>l 向右移动一个字符<br>gg 移动到第一行<br>G 移动到最后一行<br>nG 移动到第n行</p>
+<h2 id="撤销-重做"><a href="#撤销-重做" class="headerlink" title="撤销/重做"></a>撤销/重做</h2><p>u 撤销，相当于word的ctrl+z<br>ctrl+r 重做，相当于word的ctrl+y</p>
+<h2 id="查找和替换"><a href="#查找和替换" class="headerlink" title="查找和替换"></a>查找和替换</h2><p>/word 在光标后查找word字符串<br>回车后输入n代表同方向下一个,N代表反方向下一个<br>?word 在光标前查找word字符串<br>:n1,n2s/word1/word2/g 在第n1行和第n2行之间查找word1,并替换成word2</p>
+<h2 id="保存-退出"><a href="#保存-退出" class="headerlink" title="保存/退出"></a>保存/退出</h2><p>:w 写入<br>:wq 写入并退出<br>:q 退出<br>:q! 不保存退出<br>:r [filename] 读入文件加入光标下一行<br>:n1,n2 w [filename] 将n1到n2读内容保存到文件中</p>
+<h2 id="多文件-窗口"><a href="#多文件-窗口" class="headerlink" title="多文件/窗口"></a>多文件/窗口</h2><h3 id="未启动vim时"><a href="#未启动vim时" class="headerlink" title="未启动vim时"></a>未启动vim时</h3><p>vim file1 file2 … 只显示一个窗口<br>vim -o file1 file2 上下分布<br>vim -O file1 file2 左右分布</p>
+<h3 id="已启动vim时"><a href="#已启动vim时" class="headerlink" title="已启动vim时"></a>已启动vim时</h3><h4 id="打开"><a href="#打开" class="headerlink" title="打开"></a>打开</h4><p>:open file 只显示一个文件<br>:sp file 上下分布<br>:vs file 左右分布</p>
+<h4 id="切换"><a href="#切换" class="headerlink" title="切换"></a>切换</h4><p>文件间（在当前窗格间切换不同文件）：<br>ctrl+6  下一个文件<br>:bn 下一个文件<br>:bp 上一个文件<br>窗格间：<br>ctrl+ww 依次向后切换下一个窗格<br>ctrl+w+h/j/k/l 切换到上下左右（k上j下h左l右）的窗格</p>
+<h2 id="Vim配置"><a href="#Vim配置" class="headerlink" title="Vim配置"></a>Vim配置</h2><p>修改 /etc/vim/vimrc，进行个性化配置<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">if filereadable("/etc/vim/vimrc.local")</span><br><span class="line">  source /etc/vim/vimrc.local</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">"显示行号</span><br><span class="line">set nu</span><br><span class="line">"缩进为4空格</span><br><span class="line">set tabstop=4</span><br><span class="line">"继承前一行的缩进方式</span><br><span class="line">set autoindent</span><br><span class="line">"允许退格键删除</span><br><span class="line">set backspace=2</span><br><span class="line">"启用鼠标</span><br><span class="line">set mouse=a</span><br><span class="line">set selection=exclusive</span><br><span class="line">set selectmode=mouse,key</span><br></pre></td></tr></table></figure></p>
+<h2 id="一般模式：删除、复制与粘贴类命令"><a href="#一般模式：删除、复制与粘贴类命令" class="headerlink" title="一般模式：删除、复制与粘贴类命令"></a>一般模式：删除、复制与粘贴类命令</h2><p>x,X                      x为向后删除一个字符，X为先前删除一个字符<br>nx(n代表数字)             向后删除n个字符<br>dd                       删除当前行<br>D                        删除当前行所有字符，试成为空行<br>ndd(n代表数字)            删除光标所在行的向下n列<br>d1G                      删除光标所在行到第一行的所有数据<br>dG                       删除光标所在行到最后一行的所有数据<br>yy                       复制光标所在行<br>y1G                      复制光标所在行到第一行的所有数据<br>yG                       复制光标所在行到最后一行的所有数据<br>ynj(n代表数字)            复制光标所在行向下n+1行<br>dnj(n代表数字)            删除光标所在行向下n+1行<br>p,P                      p为复制的数据粘贴在光标的下一行，P为复制的数据粘贴在光标的上一行<br>J                        将光标所在行与下一行的数据结合成一行<br>u                        恢复前一个动作(undo)</p>
 <h2 id="编辑模式命令"><a href="#编辑模式命令" class="headerlink" title="编辑模式命令"></a>编辑模式命令</h2><p>i,I                      i为在当前光标所在处插入输入的文字，I为在光标所在行第一个非空字符插入输入的文字<br>a,A                      a为在当前光标所在处下一个字符插入输入的文字，A为在光标所在行最后一个字符的下一个字符处插入输入的文字<br>o,O                      o为在光标所在行的下一行行首开始插入字符，O为在光标所在行的上一行行首开始插入字符<br>r,R                      r为替换光标所在那一个字符，R为一直替换光标所指的文字，直到退出<br>Esc                      退出，回到一般模式</p>
 <h2 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h2><p>h                        光标向左移一个字符<br>j                        光标向下移一个字符<br>k                        光标向上移一个字符<br>l                        光标向右移一个字符<br>Ctrl+f                   屏幕向下翻一页<br>Ctrl+b                   屏幕向上翻一页<br>Ctrl+d                   屏幕向下翻半页<br>Ctrl+u                   屏幕向上翻半页</p>
 <ul>
@@ -342,16 +352,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/26/Linux积累基础/" rel="next" title="Linux积累基础">
-                <i class="fa fa-chevron-left"></i> Linux积累基础
+              <a href="/2016/09/26/C++STL常用函数/" rel="next" title="C++STL常用函数">
+                <i class="fa fa-chevron-left"></i> C++STL常用函数
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/09/26/QT总结/" rel="prev" title="积累基础">
-                积累基础 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/09/26/QT总结/" rel="prev" title="QT总结">
+                QT总结 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -416,7 +426,7 @@
       <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/avatar.png"
+               src="http://ofl6ycl3e.bkt.clouddn.com/avatar.png"
                alt="hujun1413" />
           <p class="site-author-name" itemprop="name">hujun1413</p>
           <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
@@ -424,7 +434,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -432,7 +442,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -441,7 +451,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -496,7 +506,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一般模式：删除、复制与粘贴类命令"><span class="nav-number">1.</span> <span class="nav-text">一般模式：删除、复制与粘贴类命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑模式命令"><span class="nav-number">2.</span> <span class="nav-text">编辑模式命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式"><span class="nav-number">3.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux下vim命令总结"><span class="nav-number">4.</span> <span class="nav-text">linux下vim命令总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#插入"><span class="nav-number">1.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制-剪切-粘贴"><span class="nav-number">2.</span> <span class="nav-text">复制/剪切/粘贴</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#光标移动"><span class="nav-number">3.</span> <span class="nav-text">光标移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#撤销-重做"><span class="nav-number">4.</span> <span class="nav-text">撤销/重做</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找和替换"><span class="nav-number">5.</span> <span class="nav-text">查找和替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保存-退出"><span class="nav-number">6.</span> <span class="nav-text">保存/退出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多文件-窗口"><span class="nav-number">7.</span> <span class="nav-text">多文件/窗口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#未启动vim时"><span class="nav-number">7.1.</span> <span class="nav-text">未启动vim时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#已启动vim时"><span class="nav-number">7.2.</span> <span class="nav-text">已启动vim时</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#打开"><span class="nav-number">7.2.1.</span> <span class="nav-text">打开</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#切换"><span class="nav-number">7.2.2.</span> <span class="nav-text">切换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vim配置"><span class="nav-number">8.</span> <span class="nav-text">Vim配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一般模式：删除、复制与粘贴类命令"><span class="nav-number">9.</span> <span class="nav-text">一般模式：删除、复制与粘贴类命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑模式命令"><span class="nav-number">10.</span> <span class="nav-text">编辑模式命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式"><span class="nav-number">11.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux下vim命令总结"><span class="nav-number">12.</span> <span class="nav-text">linux下vim命令总结</span></a></li></ol></div>
             
           </div>
         </section>
