@@ -8,7 +8,7 @@ tags:   # 文章标签，参数可省略
 ---
 ## 参考资料
 * [Python3.5.2官方文档](https://docs.python.org/3/library/functions.html#abs)
-* [廖雪峰的官方网站Python教程](http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/001432339008728d0ddbe19ee594980be3f0644a9371894000)
+* [廖雪峰的官方网站Python教程](http://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000)
 * [Python快速教程](http://www.cnblogs.com/vamei/archive/2012/09/13/2682778.html)
 * [某Python学习笔记](http://lovenight.github.io/2016/09/25/Python-3-学习笔记/)
 * [服务器上的文件的上传和下载](http://www.cnblogs.com/rollenholt/p/4917032.html)
@@ -48,4 +48,13 @@ Mac和Linux:
 name = input('Please input your name: ')
 print('Hello', name)  #,相当于空格
 
+name = input("please input your name: ")
+age = input('please input your age: ')
+print(name)
+print('Hello %r\nyou are %r' % (name,age))
 ```
+python2.x中：
+input():当输入字符串时要加单引号或双引号，输入数字则接受的变量为整型
+raw_input()：把接受的都当作字符串
+python3.x中：
+只有input()，相当于之前的raw_input()
