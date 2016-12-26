@@ -43,9 +43,41 @@ Mac和Linux:
 
 **用Python开发程序，完全可以一边在文本编辑器里写代码，一边开一个交互式命令窗口，在写代码的过程中，把部分代码粘到命令行去验证，事半功倍！**
 
+## Python基础
 ### 输入输出
 ```python
 name = input('Please input your name: ')
 print('Hello', name)  #,相当于空格
-
+print("I\'m OK \"haha\"")
+print("I'm OK!")
+print(r'''line1\n
+line2
+line3''')    #字符串前的r将\n不理解为换行，而是反斜杠\+字母n
+print('''line1\n
+line2
+line3''')
 ```
+
+### 数据类型和变量
+#### 布尔值
+and or not
+```
+print(3>2 or 2>3)
+
+output: True
+```
+#### 空值
+None表示空
+#### 变量
+这种变量本身类型不固定的语言称之为动态语言，与之对应的是静态语言。
+#### 常量
+在Python中，通常用全部大写的变量名表示常量：
+```
+PI = 3.14159265359
+10/3  #精确除
+10//3 #地板除，得到结果是取整后的整数
+10%3  #求余
+```
+
+### 字符串和编码
+
