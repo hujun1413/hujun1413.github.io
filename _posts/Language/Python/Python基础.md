@@ -51,7 +51,7 @@ print('Hello', name)  #,相当于空格
 name = input("please input your name: ")
 age = input('please input your age: ')
 print(name)
-print('Hello %r\nyou are %r' % (name,age))
+print('Hello %s\nyou are %r' % (name,age))
 ```
 python2.x中：
 input():当输入字符串时要加单引号或双引号，输入数字则接受的变量为整型
@@ -88,4 +88,247 @@ PI = 3.14159265359
 10%3  #求余
 ```
 ### 字符串和编码
+* ASCII编码是1个字节，而Unicode编码通常是2个字节。
+* UTF-8编码把一个Unicode字符根据不同的数字大小编码成1-6个字节
+* 在计算机内存中，统一使用Unicode编码，当需要保存到硬盘或者需要传输的时候，就转换为UTF-8编码。
+* 对于单个字符的编码，Python提供了ord()函数获取字符的整数表示，chr()函数把编码转换为对应的字符：
+```
+>>> ord('A')
+65
+>>> chr(66)
+'B'
+```
+* 要注意区分'ABC'和b'ABC'，前者是str，后者虽然内容显示得和前者一样，但bytes的每个字符都只占用一个字节。
+* 以Unicode表示的str通过encode()方法可以编码为指定的bytes
+```
+>>> 'ABC'.encode('ascii')
+b'ABC'
+>>> '中文'.encode('utf-8')
+b'\xe4\xb8\xad\xe6\x96\x87'
+>>> b'\xe4\xb8\xad'.decode('utf-8')
+'中'
+>>> len(b'ABC')
+3
+>>> len(b'\xe4\xb8\xad\xe6\x96\x87')
+6
+>>> len('中文'.encode('utf-8'))
+6
+文件开头加：
+# -*- coding: utf-8 -*-
+并且要确保文本编辑器正在使用UTF-8 without BOM编码
+```
+### 格式化输出
+```
+>>> 'Hi, %s, you have $%d.' % ('Michael', 1000000)
+'Hi, Michael, you have $1000000.'
+>>> '%4d' % (3)  //前补空格
+'   3'
+>>> print('%-4d+' %3); //后补空格
+3   +
+>>> '%04d' % (3)
+'0003'
+>>> '%.2f' % 3.1415926
+'3.14'
+>>> 'growth rate: %d %%' % 7
+'growth rate: 7 %'
+```
+%s永远起作用，它会把任何数据类型转换为字符串
+
+### 使用list和tuple
+#### list
+```
+构造：
+classmates = ['Michael', 'Bob', 'Tracy']
+>>> classmates
+['Michael', 'Bob', 'Tracy']
+
+访问：
+>>> classmates[1]   #第2个，最多到len(classmates)
+'Bob'
+>>> classmates[-1] #倒数第一个，最多到-len(classmates)
+'Tracy'
+
+增加：
+>>> classmates.append('Adam')
+>>> classmates.insert(1, 'Jack')
+
+删除：
+>>> classmates.pop()
+'Adam'  #同时，classmates末尾的'Adam'被删除
+>>> classmates.pop(i) #删除i位置的元素
+
+修改：
+>>> classmates[1] = 'Sarah'
+```
+list的元素的数据类型可以不同:
+```
+>>> L = ['Apple', 123, True, None]
+
+>>> s = ['python', 'java', ['asp', 'php'], 'scheme']
+
+>>> s[2][1]  #类似二维数组
+'php'
+```
+#### tuple
+```
+构造：
+>>> classmates = ('Michael', 'Bob', 'Tracy')
+>>> classmates
+('Michael', 'Bob', 'Tracy')
+
+# tuple没有append(),insert()等方法，只能访问class[0],class[-1]，不能赋值
+
+L = (1,)  #只有一个元素为0的tuple
+L = (1)   #L = 1,默认表示小括号里是数字1
+
+实际上，tuple的每个元素不变，指的是元素的指向不变。例如：元素指向一个list，不能再指向其他对象，但list本身可以变。
+>>> t = ('a', 'b', ['A', 'B'])
+>>> t[2][0] = 'X'
+>>> t
+('a', 'b', ['X', 'B'])
+```
+
+### 条件判断
+```Python
+age = 20
+if age >= 18:
+	print("成年人")
+elif age >= 12:
+	print("初中")
+else:
+	print("小学生")
+```
+
+### 循环
+```
+sum = 0
+for x in range(11)
+	sum = sum + x
+print(sum)
+
+sum = 0
+x = 1
+
+while x <= 10:
+    sum += x
+    x = x + 1
+print(sum)
+```
+break和continue的使用
+
+### 使用dict和set
+```
+构造：
+>>> d = {'Michael':95, 'Bob':75, 'Tracy':85}
+>>> d
+{'Michael': 95, 'Bob': 75, 'Tracy': 85}
+>>> d['Michael']
+95
+
+增加：
+>>> d['Adam'] = 67  #若不存在则添加，若存在则修改
+
+判断key是否存在：
+>>> 'Thomas' in d
+False
+>>> d.get('Thomas',-1)
+-1  #存在则返回value，否则返回-1
+
+删除：
+>>> d.pop('Bob')
+75  #d中Bob被删除
+
+获取keys/values：
+>>> d.keys()
+dict_keys(['Bob', 'Michael', 'Tracy'])
+>>> list(d.keys())
+['Bob', 'Michael', 'Tracy']
+>>> list(d.values())
+[75, 95, 85]
+>>> list(d.items()) #dict转list
+[('Bob', 75), ('Michael', 95), ('Tracy', 85)]
+```
+和list比较，dict有以下几个特点：
+
+> 查找和插入的速度极快，不会随着key的增加而变慢；
+需要占用大量的内存，内存浪费多。
+
+而list相反：
+> 查找和插入的时间随着元素的增加而增加；
+占用空间小，浪费内存很少。
+
+**dict的key必须是不可变对象。**
+```
+>>> d[[1,2]] = 'a list'
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: unhashable type: 'list'
+```
+### set
+```
+构造：
+>>> s = set([1,2,1,3])
+>>> s
+{1, 2, 3}
+>>> s=set('hello')
+>>> s
+{'o', 'e', 'l', 'h'}
+>>> s.update('kitty') #向set添加一个interable的各个元素
+>>> s
+{'l', 'o', 't', 'e', 'i', 'k', 'h', 'y'}
+>>> s.update(4)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'int' object is not iterable
+
+增加：
+>>> s.add(4)
+
+删除：
+>>> s.remove(4)
+
+交集,并集：
+>>> s1 = set([1,2,3])
+>>> s2 = set([2,3,4])
+>>> s1 & s2
+{2, 3}
+>>> s1 | s2
+{1, 2, 3, 4}
+```
+对于不变对象来说，调用对象自身的任意方法，也不会改变该对象自身的内容。相反，这些方法会创建新的对象并返回，这样，就保证了不可变对象本身永远是不可变的。
+
+### 总结：
+```
+list:
+L = [1, 2, 3]
+>>> d = ([5,6])  #忽略掉(),按[]读取，因此是list，而不是tuple
+>>> d
+[5, 6]
+>>> type(d)
+<class 'list'>
+
+tuple:
+T = (1, 2, 3)
+
+dict:
+D = {'Michael':95, 'Bob':75, 'Tracy':85}
+
+set:
+S = set([1, 2, 3])
+S = set((1, 2, 3))  #虽然也可以，但最好不这么构造
+s4 = set([1, (2, 3)]  #正确
+s4 = set([1, [2, 3]   #错误
+s4 = set(1, (2, [3, 4]))  #错误
+```
+**通过type(S)来获取S的数据类型**
+```
+>>> name = {1,2}
+>>> type(name)
+<class 'set'>
+>>> name = {}
+>>> type(name)
+<class 'dict'>
+```
+
+
 
