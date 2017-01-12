@@ -17,7 +17,7 @@ tags:   # 文章标签，参数可省略
 * 默认情况下，HTML 会自动地在块级元素前后添加一个额外的空行，比如段落、标题元素前后。
 * 当显示页面时，浏览器会移除源代码中多余的空格和空行。所有连续的空格或空行都会被算作一个空格。
 
-```
+```javascript
 <html>
 <body>
 
@@ -30,37 +30,37 @@ tags:   # 文章标签，参数可省略
 ```
 
 #### 注释
-```
+```javascript
 <!-- This is a comment -->
 ```
 
 #### 标题
-```
+```javascript
 <h1>This is a heading</h1>
 <h2>This is a heading</h2>
 <h3>This is a heading</h3>
 ```
 
 #### HTML 水平线
-```
+```javascript
 <p>This is a paragraph</p>
 <hr />
 <p>This is a paragraph</p>
 ```
 
 #### 段落
-```
+```javascript
 <p>This is a paragraph.</p>
 <p>This is another paragraph.</p>
 ```
 
 #### 链接
-```
+```javascript
 <a href="http://www.w3school.com.cn">This is a link</a>
 ```
 
 #### 图像
-```
+```javascript
 <img src="http://ofl6ycl3e.bkt.clouddn.com/images/CNCC2016%E6%80%BB%E7%BB%93/CNCC2016.jpg" width="1080" height="720" />
 
 <img src="img_the_scream.jpg" width="220" height="277" alt="The Scream">
@@ -71,7 +71,7 @@ tags:   # 文章标签，参数可省略
 即使 `<br>` 在所有浏览器中都是有效的，但使用 `<br />` 其实是更长远的保障。
 
 #### 属性
-```
+```javascript
 <body bgcolor="yellow">
 <h1 align="center">My First Heading</h1>
 ```
@@ -92,7 +92,7 @@ color	                      定义文本颜色
 #### 样式
 样式是 HTML 4 引入的，它是一种新的首选的改变 HTML 元素样式的方式。通过 HTML 样式，能够通过使用 style 属性直接将样式添加到 HTML 元素，或者间接地在独立的样式表中（CSS 文件）进行定义。
 改变背景颜色，字体，颜色和尺寸，对齐。
-```
+```javascript
 <html>
 <body style="background-color:PowderBlue;">
 
@@ -114,11 +114,11 @@ This text is in Times and green</p>
 
 #### 文本格式化
 * [文本格式化](http://www.w3school.com.cn/tiy/t.asp?f=html_textformatting)
-```
+```javascript
 <strong>This text is strong</strong>
 ```
 * [预格式文本](http://www.w3school.com.cn/tiy/t.asp?f=html_preformattedtext)
-```
+```javascript
 <pre>
 for i = 1 to 10
      print i
@@ -126,31 +126,31 @@ next i
 </pre>
 ```
 * [“计算机输出”标签](http://www.w3school.com.cn/tiy/t.asp?f=html_computeroutput)
-```
+```javascript
 <samp>Sample text</samp>
 <br />
 <var>Computer variable</var>
 ```
 * [地址](http://www.w3school.com.cn/tiy/t.asp?f=html_address)
-```
+```javascript
 Written by <a href="mailto:webmaster@example.com">Donald Duck</a>.<br>
 ```
 * [缩写和首字母缩写](http://www.w3school.com.cn/tiy/t.asp?f=html_abbracronym)
-```
+```javascript
 <abbr title="etcetera">etc.</abbr>
 <br />
 <acronym title="World Wide Web">WWW</acronym>
 <p><dfn title="World Health Organization">WHO</dfn> 成立于 1948 年。</p>
 ```
 * [文字方向](http://www.w3school.com.cn/tiy/t.asp?f=html_bdo)
-```
+```javascript
 <bdo dir="rtl">
 Here is some Hebrew text
 </bdo>
 ```
 * [块引用](http://www.w3school.com.cn/tiy/t.asp?f=html_quotations)
 
-```
+```javascript
 <blockquote>
 这是长的引用。这是长的引用。这是长的引用。这是长的引用。这是长的引用。这是长的引用。这是长的引用。这是长的引用。这是长的引用。这是长的引用。这是长的引用。
 </blockquote>
@@ -160,12 +160,12 @@ Here is some Hebrew text
 </q>
 ```
 * [删除字效果和插入字效果](http://www.w3school.com.cn/tiy/t.asp?f=html_delins)
-```
+```javascript
 <p>一打有 <del>二十</del> <ins>十二</ins> 件。</p>
 ```
 
 #### 变量格式化（数学变量）
-```
+```javascript
 <p>Einstein wrote:</p>
 
 <p><var>E = m c<sup>2</sup></var></p>

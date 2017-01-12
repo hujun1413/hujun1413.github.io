@@ -11,7 +11,7 @@ tags:   # 文章标签，参数可省略
 [快速入门](http://www.pythondoc.com/flask/quickstart.html#)
 
 ### 一个最小的应用
-```
+```python
 from flask import Flask
 app = Flask(__name__)
 
@@ -24,7 +24,7 @@ if __name__ == '__main__':
 ```
 
 ### 构建URL
-```
+```python
 >>> from flask import Flask, url_for
 >>> app = Flask(__name__)
 >>> @app.route('/')

@@ -7,7 +7,7 @@ categories:   # 文章分类目录，参数可省略
 tags:   # 文章标签，参数可省略
 ---
 ### 使用模块
-```
+```python
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
@@ -49,7 +49,7 @@ if __name__ == '__main__':
 * 默认情况下，Python解释器会搜索当前目录、所有已安装的内置模块和第三方模块，搜索路径存放在sys模块的path变量中
 * 添加自己的搜索目录，有两种方法：
 	1. 直接修改sys.path，添加要搜索的目录：
-	```
+	```python
     >>> import sys
 	>>> sys.path.append('/Users/michael/my_py_scripts')
     ```
