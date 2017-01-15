@@ -7,7 +7,7 @@ categories:   # 文章分类目录，参数可省略
 tags:   # 文章标签，参数可省略
 ---
 ### 调用函数
-```
+```python
 help(abs)  #查看abs()函数的帮助信息
 abs(-6)
 max(2,3,1,-5)
@@ -28,14 +28,14 @@ False
 >>>
 ```
 函数名其实就是指向一个函数对象的引用，完全可以把函数名赋给一个变量，相当于给这个函数起了一个“别名”：
-```
+```python
 >>> a = abs # 变量a指向abs函数
 >>> a(-1) # 所以也可以通过a调用abs函数
 1
 ```
 
 ### 定义函数
-```
+```python
 def my_abs(x):
     if not isinstance(x, (int, float)):
         raise TypeError('bad operand type')
@@ -55,7 +55,7 @@ def my_abs(x):
 return None可以简写为return。
 
 #### 空函数
-```
+```python
 if age >= 18:
     pass
 ```
@@ -65,7 +65,7 @@ pass语句什么都不做，那有什么用？实际上pass可以用来作为占
 数据类型检查可以用内置函数isinstance()实现
 
 #### 返回多个值
-```
+```python
 import math
 
 def move(x, y, step, angle = 0):
@@ -116,14 +116,14 @@ def quadratic(a, b, c):
 * 默认参数必须指向不变对象！
 
 ##### 调用
-```
+```python
 def enroll(name, gender, age=6, city='Beijing'):
 
 enroll('Bob', 'M', 7)
 enroll('Adam', 'M', city='Tianjin')
 ```
 #### 可变参数
-```
+```python
 def calc(*numbers):
     sum = 0
     for n in numbers:
@@ -145,7 +145,7 @@ num = [1,2,3]
 ```
 #### 关键字参数
 可以扩展函数的功能
-```
+```python
     print('name:', name, '\nage:', age, '\nother:', kw)
 
 >>> person('Michael', 30, city='Beijing', job = 'Engineer')
@@ -161,7 +161,7 @@ other: {'city': 'Beijing', 'job': 'Engineer'}
 ```
 
 #### 命名关键字参数
-```
+```python
 def person(name, age, *, city, job):
     print(name, age, city, job)
 
@@ -177,7 +177,7 @@ J 24 ([1, 2],) Beijing Engineer
 J 24 () Beijing Engineer
 ```
 命名关键字参数必须传入参数名，这和位置参数不同。如果没有传入参数名，调用将报错：
-```
+```python
 >>> person('Jack', 24, 'Beijing', 'Engineer')
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -191,7 +191,7 @@ TypeError: person2() missing 1 required keyword-only argument: 'job'
 
 #### 参数组合
 在Python中定义函数，可以用必选参数、默认参数、可变参数、关键字参数和命名关键字参数，这5种参数都可以组合使用。但是请注意，参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数和关键字参数。
-```
+```python
 def f1(a, b, c=0, *args, **kw):
     print('a =', a, 'b =', b, 'c =', c, 'args =', args, 'kw =', kw)
 
@@ -226,7 +226,7 @@ a = 1 b = 2 c = 3 d = 88 kw = {'x': '#'}
 * **kw是关键字参数，kw接收的是一个dict。
 
 ####递归函数
-```
+```python
 def fact(n):
     if n==1:
         return 1
@@ -248,7 +248,7 @@ def fact_iter(num, product):
 * 遗憾的是，大多数编程语言没有针对尾递归做优化，Python解释器也没有做优化，所以，即使把上面的fact(n)函数改成尾递归方式，也会导致栈溢出。
 
 习题：汉诺塔
-```
+```python
 def hanno(n,a,b,c):
     if n==1:
         print(a, '-->', c)

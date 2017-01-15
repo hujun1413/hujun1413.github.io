@@ -58,7 +58,7 @@ input():当输入字符串时要加单引号或双引号，输入数字则接受
 raw_input()：把接受的都当作字符串
 python3.x中：
 只有input()，相当于之前的raw_input()
-```
+```python
 print("I\'m OK \"haha\"")
 print("I'm OK!")
 print(r'''line1\n
@@ -71,7 +71,7 @@ line3''')
 ### 数据类型和变量
 #### 布尔值
 and or not
-```
+```python
 print(3>2 or 2>3)
 output: True
 ```
@@ -81,7 +81,7 @@ None表示空
 这种变量本身类型不固定的语言称之为动态语言，与之对应的是静态语言。
 #### 常量
 在Python中，通常用全部大写的变量名表示常量：
-```
+```python
 PI = 3.14159265359
 10/3  #精确除
 10//3 #地板除，得到结果是取整后的整数
@@ -92,7 +92,7 @@ PI = 3.14159265359
 * UTF-8编码把一个Unicode字符根据不同的数字大小编码成1-6个字节
 * 在计算机内存中，统一使用Unicode编码，当需要保存到硬盘或者需要传输的时候，就转换为UTF-8编码。
 * 对于单个字符的编码，Python提供了ord()函数获取字符的整数表示，chr()函数把编码转换为对应的字符：
-```
+```python
 >>> ord('A')
 65
 >>> chr(66)
@@ -100,7 +100,7 @@ PI = 3.14159265359
 ```
 * 要注意区分'ABC'和b'ABC'，前者是str，后者虽然内容显示得和前者一样，但bytes的每个字符都只占用一个字节。
 * 以Unicode表示的str通过encode()方法可以编码为指定的bytes
-```
+```python
 >>> 'ABC'.encode('ascii')
 b'ABC'
 >>> '中文'.encode('utf-8')
@@ -118,7 +118,7 @@ b'\xe4\xb8\xad\xe6\x96\x87'
 并且要确保文本编辑器正在使用UTF-8 without BOM编码
 ```
 ### 格式化输出
-```
+```python
 >>> 'Hi, %s, you have $%d.' % ('Michael', 1000000)
 'Hi, Michael, you have $1000000.'
 >>> '%4d' % (3)  //前补空格
@@ -136,7 +136,7 @@ b'\xe4\xb8\xad\xe6\x96\x87'
 
 ### 使用list和tuple
 #### list
-```
+```python
 构造：
 classmates = ['Michael', 'Bob', 'Tracy']
 >>> classmates
@@ -161,7 +161,7 @@ classmates = ['Michael', 'Bob', 'Tracy']
 >>> classmates[1] = 'Sarah'
 ```
 list的元素的数据类型可以不同:
-```
+```python
 >>> L = ['Apple', 123, True, None]
 
 >>> s = ['python', 'java', ['asp', 'php'], 'scheme']
@@ -170,7 +170,7 @@ list的元素的数据类型可以不同:
 'php'
 ```
 #### tuple
-```
+```python
 构造：
 >>> classmates = ('Michael', 'Bob', 'Tracy')
 >>> classmates
@@ -200,7 +200,7 @@ else:
 ```
 
 ### 循环
-```
+```python
 sum = 0
 for x in range(11)
 	sum = sum + x
@@ -217,7 +217,7 @@ print(sum)
 break和continue的使用
 
 ### 使用dict和set
-```
+```python
 构造：
 >>> d = {'Michael':95, 'Bob':75, 'Tracy':85}
 >>> d
@@ -258,14 +258,14 @@ dict_keys(['Bob', 'Michael', 'Tracy'])
 占用空间小，浪费内存很少。
 
 **dict的key必须是不可变对象。**
-```
+```python
 >>> d[[1,2]] = 'a list'
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: unhashable type: 'list'
 ```
 ### set
-```
+```python
 构造：
 >>> s = set([1,2,1,3])
 >>> s
@@ -297,8 +297,8 @@ TypeError: 'int' object is not iterable
 ```
 对于不变对象来说，调用对象自身的任意方法，也不会改变该对象自身的内容。相反，这些方法会创建新的对象并返回，这样，就保证了不可变对象本身永远是不可变的。
 
-### 总结：
-```
+### 总结
+```python
 list:
 L = [1, 2, 3]
 >>> d = ([5,6])  #忽略掉(),按[]读取，因此是list，而不是tuple
@@ -321,7 +321,7 @@ s4 = set([1, [2, 3]   #错误
 s4 = set(1, (2, [3, 4]))  #错误
 ```
 **通过type(S)来获取S的数据类型**
-```
+```python
 >>> name = {1,2}
 >>> type(name)
 <class 'set'>

@@ -168,7 +168,7 @@ git push origin :article    #删除远程的article分支
 git push origin article     #当前分支推送至远程，若远程不存在则创建之
 ```
 
-### remote 
+### remote
 ```bash
 git remote -v 查看远程主机的网址
 git clone -o jQuery https://github.com/jquery/jquery.git
@@ -194,6 +194,18 @@ git push --force    #强行推送至远程，远程的提交记录则只到该�
 #或直接删除远程分支后重新提交建立新的分支
 git push origin :article
 git push origin article
+```
+
+### gitignore文件
+```
+在本地项目目录下删除缓存（否则想忽略但已经在版本库中记录的文件将不会被删除）
+git rm -r --cached .
+
+新建.gitignore文件
+再次add所有文件
+git add .
+
+再commmit即可
 ```
 
 ### 其他
