@@ -142,6 +142,8 @@ inserted probes:计数执行的代码数
 
 ### 基于fail-recovery：每个测试用例仅注入一个错误不能覆盖大部分错误处理代码
 
+### 错误注入的值不一定是-1和NULL，有很多都是和负整数进行比较，若遍历后面的比较值产生样例会造成测试用例爆炸增长吗？
+
 让fail-recovery在合适的地方停止，就和fail-stop类似了。
 
 解决方案（随便想几个）：
@@ -206,7 +208,6 @@ ADFI injects multiple faults in each test case. The advantage is that much more 
 * `rm -rf .*`的含义？（删除目录下所有.xxx的文件？）
 
 ```bash
-
 rm -rf .* *.ko *.o *.mod.* *.symvers *.order
 
 rm: 无法删除目录："."
@@ -214,12 +215,10 @@ rm: 无法删除目录："."
 rm: 无法删除目录：".."
 
 make: *** [clean] 错误 1
-
 ```
 
 * `dmesg -c`当完成打印显示后清除环缓冲内的内容？为什么要做这步？
 
-* 
 
 
 
@@ -235,7 +234,7 @@ make: *** [clean] 错误 1
 
 1. 在当前目录下新建tmp/和mytest/文件夹
 
-2. 将当前编译器（$(CC)）变为`clang EXTRA_CFLAGS+="-emit-llvm -S"`，再加"-k"选项对驱动进行编译。
+2. 将当前编译器（$(CC)）变为`clang EXTRA_CFLAGS+="-emit-llvm -S"`(意思是编译成.ll？)，再加"-k"选项对驱动进行编译。
 
 3. 对当前文件夹中的所有.o文件：
 
