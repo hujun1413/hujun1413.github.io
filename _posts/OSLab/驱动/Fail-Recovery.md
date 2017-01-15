@@ -7,6 +7,11 @@ categories:   # 文章分类目录，参数可省略
 tags:   # 文章标签，参数可省略
 ---
 ### Fail-Recovery的特点
+* 找fail-stop的驱动源码，看下怎么写的
+* 找fail-recovery的驱动源码，看下怎么写的
+* 对比两者的差异，确定EH-Test如何修改完善到支持fail-recovery的驱动
+
+
 some drivers like SATA are based on the
 fail-recovery model, namely they will restart when an
 error occurs. Thus, many branches are needed to handle
@@ -36,3 +41,24 @@ code using fault injection. In ACM Transactions
 on Computer Systems, volume 29, issue 4, 2011.
 
 <!--more-->
+
+### SATA驱动
+#### linux 2.6.10 drivers/scsi/sata_sx4.c
+
+
+#### linux 4.2.1 drivers/ata/sata+sx4.c
+pdc_reset_port
+
+
+fail-stop在错误出现的时候直接pci_disable_device(pdev)，而fail-recovery并没有。但没有找到recovery在哪个位置
+
+
+#### 2.6.10 drivers/scsi/sata_promise.c/pdc_port_start
+有kfree(pp);
+
+#### 4.2.1 drivers/ata/sata_promise.c/pdc_common_port_start
+无kfree(pp);
+Memory allocated using this function will be automatically released on driver detach.
+
+drivers/ata/sata_promise.c/pdc_reset_port什么时候调用
+
