@@ -24,7 +24,6 @@ tags:   # 文章标签，参数可省略
 ### 我们做了什么工作
 
 <!--more-->
-
 步骤：
 
 
@@ -138,11 +137,11 @@ inserted probes:计数执行的代码数
 
 ### 有些错误处理不是函数返回值，而是读到的寄存器的值
 
-### 不会走到的代码怎么处理：这里面也会有bug，想想能不能改变程序执行的流程，让代码能尽可能地走到，及提高代码的执行覆盖率。
-
 ### 基于fail-recovery：每个测试用例仅注入一个错误不能覆盖大部分错误处理代码
 
 ### 错误注入的值不一定是-1和NULL，有很多都是和负整数进行比较，若遍历后面的比较值产生样例会造成测试用例爆炸增长吗？
+
+### 不会走到的代码怎么处理：这里面也会有bug，想想能不能改变程序执行的流程，让代码能尽可能地走到，及提高代码的执行覆盖率。
 
 让fail-recovery在合适的地方停止，就和fail-stop类似了。
 
@@ -170,43 +169,26 @@ else if(pci == -2)
 
 1. 对于这种函数，错误注入的值依次是后面判断语句中进入分支的值（若判断到属于此类函数，则每次发生recovery时不停止，而是根据rec标志位确定此次注入的值是进入第几个分支的值）
 
-
-
-看linux4.2.1的源码
-
-
-K. Cong, L. Lei, Z. Yang and F. Xie. Automatic fault injection
-
-for driver robustness testing. In Proceedings of
-
-the 2015 International Symposium on Software Testing
-
-and Analysis, pages 361-372, 2015.
-
-ADFI injects multiple faults in each test case. The advantage is that much more configuration and error handling code can be covered to detect more bugs.
-
-
-
-
-
-
-
 ### 阅读EH-Test源码记录
 
-* 当pair中释放函数要释放的资源没有被申请，算bug吗？
+*当pair中释放函数要释放的资源没有被申请，算bug吗？*
 
 * 判断函数的返回值是否被检查，里面的real和temp的具体含义？
+real是%a=...,%b=...
+temp是%1=...,%2=...
 
-* 用64位的虚拟机跑EH-Test会导致虚拟机出故障吗？如果只是不能正确运行出Bug检测但能运行来熟悉EH-Test流程，那我能试着在虚拟机里跑吗？
+*用64位的虚拟机跑EH-Test会导致虚拟机出故障吗？如果只是不能正确运行出Bug检测但能运行来熟悉EH-Test流程，那我能试着在虚拟机里跑吗？*
 
-* 将EH-Test改成支持32位linux机器，如何通过ConstantInt* 获取它的值到32位的整型
+* 如何通过ConstantInt* 获取它的值到32位的整型
+bitcast
+cast
 
-* 当检测到bug时，只能知道是哪个函数出错了，能否定位到源代码中的位置（貌似转换成.bc后原始代码的位置就发生了改变，找找资料看看有没有可行的办法用于定位）
+*当检测到bug时，只能知道是哪个函数出错了，能否定位到源代码中的位置（貌似转换成.bc后原始代码的位置就发生了改变，找找资料看看有没有可行的办法用于定位）*
 
 * `../../RemoveSymbol $bsfile`(将.bc改后缀变为.ll后执行这句的含义？)
 
-* `rm -rf .*`的含义？（删除目录下所有.xxx的文件？）
-
+* `rm -rf .*`的含义？（删除目录下所有.xxx的文件(夹)？）
+make helloworld.ko
 ```bash
 rm -rf .* *.ko *.o *.mod.* *.symvers *.order
 
@@ -217,7 +199,11 @@ rm: 无法删除目录：".."
 make: *** [clean] 错误 1
 ```
 
-* `dmesg -c`当完成打印显示后清除环缓冲内的内容？为什么要做这步？
+*`dmesg -c`当完成打印显示后清除环缓冲内的内容？为什么要做这步？*
+打印出所有的printk信息并清除环缓冲
+
+* 怎么编译驱动，执行Monitor, EH-Test?
+* 在哪里找fail-recovery的论文或者资料
 
 
 
@@ -330,10 +316,11 @@ make: *** [clean] 错误 1
 
 
 
-
-
-
-
+mmmutj@gmail.com
+穆太江，
+dejungle
+18210719527
+做的成果，效果，PPT
 
 
 
