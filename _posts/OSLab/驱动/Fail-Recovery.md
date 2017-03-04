@@ -7,9 +7,7 @@ categories:   # 文章分类目录，参数可省略
 tags:   # 文章标签，参数可省略
 ---
 ### Fail-Recovery的特点
-* 找fail-stop的驱动源码，看下怎么写的
-* 找fail-recovery的驱动源码，看下怎么写的
-* 对比两者的差异，确定EH-Test如何修改完善到支持fail-recovery的驱动
+* 对比fail-stop和fail-recovery两者的差异，确定EH-Test如何修改完善到支持fail-recovery的驱动
 
 
 some drivers like SATA are based on the
@@ -30,6 +28,10 @@ error handling code in runtime testing.
 
 
 
+ADFI injects multiple faults in each test case. The advantage is that much more configuration and error handling code can be covered to detect more bugs.
+
+
+
 R. Banabic and G. Candea. Fast black-box testing of system
 recovery code. In Proceedings of the 7th European
 conference on Computer Systems, pages 281-294, 2012.
@@ -39,6 +41,12 @@ conference on Computer Systems, pages 281-294, 2012.
 P. D. Marinescu and G. Candea. Efficient testing of recovery
 code using fault injection. In ACM Transactions
 on Computer Systems, volume 29, issue 4, 2011.
+
+K. Cong, L. Lei, Z. Yang and F. Xie. Automatic fault injection
+for driver robustness testing. In Proceedings of
+the 2015 International Symposium on Software Testing
+and Analysis, pages 361-372, 2015.
+
 
 <!--more-->
 
@@ -50,7 +58,7 @@ on Computer Systems, volume 29, issue 4, 2011.
 pdc_reset_port
 
 
-fail-stop在错误出现的时候直接pci_disable_device(pdev)，而fail-recovery并没有。但没有找到recovery在哪个位置
+fail-stop在错误出现的时候直接pci_disable_device(pdev)，而fail-recovery并没有，而是做一些重新初始化的reset工作。
 
 
 #### 2.6.10 drivers/scsi/sata_promise.c/pdc_port_start
@@ -60,5 +68,39 @@ fail-stop在错误出现的时候直接pci_disable_device(pdev)，而fail-recove
 无kfree(pp);
 Memory allocated using this function will be automatically released on driver detach.
 
-drivers/ata/sata_promise.c/pdc_reset_port什么时候调用
+drivers/ata/sata_promise.c/pdc_error_handler赋值给了一个结构体的元素，通过这个元素来调用pdc_error_handler()
+
+if (sata_scr_valid(&ap->link) && (ap->flags & PDC_FLAG_GEN_II))
+
+if (!(ap->pflags & ATA_PFLAG_FROZEN))
+
+读寄存器的值出错
+多个条件满足，多分支
+workload期间监控的资源未释放不一定是真的，可能是未到释放的地方
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
