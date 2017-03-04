@@ -74,5 +74,16 @@ if (sata_scr_valid(&ap->link) && (ap->flags & PDC_FLAG_GEN_II))
 
 if (!(ap->pflags & ATA_PFLAG_FROZEN))
 
-寄存器的值
+
+读寄存器的值出错
 多个条件满足，多分支
+workload期间监控的资源未释放不一定是真的，可能是未到释放的地方
+
+
+
+
+
+
+
+
+

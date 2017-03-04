@@ -16,8 +16,13 @@ tags:   # 文章标签，参数可省略
 * [完整的 HTML 参考手册](http://www.w3school.com.cn/tags/index.asp)
 * 默认情况下，HTML 会自动地在块级元素前后添加一个额外的空行，比如段落、标题元素前后。
 * 当显示页面时，浏览器会移除源代码中多余的空格和空行。所有连续的空格或空行都会被算作一个空格。
+<<<<<<< HEAD
+<!--more-->
+```
+=======
 
 ```javascript
+>>>>>>> origin/article
 <html>
 <body>
 

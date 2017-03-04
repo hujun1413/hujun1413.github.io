@@ -5,7 +5,9 @@ categories:   # 文章分类目录，参数可省略
     - 编程语言
     - Python
 tags:   # 文章标签，参数可省略
+
 ---
+[TOC]
 ### 参考资料
 [欢迎使用Flask](http://docs.jinkan.org/docs/flask/index.html)
 [快速入门](http://www.pythondoc.com/flask/quickstart.html#)
