@@ -1,0 +1,724 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="安装
+在官网下载页下载LLVM3.2版本的llvm3.2和clang3.2的source code压缩包
+解压后安装：./configure,make,sudo make install">
+<meta property="og:type" content="article">
+<meta property="og:title" content="0.LLVM安装及工具链">
+<meta property="og:url" content="http://hujun1413.github.io/2016/11/09/OSLab/LLVM/0.LLVM安装及工具链/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="安装
+在官网下载页下载LLVM3.2版本的llvm3.2和clang3.2的source code压缩包
+解压后安装：./configure,make,sudo make install">
+<meta property="og:updated_time" content="2017-06-10T06:38:17.196Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="0.LLVM安装及工具链">
+<meta name="twitter:description" content="安装
+在官网下载页下载LLVM3.2版本的llvm3.2和clang3.2的source code压缩包
+解压后安装：./configure,make,sudo make install">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 0.LLVM安装及工具链 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                0.LLVM安装及工具链
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-09T18:35:26+08:00" content="2016-11-09">
+              2016-11-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/OSLab/" itemprop="url" rel="index">
+                    <span itemprop="name">OSLab</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/OSLab/LLVM/" itemprop="url" rel="index">
+                    <span itemprop="name">LLVM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/09/OSLab/LLVM/0.LLVM安装及工具链/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/09/OSLab/LLVM/0.LLVM安装及工具链/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
+<li>在<a href="http://llvm.org/releases/download.html" target="_blank" rel="external">官网下载页</a>下载LLVM3.2版本的llvm3.2和clang3.2的source code压缩包</li>
+<li>解压后安装：./configure,make,sudo make install<a id="more"></a>
+<h3 id="什么是LLVM"><a href="#什么是LLVM" class="headerlink" title="什么是LLVM"></a>什么是LLVM</h3>llvm是low level virtual machine的简称，其实是一个编译器框架。llvm随着这个项目的不断的发展，已经无法完全的代表这个项目了，只是这种叫法一直延续下来。</li>
+</ul>
+<p>llvm是一个开源的项目。它最早的时候是Illinois的一个研究项目，主要负责人是Chris Lattner，他现在就职于Apple. Apple 目前也是llvm项目的主要赞助者之一。</p>
+<p>llvm的主要作用是它可以作为多种语言的后端，它可以提供可编程语言无关的优化和针对很多种CPU的代码生成功能。此外llvm目前已经不仅仅是个编程框架，它目前还包含了很多的子项目，比如最具盛名的clang.</p>
+<p>llvm的优点是开源，有一个表达形式很好的IR语言，模块化作的特别好。</p>
+<p>llvm这个框架目前已经有基于这个框架的大量的工具可以使用。</p>
+<h3 id="LLVM-Command-Guide"><a href="#LLVM-Command-Guide" class="headerlink" title="LLVM Command Guide"></a><a href="http://llvm.org/docs/CommandGuide/index.html" target="_blank" rel="external">LLVM Command Guide</a></h3><ul>
+<li><p>llvm-as 将人类可读的 .ll 文件汇编成字节代码</p>
+</li>
+<li><p>llvm-dis 将字节代码文件反编成人类可读的 .ll 文件</p>
+</li>
+<li><p>opt 在一个字节代码文件上运行一系列的 LLVM 到 LLVM 的优化</p>
+</li>
+<li><p>llc 为一个字节代码文件生成本机器代码</p>
+</li>
+<li><p>lli 直接运行使用 JIT 编译器或者解释器编译成字节代码的程序(运行.bc文件或.ll文件)</p>
+</li>
+<li><p>llvm-link 将几个字节代码文件连接成一个</p>
+</li>
+<li><p>llvm-ar 打包字节代码文件</p>
+</li>
+<li><p>llvm-lib LLVM lib.exe compatible library tool</p>
+</li>
+<li><p>llvm-nm 在 打印出LLVM中间格式或者object文件的符号表（2014年5月14日更新）</p>
+</li>
+<li><p>llvm-config 打印出配置时 LLVM 编译选项、库、等等</p>
+</li>
+<li><p>llvm-diff 比较两个模块的结构</p>
+</li>
+</ul>
+<blockquote>
+<p>llvm-ranlib 为 llvm-ar 打包的文件创建索引</p>
+</blockquote>
+<p>llvm-prof 将 ‘llvmprof.out’ raw 数据格式化成人类可读的报告</p>
+<p>llvm-ld 带有可装载的运行时优化支持的通用目标连接器</p>
+<p>llvmc 一个通用的可定制的编译器驱动</p>
+<p>bugpoint 自动案例测试减速器</p>
+<p>llvm-extract 从 LLVM 字节代码文件中解压出一个函数</p>
+<p>llvm-bcanalyzer 字节代码分析器 （分析二进制编码本身，而不是它代表的程序）</p>
+<p>FileCheck 灵活的文件验证器，广泛的被测试工具利用</p>
+<p>tblgen 目标描述阅读器和生成器</p>
+<p>lit        LLVM 集成测试器，用于运行测试</p>
+<p>AddressSanitizer  一个快速内存错误探测器</p>
+<h3 id="LLVM工具链使用"><a href="#LLVM工具链使用" class="headerlink" title="LLVM工具链使用"></a>LLVM工具链使用</h3><p><a href="http://www.cnblogs.com/ggjucheng/archive/2011/12/14/2287738.html" target="_blank" rel="external">Linuc GCC常用命令</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">gcc test.c -o <span class="built_in">test</span>                        <span class="comment">#直接从源代码生成可执行文件</span></span><br><span class="line">实际流程：.c--&gt;.i--&gt;.s--&gt;.o--&gt;.elf</span><br><span class="line"></span><br><span class="line">gcc -E test.c -o test.i 或 gcc -E test.c(不生成test.i，只在终端显示)   <span class="comment">#预处理Preprocessing（加入包含的库,生成中间文件.i）</span></span><br><span class="line"></span><br><span class="line">gcc -S test.i -o test.s 或 gcc -S test.i(默认生成test.s)   <span class="comment">#编译为汇编Compilation（编译器生成汇编代码.s）</span></span><br><span class="line"></span><br><span class="line">gcc -c test.s -o test.o 或 gcc -c test.s(默认生成test.o)  <span class="comment">#汇编Assembly（汇编器将汇编代码翻译成机器语言指令，把这些指令打包成一种叫做可重定位目标程序格式，并保存在.o文件中）</span></span><br><span class="line"></span><br><span class="line">gcc test.o -o <span class="built_in">test</span> 或 gcc test.o(默认生成test.o)   <span class="comment">#链接Linking（将目标文件链接成可执行文件）</span></span><br><span class="line"></span><br><span class="line">gcc test.i/test.s/test.o -o <span class="built_in">test</span>   <span class="comment">#均生成可执行文件test.elf</span></span><br><span class="line"></span><br><span class="line">gcc -O1 test.c -o <span class="built_in">test</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#使用编译优化级别1编译程序。级别为1~3，级别越大优化效果越好，但编译时间越长。</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">vim hello.c</span><br><span class="line"></span><br><span class="line">clang hello.c -o hello      <span class="comment">#生成可执行文件</span></span><br><span class="line"></span><br><span class="line">./hello</span><br><span class="line"></span><br><span class="line"><span class="comment">#或者</span></span><br><span class="line"></span><br><span class="line">clang -O3 -emit-llvm hello.c -c -o hello.bc    <span class="comment">#生成二进制中间表示语言.bc文件</span></span><br><span class="line"></span><br><span class="line">lli hello.bc</span><br><span class="line"></span><br><span class="line"><span class="comment">#或者：</span></span><br><span class="line">clang -03 -emit-llvm test.c -S -o test.ll </span><br><span class="line"><span class="comment">#生成人类可读的 .ll 文件</span></span><br><span class="line"></span><br><span class="line">lli hello.ll</span><br><span class="line"></span><br><span class="line">llvm-dis hello.bc -o hello.ll   <span class="comment">#.bc文件反汇编成.ll文件</span></span><br><span class="line"></span><br><span class="line">或：llvm-dis &lt; hello.bc (终端显示但不生成.ll文件)</span><br><span class="line"></span><br><span class="line">    llvm-dis &lt; hello.bc | less （less打开但不生成.ll文件）</span><br><span class="line"></span><br><span class="line">    llvm-dis hello.bc (生成默认的hello.ll文件)</span><br><span class="line"></span><br><span class="line">llvm-as hello.ll -o hello.bc    <span class="comment">#.ll文件汇编成.bc文件</span></span><br><span class="line"></span><br><span class="line">llc hello.bc -o hello.s  <span class="comment">#.bc或.ll文件生成汇编代码.s文件</span></span><br><span class="line"></span><br><span class="line">llc hello.ll -o hello.s</span><br><span class="line"></span><br><span class="line">gcc -c hello.s -o hello.o</span><br><span class="line"></span><br><span class="line">gcc hello.o -o hello</span><br><span class="line"></span><br><span class="line">实际流程：.c--&gt;.ll/.bc--&gt;.s--&gt;.o--&gt;.elf</span><br><span class="line"></span><br><span class="line"><span class="comment">#.ll文件类似与汇编文件.s，而.bc文件类似于目标文件.o</span></span><br></pre></td></tr></table></figure>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="http://llvm.org/" target="_blank" rel="external">LLVM官网</a></p>
+<p><a href="http://blog.csdn.net/column/details/llvm.html" target="_blank" rel="external">LLVM零基础学习</a></p>
+<p><a href="http://blog.csdn.net/column/details/llvm-study.html" target="_blank" rel="external">LLVM每日谈</a></p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/07/OSLab/ROS/11.ROS-Nao/" rel="next" title="11.ROS-Nao">
+                <i class="fa fa-chevron-left"></i> 11.ROS-Nao
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/10/OSLab/LLVM/1.LLVM的IR语言/" rel="prev" title="1.LLVM的IR语言">
+                1.LLVM的IR语言 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/09/OSLab/LLVM/0.LLVM安装及工具链/"
+           data-title="0.LLVM安装及工具链" data-url="http://hujun1413.github.io/2016/11/09/OSLab/LLVM/0.LLVM安装及工具链/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ofl6ycl3e.bkt.clouddn.com/avatar.png"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">65</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是LLVM"><span class="nav-number">2.</span> <span class="nav-text">什么是LLVM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LLVM-Command-Guide"><span class="nav-number">3.</span> <span class="nav-text">LLVM Command Guide</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LLVM工具链使用"><span class="nav-number">4.</span> <span class="nav-text">LLVM工具链使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考资料"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

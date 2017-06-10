@@ -1,0 +1,700 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="catkin_create_pkg,rospack depends1,catkin_make," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="创建ROS程序包catkin程序包的组成一个程序包要想称为catkin程序包必须符合以下要求：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.创建和编译ROS程序包">
+<meta property="og:url" content="http://hujun1413.github.io/2016/09/26/OSLab/ROS/3.创建和编译ROS程序包/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="创建ROS程序包catkin程序包的组成一个程序包要想称为catkin程序包必须符合以下要求：">
+<meta property="og:updated_time" content="2017-03-05T03:59:16.665Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3.创建和编译ROS程序包">
+<meta name="twitter:description" content="创建ROS程序包catkin程序包的组成一个程序包要想称为catkin程序包必须符合以下要求：">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 3.创建和编译ROS程序包 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                3.创建和编译ROS程序包
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-26T20:39:26+08:00" content="2016-09-26">
+              2016-09-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/OSLab/" itemprop="url" rel="index">
+                    <span itemprop="name">OSLab</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/OSLab/ROS/" itemprop="url" rel="index">
+                    <span itemprop="name">ROS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/26/OSLab/ROS/3.创建和编译ROS程序包/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/26/OSLab/ROS/3.创建和编译ROS程序包/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="创建ROS程序包"><a href="#创建ROS程序包" class="headerlink" title="创建ROS程序包"></a>创建ROS程序包</h2><h3 id="catkin程序包的组成"><a href="#catkin程序包的组成" class="headerlink" title="catkin程序包的组成"></a>catkin程序包的组成</h3><p>一个程序包要想称为catkin程序包必须符合以下要求：<br><a id="more"></a></p>
+<ul>
+<li><p>该程序包必须包含catkin compliant package.xml文件<br>这个package.xml文件提供有关程序包的元信息。</p>
+</li>
+<li><p>程序包必须包含一个catkin 版本的CMakeLists.txt文件，而Catkin metapackages中必须包含一个对CMakeList.txt文件的引用。</p>
+</li>
+<li><p>每个目录下只能有一个程序包。<br>这意味着在同一个目录下不能有嵌套的或者多个程序包存在。</p>
+</li>
+<li><p>最简单的程序包也许看起来就像这样：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">my_package/</span><br><span class="line">  CMakeLists.txt</span><br><span class="line">  package.xml</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="在catkin工作空间中的程序包"><a href="#在catkin工作空间中的程序包" class="headerlink" title="在catkin工作空间中的程序包"></a>在catkin工作空间中的程序包</h3><p>开发catkin程序包的一个推荐方法是使用catkin工作空间，但是你也可以单独开发(standalone)catkin 软件包。一个简单的工作空间也许看起来像这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">workspace_folder/        -- WORKSPACE</span><br><span class="line">  src/                   -- SOURCE SPACE</span><br><span class="line">    CMakeLists.txt       -- &apos;Toplevel&apos; CMake file, provided by catkin</span><br><span class="line">    package_1/</span><br><span class="line">      CMakeLists.txt     -- CMakeLists.txt file for package_1</span><br><span class="line">      package.xml        -- Package manifest for package_1</span><br><span class="line">    ...</span><br><span class="line">    package_n/</span><br><span class="line">      CMakeLists.txt     -- CMakeLists.txt file for package_n</span><br><span class="line">      package.xml        -- Package manifest for package_n</span><br></pre></td></tr></table></figure></p>
+<h3 id="catkin程序包"><a href="#catkin程序包" class="headerlink" title="catkin程序包"></a>catkin程序包</h3><p>首先切换到之前通过创建catkin工作空间教程创建的catkin工作空间中的src目录下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># You should have created this in the Creating a Workspace Tutorial</span><br><span class="line">$ cd ~/catkin_ws/src</span><br></pre></td></tr></table></figure></p>
+<p>现在使用catkin_create_pkg命令来创建一个名为’beginner_tutorials’的新程序包，这个程序包依赖于std_msgs、roscpp和rospy：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ catkin_create_pkg beginner_tutorials std_msgs rospy roscpp</span><br></pre></td></tr></table></figure></p>
+<p>这将会创建一个名为beginner_tutorials的文件夹，这个文件夹里面包含一个package.xml文件和一个CMakeLists.txt文件，这两个文件都已经自动包含了部分你在执行catkin_create_pkg命令时提供的信息。<br>catkin_create_pkg命令会要求你输入package_name，如果有需要你还可以在后面添加一些需要依赖的其它程序包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># This is an example, do not try to run this</span><br><span class="line"># catkin_create_pkg &lt;package_name&gt; [depend1] [depend2] [depend3]</span><br></pre></td></tr></table></figure></p>
+<h3 id="程序包依赖关系"><a href="#程序包依赖关系" class="headerlink" title="程序包依赖关系"></a>程序包依赖关系</h3><h4 id="一级依赖"><a href="#一级依赖" class="headerlink" title="一级依赖"></a>一级依赖</h4><p>之前在使用catkin_create_pkg命令时提供了几个程序包作为依赖包，现在我们可以使用rospack命令工具来查看一级依赖包。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rospack depends1 beginner_tutorials</span><br></pre></td></tr></table></figure></p>
+<h4 id="间接依赖"><a href="#间接依赖" class="headerlink" title="间接依赖"></a>间接依赖</h4><p>一个程序包还可以有好几个间接的依赖包，幸运的是使用rospack可以递归检测出所有的依赖包。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rospack depends beginner_tutorials</span><br></pre></td></tr></table></figure></p>
+<h3 id="自定义你的程序包"><a href="#自定义你的程序包" class="headerlink" title="自定义你的程序包"></a>自定义你的程序包</h3><h4 id="描述标签"><a href="#描述标签" class="headerlink" title="描述标签"></a>描述标签</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;description&gt;The beginner_tutorials package&lt;/description&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="维护者标签"><a href="#维护者标签" class="headerlink" title="维护者标签"></a>维护者标签</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;maintainer email=&quot;hujun1413@bupt.edu.cn&quot;&gt;胡君&lt;/maintainer&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="许可标签"><a href="#许可标签" class="headerlink" title="许可标签"></a>许可标签</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;license&gt;BSD&lt;/license&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="依赖项标签"><a href="#依赖项标签" class="headerlink" title="依赖项标签"></a>依赖项标签</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;buildtool_depend&gt;catkin&lt;/buildtool_depend&gt;</span><br><span class="line"></span><br><span class="line">&lt;build_depend&gt;roscpp&lt;/build_depend&gt;</span><br><span class="line">&lt;build_depend&gt;rospy&lt;/build_depend&gt;</span><br><span class="line">&lt;build_depend&gt;std_msgs&lt;/build_depend&gt;</span><br><span class="line"></span><br><span class="line">&lt;run_depend&gt;roscpp&lt;/run_depend&gt;</span><br><span class="line">&lt;run_depend&gt;rospy&lt;/run_depend&gt;</span><br><span class="line">&lt;run_depend&gt;std_msgs&lt;/run_depend&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="编译ROS程序包"><a href="#编译ROS程序包" class="headerlink" title="编译ROS程序包"></a>编译ROS程序包</h2><h3 id="使用catkin-make"><a href="#使用catkin-make" class="headerlink" title="使用catkin_make"></a>使用catkin_make</h3><p>catkin_make 是一个命令行工具，它简化了catkin的标准工作流程。你可以认为catkin_make是在CMake标准工作流程中依次调用了cmake 和 make。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/catkin_ws/</span><br><span class="line">catkin_make</span><br><span class="line"><span class="comment"># want to re-build just one package(package_name)</span></span><br><span class="line">catkin_make --pkg package_name</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/catkin-create-pkg/" rel="tag">#catkin_create_pkg</a>
+          
+            <a href="/tags/rospack-depends1/" rel="tag">#rospack depends1</a>
+          
+            <a href="/tags/catkin-make/" rel="tag">#catkin_make</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/26/OSLab/ROS/2.ROS Indigo文件系统介绍/" rel="next" title="2.ROS文件系统介绍">
+                <i class="fa fa-chevron-left"></i> 2.ROS文件系统介绍
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/26/OSLab/ROS/4.ROS节点，服务和参数/" rel="prev" title="4.ROS节点，服务和参数">
+                4.ROS节点，服务和参数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/26/OSLab/ROS/3.创建和编译ROS程序包/"
+           data-title="3.创建和编译ROS程序包" data-url="http://hujun1413.github.io/2016/09/26/OSLab/ROS/3.创建和编译ROS程序包/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ofl6ycl3e.bkt.clouddn.com/avatar.png"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">65</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建ROS程序包"><span class="nav-number">1.</span> <span class="nav-text">创建ROS程序包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#catkin程序包的组成"><span class="nav-number">1.1.</span> <span class="nav-text">catkin程序包的组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在catkin工作空间中的程序包"><span class="nav-number">1.2.</span> <span class="nav-text">在catkin工作空间中的程序包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#catkin程序包"><span class="nav-number">1.3.</span> <span class="nav-text">catkin程序包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序包依赖关系"><span class="nav-number">1.4.</span> <span class="nav-text">程序包依赖关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一级依赖"><span class="nav-number">1.4.1.</span> <span class="nav-text">一级依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#间接依赖"><span class="nav-number">1.4.2.</span> <span class="nav-text">间接依赖</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义你的程序包"><span class="nav-number">1.5.</span> <span class="nav-text">自定义你的程序包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#描述标签"><span class="nav-number">1.5.1.</span> <span class="nav-text">描述标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#维护者标签"><span class="nav-number">1.5.2.</span> <span class="nav-text">维护者标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#许可标签"><span class="nav-number">1.5.3.</span> <span class="nav-text">许可标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖项标签"><span class="nav-number">1.5.4.</span> <span class="nav-text">依赖项标签</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译ROS程序包"><span class="nav-number">2.</span> <span class="nav-text">编译ROS程序包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用catkin-make"><span class="nav-number">2.1.</span> <span class="nav-text">使用catkin_make</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

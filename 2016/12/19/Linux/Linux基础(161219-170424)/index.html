@@ -1,0 +1,705 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="linux中 chmod +x 和 chmod u+x的区别linux 中更改用户权限和用户组的命令chmod,chgrp实例
+u 代表用户g 代表用户组o 代表其他a 代表所有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux积累基础(16/12/19-170424)">
+<meta property="og:url" content="http://hujun1413.github.io/2016/12/19/Linux/Linux基础(161219-170424)/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="linux中 chmod +x 和 chmod u+x的区别linux 中更改用户权限和用户组的命令chmod,chgrp实例
+u 代表用户g 代表用户组o 代表其他a 代表所有">
+<meta property="og:updated_time" content="2017-06-10T06:57:56.549Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux积累基础(16/12/19-170424)">
+<meta name="twitter:description" content="linux中 chmod +x 和 chmod u+x的区别linux 中更改用户权限和用户组的命令chmod,chgrp实例
+u 代表用户g 代表用户组o 代表其他a 代表所有">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Linux积累基础(16/12/19-170424) | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Linux积累基础(16/12/19-170424)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-19T19:25:26+08:00" content="2016-12-19">
+              2016-12-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/19/Linux/Linux基础(161219-170424)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/19/Linux/Linux基础(161219-170424)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="linux中-chmod-x-和-chmod-u-x的区别"><a href="#linux中-chmod-x-和-chmod-u-x的区别" class="headerlink" title="linux中 chmod +x 和 chmod u+x的区别"></a><a href="http://blog.csdn.net/uniquewonderq/article/details/50774484" target="_blank" rel="external">linux中 chmod +x 和 chmod u+x的区别</a></h2><p><a href="http://www.cnblogs.com/zdz8207/p/3793246.html" target="_blank" rel="external">linux 中更改用户权限和用户组的命令chmod,chgrp实例</a></p>
+<p>u 代表用户<br>g 代表用户组<br>o 代表其他<br>a 代表所有<br><a id="more"></a><br>u+x 只授予这个文件的所属者执行权限<br>+x=a+x 授予所有人执行权限</p>
+<p>chown -R -v oslab:oslab .</p>
+<!--more-->
+<h2 id="查看各文件夹的空间使用情况"><a href="#查看各文件夹的空间使用情况" class="headerlink" title="查看各文件夹的空间使用情况"></a>查看各文件夹的空间使用情况</h2><h3 id="查看当前目录下："><a href="#查看当前目录下：" class="headerlink" title="查看当前目录下："></a>查看当前目录下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo du -h --max-depth=1</span><br></pre></td></tr></table></figure>
+<h3 id="查看整个系统："><a href="#查看整个系统：" class="headerlink" title="查看整个系统："></a>查看整个系统：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h  //人类可读的形式显示</span><br></pre></td></tr></table></figure>
+<h2 id="make"><a href="#make" class="headerlink" title="make"></a>make</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">make clean  //清除构建</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+<h2 id="在linux内核中操作文件：get-fs-和set-fs-KERNEL-DS"><a href="#在linux内核中操作文件：get-fs-和set-fs-KERNEL-DS" class="headerlink" title="在linux内核中操作文件：get_fs()和set_fs(KERNEL_DS)"></a><a href="http://blog.csdn.net/fuyajun01/article/details/8691385" target="_blank" rel="external">在linux内核中操作文件：get_fs()和set_fs(KERNEL_DS)</a></h2><p>一个是要记得编译的时候加上<code>-D\\KERNEL_SYSCALLS\\</code><br>另外源文件里面要<code>#include &lt;linux/unistd.h&gt;</code></p>
+<h2 id="Make命令教程"><a href="#Make命令教程" class="headerlink" title="Make命令教程"></a><a href="http://www.ruanyifeng.com/blog/2015/02/make.html" target="_blank" rel="external">Make命令教程</a></h2><ul>
+<li>代码变成可执行文件，叫做编译（compile）；先编译这个，还是先编译那个（即编译的安排），叫做构建（build）。</li>
+<li>Make是最常用的构建工具，诞生于1977年，主要用于C语言的项目。但是实际上 ，任何只要某个文件有变化，就要重新构建的项目，都可以用Make构建。</li>
+<li>Make命令提供一系列内置变量，比如，$(CC) 指向当前使用的编译器，$(MAKE) 指向当前使用的Make工具。这主要是为了跨平台的兼容性</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">VARIABLE = value</span><br><span class="line"><span class="comment"># 在执行时扩展，允许递归扩展。</span></span><br><span class="line"></span><br><span class="line">VARIABLE := value</span><br><span class="line"><span class="comment"># 在定义时扩展。</span></span><br><span class="line"></span><br><span class="line">VARIABLE ?= value</span><br><span class="line"><span class="comment"># 只有在该变量为空时才设置值。</span></span><br><span class="line"></span><br><span class="line">VARIABLE += value</span><br><span class="line"><span class="comment"># 将值追加到变量的尾端。</span></span><br><span class="line"></span><br><span class="line">1、“=”</span><br><span class="line">make会将整个makefile展开后，再决定变量的值。也就是说，变量的值将会是整个makefile中最后被指定的值。看例子：</span><br><span class="line"></span><br><span class="line">    x = foo</span><br><span class="line">    y = $(x) bar</span><br><span class="line">    x = xyz</span><br><span class="line"></span><br><span class="line">在上例中，y的值将会是 xyz bar ，而不是 foo bar 。</span><br><span class="line"></span><br><span class="line">2、“:=”</span><br><span class="line">“:=”表示变量的值决定于它在makefile中的位置，而不是整个makefile展开后的最终值。</span><br><span class="line"></span><br><span class="line">    x := foo</span><br><span class="line">    y := $(x) bar</span><br><span class="line">    x := xyz</span><br><span class="line"></span><br><span class="line">在上例中，y的值将会是 foo bar ，而不是 xyz bar 了。</span><br><span class="line">      </span><br><span class="line"><span class="comment"># 假定当前目录下有 f1.c 和 f2.c 两个源码文件，需要将它们编译为对应的对象文件。</span></span><br><span class="line">%.o: %.c</span><br><span class="line">等同于：</span><br><span class="line">f1.o: f1.c</span><br><span class="line">f2.o: f2.c</span><br><span class="line">使用匹配符%，可以将大量同类型的文件，只用一条规则就完成构建。</span><br><span class="line"></span><br><span class="line"><span class="section">test:</span></span><br><span class="line">    @<span class="comment"># 这是测试  注释：make会打印每条命令，前面加@可关闭打印</span></span><br><span class="line">    @echo TODO   单纯的打印语句</span><br></pre></td></tr></table></figure>
+<h2 id="linux源码Makefile详解"><a href="#linux源码Makefile详解" class="headerlink" title="linux源码Makefile详解"></a><a href="http://www.cnblogs.com/Daniel-G/p/3284831.html" target="_blank" rel="external">linux源码Makefile详解</a></h2><ul>
+<li>obj-m用来定义哪些文件被编译成可加载模块(Loadable module)</li>
+<li>obj-m中定义的.o文件由当前目录下的.c或.S文件编译生成,它们被编译成模块，一个模块可以由一个或几个.o文件组成，对于有多个源文件的模块，除在obj-m中增加一个.o文件外，还要定义一个<code>&lt;module_name&gt;-objs</code>变量来告诉Makefile这个.o文件由哪些  文件组成</li>
+<li>例如：<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">obj-$(CONFIG_ISDN) += isdn.o</span><br><span class="line">isdn-objs := isdn_net_lib.o  isdn_v110.o  isdn_common.o</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="cat-update-ll-wc-l"><a href="#cat-update-ll-wc-l" class="headerlink" title="cat update.ll | wc -l"></a><code>cat update.ll | wc -l</code></h2><p>获取update.ll文件的行数<br><code>cat a.txt | grep &quot;&gt;&quot; | wc -l</code></p>
+<ul>
+<li>cat是打开一个文本文件的命令，|是管道，就是将cat命令的结果传给下一个命令，这里是grep</li>
+<li>grep是搜索命令，这里所有匹配“&gt;” ，并将结果传给wc命令</li>
+<li>wc命令是统计命令，如文件的字符数等，wc -l是统计行数</li>
+</ul>
+<h2 id="dmesg-gt-MMM-c"><a href="#dmesg-gt-MMM-c" class="headerlink" title="dmesg &gt; MMM.c"></a><a href="http://baike.baidu.com/link?url=KgdKEUAtKFIj1PEMrVT45PV7a7F9jU8QD1ZqStBvM-dvTHiPWWaEbTD04t_IGQSq" target="_blank" rel="external">dmesg &gt; MMM.c</a></h2><p>dmesg用于检测和控制内核环缓冲。<br>-c　当完成打印显示后清除环缓冲内的内容。<br>将开机启动信息写入到MMM.c文件中</p>
+<h2 id="Linux-shell命令中expr"><a href="#Linux-shell命令中expr" class="headerlink" title="Linux shell命令中expr"></a><a href="http://wangqiaowqo.iteye.com/blog/1226953" target="_blank" rel="external">Linux shell命令中expr</a></h2><p>四则运算和字符串的操作：<br>$expr 10 + 10<br>20</p>
+<p>提取指定字符的下标：expr index 内容 字符，例如：$ind=<code>expr index &quot;$content&quot; &quot;=&quot;</code></p>
+<p>提取字符串的子串：expr substr 内容 起始位置 终点位置，例如：$con=`expr substr “$content” “1” $ind</p>
+<h2 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h2><p><code>echo &quot;hujun&quot; &gt; MMM.c</code><br>将MMM.c清空，写入”hujun”<br><code>echo &quot;hujun1&quot; &gt;&gt; MMM.c</code><br>在MMM.c中追加写入”hujun1”</p>
+<h2 id="Ubuntu虚拟机里怎么编译内核"><a href="#Ubuntu虚拟机里怎么编译内核" class="headerlink" title="Ubuntu虚拟机里怎么编译内核"></a><a href="http://www.jb51.net/os/Ubuntu/307573.html" target="_blank" rel="external">Ubuntu虚拟机里怎么编译内核</a></h2><h2 id="linux内核中Kconfig及如何加自己的驱动"><a href="#linux内核中Kconfig及如何加自己的驱动" class="headerlink" title="linux内核中Kconfig及如何加自己的驱动"></a><a href="http://blog.csdn.net/duloveding/article/details/6782694" target="_blank" rel="external">linux内核中Kconfig及如何加自己的驱动</a></h2><h2 id="增加新硬盘"><a href="#增加新硬盘" class="headerlink" title="增加新硬盘"></a>增加新硬盘</h2><p><a href="http://blog.csdn.net/handsome_for_kill/article/details/52654724" target="_blank" rel="external">Ubuntu 14.04 将其他盘挂载到/home的子目录下</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">sudo -i</span><br><span class="line">fdisk <span class="_">-l</span>  <span class="comment">#查看新增加的硬盘，假设在/dev/sda</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#sudo umount /dev/sda</span></span><br><span class="line"></span><br><span class="line">fdisk /dev/sda</span><br><span class="line">m  -help</span><br><span class="line">p  -print</span><br><span class="line">n  -add a new partition</span><br><span class="line">w  -save</span><br><span class="line"></span><br><span class="line">mkfs.ext3 /dev/sda  <span class="comment">#格式化</span></span><br><span class="line"></span><br><span class="line">fdisk <span class="_">-l</span></span><br><span class="line"></span><br><span class="line">mount /dev/sda /mnt  <span class="comment">#mount到/mnt，或者其他目录下</span></span><br><span class="line"></span><br><span class="line">若希望开机时自动挂载, 可在/etc/fstab最后一行添加:</span><br><span class="line">/dev/sda /home/disk1 ext3 defaults 0 0  </span><br><span class="line">或：</span><br><span class="line">blkid /dev/sda    <span class="comment">#查看UUID和文件类型</span></span><br><span class="line">写入UUID</span><br><span class="line"></span><br><span class="line">mount <span class="_">-a</span>  <span class="comment">#自动挂载 /etc/fstab 里面的东西</span></span><br></pre></td></tr></table></figure></p>
+<p>将ext2文件系统转成ext3文件系统：<br> tune2fs -j /dev/sda1</p>
+<p><a href="http://linux.chinaunix.net/techdoc/system/2009/05/03/1109868.shtmlhttp://linux.chinaunix.net/techdoc/system/2009/05/03/1109868.shtml" target="_blank" rel="external">赋予普通用户挂载光驱的权限
+</a></p>
+<h2 id="linux下设置WIFI热点"><a href="#linux下设置WIFI热点" class="headerlink" title="linux下设置WIFI热点"></a><a href="http://blog.csdn.net/hanbo622/article/details/51706375" target="_blank" rel="external">linux下设置WIFI热点</a></h2><h2 id="linux下screen用法"><a href="#linux下screen用法" class="headerlink" title="linux下screen用法"></a><a href="http://blog.csdn.net/hansel/article/details/9668051" target="_blank" rel="external">linux下screen用法</a></h2><h2 id="内核源代码树目录"><a href="#内核源代码树目录" class="headerlink" title="内核源代码树目录"></a><a href="http://blog.csdn.net/you_shou/article/details/52623523" target="_blank" rel="external">内核源代码树目录</a></h2><h2 id="GRUB2的配置方法【涉及-etc-default-grub，-etc-grub-d"><a href="#GRUB2的配置方法【涉及-etc-default-grub，-etc-grub-d" class="headerlink" title="GRUB2的配置方法【涉及/etc/default/grub，/etc/grub.d/*"></a><a href="http://blog.csdn.net/duanlove/article/details/8066570" target="_blank" rel="external">GRUB2的配置方法【涉及/etc/default/grub，/etc/grub.d/*</a></h2><p><a href="http://www.2cto.com/os/201306/217198.html" target="_blank" rel="external">ubuntu显示或者隐藏grub选择菜单</a></p>
+<p><a href="http://www.jianshu.com/p/f9e17ba42943" target="_blank" rel="external">/etc/default/grub 文件详解</a></p>
+<h2 id="ubuntu开机进入tty"><a href="#ubuntu开机进入tty" class="headerlink" title="ubuntu开机进入tty"></a>ubuntu开机进入tty</h2><p>ctrl+alt+f1~f6  进入tty1_tty6</p>
+<p>ctrl+alt+f7  返回图形界面</p>
+<h2 id="linux内核版本和操作系统版本"><a href="#linux内核版本和操作系统版本" class="headerlink" title="linux内核版本和操作系统版本"></a>linux内核版本和操作系统版本</h2><p>在linux发行版中，一般会针对不同的架构发布不同的安装光盘，以debian为例，可用于PC的就有i386和amd64这两个版本。根据上面的描述，这两个版本的系统都可以安装在使用64位的CPU的机器上，而使用32位CPU的机器上则只能安装i386版本的系统。在debian amd64光盘中带的内核及软件包全都是64位版本的，而debian i386光盘中则有32位和64位的内核，以及32位的软件，可能是考虑到有些用户想用64位内核来运行32位程序吧。</p>
+<p>内核源代码是没有32位，64位之分的，在编译内核时可以用ARCH参数手工指定编译成哪一个架构。例如：”make ARCH=i386 menuconfig”，”make ARCH=i386”用于配置，编译32位内核；而”make ARCH=x86_64 menuconfig”，”make ARCH=x86_64”则用于配置，编译64位内核。但是，在debian amd64光盘安装的系统里编译的32位内核是无法引导的，因为系统安装的所有软件包都是原生64位程序，无法在32位内核上运行，典型的错误是提示引导时找不到能运行的init程序；而使用debian i386光盘安装的系统中编译的64位内核却可以使用，只是需要在配置内核时加上IA32 Emulation支持(menuconfig的：”Executable file formats/Emulations”–&gt;”IA32 Emulation”)。</p>
+<p>基于这样的原因，我原来用搭建的debian amd64光盘安装的系统(<a href="http://www.cnblogs.com/xiongyuanxiong/p/3523306.html)，现在也改成用debian" target="_blank" rel="external">http://www.cnblogs.com/xiongyuanxiong/p/3523306.html)，现在也改成用debian</a> i386光盘来安装了，这样就能同时编译新的32位和64位官方内核进行对比测试。</p>
+<h2 id="重装ubuntu后启用无线网卡"><a href="#重装ubuntu后启用无线网卡" class="headerlink" title="重装ubuntu后启用无线网卡"></a>重装ubuntu后启用无线网卡</h2><p>连接有线，在有网的情况下，点击系统设置下的附加驱动，启用无线网卡驱动即可。若无法激活则：<br>sudo apt-get update</p>
+<h2 id="安装rpm包"><a href="#安装rpm包" class="headerlink" title="安装rpm包"></a>安装rpm包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 包名.rpm   <span class="comment">#包名变绿色即可</span></span><br><span class="line">rpm -ivh 包名.rpm</span><br></pre></td></tr></table></figure>
+<h2 id="ubuntu固定ip"><a href="#ubuntu固定ip" class="headerlink" title="ubuntu固定ip"></a><a href="http://jingyan.baidu.com/article/e5c39bf5bbe0e739d7603396.html" target="_blank" rel="external">ubuntu固定ip</a></h2><h2 id="awk是一个强大的文本分析工具"><a href="#awk是一个强大的文本分析工具" class="headerlink" title="awk是一个强大的文本分析工具"></a><a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/13/2858470.html" target="_blank" rel="external">awk是一个强大的文本分析工具</a></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/passwd |awk  -F &apos;:&apos;  &apos;&#123;print $1&#125;&apos;  </span><br><span class="line">root</span><br><span class="line">daemon</span><br><span class="line">bin</span><br><span class="line">sys</span><br></pre></td></tr></table></figure>
+<h2 id="理解Linux系统-etc-init-d目录和-etc-rc-local脚本"><a href="#理解Linux系统-etc-init-d目录和-etc-rc-local脚本" class="headerlink" title="理解Linux系统/etc/init.d目录和/etc/rc.local脚本"></a><a href="http://blog.csdn.net/acs713/article/details/7322082" target="_blank" rel="external">理解Linux系统/etc/init.d目录和/etc/rc.local脚本</a></h2><p>init.d目录包含许多系统各种服务的启动和停止脚本。<br>rc.local脚本是在系统初始化级别脚本运行之后再执行的，因此可以安全地在里面添加你想在系统启动之后执行的脚本。</p>
+<h2 id="grep-r-“goto”"><a href="#grep-r-“goto”" class="headerlink" title="grep -r “goto” *"></a>grep -r “goto” *</h2><p>在当前目录下查找有goto的文件<br>find / -name “MyMonitor.ko”</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/11/OSLab/驱动/EH-Test阅读笔记/" rel="next" title="EH-Test阅读笔记">
+                <i class="fa fa-chevron-left"></i> EH-Test阅读笔记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/19/Language/Python/Flask基础/" rel="prev" title="Python模块">
+                Python模块 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/19/Linux/Linux基础(161219-170424)/"
+           data-title="Linux积累基础(16/12/19-170424)" data-url="http://hujun1413.github.io/2016/12/19/Linux/Linux基础(161219-170424)/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ofl6ycl3e.bkt.clouddn.com/avatar.png"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">65</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#linux中-chmod-x-和-chmod-u-x的区别"><span class="nav-number">1.</span> <span class="nav-text">linux中 chmod +x 和 chmod u+x的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看各文件夹的空间使用情况"><span class="nav-number">2.</span> <span class="nav-text">查看各文件夹的空间使用情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看当前目录下："><span class="nav-number">2.1.</span> <span class="nav-text">查看当前目录下：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看整个系统："><span class="nav-number">2.2.</span> <span class="nav-text">查看整个系统：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#make"><span class="nav-number">3.</span> <span class="nav-text">make</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在linux内核中操作文件：get-fs-和set-fs-KERNEL-DS"><span class="nav-number">4.</span> <span class="nav-text">在linux内核中操作文件：get_fs()和set_fs(KERNEL_DS)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Make命令教程"><span class="nav-number">5.</span> <span class="nav-text">Make命令教程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux源码Makefile详解"><span class="nav-number">6.</span> <span class="nav-text">linux源码Makefile详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cat-update-ll-wc-l"><span class="nav-number">7.</span> <span class="nav-text">cat update.ll | wc -l</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dmesg-gt-MMM-c"><span class="nav-number">8.</span> <span class="nav-text">dmesg > MMM.c</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-shell命令中expr"><span class="nav-number">9.</span> <span class="nav-text">Linux shell命令中expr</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#echo"><span class="nav-number">10.</span> <span class="nav-text">echo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ubuntu虚拟机里怎么编译内核"><span class="nav-number">11.</span> <span class="nav-text">Ubuntu虚拟机里怎么编译内核</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux内核中Kconfig及如何加自己的驱动"><span class="nav-number">12.</span> <span class="nav-text">linux内核中Kconfig及如何加自己的驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加新硬盘"><span class="nav-number">13.</span> <span class="nav-text">增加新硬盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux下设置WIFI热点"><span class="nav-number">14.</span> <span class="nav-text">linux下设置WIFI热点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux下screen用法"><span class="nav-number">15.</span> <span class="nav-text">linux下screen用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内核源代码树目录"><span class="nav-number">16.</span> <span class="nav-text">内核源代码树目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GRUB2的配置方法【涉及-etc-default-grub，-etc-grub-d"><span class="nav-number">17.</span> <span class="nav-text">GRUB2的配置方法【涉及/etc/default/grub，/etc/grub.d/*</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ubuntu开机进入tty"><span class="nav-number">18.</span> <span class="nav-text">ubuntu开机进入tty</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux内核版本和操作系统版本"><span class="nav-number">19.</span> <span class="nav-text">linux内核版本和操作系统版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重装ubuntu后启用无线网卡"><span class="nav-number">20.</span> <span class="nav-text">重装ubuntu后启用无线网卡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装rpm包"><span class="nav-number">21.</span> <span class="nav-text">安装rpm包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ubuntu固定ip"><span class="nav-number">22.</span> <span class="nav-text">ubuntu固定ip</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#awk是一个强大的文本分析工具"><span class="nav-number">23.</span> <span class="nav-text">awk是一个强大的文本分析工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#理解Linux系统-etc-init-d目录和-etc-rc-local脚本"><span class="nav-number">24.</span> <span class="nav-text">理解Linux系统/etc/init.d目录和/etc/rc.local脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#grep-r-“goto”"><span class="nav-number">25.</span> <span class="nav-text">grep -r “goto” *</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,680 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Vim," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="插入i 在当前光标插入I 在当前行最前插入A 在当前行最后插入O 在光标上一行最前插入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vim基础">
+<meta property="og:url" content="http://hujun1413.github.io/2016/09/26/Linux/Vim基础/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="插入i 在当前光标插入I 在当前行最前插入A 在当前行最后插入O 在光标上一行最前插入">
+<meta property="og:updated_time" content="2017-06-10T06:59:58.047Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vim基础">
+<meta name="twitter:description" content="插入i 在当前光标插入I 在当前行最前插入A 在当前行最后插入O 在光标上一行最前插入">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Vim基础 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Vim基础
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-26T19:25:26+08:00" content="2016-09-26">
+              2016-09-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/26/Linux/Vim基础/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/26/Linux/Vim基础/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h2><p>i 在当前光标插入<br>I 在当前行最前插入<br>A 在当前行最后插入<br>O 在光标上一行最前插入<br><a id="more"></a></p>
+<h2 id="复制-剪切-粘贴"><a href="#复制-剪切-粘贴" class="headerlink" title="复制/剪切/粘贴"></a>复制/剪切/粘贴</h2><p>v d 进入可视模式后剪切<br>dd 剪切当前行<br>dnd 剪切n行<br>v y 进入可视模式后复制<br>yy 复制当前行<br>yny 复制n行<br>p 粘贴</p>
+<h2 id="光标移动"><a href="#光标移动" class="headerlink" title="光标移动"></a>光标移动</h2><p>ctrl+f 向下翻一页<br>ctrl+b 向上翻一页<br>ctrl+u 向上翻半页<br>ctrl+d 向下翻半页<br>j 向上移动一行<br>k 向下移动一行<br>h 向左移动一个字符<br>l 向右移动一个字符<br>数字0：移动到行首<br>^:移动光标到行首<br>$:移动光标到行尾<br>gg 移动到第一行<br>G 移动到最后一行<br>nG 移动到第n行</p>
+<h2 id="撤销-重做"><a href="#撤销-重做" class="headerlink" title="撤销/重做"></a>撤销/重做</h2><p>u 撤销，相当于word的ctrl+z<br>ctrl+r 重做，相当于word的ctrl+y</p>
+<h2 id="查找和替换"><a href="#查找和替换" class="headerlink" title="查找和替换"></a>查找和替换</h2><p>/word 在光标后查找word字符串<br>回车后输入n代表同方向下一个,N代表反方向下一个<br>?word 在光标前查找word字符串<br>:n1,n2s/word1/word2/g 在第n1行和第n2行之间查找word1,并替换成word2</p>
+<h2 id="保存-退出"><a href="#保存-退出" class="headerlink" title="保存/退出"></a>保存/退出</h2><p>:w 写入<br>:wq 写入并退出<br>:q 退出<br>:q! 不保存退出<br>:r [filename] 读入文件加入光标下一行<br>:n1,n2 w [filename] 将n1到n2读内容保存到文件中</p>
+<h2 id="多文件-窗口"><a href="#多文件-窗口" class="headerlink" title="多文件/窗口"></a>多文件/窗口</h2><h3 id="未启动vim时"><a href="#未启动vim时" class="headerlink" title="未启动vim时"></a>未启动vim时</h3><p>vim file1 file2 … 只显示一个窗口<br>vim -o file1 file2 上下分布<br>vim -O file1 file2 左右分布</p>
+<h3 id="已启动vim时"><a href="#已启动vim时" class="headerlink" title="已启动vim时"></a>已启动vim时</h3><h4 id="打开"><a href="#打开" class="headerlink" title="打开"></a>打开</h4><p>:open file 只显示一个文件<br>:sp file 上下分布<br>:vs file 左右分布</p>
+<h4 id="切换"><a href="#切换" class="headerlink" title="切换"></a>切换</h4><p>文件间（在当前窗格间切换不同文件）：<br>ctrl+6  下一个文件<br>:bn 下一个文件<br>:bp 上一个文件<br>窗格间：<br>ctrl+ww 依次向后切换下一个窗格<br>ctrl+w+h/j/k/l 切换到上下左右（k上j下h左l右）的窗格</p>
+<h2 id="Vim配置"><a href="#Vim配置" class="headerlink" title="Vim配置"></a>Vim配置</h2><p><a href="http://blog.csdn.net/younger_china/article/details/13613461" target="_blank" rel="external">个人VIM配置实例</a><br>修改 /etc/vim/vimrc，进行个性化配置<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">if filereadable("/etc/vim/vimrc.local")</span><br><span class="line">  source /etc/vim/vimrc.local</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">"显示行号</span><br><span class="line">set nu</span><br><span class="line">"缩进为4空格</span><br><span class="line">set tabstop=4</span><br><span class="line">"继承前一行的缩进方式</span><br><span class="line">set autoindent</span><br><span class="line">#### "允许退格键删除</span><br><span class="line">set backspace=2</span><br><span class="line">"启用鼠标</span><br><span class="line">set mouse=a</span><br><span class="line">set selection=exclusive</span><br><span class="line">set selectmode=mouse,key</span><br></pre></td></tr></table></figure></p>
+<h2 id="一般模式：删除、复制与粘贴类命令"><a href="#一般模式：删除、复制与粘贴类命令" class="headerlink" title="一般模式：删除、复制与粘贴类命令"></a>一般模式：删除、复制与粘贴类命令</h2><p>x,X                      x为向后删除一个字符，X为先前删除一个字符<br>nx(n代表数字)             向后删除n个字符<br>dd                       删除当前行<br>D                        删除当前行所有字符，试成为空行<br>ndd(n代表数字)            删除光标所在行的向下n列<br>d1G                      删除光标所在行到第一行的所有数据<br>dG                       删除光标所在行到最后一行的所有数据<br>yy                       复制光标所在行<br>y1G                      复制光标所在行到第一行的所有数据<br>yG                       复制光标所在行到最后一行的所有数据<br>ynj(n代表数字)            复制光标所在行向下n+1行<br>dnj(n代表数字)            删除光标所在行向下n+1行<br>p,P                      p为复制的数据粘贴在光标的下一行，P为复制的数据粘贴在光标的上一行<br>J                        将光标所在行与下一行的数据结合成一行<br>u                        恢复前一个动作(undo)</p>
+<h2 id="编辑模式命令"><a href="#编辑模式命令" class="headerlink" title="编辑模式命令"></a>编辑模式命令</h2><p>i,I                      i为在当前光标所在处插入输入的文字，I为在光标所在行第一个非空字符插入输入的文字<br>a,A                      a为在当前光标所在处下一个字符插入输入的文字，A为在光标所在行最后一个字符的下一个字符处插入输入的文字<br>o,O                      o为在光标所在行的下一行行首开始插入字符，O为在光标所在行的上一行行首开始插入字符<br>r,R                      r为替换光标所在那一个字符，R为一直替换光标所指的文字，直到退出<br>Esc                      退出，回到一般模式</p>
+<h2 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h2><p>h                        光标向左移一个字符<br>j                        光标向下移一个字符<br>k                        光标向上移一个字符<br>l                        光标向右移一个字符<br>Ctrl+f                   屏幕向下翻一页<br>Ctrl+b                   屏幕向上翻一页<br>Ctrl+d                   屏幕向下翻半页<br>Ctrl+u                   屏幕向上翻半页</p>
+<ul>
+<li>光标移动到下一行的第一个非空字符</li>
+</ul>
+<ul>
+<li>光标移动到当前行的第一个非空字符<br>n空格(n代表数字)           光标向当前行向右移动n个字符<br>0(数字0)                  光标移动到当前行的第一个字符(可以为空字符,注意与-区分）<br>$                        光标移动到当前行的最后一个字符(可以为空字符,注意与-区分）<br>H                        光标移动到当前屏幕最上方的那一行的第一个非空字符<br>M                        光标移动到当前屏幕最中间那一行的第一个非空字符<br>L                        光标移动到当前屏幕最下方的那一行的第一个非空字符<br>G                        光标移动到该文章最后一行的第一个非空字符<br>nG(n代表数字)             光标移动到该文章第n行的第一个非空字符<br>n                        光标从当前行向下移动n行的第一个非空字符<br>/word                    在光标之后查找word字符串<br>?word                    在光标之前查找word字符串<br>:s/word1/word2/g         在光标当前行查找word1，并替换成word2<br>:n1,n2s/word1/word2/g    在第n1行与第n2行之间查找word1，并替换成word2<br>:%s/word1/word2/g        整个文章查找word1，并替换成word2<br>:w                       将编辑的数据保存到硬盘文件中<br>:w [filename]            将编辑后的数据保存到硬盘的另一个文件中<br>:r [filename]            在编辑数据时，读入另一个文件中的数据，即将filename文件中的内容加到光标所在行下一行<br>:wq或:x                  保存并退出<br>:q                       退出，适用于未修改的文件<br>:q!                      强制退出，适用于修改文件后不保存退出<br>:set nu                  显示行号<br>:set nonu                取消行号<br>:n1,n2 w [filename]      将n1到n2行的内容保存到名为filename的文件中</li>
+</ul>
+<h2 id="linux下vim命令总结"><a href="#linux下vim命令总结" class="headerlink" title="linux下vim命令总结"></a><a href="http://blog.sina.com.cn/s/blog_4ce89f200100vkb5.html" target="_blank" rel="external">linux下vim命令总结</a></h2>
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Vim/" rel="tag">#Vim</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/26/Tools/QT/QT的socket应用/" rel="next" title="QT的socket应用">
+                <i class="fa fa-chevron-left"></i> QT的socket应用
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/26/Tools/QT/QT的FTP操作/" rel="prev" title="QT的FTP操作">
+                QT的FTP操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/26/Linux/Vim基础/"
+           data-title="Vim基础" data-url="http://hujun1413.github.io/2016/09/26/Linux/Vim基础/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ofl6ycl3e.bkt.clouddn.com/avatar.png"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">65</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#插入"><span class="nav-number">1.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复制-剪切-粘贴"><span class="nav-number">2.</span> <span class="nav-text">复制/剪切/粘贴</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#光标移动"><span class="nav-number">3.</span> <span class="nav-text">光标移动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#撤销-重做"><span class="nav-number">4.</span> <span class="nav-text">撤销/重做</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找和替换"><span class="nav-number">5.</span> <span class="nav-text">查找和替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#保存-退出"><span class="nav-number">6.</span> <span class="nav-text">保存/退出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多文件-窗口"><span class="nav-number">7.</span> <span class="nav-text">多文件/窗口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#未启动vim时"><span class="nav-number">7.1.</span> <span class="nav-text">未启动vim时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#已启动vim时"><span class="nav-number">7.2.</span> <span class="nav-text">已启动vim时</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#打开"><span class="nav-number">7.2.1.</span> <span class="nav-text">打开</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#切换"><span class="nav-number">7.2.2.</span> <span class="nav-text">切换</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vim配置"><span class="nav-number">8.</span> <span class="nav-text">Vim配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一般模式：删除、复制与粘贴类命令"><span class="nav-number">9.</span> <span class="nav-text">一般模式：删除、复制与粘贴类命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑模式命令"><span class="nav-number">10.</span> <span class="nav-text">编辑模式命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式"><span class="nav-number">11.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux下vim命令总结"><span class="nav-number">12.</span> <span class="nav-text">linux下vim命令总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
