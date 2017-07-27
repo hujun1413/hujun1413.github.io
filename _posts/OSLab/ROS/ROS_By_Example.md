@@ -9,26 +9,17 @@ tags:   # 文章标签，参数可省略
 ---
 
 ### 网址记录
-
 * [Beginner](http://wiki.ros.org/ROS/Tutorials)
-
 * [tf](http://wiki.ros.org/tf/Tutorials)
-
 * [actionlib](http://wiki.ros.org/actionlib/Tutorials)
-
 * [RViz User's Guide](http://docs.ros.org/indigo/api/rviz/html/user_guide/)
-
 * [Browsing packages for indigo](http://www.ros.org/browse/list.php?package_type=package&distro=indigo)
-
 * [catkin/CMakeLists.txt](http://wiki.ros.org/catkin/CMakeLists.txt)
-
 * [ ROS中nodelet的使用](http://blog.csdn.net/zyh821351004/article/details/52143309)
-
 * [launch文件介绍](http://blog.csdn.net/zqxf123456789/article/details/52497833)
 
-
-
 <!--more-->
+[TOC]
 
 ### 源码下载
 
@@ -208,7 +199,15 @@ rosrun rbx1_nav move_base_square.py
 
 
 
-### Navigation and Localization using a Map and amcl（导航与定位）
+### Navigation and Localization using a Map and amcl（即时定位与建图，导航与定位）
+* [move_base](http://wiki.ros.org/move_base) for moving the robot to a goal pose within a given reference frame
+路径规划，移动机器人到指定帧的目标位置
+
+* [gmapping](http://wiki.ros.org/gmapping) for creating a map from laser scan data (or simulated laser data from a depth camera)
+从激光扫描数据建图
+
+* [amcl](http://wiki.ros.org/amcl) for localization using an existing map
+用已有地图进行定位
 
 ```bash
 
@@ -269,3 +268,5 @@ rosrun rviz rviz -d `rospack find rbx1_nav`/amcl.rviz
 
 
 ```
+
+ROS的node和node之间的消息缓冲区管理由谁负责
