@@ -1,3 +1,0 @@
-### A simple and powerful blog established by github + hexo
-
-Welcome to my personal blog: http://hujun1413.github.io/
