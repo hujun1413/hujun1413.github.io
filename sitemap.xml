@@ -2,219 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://hujun1413.github.io/2017/03/06/OSLab/%E9%A9%B1%E5%8A%A8/%E9%A9%B1%E5%8A%A8%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
+    <loc>http://hujun1413.github.io/2017/01/15/OSLab/LLVM/6.LLVM%E7%9A%84%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/</loc>
     
-    <lastmod>2017-06-10T07:04:32.923Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/04/08/Linux/Git%E5%9F%BA%E7%A1%80/</loc>
-    
-    <lastmod>2017-06-10T07:02:34.460Z</lastmod>
+    <lastmod>2017-07-27T02:58:59.999Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://hujun1413.github.io/2016/09/26/Linux/Linux%E5%9F%BA%E7%A1%80(160926-161219)/</loc>
+    <loc>http://hujun1413.github.io/2016/11/14/OSLab/LLVM/5.LLVM%E7%9A%84%E5%87%BD%E6%95%B0/</loc>
     
-    <lastmod>2017-06-10T07:02:14.265Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/09/26/Tools/QT/QT%E7%9A%84%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6/</loc>
-    
-    <lastmod>2017-06-10T07:01:53.926Z</lastmod>
+    <lastmod>2017-07-27T02:57:04.234Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://hujun1413.github.io/2016/09/26/Tools/QT/QT%E7%9A%84socket%E5%BA%94%E7%94%A8/</loc>
+    <loc>http://hujun1413.github.io/2016/11/12/OSLab/LLVM/4.LLVM%E7%9A%84Project/</loc>
     
-    <lastmod>2017-06-10T07:00:15.577Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/09/26/Linux/Vim%E5%9F%BA%E7%A1%80/</loc>
-    
-    <lastmod>2017-06-10T06:59:58.047Z</lastmod>
+    <lastmod>2017-07-27T02:56:43.773Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://hujun1413.github.io/2016/09/26/Tools/QT/QT%E7%9A%84FTP%E6%93%8D%E4%BD%9C/</loc>
+    <loc>http://hujun1413.github.io/2016/11/11/OSLab/LLVM/3.LLVM%E7%9A%84Pass/</loc>
     
-    <lastmod>2017-06-10T06:59:45.218Z</lastmod>
+    <lastmod>2017-07-27T02:56:19.708Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://hujun1413.github.io/2016/11/10/OSLab/LLVM/2.LLVM%E7%9A%84%E7%BC%96%E7%A8%8B%E6%8C%87%E5%BC%95/</loc>
+    
+    <lastmod>2017-07-27T02:56:01.009Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://hujun1413.github.io/2016/11/13/OSLab/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E7%BC%96%E8%AF%91Linux%E5%86%85%E6%A0%B8/</loc>
     
-    <lastmod>2017-06-10T06:58:58.919Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/11/OSLab/%E9%A9%B1%E5%8A%A8/EH-Test%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</loc>
-    
-    <lastmod>2017-06-10T06:58:29.438Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/19/Linux/Linux%E5%9F%BA%E7%A1%80(161219-170424)/</loc>
-    
-    <lastmod>2017-06-10T06:57:56.549Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/24/Tools/QT/QT%E6%98%BE%E7%A4%BA%E5%9B%BE%E5%83%8F%E5%92%8C%E5%8F%98%E6%8D%A2/</loc>
-    
-    <lastmod>2017-06-10T06:56:59.354Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/24/Tools/QT/QT%E7%9A%84%E5%B0%8F%E7%82%B9%E8%AE%B0%E5%BD%95/</loc>
-    
-    <lastmod>2017-06-10T06:56:45.439Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2017/04/24/Linux/Linux%E5%9F%BA%E7%A1%80(170424-)/</loc>
-    
-    <lastmod>2017-06-10T06:56:19.886Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/19/Language/HTML/HTML%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/</loc>
-    
-    <lastmod>2017-06-10T06:55:48.053Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/19/Language/Python/Flask%E5%9F%BA%E7%A1%80/</loc>
-    
-    <lastmod>2017-06-10T06:55:05.560Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/19/Language/Python/6.Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E9%AB%98%E7%BA%A7%E7%BC%96%E7%A8%8B/</loc>
-    
-    <lastmod>2017-06-10T06:54:55.366Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/19/Language/Python/5.Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B/</loc>
-    
-    <lastmod>2017-06-10T06:54:46.795Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/19/Language/Python/4.Python%E6%A8%A1%E5%9D%97/</loc>
-    
-    <lastmod>2017-06-10T06:54:36.245Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/19/Language/Python/3.%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</loc>
-    
-    <lastmod>2017-06-10T06:54:24.909Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/19/Language/Python/2.Python%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7/</loc>
-    
-    <lastmod>2017-06-10T06:54:11.516Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/19/Language/Python/0.Python%E5%9F%BA%E7%A1%80/</loc>
-    
-    <lastmod>2017-06-10T06:53:53.856Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/28/Language/Python/1.Python%E5%87%BD%E6%95%B0/</loc>
-    
-    <lastmod>2017-06-10T06:53:43.396Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/20/%E8%8B%B1%E6%96%87%E5%8D%95%E8%AF%8D/</loc>
-    
-    <lastmod>2017-06-10T06:52:58.884Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/24/Tools/PS/PS%E5%9F%BA%E7%A1%80/</loc>
-    
-    <lastmod>2017-06-10T06:49:59.330Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/24/Tools/Flash/Flash%E5%9F%BA%E7%A1%80/</loc>
-    
-    <lastmod>2017-06-10T06:49:33.907Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2017/01/11/OSLab/%E9%A9%B1%E5%8A%A8/Linux%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F%E7%AC%94%E8%AE%B0/</loc>
-    
-    <lastmod>2017-06-10T06:49:05.835Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2017/03/21/OSLab/%E9%A9%B1%E5%8A%A8/%E9%A9%B1%E5%8A%A8%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/</loc>
-    
-    <lastmod>2017-06-10T06:48:19.985Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/01/28/%E6%8A%80%E6%9C%AF%E5%B0%8F%E7%82%B9(160926-)/</loc>
-    
-    <lastmod>2017-06-10T06:45:23.554Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/01/26/OSLab_WeeklyReport/</loc>
-    
-    <lastmod>2017-06-10T06:45:14.916Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/01/26/bugList/</loc>
-    
-    <lastmod>2017-06-10T06:45:04.304Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/11/13/OSLab/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%87%AA%E5%B7%B1%E5%8A%A8%E6%89%8B%E5%86%99%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
-    
-    <lastmod>2017-06-10T06:42:41.602Z</lastmod>
+    <lastmod>2017-07-27T02:51:17.891Z</lastmod>
     
   </url>
   
@@ -233,41 +58,6 @@
   </url>
   
   <url>
-    <loc>http://hujun1413.github.io/2016/12/24/OSLab/LLVM/2.LLVM%E7%9A%84%E7%BC%96%E7%A8%8B%E6%8C%87%E5%BC%95/</loc>
-    
-    <lastmod>2017-06-10T06:37:57.740Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2017/01/15/OSLab/LLVM/6.LLVM%E7%9A%84%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/</loc>
-    
-    <lastmod>2017-06-10T06:37:18.510Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/24/OSLab/LLVM/5.LLVM%E7%9A%84%E5%87%BD%E6%95%B0/</loc>
-    
-    <lastmod>2017-06-10T06:36:55.630Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/24/OSLab/LLVM/3.LLVM%E7%9A%84Pass/</loc>
-    
-    <lastmod>2017-06-10T06:33:52.653Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/12/27/OSLab/LLVM/4.LLVM%E7%9A%84Project/</loc>
-    
-    <lastmod>2017-06-10T06:33:17.305Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://hujun1413.github.io/2016/11/14/OSLab/ROS/12.ROS-Kobuki/</loc>
     
     <lastmod>2017-06-10T05:31:23.884Z</lastmod>
@@ -282,13 +72,6 @@
   </url>
   
   <url>
-    <loc>http://hujun1413.github.io/2017/05/25/Language/Java/java%E9%85%8D%E7%BD%AE/</loc>
-    
-    <lastmod>2017-06-09T02:40:43.252Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://hujun1413.github.io/2016/10/25/Informal_essay/CNCC%E8%AE%B2%E5%BA%A7%E8%AE%B0%E5%BD%95/</loc>
     
     <lastmod>2017-06-09T02:37:48.574Z</lastmod>
@@ -299,13 +82,6 @@
     <loc>http://hujun1413.github.io/2016/04/07/Informal_essay/Markdown%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</loc>
     
     <lastmod>2017-06-09T02:37:01.764Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/09/26/Language/C++/C++STL%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0/</loc>
-    
-    <lastmod>2017-04-24T11:33:18.493Z</lastmod>
     
   </url>
   
@@ -331,20 +107,6 @@
   </url>
   
   <url>
-    <loc>http://hujun1413.github.io/2016/04/14/Language/Java/Eclipse%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99/</loc>
-    
-    <lastmod>2017-03-05T03:59:17.681Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/05/07/Language/Java/java%E4%B8%AD%E8%B0%83%E7%94%A8%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9EJson%E5%90%8E%E8%BF%9B%E8%A1%8C%E8%A7%A3%E6%9E%90/</loc>
-    
-    <lastmod>2017-03-05T03:59:17.290Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://hujun1413.github.io/2016/09/27/OSLab/ROS/7.ROS%E6%B6%88%E6%81%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%88%9B%E5%BB%BA/</loc>
     
     <lastmod>2017-03-05T03:59:17.227Z</lastmod>
@@ -355,13 +117,6 @@
     <loc>http://hujun1413.github.io/2016/09/26/OSLab/ROS/4.ROS%E8%8A%82%E7%82%B9%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%92%8C%E5%8F%82%E6%95%B0/</loc>
     
     <lastmod>2017-03-05T03:59:16.868Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/05/26/Language/Java/java%E4%B8%ADObject%E8%BD%ACString/</loc>
-    
-    <lastmod>2017-03-05T03:59:16.727Z</lastmod>
     
   </url>
   
@@ -394,13 +149,6 @@
   </url>
   
   <url>
-    <loc>http://hujun1413.github.io/2016/04/13/Language/Java/java%E5%88%A4%E6%96%ADtxt%E6%96%87%E4%BB%B6%E7%9A%84%E7%BC%96%E7%A0%81/</loc>
-    
-    <lastmod>2017-03-05T03:59:15.727Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://hujun1413.github.io/2016/11/07/OSLab/ROS/11.ROS-Nao/</loc>
     
     <lastmod>2017-03-05T03:59:15.477Z</lastmod>
@@ -411,20 +159,6 @@
     <loc>http://hujun1413.github.io/2016/09/26/OSLab/ROS/1.ROS%20Indigo%E5%AE%89%E8%A3%85%E5%88%B0Ubuntu14.04/</loc>
     
     <lastmod>2017-03-05T03:59:15.321Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/11/13/Language/Bash/Bash%E5%9F%BA%E7%A1%80/</loc>
-    
-    <lastmod>2017-03-05T03:59:15.037Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://hujun1413.github.io/2016/07/22/Language/Java/java%20%E5%AF%B9%E6%95%B0%E7%BB%84%E9%99%8D%E5%BA%8F%E6%8E%92%E5%BA%8F%E5%B9%B6%E8%BE%93%E5%87%BA%E5%85%B6%E4%B8%8B%E6%A0%87/</loc>
-    
-    <lastmod>2017-03-05T03:59:14.871Z</lastmod>
     
   </url>
   

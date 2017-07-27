@@ -88,7 +88,7 @@
 <meta property="og:url" content="http://hujun1413.github.io/2016/11/13/OSLab/操作系统/虚拟机中编译Linux内核/index.html">
 <meta property="og:site_name" content="胡君的个人博客">
 <meta property="og:description" content="参考资料http://blog.csdn.net/zhangnn5/article/details/6766693">
-<meta property="og:updated_time" content="2017-06-10T06:58:58.919Z">
+<meta property="og:updated_time" content="2017-07-27T02:51:17.891Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟机中编译Linux内核">
 <meta name="twitter:description" content="参考资料http://blog.csdn.net/zhangnn5/article/details/6766693">
@@ -349,7 +349,7 @@
 </li>
 <li><p>make modules_install将把编译之后的模块放到/lib/modules/</p>
 </li>
-<li><h3 id="系统启动自动加载模块"><a href="#系统启动自动加载模块" class="headerlink" title="系统启动自动加载模块"></a>系统启动自动加载模块</h3>vim /etc/modules<br>没用，则替换插桩ko直接重启</li>
+<li><h3 id="系统启动自动加载模块"><a href="#系统启动自动加载模块" class="headerlink" title="系统启动自动加载模块"></a><a href="http://blog.csdn.net/hunanchenxingyu/article/details/38867931" target="_blank" rel="external">系统启动自动加载模块</a></h3>vim /etc/modules，加入新的一行，写要自动加载的模块名<br>内核模块参考资料：<br><a href="http://blog.chinaunix.net/uid-20568790-id-1632313.html" target="_blank" rel="external">浅谈linux中的模块加载</a><br><a href="https://wiki.archlinux.org/index.php/Kernel_modules_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="external">Kernel modules (简体中文)</a>)</li>
 </ol>
 
       
@@ -374,16 +374,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/10/OSLab/LLVM/1.LLVM的IR语言/" rel="next" title="1.LLVM的IR语言">
-                <i class="fa fa-chevron-left"></i> 1.LLVM的IR语言
+              <a href="/2016/11/12/OSLab/LLVM/4.LLVM的Project/" rel="next" title="4.LLVM的Project">
+                <i class="fa fa-chevron-left"></i> 4.LLVM的Project
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/11/13/Language/Bash/Bash基础/" rel="prev" title="Bash基础">
-                Bash基础 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/11/14/OSLab/LLVM/5.LLVM的函数/" rel="prev" title="5.LLVM的函数">
+                5.LLVM的函数 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -456,7 +456,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">65</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -464,7 +464,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -473,7 +473,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
