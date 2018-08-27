@@ -3,20 +3,17 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2017/01/15/OSLab/LLVM/6.LLVM%E7%9A%84%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/</loc>
-    <lastmod>2017-07-27T02:58:59.999Z</lastmod>
+    <loc>http://hujun1413.github.io/2017/11/09/Navigation/%E5%AF%BC%E8%88%AA/</loc>
+    <lastmod>2018-08-27T09:09:14.513Z</lastmod>
     <data>
         <display>
-        <title>6.LLVM的编程技巧</title>
-        <pubTime>2017-01-15T10:35:26.000Z</pubTime>
+        <title>机器人导航框架</title>
+        <pubTime>2017-11-09T10:35:26.000Z</pubTime>
         
          
            
              
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="LLVM" url="http://hujun1413.github.io/categories/OSLab/LLVM/"/>
+              <breadCrumb title="Navigation" url="http://hujun1413.github.io/categories/Navigation/"/>
           
         </display>
     </data>
@@ -24,20 +21,275 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2016/11/14/OSLab/LLVM/5.LLVM%E7%9A%84%E5%87%BD%E6%95%B0/</loc>
-    <lastmod>2017-07-27T02:57:04.234Z</lastmod>
+    <loc>http://hujun1413.github.io/2018/04/13/ROS/ros%20cartographer/</loc>
+    <lastmod>2018-08-27T09:08:03.804Z</lastmod>
     <data>
         <display>
-        <title>5.LLVM的函数</title>
+        <title>ROS Cartographer</title>
+        <pubTime>2018-04-13T12:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2018/01/09/VSLAM/%E9%87%8D%E8%A6%81VSLAM%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2018-08-27T09:07:07.651Z</lastmod>
+    <data>
+        <display>
+        <title>重要VSLAM系统</title>
+        <pubTime>2018-01-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2017/12/09/VSLAM/%E7%94%9F%E6%88%90%E7%82%B9%E4%BA%91/</loc>
+    <lastmod>2018-08-27T09:06:55.624Z</lastmod>
+    <data>
+        <display>
+        <title>生成点云</title>
+        <pubTime>2017-12-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2018/04/09/VSLAM/%E6%BB%A4%E6%B3%A2/</loc>
+    <lastmod>2018-08-27T09:06:50.346Z</lastmod>
+    <data>
+        <display>
+        <title>滤波</title>
+        <pubTime>2018-04-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2018/04/09/VSLAM/VSLAM%E5%85%A5%E9%97%A8%E7%AE%80%E4%BB%8B/</loc>
+    <lastmod>2018-08-27T09:06:43.478Z</lastmod>
+    <data>
+        <display>
+        <title>VSLAM入门简介</title>
+        <pubTime>2018-04-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2018/03/09/VSLAM/SLAM%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2018-08-27T09:06:37.671Z</lastmod>
+    <data>
+        <display>
+        <title>SLAM与深度学习</title>
+        <pubTime>2018-03-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2017/12/09/VSLAM/Octomap/</loc>
+    <lastmod>2018-08-27T09:06:25.492Z</lastmod>
+    <data>
+        <display>
+        <title>OctoMap</title>
+        <pubTime>2017-12-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2018/06/13/ROS/%E4%BF%AE%E6%94%B9turtlebot2%E7%9A%84description%E4%BB%A5%E6%94%B9%E5%8F%98tf%20tree/</loc>
+    <lastmod>2018-08-27T09:06:15.844Z</lastmod>
+    <data>
+        <display>
+        <title>修改turtlebot2的description以改变tf tree</title>
+        <pubTime>2018-06-13T12:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2017/11/25/Navigation/move_base%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2018-08-27T09:05:51.528Z</lastmod>
+    <data>
+        <display>
+        <title>move_base源码学习</title>
+        <pubTime>2017-11-25T08:25:26.000Z</pubTime>
+        
+        <tag>move_base </tag>
+         
+         
+           
+             
+              <breadCrumb title="Navigation" url="http://hujun1413.github.io/categories/Navigation/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2018/05/25/Deep%20Learning/pytorch%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2018-08-27T09:05:32.404Z</lastmod>
+    <data>
+        <display>
+        <title>Pytorch教程</title>
+        <pubTime>2018-05-25T08:25:26.000Z</pubTime>
+        
+        <tag>Pytorch </tag>
+         
+         
+           
+             
+              <breadCrumb title="Deep Learning" url="http://hujun1413.github.io/categories/Deep-Learning/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2018/05/25/Deep%20Learning/GAN/</loc>
+    <lastmod>2018-08-27T09:05:25.290Z</lastmod>
+    <data>
+        <display>
+        <title>GAN</title>
+        <pubTime>2018-05-25T08:25:26.000Z</pubTime>
+        
+        <tag>GAN </tag>
+         
+         
+           
+             
+              <breadCrumb title="Deep Learning" url="http://hujun1413.github.io/categories/Deep-Learning/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2018/01/09/VSLAM/RTAB_MAP/</loc>
+    <lastmod>2018-08-27T09:05:02.746Z</lastmod>
+    <data>
+        <display>
+        <title>RTAB_Map</title>
+        <pubTime>2018-01-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/11/09/LLVM/0.LLVM%E5%AE%89%E8%A3%85%E5%8F%8A%E5%B7%A5%E5%85%B7%E9%93%BE/</loc>
+    <lastmod>2018-08-27T08:54:53.665Z</lastmod>
+    <data>
+        <display>
+        <title>LLVM安装及工具链</title>
+        <pubTime>2016-11-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="LLVM" url="http://hujun1413.github.io/categories/LLVM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/11/10/LLVM/1.LLVM%E7%9A%84IR%E8%AF%AD%E8%A8%80/</loc>
+    <lastmod>2018-08-27T08:54:45.498Z</lastmod>
+    <data>
+        <display>
+        <title>LLVM的IR语言</title>
+        <pubTime>2016-11-10T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="LLVM" url="http://hujun1413.github.io/categories/LLVM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/11/14/LLVM/2.LLVM%E7%9A%84%E5%87%BD%E6%95%B0/</loc>
+    <lastmod>2018-08-27T08:54:25.295Z</lastmod>
+    <data>
+        <display>
+        <title>LLVM的函数</title>
         <pubTime>2016-11-14T10:35:26.000Z</pubTime>
         
          
            
              
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="LLVM" url="http://hujun1413.github.io/categories/OSLab/LLVM/"/>
+              <breadCrumb title="LLVM" url="http://hujun1413.github.io/categories/LLVM/"/>
           
         </display>
     </data>
@@ -45,20 +297,17 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2016/11/12/OSLab/LLVM/4.LLVM%E7%9A%84Project/</loc>
-    <lastmod>2017-07-27T02:56:43.773Z</lastmod>
+    <loc>http://hujun1413.github.io/2017/01/15/LLVM/3.LLVM%E7%9A%84%E7%BC%96%E7%A8%8B%E6%8A%80%E5%B7%A7/</loc>
+    <lastmod>2018-08-27T08:54:14.692Z</lastmod>
     <data>
         <display>
-        <title>4.LLVM的Project</title>
-        <pubTime>2016-11-12T10:35:26.000Z</pubTime>
+        <title>LLVM的编程技巧</title>
+        <pubTime>2017-01-15T10:35:26.000Z</pubTime>
         
          
            
              
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="LLVM" url="http://hujun1413.github.io/categories/OSLab/LLVM/"/>
+              <breadCrumb title="LLVM" url="http://hujun1413.github.io/categories/LLVM/"/>
           
         </display>
     </data>
@@ -66,50 +315,8 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2016/11/11/OSLab/LLVM/3.LLVM%E7%9A%84Pass/</loc>
-    <lastmod>2017-07-27T02:56:19.708Z</lastmod>
-    <data>
-        <display>
-        <title>3.LLVM的Pass</title>
-        <pubTime>2016-11-11T10:35:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="LLVM" url="http://hujun1413.github.io/categories/OSLab/LLVM/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/11/10/OSLab/LLVM/2.LLVM%E7%9A%84%E7%BC%96%E7%A8%8B%E6%8C%87%E5%BC%95/</loc>
-    <lastmod>2017-07-27T02:56:01.009Z</lastmod>
-    <data>
-        <display>
-        <title>2.LLVM的编程指引</title>
-        <pubTime>2016-11-10T10:36:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="LLVM" url="http://hujun1413.github.io/categories/OSLab/LLVM/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/11/13/OSLab/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E7%BC%96%E8%AF%91Linux%E5%86%85%E6%A0%B8/</loc>
-    <lastmod>2017-07-27T02:51:17.891Z</lastmod>
+    <loc>http://hujun1413.github.io/2016/11/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E7%BC%96%E8%AF%91Linux%E5%86%85%E6%A0%B8/</loc>
+    <lastmod>2018-08-27T08:53:23.199Z</lastmod>
     <data>
         <display>
         <title>虚拟机中编译Linux内核</title>
@@ -118,10 +325,7 @@
          
            
              
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="操作系统" url="http://hujun1413.github.io/categories/OSLab/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+              <breadCrumb title="操作系统" url="http://hujun1413.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
           
         </display>
     </data>
@@ -129,20 +333,17 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2016/11/09/OSLab/LLVM/0.LLVM%E5%AE%89%E8%A3%85%E5%8F%8A%E5%B7%A5%E5%85%B7%E9%93%BE/</loc>
-    <lastmod>2017-06-10T06:38:17.196Z</lastmod>
+    <loc>http://hujun1413.github.io/2016/09/26/ROS/0.%E4%BB%80%E4%B9%88%E6%98%AFROS/</loc>
+    <lastmod>2018-08-27T08:52:54.848Z</lastmod>
     <data>
         <display>
-        <title>0.LLVM安装及工具链</title>
-        <pubTime>2016-11-09T10:35:26.000Z</pubTime>
+        <title>ROS是什么</title>
+        <pubTime>2016-09-26T12:33:26.000Z</pubTime>
         
          
            
              
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="LLVM" url="http://hujun1413.github.io/categories/OSLab/LLVM/"/>
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
           
         </display>
     </data>
@@ -150,20 +351,17 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2016/11/10/OSLab/LLVM/1.LLVM%E7%9A%84IR%E8%AF%AD%E8%A8%80/</loc>
-    <lastmod>2017-06-10T06:38:06.878Z</lastmod>
+    <loc>http://hujun1413.github.io/2016/11/07/ROS/1.ROS-Nao/</loc>
+    <lastmod>2018-08-27T08:52:44.232Z</lastmod>
     <data>
         <display>
-        <title>1.LLVM的IR语言</title>
-        <pubTime>2016-11-10T10:35:26.000Z</pubTime>
+        <title>ROS-Nao</title>
+        <pubTime>2016-11-07T12:35:26.000Z</pubTime>
         
          
            
              
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="LLVM" url="http://hujun1413.github.io/categories/OSLab/LLVM/"/>
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
           
         </display>
     </data>
@@ -171,20 +369,17 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2016/11/14/OSLab/ROS/12.ROS-Kobuki/</loc>
-    <lastmod>2017-06-10T05:31:23.884Z</lastmod>
+    <loc>http://hujun1413.github.io/2016/11/14/ROS/2.ROS-Kobuki/</loc>
+    <lastmod>2018-08-27T08:52:32.665Z</lastmod>
     <data>
         <display>
-        <title>12.ROS-Kobuki</title>
+        <title>ROS-Kobuki</title>
         <pubTime>2016-11-14T12:35:26.000Z</pubTime>
         
          
            
              
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/OSLab/ROS/"/>
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
           
         </display>
     </data>
@@ -192,8 +387,8 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2016/10/13/OSLab/ROS/ROS_By_Example/</loc>
-    <lastmod>2017-06-09T03:16:57.333Z</lastmod>
+    <loc>http://hujun1413.github.io/2016/10/13/ROS/ROS_By_Example/</loc>
+    <lastmod>2018-08-27T08:49:43.779Z</lastmod>
     <data>
         <display>
         <title>ROS_By_Example笔记</title>
@@ -202,10 +397,7 @@
          
            
              
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/OSLab/ROS/"/>
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
           
         </display>
     </data>
@@ -289,225 +481,6 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2016/09/26/OSLab/ROS/0.%E4%BB%80%E4%B9%88%E6%98%AFROS/</loc>
-    <lastmod>2017-03-05T03:59:18.477Z</lastmod>
-    <data>
-        <display>
-        <title>0.ROS是什么</title>
-        <pubTime>2016-09-26T12:33:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/OSLab/ROS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/09/27/OSLab/ROS/7.ROS%E6%B6%88%E6%81%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%88%9B%E5%BB%BA/</loc>
-    <lastmod>2017-03-05T03:59:17.227Z</lastmod>
-    <data>
-        <display>
-        <title>7.创建ROS消息和ROS服务</title>
-        <pubTime>2016-09-27T13:35:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/OSLab/ROS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/09/26/OSLab/ROS/4.ROS%E8%8A%82%E7%82%B9%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%92%8C%E5%8F%82%E6%95%B0/</loc>
-    <lastmod>2017-03-05T03:59:16.868Z</lastmod>
-    <data>
-        <display>
-        <title>4.ROS节点，服务和参数</title>
-        <pubTime>2016-09-26T13:35:26.000Z</pubTime>
-        
-        <tag>roscore </tag>
-         
-        <tag>rosnode </tag>
-         
-        <tag>rosrun </tag>
-         
-        <tag>rosservice </tag>
-         
-        <tag>rosparam </tag>
-         
-         
-           
-             
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/OSLab/ROS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/09/26/OSLab/ROS/3.%E5%88%9B%E5%BB%BA%E5%92%8C%E7%BC%96%E8%AF%91ROS%E7%A8%8B%E5%BA%8F%E5%8C%85/</loc>
-    <lastmod>2017-03-05T03:59:16.665Z</lastmod>
-    <data>
-        <display>
-        <title>3.创建和编译ROS程序包</title>
-        <pubTime>2016-09-26T12:39:26.000Z</pubTime>
-        
-        <tag>catkin_create_pkg </tag>
-         
-        <tag>rospack depends1 </tag>
-         
-        <tag>catkin_make </tag>
-         
-         
-           
-             
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/OSLab/ROS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/09/27/OSLab/ROS/5.ROS%E8%AF%9D%E9%A2%98/</loc>
-    <lastmod>2017-03-05T03:59:16.634Z</lastmod>
-    <data>
-        <display>
-        <title>5.ROS话题</title>
-        <pubTime>2016-09-27T10:35:26.000Z</pubTime>
-        
-        <tag>rostopic </tag>
-         
-        <tag>rosmsg </tag>
-         
-         
-           
-             
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/OSLab/ROS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/09/29/OSLab/ROS/10.%E5%BD%95%E5%88%B6%E5%92%8C%E5%9B%9E%E6%94%BE%E6%95%B0%E6%8D%AE/</loc>
-    <lastmod>2017-03-05T03:59:16.180Z</lastmod>
-    <data>
-        <display>
-        <title>10.录制和回放数据</title>
-        <pubTime>2016-09-29T12:35:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/OSLab/ROS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/09/26/OSLab/ROS/2.ROS%20Indigo%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%BB%8B%E7%BB%8D/</loc>
-    <lastmod>2017-03-05T03:59:15.837Z</lastmod>
-    <data>
-        <display>
-        <title>2.ROS文件系统介绍</title>
-        <pubTime>2016-09-26T12:35:26.000Z</pubTime>
-        
-        <tag>rospack find </tag>
-         
-        <tag>roscd </tag>
-         
-        <tag>rosls </tag>
-         
-         
-           
-             
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/OSLab/ROS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/11/07/OSLab/ROS/11.ROS-Nao/</loc>
-    <lastmod>2017-03-05T03:59:15.477Z</lastmod>
-    <data>
-        <display>
-        <title>11.ROS-Nao</title>
-        <pubTime>2016-11-07T12:35:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/OSLab/ROS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/09/26/OSLab/ROS/1.ROS%20Indigo%E5%AE%89%E8%A3%85%E5%88%B0Ubuntu14.04/</loc>
-    <lastmod>2017-03-05T03:59:15.321Z</lastmod>
-    <data>
-        <display>
-        <title>1.ROS Indigo安装到Ubuntu14.04并配置环境</title>
-        <pubTime>2016-09-26T12:34:26.000Z</pubTime>
-        
-        <tag>rosdep </tag>
-         
-        <tag>source </tag>
-         
-         
-           
-             
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/OSLab/ROS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://hujun1413.github.io/2016/04/07/Informal_essay/hello-world/</loc>
     <lastmod>2017-03-05T03:59:14.836Z</lastmod>
     <data>
@@ -521,73 +494,6 @@
            
              
               <breadCrumb title="随笔" url="http://hujun1413.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/09/27/OSLab/ROS/6.ROSrqt_console%E5%92%8Croslaunch/</loc>
-    <lastmod>2017-03-05T03:59:14.789Z</lastmod>
-    <data>
-        <display>
-        <title>6.ROS的rqt_console 和 roslaunch</title>
-        <pubTime>2016-09-27T12:35:26.000Z</pubTime>
-        
-        <tag>rqt_console </tag>
-         
-        <tag>roslaunch </tag>
-         
-         
-           
-             
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/OSLab/ROS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/09/28/OSLab/ROS/8.%E7%BC%96%E5%86%99%E7%AE%80%E5%8D%95%E7%9A%84%E6%B6%88%E6%81%AF%E5%8F%91%E5%B8%83%E5%99%A8%E5%92%8C%E8%AE%A2%E9%98%85%E5%99%A8/</loc>
-    <lastmod>2017-03-05T03:59:14.605Z</lastmod>
-    <data>
-        <display>
-        <title>8.编写简单的消息发布器和订阅器及测试</title>
-        <pubTime>2016-09-28T10:35:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/OSLab/ROS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/09/28/OSLab/ROS/9.%E7%BC%96%E5%86%99%E7%AE%80%E5%8D%95%E7%9A%84Service%E5%92%8CClient/</loc>
-    <lastmod>2017-03-05T03:59:14.320Z</lastmod>
-    <data>
-        <display>
-        <title>9.编写简单的Service和Client及测试,roawtf入门</title>
-        <pubTime>2016-09-28T12:35:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="OSLab" url="http://hujun1413.github.io/categories/OSLab/"/>
-          
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/OSLab/ROS/"/>
           
         </display>
     </data>

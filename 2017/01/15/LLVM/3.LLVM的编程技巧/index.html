@@ -1,0 +1,672 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="先获取模块中的每个函数，再获取每个函数中的每个BasicBlock，再获取每个BasicBlock中的每条instruction（最常用）123456789101112for (Module::iterator FunIt = mod-&amp;gt;begin() ; FunIt != mod-&amp;gt;end() ; ++FunIt)&amp;#123;    for (Function::iterator b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LLVM的编程技巧">
+<meta property="og:url" content="http://hujun1413.github.io/2017/01/15/LLVM/3.LLVM的编程技巧/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="先获取模块中的每个函数，再获取每个函数中的每个BasicBlock，再获取每个BasicBlock中的每条instruction（最常用）123456789101112for (Module::iterator FunIt = mod-&amp;gt;begin() ; FunIt != mod-&amp;gt;end() ; ++FunIt)&amp;#123;    for (Function::iterator b">
+<meta property="og:updated_time" content="2018-08-27T08:54:14.692Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LLVM的编程技巧">
+<meta name="twitter:description" content="先获取模块中的每个函数，再获取每个函数中的每个BasicBlock，再获取每个BasicBlock中的每条instruction（最常用）123456789101112for (Module::iterator FunIt = mod-&amp;gt;begin() ; FunIt != mod-&amp;gt;end() ; ++FunIt)&amp;#123;    for (Function::iterator b">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> LLVM的编程技巧 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                LLVM的编程技巧
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-15T18:35:26+08:00" content="2017-01-15">
+              2017-01-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/LLVM/" itemprop="url" rel="index">
+                    <span itemprop="name">LLVM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/15/LLVM/3.LLVM的编程技巧/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/15/LLVM/3.LLVM的编程技巧/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="先获取模块中的每个函数，再获取每个函数中的每个BasicBlock，再获取每个BasicBlock中的每条instruction（最常用）"><a href="#先获取模块中的每个函数，再获取每个函数中的每个BasicBlock，再获取每个BasicBlock中的每条instruction（最常用）" class="headerlink" title="先获取模块中的每个函数，再获取每个函数中的每个BasicBlock，再获取每个BasicBlock中的每条instruction（最常用）"></a>先获取模块中的每个函数，再获取每个函数中的每个BasicBlock，再获取每个BasicBlock中的每条instruction（最常用）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Module::iterator FunIt = mod-&gt;begin() ; FunIt != mod-&gt;end() ; ++FunIt)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (Function::iterator b = FunIt-&gt;begin(), e = FunIt-&gt;end(); b != e; ++b)  //获取每个函数中的basic block</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt; <span class="string">"Basic block name="</span> &lt;&lt; b-&gt;getName().str() &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">for</span> (BasicBlock::iterator i = b-&gt;begin(), e = b-&gt;end(); i != e; ++i)  //获取每个basic block中的instruction</span><br><span class="line">        &#123;</span><br><span class="line">            outs() &lt;&lt; *i &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">            Instruction* inst = &amp;(*i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="获取Module中的每一个Function"><a href="#获取Module中的每一个Function" class="headerlink" title="获取Module中的每一个Function"></a>获取Module中的每一个Function</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Module::iterator FunIt = mod-&gt;begin() ; FunIt != mod-&gt;end() ; ++FunIt) &#123;</span><br><span class="line">	Function* F = &amp;(*FunIt);  //获取模块中的每一个函数</span><br></pre></td></tr></table></figure>
+<h3 id="直接获取Function中的instruction"><a href="#直接获取Function中的instruction" class="headerlink" title="直接获取Function中的instruction"></a>直接获取Function中的instruction</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (inst_iterator I = inst_begin(F), E = inst_end(F); I != E; ++I)</span><br><span class="line">&#123;</span><br><span class="line">    Instruction* inst = &amp;(*I);</span><br><span class="line">    outs() &lt;&lt; inst-&gt;getName() &lt;&lt; <span class="string">"    "</span> &lt;&lt; inst-&gt;getOpcode() &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="获取Function中的每个BasicBlock，直接打印整个BasicBlock的内容"><a href="#获取Function中的每个BasicBlock，直接打印整个BasicBlock的内容" class="headerlink" title="获取Function中的每个BasicBlock，直接打印整个BasicBlock的内容"></a>获取Function中的每个BasicBlock，直接打印整个BasicBlock的内容</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Function::iterator i = FunIt-&gt;begin(), e = FunIt-&gt;end(); i != e; ++i) &#123;  //获取每个函数中的basic block</span><br><span class="line">    cout&lt;&lt; <span class="string">"Basic block name="</span> &lt;&lt; i-&gt;getName().str() &lt;&lt; std::endl;</span><br><span class="line">    outs() &lt;&lt; *i &lt;&lt; <span class="string">"\n"</span>;   //打印basic blocks的名字和内容</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="声明一个函数"><a href="#声明一个函数" class="headerlink" title="声明一个函数"></a>声明一个函数</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//先创造函数的类型</span><br><span class="line">IntegerType *IntTy32 = IntegerType::get(mod-&gt;getContext(), 32);</span><br><span class="line">std::vector&lt;Type*&gt;FuncTy_args;</span><br><span class="line">FuncTy_args.push_back(IntTy32);</span><br><span class="line">FuncTy_args.push_back(IntTy32);</span><br><span class="line">FunctionType* FuncTy = FunctionType::get(/*Result=*/Type::getVoidTy(mod-&gt;getContext()),</span><br><span class="line">/*Params=*/FuncTy_args,/*isVarArg=*/<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">//再声明函数，设置链接类型，函数名，调用惯例和属性</span><br><span class="line">Function* func = mod-&gt;getFunction(<span class="string">"PrintWrite"</span>);</span><br><span class="line"><span class="keyword">if</span> (!func)</span><br><span class="line">&#123;</span><br><span class="line">	Function* func =Function::Create(/*Type=*/FuncTy, /*Linkage=*/GlobalValue::ExternalLinkage,</span><br><span class="line">									 /*Name=*/<span class="string">"PrintWrite"</span>,mod);</span><br><span class="line">	func-&gt;<span class="built_in">set</span>CallingConv(CallingConv::C);</span><br><span class="line">&#125;</span><br><span class="line">AttrListPtr func_Add_PAL;</span><br><span class="line">func-&gt;<span class="built_in">set</span>Attributes(func_Add_PAL);</span><br></pre></td></tr></table></figure>
+<h3 id="调用一个函数"><a href="#调用一个函数" class="headerlink" title="调用一个函数"></a>调用一个函数</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//BasicBlock::iterator i   i是BasicBlock迭代器，通过Instruction* inst = &amp;(*i)获取指令</span><br><span class="line">//在i指令后插入一条函数调用</span><br><span class="line"></span><br><span class="line">++i;</span><br><span class="line"></span><br><span class="line">CallInst *newcall;</span><br><span class="line">std::vector&lt;Value*&gt; para;</span><br><span class="line">Constant *content = CreateWords(mod, <span class="string">"sum outputted by Hujun:\n"</span>);</span><br><span class="line">para.push_back(content);</span><br><span class="line">newcall = CallInst::Create(<span class="built_in">print</span>, para1, <span class="string">""</span>, i);  //在i之前插入一条函数调用，<span class="built_in">print</span>是函数的指针</span><br><span class="line">newcall-&gt;<span class="built_in">set</span>CallingConv(CallingConv::C);</span><br><span class="line">newcall-&gt;<span class="built_in">set</span>TailCall(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">--i;</span><br></pre></td></tr></table></figure>
+<h3 id="创建一个指向字符串的指针，若已存在则直接返回指针"><a href="#创建一个指向字符串的指针，若已存在则直接返回指针" class="headerlink" title="创建一个指向字符串的指针，若已存在则直接返回指针"></a>创建一个指向字符串的指针，若已存在则直接返回指针</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">Constant *CreateWords(Module *mod, string str)</span><br><span class="line">&#123;</span><br><span class="line">	//look up the word <span class="keyword">in</span> global value table</span><br><span class="line">	string mystr = <span class="string">"%%"</span> + str;</span><br><span class="line">	GlobalValue *my_name = mod-&gt;getNamedValue(mystr);</span><br><span class="line">	<span class="keyword">if</span> (my_name)</span><br><span class="line">	&#123;</span><br><span class="line">		GlobalVariable *my_global = cast &lt;GlobalVariable&gt; (my_name);</span><br><span class="line">		ConstantInt* const_int = ConstantInt::get(mod-&gt;getContext(), APInt(32, 0));</span><br><span class="line">		std::vector&lt;Constant*&gt; const_ptr_indices;</span><br><span class="line">		const_ptr_indices.push_back(const_int);</span><br><span class="line">		const_ptr_indices.push_back(const_int);</span><br><span class="line">		Constant* const_ptr = ConstantExpr::getGetElementPtr(my_global, const_ptr_indices);</span><br><span class="line">		//ConstantExpr - a constant value that is initialized with an expression using other constant values.</span><br><span class="line">		<span class="built_in">return</span> const_ptr;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	//<span class="keyword">if</span> not find it, <span class="keyword">then</span> create a new word <span class="keyword">in</span> global value table</span><br><span class="line">	ArrayType *ArrayTy = ArrayType::get(IntegerType::get(mod-&gt;getContext(), 8), str.length()+1);</span><br><span class="line">	GlobalVariable *global_name = new GlobalVariable(*mod, ArrayTy, <span class="literal">true</span>,</span><br><span class="line">									GlobalValue::PrivateLinkage, 0, mystr);</span><br><span class="line">	global_name-&gt;<span class="built_in">set</span>Alignment(1);</span><br><span class="line"></span><br><span class="line">	//Constant Definitions</span><br><span class="line">	Constant* const_array = ConstantDataArray::getString(mod-&gt;getContext(), str, <span class="literal">true</span>);</span><br><span class="line">    //This method constructs a CDS and initializes it with a text string.</span><br><span class="line">	ConstantInt* const_int = ConstantInt::get(mod-&gt;getContext(), APInt(32, 0));</span><br><span class="line">	std::vector&lt;Constant*&gt; const_ptr_indices;</span><br><span class="line">	const_ptr_indices.push_back(const_int);</span><br><span class="line">	const_ptr_indices.push_back(const_int);</span><br><span class="line">	Constant* const_ptr = ConstantExpr::getGetElementPtr(global_name, const_ptr_indices);</span><br><span class="line"></span><br><span class="line">	//Global Variable Definitions</span><br><span class="line">	global_name-&gt;<span class="built_in">set</span>Initializer(const_array);</span><br><span class="line">	<span class="built_in">return</span> const_ptr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="itoa用sprintf替代"><a href="#itoa用sprintf替代" class="headerlink" title="itoa用sprintf替代"></a>itoa用sprintf替代</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int nValue = 80;</span><br><span class="line">char* szBuffer = (char *)malloc(20);//分配动态内存</span><br><span class="line">memset(szBuffer, 0, 20);    //内存块初始化</span><br><span class="line">sprintf(szBuffer, <span class="string">"%d"</span>, nValue);//整数转化为字符串</span><br><span class="line"></span><br><span class="line">free(szBuffer);        //释放动态分配的内存</span><br></pre></td></tr></table></figure>
+<h3 id="llvm中调用printf"><a href="#llvm中调用printf" class="headerlink" title="llvm中调用printf"></a>llvm中调用printf</h3><p>直接创建一个string类型的字串，然后获取它的地址Value*，调用printf的Function*即可。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Function *<span class="built_in">print</span> = mod-&gt;getFunction(<span class="string">"printf"</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="built_in">print</span>)</span><br><span class="line">&#123;</span><br><span class="line">	CallInst *newcall;</span><br><span class="line">	std::vector&lt;Value*&gt; para;</span><br><span class="line">    Constant *content = CreateWords(mod, <span class="string">"output something\n"</span>);</span><br><span class="line">    para.push_back(content);</span><br><span class="line">	++i;</span><br><span class="line">	newcall = CallInst::Create(<span class="built_in">print</span>, para, <span class="string">"printRand"</span>, i);  //CallInst represents a <span class="keyword">function</span> call，在i指令之前插入一条func_record</span><br><span class="line">	newcall-&gt;<span class="built_in">set</span>CallingConv(CallingConv::C);</span><br><span class="line">	newcall-&gt;<span class="built_in">set</span>TailCall(<span class="literal">false</span>);</span><br><span class="line">	--i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="从Value-得到int类型数据"><a href="#从Value-得到int类型数据" class="headerlink" title="从Value*得到int类型数据"></a>从Value*得到int类型数据</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Value *oneInt = %add = add nsw i32 %call, %total.06</span><br><span class="line">ConstantInt* CI = dyn_cast&lt;ConstantInt&gt;(oneInt)</span><br><span class="line"></span><br><span class="line">Value *ten_int = ConstantInt::get(mod-&gt;getContext(), APInt(32, 10));</span><br><span class="line"><span class="keyword">if</span> (ConstantInt* CI = dyn_cast&lt;ConstantInt&gt;(ten_int))</span><br><span class="line">&#123;</span><br><span class="line">    outs() &lt;&lt; <span class="string">"转换成功\n"</span>;</span><br><span class="line">    <span class="keyword">if</span> (CI-&gt;getBitWidth() &lt;= 64)</span><br><span class="line">    &#123;</span><br><span class="line">        int constIntValue = CI-&gt;getSExtValue();</span><br><span class="line">        outs() &lt;&lt; <span class="string">"整型值为："</span> &lt;&lt; constIntValue &lt;&lt; <span class="string">"\n"</span>;    //这里输出10</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    outs() &lt;&lt; <span class="string">"转换失败！\n"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="从Value得到string字符串"><a href="#从Value得到string字符串" class="headerlink" title="从Value得到string字符串"></a>从Value得到string字符串</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">有getName方法时：</span><br><span class="line">StringRef oriValue = Funtion.getName(); //Funtion的名字，类型为StringRef</span><br><span class="line">string mystr = oriValue.str();  //StringRef::str: Get the contents as an std::string.</span><br><span class="line"></span><br><span class="line">无getName方法时（比如要打印整条指令的内容时）：</span><br><span class="line">Instruction *MyIn = &amp;(*it_BB);  //MyIn为一条指令</span><br><span class="line">string mystr(<span class="string">""</span>);</span><br><span class="line">raw_string_ostream stream(mystr);</span><br><span class="line">stream &lt;&lt; *MyIn;  //重载实现了&lt;&lt;</span><br><span class="line">mystr = stream.str()  //raw_string_ostream::str: Flushes the stream contents to the target string</span><br><span class="line">                      //and returns the string<span class="string">'s reference.</span></span><br></pre></td></tr></table></figure>
+<h3 id="从Value得到char-字符串-由string转char-得到"><a href="#从Value得到char-字符串-由string转char-得到" class="headerlink" title="从Value得到char* 字符串(由string转char*得到)"></a>从Value得到char* 字符串(由string转char*得到)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">string getString = MyIn-&gt;getName().str();</span><br><span class="line">char mystr[100];</span><br><span class="line">strcpy(mystr, getString.c_str());  //mystr中为函数名</span><br><span class="line"></span><br><span class="line">/*extern int strcmp(const char *s1,const char *s2);</span><br><span class="line">当s1&lt;s2时，返回为负数；</span><br><span class="line">当s1==s2时，返回值= 0；</span><br><span class="line">当s1&gt;s2时，返回正数。*/</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(strcmp(mystr, <span class="string">"printf"</span>) == 0)  //判断mystr是否等于<span class="string">"printf"</span></span><br></pre></td></tr></table></figure>
+<h3 id="调用外部的C函数（生成静态库）"><a href="#调用外部的C函数（生成静态库）" class="headerlink" title="调用外部的C函数（生成静态库）"></a>调用外部的C函数（生成静态库）</h3><p><a href="http://blog.csdn.net/dlite/article/details/44118865" target="_blank" rel="external">LLVM IR和C/C++函数相互调用时的注意事项</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">生成静态库.a:</span><br><span class="line">gcc -c <span class="built_in">print</span>Int.c <span class="comment">#生成printInt.o</span></span><br><span class="line">ar -cr libmyprint.a <span class="built_in">print</span>Int.o <span class="comment">#printInt.o生成静态库libmyprint.a</span></span><br><span class="line"></span><br><span class="line">./RandSum ../../hello.bc  <span class="comment">#插桩生成.bc文件</span></span><br><span class="line">llc update.bc -o update.s <span class="comment">#将插桩后得到的.bc变为.s</span></span><br><span class="line">gcc -c update.s -o update.o <span class="comment">#将.s变为.o</span></span><br><span class="line">gcc update.o ../../libmyprint.a -o update <span class="comment">#将.o与静态库.a生成可执行文件</span></span><br><span class="line">./update  <span class="comment">#运行可执行文件</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="获取指令的操作数和返回值"><a href="#获取指令的操作数和返回值" class="headerlink" title="获取指令的操作数和返回值"></a>获取指令的操作数和返回值</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int operand_num = inst-&gt;getNumOperands();           //获得所有的操作数</span><br><span class="line">outs() &lt;&lt; <span class="string">"总共"</span> &lt;&lt; operand_num &lt;&lt; <span class="string">"个操作数"</span> &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line"><span class="keyword">for</span>(int i=0; i&lt;operand_num; ++i)</span><br><span class="line">&#123;</span><br><span class="line">    outs() &lt;&lt; <span class="string">"第"</span> &lt;&lt; i+1 &lt;&lt; <span class="string">"个操作数是："</span> &lt;&lt; *inst-&gt;getOperand(i) &lt;&lt; <span class="string">"\n"</span>;    //<span class="built_in">printf</span>的第2个操作数是字符串</span><br><span class="line">&#125;</span><br><span class="line">outs() &lt;&lt; <span class="string">"返回值是："</span>  &lt;&lt; *inst &lt;&lt; <span class="string">"\n\n"</span>;   //返回值就是指令本身</span><br></pre></td></tr></table></figure>
+<h3 id="获取函数的参数的位置和类型"><a href="#获取函数的参数的位置和类型" class="headerlink" title="获取函数的参数的位置和类型"></a>获取函数的参数的位置和类型</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(myfunc-&gt;isVarArg())</span><br><span class="line">&#123;</span><br><span class="line">    outs() &lt;&lt; <span class="string">"可变参数\n"</span>;   //如<span class="built_in">printf</span>(i8*,...)，则是可变参数</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(Function::arg_iterator start = myfunc-&gt;arg_begin(), end = myfunc-&gt;arg_end(); start != end; ++start)</span><br><span class="line">&#123;</span><br><span class="line">    outs() &lt;&lt; <span class="string">"argument:"</span> &lt;&lt; *start &lt;&lt; <span class="string">"\n"</span>;   //获得参数类型和位置</span><br><span class="line">    //如<span class="built_in">printf</span>(i8*,...)  则输出argument:i8* %0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="replaceAllUsesWith"><a href="#replaceAllUsesWith" class="headerlink" title="replaceAllUsesWith"></a>replaceAllUsesWith</h3><p>replaceUsesOfWith</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/14/ROS/2.ROS-Kobuki/" rel="next" title="ROS-Kobuki">
+                <i class="fa fa-chevron-left"></i> ROS-Kobuki
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/09/Navigation/导航/" rel="prev" title="机器人导航框架">
+                机器人导航框架 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/15/LLVM/3.LLVM的编程技巧/"
+           data-title="LLVM的编程技巧" data-url="http://hujun1413.github.io/2017/01/15/LLVM/3.LLVM的编程技巧/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ofl6ycl3e.bkt.clouddn.com/avatar.png"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#先获取模块中的每个函数，再获取每个函数中的每个BasicBlock，再获取每个BasicBlock中的每条instruction（最常用）"><span class="nav-number">1.</span> <span class="nav-text">先获取模块中的每个函数，再获取每个函数中的每个BasicBlock，再获取每个BasicBlock中的每条instruction（最常用）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取Module中的每一个Function"><span class="nav-number">2.</span> <span class="nav-text">获取Module中的每一个Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接获取Function中的instruction"><span class="nav-number">3.</span> <span class="nav-text">直接获取Function中的instruction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取Function中的每个BasicBlock，直接打印整个BasicBlock的内容"><span class="nav-number">4.</span> <span class="nav-text">获取Function中的每个BasicBlock，直接打印整个BasicBlock的内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#声明一个函数"><span class="nav-number">5.</span> <span class="nav-text">声明一个函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用一个函数"><span class="nav-number">6.</span> <span class="nav-text">调用一个函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个指向字符串的指针，若已存在则直接返回指针"><span class="nav-number">7.</span> <span class="nav-text">创建一个指向字符串的指针，若已存在则直接返回指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#itoa用sprintf替代"><span class="nav-number">8.</span> <span class="nav-text">itoa用sprintf替代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#llvm中调用printf"><span class="nav-number">9.</span> <span class="nav-text">llvm中调用printf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从Value-得到int类型数据"><span class="nav-number">10.</span> <span class="nav-text">从Value*得到int类型数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从Value得到string字符串"><span class="nav-number">11.</span> <span class="nav-text">从Value得到string字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从Value得到char-字符串-由string转char-得到"><span class="nav-number">12.</span> <span class="nav-text">从Value得到char* 字符串(由string转char*得到)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调用外部的C函数（生成静态库）"><span class="nav-number">13.</span> <span class="nav-text">调用外部的C函数（生成静态库）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取指令的操作数和返回值"><span class="nav-number">14.</span> <span class="nav-text">获取指令的操作数和返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取函数的参数的位置和类型"><span class="nav-number">15.</span> <span class="nav-text">获取函数的参数的位置和类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#replaceAllUsesWith"><span class="nav-number">16.</span> <span class="nav-text">replaceAllUsesWith</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

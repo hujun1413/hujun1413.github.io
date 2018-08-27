@@ -1,0 +1,713 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="LLVM IR根据编译原理知识，编译器不是直接将源语言翻译为目标语言，而是翻译为一种“中间语言”，我们编译器从业人员称之为“IR”传统的静态编译器分为三个阶段：前端、优化和后端。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LLVM的IR语言">
+<meta property="og:url" content="http://hujun1413.github.io/2016/11/10/LLVM/1.LLVM的IR语言/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="LLVM IR根据编译原理知识，编译器不是直接将源语言翻译为目标语言，而是翻译为一种“中间语言”，我们编译器从业人员称之为“IR”传统的静态编译器分为三个阶段：前端、优化和后端。">
+<meta property="og:updated_time" content="2018-08-27T08:54:45.498Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LLVM的IR语言">
+<meta name="twitter:description" content="LLVM IR根据编译原理知识，编译器不是直接将源语言翻译为目标语言，而是翻译为一种“中间语言”，我们编译器从业人员称之为“IR”传统的静态编译器分为三个阶段：前端、优化和后端。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> LLVM的IR语言 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                LLVM的IR语言
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-10T18:35:26+08:00" content="2016-11-10">
+              2016-11-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/LLVM/" itemprop="url" rel="index">
+                    <span itemprop="name">LLVM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/10/LLVM/1.LLVM的IR语言/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/10/LLVM/1.LLVM的IR语言/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="LLVM-IR"><a href="#LLVM-IR" class="headerlink" title="LLVM IR"></a>LLVM IR</h2><p>根据编译原理知识，编译器不是直接将源语言翻译为目标语言，而是翻译为一种“中间语言”，我们编译器从业人员称之为“IR”<br>传统的静态编译器分为三个阶段：前端、优化和后端。<br><a id="more"></a><br>LLVM IR主要有三种格式：一种是在内存中的编译中间语言(我们无法通过文件的形式得到)；一种是硬盘上存储的二进制中间语言（以.bc结尾），最后一种是可读的中间格式（以.ll结尾）。这三种中间格式是完全相等的。<br><a href="http://llvm.org/docs/LangRef.html" target="_blank" rel="external">LLVM Language Reference Manual</a><br><a href="http://blog.sina.com.cn/s/blog_49b6b6d001011gik.html" target="_blank" rel="external">LLVM的IR基本语法简介</a><br><a href="http://blog.csdn.net/qq_17722211/article/details/49080191" target="_blank" rel="external">llvm之IR手册翻译</a><br><a href="http://blog.csdn.net/starspringcloud/article/details/50782579" target="_blank" rel="external">LLVM Language Reference Manual翻译</a></p>
+<h2 id="Module-Structure"><a href="#Module-Structure" class="headerlink" title="Module Structure"></a>Module Structure</h2><p>在一般情况下，一个模块的组成：函数和全局变量类的全局值、一个指向一个存储器位置指针（在本例，一个指向字符数组，和一个指针的函数），和linker type（详见下文）。</p>
+<h2 id="Named-Metadata"><a href="#Named-Metadata" class="headerlink" title="Named Metadata"></a><a href="http://llvm.org/docs/LangRef.html#namedmetadatastructure" target="_blank" rel="external">Named Metadata</a></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">; Some unnamed metadata nodes, which are referenced by the named metadata.</span><br><span class="line">!0 = !&#123;!&quot;zero&quot;&#125;</span><br><span class="line">!1 = !&#123;!&quot;one&quot;&#125;</span><br><span class="line">!2 = !&#123;!&quot;two&quot;&#125;</span><br><span class="line">; A named metadata.</span><br><span class="line">!name = !&#123;!0, !1, !2&#125;</span><br></pre></td></tr></table></figure>
+<p>可以通过!1 Metadata 获得 IR 指令对应的源代码的行数,文件名等信息。</p>
+<h2 id="Linkage-Types"><a href="#Linkage-Types" class="headerlink" title="Linkage Types"></a><a href="http://llvm.org/docs/LangRef.html#linkage-types" target="_blank" rel="external">Linkage Types</a></h2><p>所有的全局变量和函数具有以下链接类型之一：</p>
+<ul>
+<li><p>private（私有）：全局值“私有”只能直接被当前模块中的对象访问。特别是，连接代码到一个存在私有全局值的模块可能导致私有全局值必须被重新命名，以避免冲突。因为该符号是该模块私有的，因此所有的引用可以被更新。这不会显示在对象文件的任何符号表中。</p>
+</li>
+<li><p>internal（内部）：类似于私有的，但该值在对象文件中作为本地符号（在ELF情况下是STB_LOCAL）。这对应于C的“static”关键字的概念。</p>
+</li>
+<li><p>available_externally（外部可用）：。链接类型为“外部可用”的全局值不会被输出到对象文件，即对应于LLVM模块。它们的存在是为了当给定“全局定义”（它是被某个模块以外的地方所知道的）的知识时，允许内联和其他优化发生。全局值链接类型为外部可用时允许被随意丢弃，并且允许内联和其他优化。这种链接类型只允许定义，没有声明。</p>
+</li>
+<li><p>linkonce：链接类型为“linkonce”的全局值在链接时和其他同名的全局变量进行合并。这可以被用来实现某些形式的内联函数，模板，或其他必须在每个使用它的转换单元中生成的代码，这些代码可以被稍后更明确的定义覆盖（重写）。未引用的linkonce全局值允许被丢弃。Note that linkonce linkage does not actually allow the optimizer to inline the body of this function into callers。需要注意的是链接类型为linkonce的全局值实际上并不允许优化来使这个函数内联到调用者，因为它不知道函数的这个定义是在这个程序中最后的定义，还是将会被一个更强的定义所覆盖。为了enable（使能，启用）内联和其他优化，使用“linkonce odr”的链接类型。</p>
+</li>
+<li>weak：“weak”链接类型和“linkonece”在合并的语义上是相同的，所不同的是未引用的”weak”全局变量可能不会被丢弃。这是用于C语言源代码中声明为“weak”的全局变量。</li>
+<li>common：“common”链接类型和“weak”最相似，但它在C中被用于在全局范围内试探性的定义，如“int X;”。“common”链接类型的符号和“weak”以同样的方式被合并，并且它们如果未被引用可能不被删除。”common”符号可能没有一个明确的值，必须有一个零初始化，并且可能不被标记为“常量”。函数和别名可能没有“common”链接类型。</li>
+<li><p>appending：“appending”链接类型仅可以被应用到指向数组类型的指针的全局变量。当两个“appending”链接类型的全局变量被链接在一起时，这两个全局数组附加在一起。这是LLVM，类型安全，相当于当.o文件链接时，其系统链接将具有完全相同的名称的“部分”附加在一起。<br>很不幸，这不对应.o文件中的任何特征，因此它只能用于像llvm.global_ctors这种被llvm专门解释的变量。</p>
+</li>
+<li><p>extern_weak：这种链接类型的语义遵循ELF目标文件模型：符号在被链接前是”weak”类型，如果没有被链接，该符号变为null，而不是作为一个未被定义的引用。</p>
+</li>
+<li>linkonce_odr, weak_odr：某些语言允许不同的全局值被合并，比如两个具有不同语义的函数。其他语言，如C++，确保只有相同的全局值可以被合并（即“one definition rule” - “ODR”）。这些语言可以使用linkonce_odr和weak_odr链接类型用来指示该全局值将只与相同的全局值合并。否则这些链接类型是非ODR版本。</li>
+<li>external：如果上述标识符都没有被使用，那么这个全局变量就是外部可见的，这意味着它参与链接，并可以用于解决外部符号引用。<br>对于一个函数只能声明为external或者extern_weak链接类型。<h2 id="Calling-Conventions"><a href="#Calling-Conventions" class="headerlink" title="Calling Conventions"></a><a href="http://llvm.org/docs/LangRef.html#calling-conventions" target="_blank" rel="external">Calling Conventions</a></h2></li>
+<li>“ccc”</li>
+<li>“fastcc”</li>
+<li>“coldcc”</li>
+<li>“cc 10”</li>
+<li>“cc 11”</li>
+<li>“webkit_jscc”</li>
+<li>“anyregcc”</li>
+<li>“preserve_mostcc”</li>
+<li>“preserve_allcc”</li>
+<li>“cxx_fast_tlscc”</li>
+<li>“swiftcc”</li>
+<li>“cc <n>“<h2 id="Visibility-Styles"><a href="#Visibility-Styles" class="headerlink" title="Visibility Styles"></a><a href="http://llvm.org/docs/LangRef.html#visibility-styles" target="_blank" rel="external">Visibility Styles</a></h2></n></li>
+<li>“default”</li>
+<li>“hidden”</li>
+<li>“protected”<h2 id="DLL-Storage-Classes"><a href="#DLL-Storage-Classes" class="headerlink" title="DLL Storage Classes"></a><a href="http://llvm.org/docs/LangRef.html#dll-storage-classes" target="_blank" rel="external">DLL Storage Classes</a></h2></li>
+<li>“dllimport”</li>
+<li>“dllexport”</li>
+</ul>
+<h2 id="简单举例："><a href="#简单举例：" class="headerlink" title="简单举例："></a>简单举例：</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//hello.c</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">int</span> c;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">while</span>(count &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(a &gt; b)</span><br><span class="line">        &#123;</span><br><span class="line">            c = a+b;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"c1 = %d\n"</span>,c);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            c = a-b;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"c2 = %d\n"</span>,c);</span><br><span class="line">        &#125;</span><br><span class="line">        --count;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">//hello.ll</span><br><span class="line">; ModuleID = 'hello.c'</span><br><span class="line">target datalayout = "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f32:32:32-f64:64:64-v64:64:64-v128:128:128-a0:0:64-s0:64:64-f80:128:128-n8:16:32:64-S128"</span><br><span class="line">target triple = "x86_64-unknown-linux-gnu"</span><br><span class="line"></span><br><span class="line">@.str = private unnamed_addr constant [9 x i8] c"c1 = %d\0A\00", align 1</span><br><span class="line">@.str1 = private unnamed_addr constant [9 x i8] c"c2 = %d\0A\00", align 1</span><br><span class="line"></span><br><span class="line">define i32 @main() nounwind uwtable &#123;</span><br><span class="line">entry:</span><br><span class="line">  %retval = alloca i32, align 4</span><br><span class="line">  %a = alloca i32, align 4</span><br><span class="line">  %b = alloca i32, align 4</span><br><span class="line">  %c = alloca i32, align 4</span><br><span class="line">  %count = alloca i32, align 4</span><br><span class="line">  store i32 0, i32* %retval</span><br><span class="line">  store i32 1, i32* %a, align 4</span><br><span class="line">  store i32 2, i32* %b, align 4</span><br><span class="line">  store i32 3, i32* %count, align 4</span><br><span class="line">  br label %while.cond</span><br><span class="line"></span><br><span class="line">while.cond:                                       ; preds = %if.end, %entry</span><br><span class="line">  %0 = load i32* %count, align 4</span><br><span class="line">  %cmp = icmp sgt i32 %0, 0</span><br><span class="line">  br i1 %cmp, label %while.body, label %while.end</span><br><span class="line"></span><br><span class="line">while.body:                                       ; preds = %while.cond</span><br><span class="line">  %1 = load i32* %a, align 4</span><br><span class="line">  %2 = load i32* %b, align 4</span><br><span class="line">  %cmp1 = icmp sgt i32 %1, %2</span><br><span class="line">  br i1 %cmp1, label %if.then, label %if.else</span><br><span class="line"></span><br><span class="line">if.then:                                          ; preds = %while.body</span><br><span class="line">  %3 = load i32* %a, align 4</span><br><span class="line">  %4 = load i32* %b, align 4</span><br><span class="line">  %add = add nsw i32 %3, %4</span><br><span class="line">  store i32 %add, i32* %c, align 4</span><br><span class="line">  %5 = load i32* %c, align 4</span><br><span class="line">  %call = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([9 x i8]* @.str, i32 0, i32 0), i32 %5)</span><br><span class="line">  br label %if.end</span><br><span class="line"></span><br><span class="line">if.else:                                          ; preds = %while.body</span><br><span class="line">  %6 = load i32* %a, align 4</span><br><span class="line">  %7 = load i32* %b, align 4</span><br><span class="line">  %sub = sub nsw i32 %6, %7</span><br><span class="line">  store i32 %sub, i32* %c, align 4</span><br><span class="line">  %8 = load i32* %c, align 4</span><br><span class="line">  %call2 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([9 x i8]* @.str1, i32 0, i32 0), i32 %8)</span><br><span class="line">  br label %if.end</span><br><span class="line"></span><br><span class="line">if.end:                                           ; preds = %if.else, %if.then</span><br><span class="line">  %9 = load i32* %count, align 4</span><br><span class="line">  %dec = add nsw i32 %9, -1</span><br><span class="line">  store i32 %dec, i32* %count, align 4</span><br><span class="line">  br label %while.cond</span><br><span class="line"></span><br><span class="line">while.end:                                        ; preds = %while.cond</span><br><span class="line">  ret i32 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">declare i32 @printf(i8*, ...)</span><br></pre></td></tr></table></figure>
+<h3 id="代表全局变量，-代表局部变量"><a href="#代表全局变量，-代表局部变量" class="headerlink" title="@代表全局变量，%代表局部变量"></a>@代表全局变量，%代表局部变量</h3><h3 id="alloca"><a href="#alloca" class="headerlink" title="alloca"></a>alloca</h3><p><code>%a = alloca i32, align 4</code><br>alloca指令用于分配内存堆栈给当前执行的函数,当这个函数返回其调用者（我自己对于caller的翻译）时自动释放。<br>i32表示32位，4字节，LLVM将整数类型定义为iN，其中N是整数占用的位数，位数为1到223-1<br>align 4表示向4“对齐”：即便数据没有占用4个字节，也要为其分配4字节，这样使得llvm  IR在保证了数据格式一致性的前提条件下，定义数据型时非常灵活，不仅可以任意定义整形和浮点型的长度(iX,iXX,iXXX………)，甚至还允许使用不同的数制，比如你需要使用64进制数字，那就只要i48, align 6即可。</p>
+<h3 id="getelementptr"><a href="#getelementptr" class="headerlink" title="getelementptr"></a>getelementptr</h3><p>getelementptr 的第一个参数是全局字符串变量的指针。要单步执行全局变量的指针，则需要使用第一个索引，即 i32 0。因为 getelementptr 指令的第一个参数必须始终是 pointer 类型的值，所以第一个索引会单步调试该指针。0 值表示从该指针起偏移 0 元素偏移量。我的开发计算机运行的是 32 位 Linux®，所以该指针是 4 字节。第二个索引 (i32 0) 用于选择字符串的第 0 个元素，该元素是作为 printf 的参数来提供的。i32 %8表示传入参数是%8这个整数</p>
+<h3 id="load-store"><a href="#load-store" class="headerlink" title="load/store"></a>load/store</h3><p><code>%0 = load i32* %a, align 4</code><br>load是“装载”，即读出内容</p>
+<p><code>store i32 1, i32* %a, align 4</code><br>store是写入内容</p>
+<h3 id="判断及跳转icmp-br"><a href="#判断及跳转icmp-br" class="headerlink" title="判断及跳转icmp/br"></a>判断及跳转icmp/br</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">%cmp1 = icmp sgt i32 %1, %2</span><br><span class="line">br i1 %cmp1, label %if.then, label %if.else</span><br></pre></td></tr></table></figure>
+<h3 id="二元运算-f-add-f-sub-f-mul-usf-div-usf-rem"><a href="#二元运算-f-add-f-sub-f-mul-usf-div-usf-rem" class="headerlink" title="二元运算( f)add/( f)sub/( f)mul/(usf)div/(usf)rem"></a><a href="http://llvm.org/docs/LangRef.html#binary-operations" target="_blank" rel="external">二元运算( f)add/( f)sub/( f)mul/(usf)div/(usf)rem</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;result&gt; = add nuw nsw &lt;ty&gt; &lt;op1&gt;, &lt;op2&gt;</span><br><span class="line">%add = add nsw i32 %0, %1</span><br></pre></td></tr></table></figure>
+<p>nsw:no signed wrap<br>nuw:no unsigned wrap<br>当溢出时，计算得到的值是<a href="http://llvm.org/docs/LangRef.html#poison-values" target="_blank" rel="external">poison value</a>。<br>There is currently no way of representing a poison value in the IR; they only exist when produced by operations such as add with the nsw flag.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;result&gt; = fadd [fast-math flags]* &lt;ty&gt; &lt;op1&gt;, &lt;op2&gt;</span><br><span class="line">&lt;result&gt; = fadd float 4.0, %var</span><br></pre></td></tr></table></figure>
+<p>前头加f的是<a href="http://llvm.org/docs/LangRef.html#t-floating" target="_blank" rel="external">floating point</a> or <a href="http://llvm.org/docs/LangRef.html#t-vector" target="_blank" rel="external">vector</a><br>其中的参数<a href="http://llvm.org/docs/LangRef.html#fastmath" target="_blank" rel="external">fast-math flags</a>是最优化提示，用来enable otherwise unsafe floating point operations</p>
+<p>加u的返回结果是无符号的int型<br>加s的返回结果是有符号的int型</p>
+<h3 id="Terminator-Instructions"><a href="#Terminator-Instructions" class="headerlink" title="Terminator Instructions"></a><a href="http://llvm.org/docs/LangRef.html#terminator-instructions" target="_blank" rel="external">Terminator Instructions</a></h3><p>每个basic block（基本块）以终结指令结束，表明下一个被执行的块</p>
+<h4 id="ret"><a href="#ret" class="headerlink" title="ret"></a>ret</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ret i32 0</span><br><span class="line">ret void</span><br></pre></td></tr></table></figure>
+<h4 id="br"><a href="#br" class="headerlink" title="br"></a>br</h4><p>分为跳转到条件分支和无条件分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">br i1 &lt;cond&gt;, label &lt;iftrue&gt;, label &lt;iffalse&gt;</span><br><span class="line">br label &lt;dest&gt;          ; Unconditional branch</span><br></pre></td></tr></table></figure></p>
+<h4 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">switch &lt;intty&gt; &lt;value&gt;, label &lt;defaultdest&gt; [ &lt;intty&gt; &lt;val&gt;, label &lt;dest&gt; ... ]</span><br><span class="line"></span><br><span class="line">; Emulate a conditional br instruction</span><br><span class="line">%Val = zext i1 %value to i32</span><br><span class="line">switch i32 %Val, label %truedest [ i32 0, label %falsedest ]</span><br><span class="line"></span><br><span class="line">; Emulate an unconditional br instruction</span><br><span class="line">switch i32 0, label %dest [ ]</span><br><span class="line"></span><br><span class="line">; Implement a jump table:</span><br><span class="line">switch i32 %val, label %otherwise [ i32 0, label %onzero</span><br><span class="line">                                    i32 1, label %onone</span><br><span class="line">                                    i32 2, label %ontwo ]</span><br></pre></td></tr></table></figure>
+<h4 id="indiretbr"><a href="#indiretbr" class="headerlink" title="indiretbr"></a>indiretbr</h4><h4 id="invoke"><a href="#invoke" class="headerlink" title="invoke"></a>invoke</h4><h4 id="resume"><a href="#resume" class="headerlink" title="resume"></a>resume</h4><h4 id="catchswitch"><a href="#catchswitch" class="headerlink" title="catchswitch"></a>catchswitch</h4><h4 id="catchret"><a href="#catchret" class="headerlink" title="catchret"></a>catchret</h4><h4 id="cleanupret"><a href="#cleanupret" class="headerlink" title="cleanupret"></a>cleanupret</h4><h4 id="unreachable"><a href="#unreachable" class="headerlink" title="unreachable"></a>unreachable</h4><h4 id="‘getelementptr‘-Instruction"><a href="#‘getelementptr‘-Instruction" class="headerlink" title="‘getelementptr‘ Instruction"></a><a href="http://llvm.org/docs/LangRef.html#getelementptr-instruction" target="_blank" rel="external">‘getelementptr‘ Instruction</a></h4><p><a href="http://llvm.org/docs/GetElementPtr.html" target="_blank" rel="external">http://llvm.org/docs/GetElementPtr.html</a></p>
+<h4 id="Source-Level-Debugging-with-LLVM"><a href="#Source-Level-Debugging-with-LLVM" class="headerlink" title="Source Level Debugging with LLVM"></a><a href="http://llvm.org/docs/SourceLevelDebugging.html#source-level-debugging-with-llvm" target="_blank" rel="external">Source Level Debugging with LLVM</a></h4><p><a href="http://blog.csdn.net/wuhui_gdnt/article/details/68923937?locationNum=12&amp;fps=1" target="_blank" rel="external">http://blog.csdn.net/wuhui_gdnt/article/details/68923937?locationNum=12&amp;fps=1</a><br>clang -O0 -g可生成完整的调试信息</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/09/LLVM/0.LLVM安装及工具链/" rel="next" title="LLVM安装及工具链">
+                <i class="fa fa-chevron-left"></i> LLVM安装及工具链
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/13/操作系统/虚拟机中编译Linux内核/" rel="prev" title="虚拟机中编译Linux内核">
+                虚拟机中编译Linux内核 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/10/LLVM/1.LLVM的IR语言/"
+           data-title="LLVM的IR语言" data-url="http://hujun1413.github.io/2016/11/10/LLVM/1.LLVM的IR语言/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ofl6ycl3e.bkt.clouddn.com/avatar.png"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LLVM-IR"><span class="nav-number">1.</span> <span class="nav-text">LLVM IR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Module-Structure"><span class="nav-number">2.</span> <span class="nav-text">Module Structure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Named-Metadata"><span class="nav-number">3.</span> <span class="nav-text">Named Metadata</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linkage-Types"><span class="nav-number">4.</span> <span class="nav-text">Linkage Types</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Calling-Conventions"><span class="nav-number">5.</span> <span class="nav-text">Calling Conventions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Visibility-Styles"><span class="nav-number">6.</span> <span class="nav-text">Visibility Styles</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DLL-Storage-Classes"><span class="nav-number">7.</span> <span class="nav-text">DLL Storage Classes</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单举例："><span class="nav-number">8.</span> <span class="nav-text">简单举例：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代表全局变量，-代表局部变量"><span class="nav-number">8.1.</span> <span class="nav-text">@代表全局变量，%代表局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alloca"><span class="nav-number">8.2.</span> <span class="nav-text">alloca</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getelementptr"><span class="nav-number">8.3.</span> <span class="nav-text">getelementptr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#load-store"><span class="nav-number">8.4.</span> <span class="nav-text">load/store</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断及跳转icmp-br"><span class="nav-number">8.5.</span> <span class="nav-text">判断及跳转icmp/br</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二元运算-f-add-f-sub-f-mul-usf-div-usf-rem"><span class="nav-number">8.6.</span> <span class="nav-text">二元运算( f)add/( f)sub/( f)mul/(usf)div/(usf)rem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Terminator-Instructions"><span class="nav-number">8.7.</span> <span class="nav-text">Terminator Instructions</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ret"><span class="nav-number">8.7.1.</span> <span class="nav-text">ret</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#br"><span class="nav-number">8.7.2.</span> <span class="nav-text">br</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#switch"><span class="nav-number">8.7.3.</span> <span class="nav-text">switch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#indiretbr"><span class="nav-number">8.7.4.</span> <span class="nav-text">indiretbr</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#invoke"><span class="nav-number">8.7.5.</span> <span class="nav-text">invoke</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#resume"><span class="nav-number">8.7.6.</span> <span class="nav-text">resume</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#catchswitch"><span class="nav-number">8.7.7.</span> <span class="nav-text">catchswitch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#catchret"><span class="nav-number">8.7.8.</span> <span class="nav-text">catchret</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cleanupret"><span class="nav-number">8.7.9.</span> <span class="nav-text">cleanupret</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#unreachable"><span class="nav-number">8.7.10.</span> <span class="nav-text">unreachable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#‘getelementptr‘-Instruction"><span class="nav-number">8.7.11.</span> <span class="nav-text">‘getelementptr‘ Instruction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Source-Level-Debugging-with-LLVM"><span class="nav-number">8.7.12.</span> <span class="nav-text">Source Level Debugging with LLVM</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

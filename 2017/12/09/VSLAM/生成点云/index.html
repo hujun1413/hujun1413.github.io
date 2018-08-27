@@ -1,0 +1,673 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="深度摄像机的原理RGBD-SLAM（一）——深度摄像机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="生成点云">
+<meta property="og:url" content="http://hujun1413.github.io/2017/12/09/VSLAM/生成点云/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="深度摄像机的原理RGBD-SLAM（一）——深度摄像机">
+<meta property="og:updated_time" content="2018-08-27T09:06:55.624Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="生成点云">
+<meta name="twitter:description" content="深度摄像机的原理RGBD-SLAM（一）——深度摄像机">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 生成点云 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                生成点云
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-12-09T18:35:26+08:00" content="2017-12-09">
+              2017-12-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/VSLAM/" itemprop="url" rel="index">
+                    <span itemprop="name">VSLAM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/12/09/VSLAM/生成点云/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/09/VSLAM/生成点云/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="深度摄像机的原理"><a href="#深度摄像机的原理" class="headerlink" title="深度摄像机的原理"></a>深度摄像机的原理</h2><p><a href="http://blog.csdn.net/bingoplus/article/details/56667475" target="_blank" rel="external">RGBD-SLAM（一）——深度摄像机</a><br><a id="more"></a></p>
+<h2 id="一-使用速感M3获取RGB和Depth"><a href="#一-使用速感M3获取RGB和Depth" class="headerlink" title="一. 使用速感M3获取RGB和Depth"></a>一. 使用速感M3获取RGB和Depth</h2><p>用速感的demo获取彩色和深度图像，用cv::Mat存储后可以存成图片</p>
+<h2 id="二-相机内参标定"><a href="#二-相机内参标定" class="headerlink" title="二. 相机内参标定"></a>二. 相机内参标定</h2><h3 id="深度相机内参的标定"><a href="#深度相机内参的标定" class="headerlink" title="深度相机内参的标定"></a>深度相机内参的标定</h3><p><a href="http://blog.csdn.net/honyniu/article/details/51004397" target="_blank" rel="external"> 相机标定(Camera calibration)原理</a><br>根据相机坐标系到图像坐标系之间的关系，得到的转换是由相机的内参K确定的。</p>
+<p><a href="https://blog.csdn.net/yangdashi888/article/details/51356385" target="_blank" rel="external">内参、外参、畸变参数</a></p>
+<p>再根据世界坐标系到相机坐标系，得到世界坐标系到像素坐标系之间的转换，而这个转换就是相机内参 K，相机外参 R 和 t，以及畸变参数 D 经过一系列的矩阵变换得到。</p>
+<p><a href="http://www.360doc.com/content/15/1220/10/9200790_521674713.shtml" target="_blank" rel="external">Kinect深度图和RGB的标定配准</a></p>
+<p><a href="http://lib.csdn.net/article/computervison/58972?knId=1818" target="_blank" rel="external">【OpenCV】双目测距（双目标定、双目校正和立体匹配）</a></p>
+<p><a href="http://www.cnblogs.com/Jessica-jie/p/6602286.html" target="_blank" rel="external">双目标定</a></p>
+<p>深度摄像机的标定思路：用红外光照射棋盘格，遮住红外发射器，得到两个深度摄像头的红外图，再用<strong>双目标定</strong>的方法对深度摄像头进行标定。进而得到深度摄像机的内参。</p>
+<h3 id="深度图和RGB的配准（如果不给深度图上色，可以暂时不需要配准）"><a href="#深度图和RGB的配准（如果不给深度图上色，可以暂时不需要配准）" class="headerlink" title="深度图和RGB的配准（如果不给深度图上色，可以暂时不需要配准）"></a>深度图和RGB的配准（如果不给深度图上色，可以暂时不需要配准）</h3><p><a href="http://www.cnblogs.com/cv-pr/p/5769617.html" target="_blank" rel="external">深度图像配准（Registration）原理</a><br>配准的目的就是想让深度图和彩色图重合在一起，即是将深度图像的图像坐标系转换到彩色图像的图像坐标系下。</p>
+<p><a href="http://blog.csdn.net/carson2005/article/details/38757379" target="_blank" rel="external">图像配准</a>指的是获取的两幅或多幅图像进行匹配、叠加的过程。最终需要在变换空间中寻找一种最有效的变换，这种变换能够使两幅图像之间在某种意义上达到匹配</p>
+<p><a href="http://blog.csdn.net/jiaojialulu/article/details/53154045" target="_blank" rel="external">kinect 2.0 SDK学习笔记（四）–深度图与彩色图对齐</a></p>
+<p>配准的思路：根据深度摄像机和rgb相机的内参，再由同一棋盘格在两个相机坐标系上的位置计算出两个摄像头之间的R,T变换关系。从而得到rgb相机上的像素点对应于深度摄像头的像素点，再知道rgb上每个像素点的深度信息</p>
+<h3 id="根据相机的外参（相机相对于世界坐标系的位姿R-T）得到三维点云的世界坐标"><a href="#根据相机的外参（相机相对于世界坐标系的位姿R-T）得到三维点云的世界坐标" class="headerlink" title="根据相机的外参（相机相对于世界坐标系的位姿R,T）得到三维点云的世界坐标"></a>根据相机的外参（相机相对于世界坐标系的位姿R,T）得到三维点云的世界坐标</h3><p>世界坐标系：用机器人中心建立的坐标系</p>
+<h2 id="三-由深度图生成点云"><a href="#三-由深度图生成点云" class="headerlink" title="三. 由深度图生成点云"></a>三. 由深度图生成点云</h2><h3 id="深度图转点云原理"><a href="#深度图转点云原理" class="headerlink" title="深度图转点云原理"></a><a href="http://www.cnblogs.com/cv-pr/p/5719350.html" target="_blank" rel="external">深度图转点云原理</a></h3><h3 id="代码：利用Kinect深度图像生成三维点云"><a href="#代码：利用Kinect深度图像生成三维点云" class="headerlink" title="代码：利用Kinect深度图像生成三维点云"></a><a href="http://blog.csdn.net/u012700322/article/details/51821249" target="_blank" rel="external">代码：利用Kinect深度图像生成三维点云</a></h3><h3 id="参考：结合彩色图和深度图创建点云（OpenCV-OpenNI-PCL）"><a href="#参考：结合彩色图和深度图创建点云（OpenCV-OpenNI-PCL）" class="headerlink" title="参考：结合彩色图和深度图创建点云（OpenCV+OpenNI+PCL）"></a><a href="http://blog.csdn.net/kh1445291129/article/details/44636685" target="_blank" rel="external">参考：结合彩色图和深度图创建点云（OpenCV+OpenNI+PCL）</a></h3><p>源码demo见savePoint项目 或者 高博的slambook的ch13章的pointcloud_mapping.cpp</p>
+<p>读取彩色和深度图像，利用摄像头的内参生成三维的点云</p>
+<h2 id="三-用生成的点云识别并去除地面"><a href="#三-用生成的点云识别并去除地面" class="headerlink" title="三. 用生成的点云识别并去除地面"></a>三. 用生成的点云识别并去除地面</h2><h2 id="四-将去除地面的点云视作障碍物，压到平面上和激光的栅格地图结合"><a href="#四-将去除地面的点云视作障碍物，压到平面上和激光的栅格地图结合" class="headerlink" title="四. 将去除地面的点云视作障碍物，压到平面上和激光的栅格地图结合"></a>四. 将去除地面的点云视作障碍物，压到平面上和激光的栅格地图结合</h2><p>地面如果是斜面如何处理？<br>但如果障碍物在机器人的高度之上，则可以认为机器人可以通过，并不是障碍物。</p>
+<h3 id="点云转换成octoMap"><a href="#点云转换成octoMap" class="headerlink" title="点云转换成octoMap"></a>点云转换成octoMap</h3><h3 id="octoMap再转换成grid-map"><a href="#octoMap再转换成grid-map" class="headerlink" title="octoMap再转换成grid_map"></a>octoMap再转换成grid_map</h3><p>目前，将自己生成的点云利用维达的grid_map demo，rviz中看不到正确的grid_map。调整参数后成功看到正确的grid_map</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/09/VSLAM/Octomap/" rel="next" title="OctoMap">
+                <i class="fa fa-chevron-left"></i> OctoMap
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/09/VSLAM/重要VSLAM系统/" rel="prev" title="重要VSLAM系统">
+                重要VSLAM系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/12/09/VSLAM/生成点云/"
+           data-title="生成点云" data-url="http://hujun1413.github.io/2017/12/09/VSLAM/生成点云/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ofl6ycl3e.bkt.clouddn.com/avatar.png"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#深度摄像机的原理"><span class="nav-number">1.</span> <span class="nav-text">深度摄像机的原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一-使用速感M3获取RGB和Depth"><span class="nav-number">2.</span> <span class="nav-text">一. 使用速感M3获取RGB和Depth</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-相机内参标定"><span class="nav-number">3.</span> <span class="nav-text">二. 相机内参标定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#深度相机内参的标定"><span class="nav-number">3.1.</span> <span class="nav-text">深度相机内参的标定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度图和RGB的配准（如果不给深度图上色，可以暂时不需要配准）"><span class="nav-number">3.2.</span> <span class="nav-text">深度图和RGB的配准（如果不给深度图上色，可以暂时不需要配准）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据相机的外参（相机相对于世界坐标系的位姿R-T）得到三维点云的世界坐标"><span class="nav-number">3.3.</span> <span class="nav-text">根据相机的外参（相机相对于世界坐标系的位姿R,T）得到三维点云的世界坐标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-由深度图生成点云"><span class="nav-number">4.</span> <span class="nav-text">三. 由深度图生成点云</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#深度图转点云原理"><span class="nav-number">4.1.</span> <span class="nav-text">深度图转点云原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码：利用Kinect深度图像生成三维点云"><span class="nav-number">4.2.</span> <span class="nav-text">代码：利用Kinect深度图像生成三维点云</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考：结合彩色图和深度图创建点云（OpenCV-OpenNI-PCL）"><span class="nav-number">4.3.</span> <span class="nav-text">参考：结合彩色图和深度图创建点云（OpenCV+OpenNI+PCL）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三-用生成的点云识别并去除地面"><span class="nav-number">5.</span> <span class="nav-text">三. 用生成的点云识别并去除地面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四-将去除地面的点云视作障碍物，压到平面上和激光的栅格地图结合"><span class="nav-number">6.</span> <span class="nav-text">四. 将去除地面的点云视作障碍物，压到平面上和激光的栅格地图结合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#点云转换成octoMap"><span class="nav-number">6.1.</span> <span class="nav-text">点云转换成octoMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#octoMap再转换成grid-map"><span class="nav-number">6.2.</span> <span class="nav-text">octoMap再转换成grid_map</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

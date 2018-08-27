@@ -1,0 +1,695 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="所需硬件
+RGBD摄像头（Kinet或Xtion）/激光雷达
+里程计，即编码器，或者叫码盘
+上位机，装ubuntu ROS
+下位机，给轮子发速度，返回码盘数据给上位机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器人导航框架">
+<meta property="og:url" content="http://hujun1413.github.io/2017/11/09/Navigation/导航/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="所需硬件
+RGBD摄像头（Kinet或Xtion）/激光雷达
+里程计，即编码器，或者叫码盘
+上位机，装ubuntu ROS
+下位机，给轮子发速度，返回码盘数据给上位机">
+<meta property="og:updated_time" content="2018-08-27T09:09:14.513Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器人导航框架">
+<meta name="twitter:description" content="所需硬件
+RGBD摄像头（Kinet或Xtion）/激光雷达
+里程计，即编码器，或者叫码盘
+上位机，装ubuntu ROS
+下位机，给轮子发速度，返回码盘数据给上位机">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 机器人导航框架 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                机器人导航框架
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-11-09T18:35:26+08:00" content="2017-11-09">
+              2017-11-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Navigation/" itemprop="url" rel="index">
+                    <span itemprop="name">Navigation</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/11/09/Navigation/导航/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/11/09/Navigation/导航/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="所需硬件"><a href="#所需硬件" class="headerlink" title="所需硬件"></a>所需硬件</h2><ul>
+<li>RGBD摄像头（Kinet或Xtion）/激光雷达</li>
+<li>里程计，即编码器，或者叫码盘</li>
+<li>上位机，装ubuntu ROS</li>
+<li>下位机，给轮子发速度，返回码盘数据给上位机<a id="more"></a>
+<h2 id="速度接口"><a href="#速度接口" class="headerlink" title="速度接口"></a>速度接口</h2>总的来说，上位机发布topic “cmd_vel”，将速度平滑等处理后发送给下位机，然后下位机底盘解算将速度发给每个轮子。</li>
+</ul>
+<h3 id="上位机发送速度的接口"><a href="#上位机发送速度的接口" class="headerlink" title="上位机发送速度的接口"></a>上位机发送速度的接口</h3><p>输出都是一个topic “cmd_vel”<br>里面的数据类型为 <a href="http://docs.ros.org/api/geometry_msgs/html/msg/Twist.html" target="_blank" rel="external">geometry_msgs/Twist</a> 这个数据类型表示的是3d空间中的速度，2d的移动机器人只会用到三个值：linear.x，linear.y与angular.z，分别表示水平分速度，垂直分速度，与角速度。<br>‘[2.0, 0.0, 0.0]’’[0.0,0.0,1.8]’表示：以2.0大小的线速度和1.8大小的角速度开始移动。</p>
+<h3 id="下位机底盘运动学解算"><a href="#下位机底盘运动学解算" class="headerlink" title="下位机底盘运动学解算"></a>下位机底盘运动学解算</h3><p>将一个描述一个平面刚体的三个分速度映射成驱动部分的速度<br>分为：差动底盘（turtlebot那种两轮差速来实现转弯）和全向底盘这两种</p>
+<p>曾经实现过的三轮解算为全向轮，四轮解算为麦伦</p>
+<h3 id="下位机发送速度给轮子"><a href="#下位机发送速度给轮子" class="headerlink" title="下位机发送速度给轮子"></a>下位机发送速度给轮子</h3><ul>
+<li>发送频率：看板子性能</li>
+<li>速度平滑：过大的加速减速，不定的发送频率会导致运动的不理想，解决办法：上位机在速度接口这边执行一个平滑的过程，turtlebot中给出了一个非常好的<a href="http://wiki.ros.org/yocs_velocity_smoother" target="_blank" rel="external">速度插值</a>的包。</li>
+</ul>
+<h2 id="里程计接口"><a href="#里程计接口" class="headerlink" title="里程计接口"></a>里程计接口</h2><p>总的来说，下位机发送topic “odom”<br>里面的数据类型为 <a href="http://docs.ros.org/api/nav_msgs/html/msg/Odometry.html" target="_blank" rel="external">nav_msgs/Odometry</a></p>
+<p>Header header<br>string child_frame_id<br>geometry_msgs/PoseWithCovariance pose<br>geometry_msgs/TwistWithCovariance twist</p>
+<h3 id="下位机采集里程计数据，发送里程计接口给上位机"><a href="#下位机采集里程计数据，发送里程计接口给上位机" class="headerlink" title="下位机采集里程计数据，发送里程计接口给上位机"></a>下位机采集里程计数据，发送里程计接口给上位机</h3><p>下位机得到各个里程计的位移，然后逆运动学解算，得到机器人中心相对坐标“原点”的坐标，发送当前位姿geometry_msgs/Pose和速度geometry_msgs/Twist给上位机</p>
+<p>教程在这儿，<a href="http://wiki.ros.org/navigation/Tutorials/RobotSetup/Odom" target="_blank" rel="external">http://wiki.ros.org/navigation/Tutorials/RobotSetup/Odom</a></p>
+<h3 id="上位机接收里程计接口"><a href="#上位机接收里程计接口" class="headerlink" title="上位机接收里程计接口"></a>上位机接收里程计接口</h3><p>上位机从里程计接口得到机器人当前的位姿和速度</p>
+<h2 id="图像接口"><a href="#图像接口" class="headerlink" title="图像接口"></a>图像接口</h2><p>一般rgbd-camera与激光雷达都有相应的sensor driver 提供，roslaunch相应文件就可以了。<br>传感器一般在消息的 header中都需要相应的传感器采集坐标系，对于固定的传感器使用 <a href="http://wiki.ros.org/tf#static_transform_publisher" target="_blank" rel="external">http://wiki.ros.org/tf#static_transform_publisher</a> tf中的static_transform_publisher 给定传感器与机器人中心相对位姿就可以了。</p>
+<h2 id="SLAM及navigaion-ROS-工具"><a href="#SLAM及navigaion-ROS-工具" class="headerlink" title="SLAM及navigaion ROS 工具"></a>SLAM及navigaion ROS 工具</h2><p><a href="http://openslam.org/" target="_blank" rel="external">OpenSLAM</a>上面有几乎所有主流slam方法的C++/C实现，ROS的gmapping就是调用的这个上面的代码。不管是视觉还是激光雷达算法都非常丰富。</p>
+<p>路径规划：move_base:，作为navigation的逻辑核心。它实现了一个供上层节点调用的action 接口（通过<a href="http://wiki.ros.org/actionlib" target="_blank" rel="external">actionlib</a> 实现），即给定坐标信息与相应坐标位置，执行相应的安全导航动作。对于下层控制器，之前说过了输出为cmd_vel 2d速度。 它规定了这个navigation的行为。</p>
+<p>建图：gmapping/hector_slam，从激光扫描数据建图</p>
+<p>定位：amcl，利用map和激光数据进行定位</p>
+<h3 id="导航规划"><a href="#导航规划" class="headerlink" title="导航规划"></a>导航规划</h3><p>navigation metapackage：一般输入为激光雷达（使用rgbd-camera 效果不佳）与里程计数据，输出为cmd_vel 机器人在2d平面上的速度。与之类似的是hector_navigation。这一部分主要解决安全路径的规划问题。</p>
+<p>costmap_2d ：这一部分可看作为navigation的输入处理器。不同的传感器输入的数据差异很大（激光雷达 &amp; RGBD-camera）通过costmap_2d ， 不同的数据被处理成统一的格式：栅格地图，权值用经过概率方法处理过的，表示空间中障碍物，未知与安全区域。生成出来的costmap则是planner的输入。<br>global_planner：为navigation的全局规划器，接受costmap生成的 global costmap规划出从起始点到目标点的路径，为local_planner 作出参考。<br>local_planner：为navigation的局部规划器，接受costmap 生成的local costmap 规划出速度。<br>recovery_behavior : 规定move_base 行为集合中处理异常情况的行为</p>
+<p>nav_core: 这个包里面就包含了global_planner，local_planner 与 recovery_behavior的基类的头文件。但是极其重要。<br>在ROS navigation中，move_base提供的是框架，在move_base 中是通过nav_core中规定的planner与recovery_behavior 的基类的接口进行调用。与具体的实现方法隔离开来。而具体采用的方法由pluginlib根据不同参数导入。这样的实现方法使得navigation的可定制性大大增加。像base_local_planner 中就实现了两种局部路径规划方法，global_planner 实现了A* 与Dijkstra两种方法，在navigation_experimental 中还有更多这样的实现。这赋予了这个框架很大的灵活性。通过不同的配置方法可以让navigation适应很多不同的任务。</p>
+<h3 id="定位部分"><a href="#定位部分" class="headerlink" title="定位部分"></a>定位部分</h3><p>定位模块作为规划层的输入与参考数据所存在。而对于ROS navigation 体系而言，因为它先天的模块间通讯方式实现了模块间的完全解耦，所以对于导航规划层而言（具体就是move_base 这个node），什么定位方法，静态还是动态的地图，对于导航层内部几乎没有区别。<br>navigation metapackage中就有了为仿真器环境下的定位工具包fake_localization：用于把仿真器中的位姿（就是直接把odom 变换成map）估计直接变换成关于全局地图的定位，简化定位部分；<br>amcl:适应性蒙特卡洛定位方法，在base_scan的topic上利用激光数据来定位</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/15/LLVM/3.LLVM的编程技巧/" rel="next" title="LLVM的编程技巧">
+                <i class="fa fa-chevron-left"></i> LLVM的编程技巧
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/25/Navigation/move_base源码学习/" rel="prev" title="move_base源码学习">
+                move_base源码学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/11/09/Navigation/导航/"
+           data-title="机器人导航框架" data-url="http://hujun1413.github.io/2017/11/09/Navigation/导航/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ofl6ycl3e.bkt.clouddn.com/avatar.png"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#所需硬件"><span class="nav-number">1.</span> <span class="nav-text">所需硬件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#速度接口"><span class="nav-number">2.</span> <span class="nav-text">速度接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#上位机发送速度的接口"><span class="nav-number">2.1.</span> <span class="nav-text">上位机发送速度的接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下位机底盘运动学解算"><span class="nav-number">2.2.</span> <span class="nav-text">下位机底盘运动学解算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下位机发送速度给轮子"><span class="nav-number">2.3.</span> <span class="nav-text">下位机发送速度给轮子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#里程计接口"><span class="nav-number">3.</span> <span class="nav-text">里程计接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下位机采集里程计数据，发送里程计接口给上位机"><span class="nav-number">3.1.</span> <span class="nav-text">下位机采集里程计数据，发送里程计接口给上位机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上位机接收里程计接口"><span class="nav-number">3.2.</span> <span class="nav-text">上位机接收里程计接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像接口"><span class="nav-number">4.</span> <span class="nav-text">图像接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SLAM及navigaion-ROS-工具"><span class="nav-number">5.</span> <span class="nav-text">SLAM及navigaion ROS 工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导航规划"><span class="nav-number">5.1.</span> <span class="nav-text">导航规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定位部分"><span class="nav-number">5.2.</span> <span class="nav-text">定位部分</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

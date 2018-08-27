@@ -243,8 +243,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/01/15/OSLab/LLVM/6.LLVM的编程技巧/" itemprop="url">
-                  6.LLVM的编程技巧
+                <a class="post-title-link" href="/2018/06/13/ROS/修改turtlebot2的description以改变tf tree/" itemprop="url">
+                  修改turtlebot2的description以改变tf tree
                 </a>
               
             
@@ -257,8 +257,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-01-15T18:35:26+08:00" content="2017-01-15">
-              2017-01-15
+            <time itemprop="dateCreated" datetime="2018-06-13T20:35:26+08:00" content="2018-06-13">
+              2018-06-13
             </time>
           </span>
 
@@ -271,152 +271,7 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/" itemprop="url" rel="index">
-                    <span itemprop="name">OSLab</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/LLVM/" itemprop="url" rel="index">
-                    <span itemprop="name">LLVM</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/01/15/OSLab/LLVM/6.LLVM的编程技巧/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/15/OSLab/LLVM/6.LLVM的编程技巧/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="先获取模块中的每个函数，再获取每个函数中的每个BasicBlock，再获取每个BasicBlock中的每条instruction（最常用）"><a href="#先获取模块中的每个函数，再获取每个函数中的每个BasicBlock，再获取每个BasicBlock中的每条instruction（最常用）" class="headerlink" title="先获取模块中的每个函数，再获取每个函数中的每个BasicBlock，再获取每个BasicBlock中的每条instruction（最常用）"></a>先获取模块中的每个函数，再获取每个函数中的每个BasicBlock，再获取每个BasicBlock中的每条instruction（最常用）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Module::iterator FunIt = mod-&gt;begin() ; FunIt != mod-&gt;end() ; ++FunIt)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span> (Function::iterator b = FunIt-&gt;begin(), e = FunIt-&gt;end(); b != e; ++b)  //获取每个函数中的basic block</span><br><span class="line">    &#123;</span><br><span class="line">        cout&lt;&lt; <span class="string">"Basic block name="</span> &lt;&lt; b-&gt;getName().str() &lt;&lt; endl;</span><br><span class="line">        <span class="keyword">for</span> (BasicBlock::iterator i = b-&gt;begin(), e = b-&gt;end(); i != e; ++i)  //获取每个basic block中的instruction</span><br><span class="line">        &#123;</span><br><span class="line">            outs() &lt;&lt; *i &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">            Instruction* inst = &amp;(*i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/01/15/OSLab/LLVM/6.LLVM的编程技巧/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/14/OSLab/ROS/12.ROS-Kobuki/" itemprop="url">
-                  12.ROS-Kobuki
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-14T20:35:26+08:00" content="2016-11-14">
-              2016-11-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/" itemprop="url" rel="index">
-                    <span itemprop="name">OSLab</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/ROS/" itemprop="url" rel="index">
+                  <a href="/categories/ROS/" itemprop="url" rel="index">
                     <span itemprop="name">ROS</span>
                   </a>
                 </span>
@@ -432,8 +287,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/11/14/OSLab/ROS/12.ROS-Kobuki/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/14/OSLab/ROS/12.ROS-Kobuki/" itemprop="commentsCount"></span>
+                <a href="/2018/06/13/ROS/修改turtlebot2的description以改变tf tree/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/06/13/ROS/修改turtlebot2的description以改变tf tree/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -456,18 +311,10 @@
 
       
         
-          <h2 id="First-Run"><a href="#First-Run" class="headerlink" title="First Run"></a>First Run</h2><p>we added a special random</p>
-<p>walker mode, which you can activate on startup:</p>
-<ol>
-<li><p>Turn on Kobuki.</p>
-</li>
-<li><p>Within in the first 3 seconds press and hold button B0 for 2 seconds.</p>
-</li>
-<li><p>LED2 should* start blinking and Kobuki wandering around.</p>
-</li>
-</ol>
+          <h3 id="调用什么文件来显示机器人及其身上的坐标系转换"><a href="#调用什么文件来显示机器人及其身上的坐标系转换" class="headerlink" title="调用什么文件来显示机器人及其身上的坐标系转换"></a>调用什么文件来显示机器人及其身上的坐标系转换</h3><p>在turtlebot_description包中，urdf/turtlebot_library.urdf.xacro文件中引用了基本所有的机器人组件。</p>
+<p>一般的，minimal.launch是用于启动机器人robot.launch.xml和底盘mobile_base.launch.xml<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/14/OSLab/ROS/12.ROS-Kobuki/#more" rel="contents">
+            <a class="btn" href="/2018/06/13/ROS/修改turtlebot2的description以改变tf tree/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -518,8 +365,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/11/14/OSLab/LLVM/5.LLVM的函数/" itemprop="url">
-                  5.LLVM的函数
+                <a class="post-title-link" href="/2018/05/25/Deep Learning/GAN/" itemprop="url">
+                  GAN
                 </a>
               
             
@@ -532,8 +379,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-14T18:35:26+08:00" content="2016-11-14">
-              2016-11-14
+            <time itemprop="dateCreated" datetime="2018-05-25T16:25:26+08:00" content="2018-05-25">
+              2018-05-25
             </time>
           </span>
 
@@ -546,20 +393,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/" itemprop="url" rel="index">
-                    <span itemprop="name">OSLab</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/LLVM/" itemprop="url" rel="index">
-                    <span itemprop="name">LLVM</span>
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
                   </a>
                 </span>
 
@@ -574,8 +409,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/11/14/OSLab/LLVM/5.LLVM的函数/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/14/OSLab/LLVM/5.LLVM的函数/" itemprop="commentsCount"></span>
+                <a href="/2018/05/25/Deep Learning/GAN/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/05/25/Deep Learning/GAN/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -598,12 +433,11 @@
 
       
         
-          <h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul>
-<li><a href="http://www.ibm.com/developerworks/cn/opensource/os-createcompilerllvm1/">使用LLVM框架创建一个工作编译器</a></li>
-<li>通过在doxygen的Classes中的Class Index来查找Function等类和里面的函数，然后点击右上角的List of all members</li>
-</ul>
+          <h3 id="简单理解与实验生成对抗网络GAN"><a href="#简单理解与实验生成对抗网络GAN" class="headerlink" title="简单理解与实验生成对抗网络GAN"></a><a href="https://blog.csdn.net/on2way/article/details/72773771">简单理解与实验生成对抗网络GAN</a></h3><p><a href="https://www.leiphone.com/news/201706/ty7H504cn7l6EVLd.html">最简单易懂的GAN（生成对抗网络）教程：从理论到实践（附代码</a></p>
+<p>生成网络<br>判别网络</p>
+<p>单独交替迭代训练<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/14/OSLab/LLVM/5.LLVM的函数/#more" rel="contents">
+            <a class="btn" href="/2018/05/25/Deep Learning/GAN/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -654,8 +488,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/11/13/OSLab/操作系统/虚拟机中编译Linux内核/" itemprop="url">
-                  虚拟机中编译Linux内核
+                <a class="post-title-link" href="/2018/05/25/Deep Learning/pytorch教程/" itemprop="url">
+                  Pytorch教程
                 </a>
               
             
@@ -668,8 +502,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-13T20:35:26+08:00" content="2016-11-13">
-              2016-11-13
+            <time itemprop="dateCreated" datetime="2018-05-25T16:25:26+08:00" content="2018-05-25">
+              2018-05-25
             </time>
           </span>
 
@@ -682,20 +516,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/" itemprop="url" rel="index">
-                    <span itemprop="name">OSLab</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/操作系统/" itemprop="url" rel="index">
-                    <span itemprop="name">操作系统</span>
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
                   </a>
                 </span>
 
@@ -710,8 +532,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/11/13/OSLab/操作系统/虚拟机中编译Linux内核/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/13/OSLab/操作系统/虚拟机中编译Linux内核/" itemprop="commentsCount"></span>
+                <a href="/2018/05/25/Deep Learning/pytorch教程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/05/25/Deep Learning/pytorch教程/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -734,9 +556,9 @@
 
       
         
-          <h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p><a href="http://blog.csdn.net/zhangnn5/article/details/6766693">http://blog.csdn.net/zhangnn5/article/details/6766693</a><br>
+          <h3 id="PyTorch-Tutorial"><a href="#PyTorch-Tutorial" class="headerlink" title="PyTorch-Tutorial"></a><a href="https://github.com/MorvanZhou/PyTorch-Tutorial">PyTorch-Tutorial</a></h3><p>与之配套的说明教程：<br><a href="https://morvanzhou.github.io/tutorials/machine-learning/torch/">pytorch动态神经网络</a><br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/13/OSLab/操作系统/虚拟机中编译Linux内核/#more" rel="contents">
+            <a class="btn" href="/2018/05/25/Deep Learning/pytorch教程/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -787,8 +609,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/11/12/OSLab/LLVM/4.LLVM的Project/" itemprop="url">
-                  4.LLVM的Project
+                <a class="post-title-link" href="/2018/04/13/ROS/ros cartographer/" itemprop="url">
+                  ROS Cartographer
                 </a>
               
             
@@ -801,8 +623,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-12T18:35:26+08:00" content="2016-11-12">
-              2016-11-12
+            <time itemprop="dateCreated" datetime="2018-04-13T20:35:26+08:00" content="2018-04-13">
+              2018-04-13
             </time>
           </span>
 
@@ -815,686 +637,7 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/" itemprop="url" rel="index">
-                    <span itemprop="name">OSLab</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/LLVM/" itemprop="url" rel="index">
-                    <span itemprop="name">LLVM</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/11/12/OSLab/LLVM/4.LLVM的Project/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/12/OSLab/LLVM/4.LLVM的Project/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="阅读文档"><a href="#阅读文档" class="headerlink" title="阅读文档"></a><a href="http://llvm.org/docs/Projects.html">阅读文档</a></h2><p><a href="http://blog.csdn.net/ioripolo/article/details/5413343">官网翻译+autoconf建工程</a><br><a href="http://blog.csdn.net/snsn1984/article/details/8099105">如何建立LLVM的工程</a><br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/12/OSLab/LLVM/4.LLVM的Project/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/11/OSLab/LLVM/3.LLVM的Pass/" itemprop="url">
-                  3.LLVM的Pass
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-11T18:35:26+08:00" content="2016-11-11">
-              2016-11-11
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/" itemprop="url" rel="index">
-                    <span itemprop="name">OSLab</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/LLVM/" itemprop="url" rel="index">
-                    <span itemprop="name">LLVM</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/11/11/OSLab/LLVM/3.LLVM的Pass/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/11/OSLab/LLVM/3.LLVM的Pass/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="阅读文档"><a href="#阅读文档" class="headerlink" title="阅读文档"></a><a href="http://releases.llvm.org/3.2/docs/WritingAnLLVMPass.html">阅读文档</a></h2>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/11/OSLab/LLVM/3.LLVM的Pass/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/10/OSLab/LLVM/2.LLVM的编程指引/" itemprop="url">
-                  2.LLVM的编程指引
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-10T18:36:26+08:00" content="2016-11-10">
-              2016-11-10
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/" itemprop="url" rel="index">
-                    <span itemprop="name">OSLab</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/LLVM/" itemprop="url" rel="index">
-                    <span itemprop="name">LLVM</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/11/10/OSLab/LLVM/2.LLVM的编程指引/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/10/OSLab/LLVM/2.LLVM的编程指引/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="阅读文档"><a href="#阅读文档" class="headerlink" title="阅读文档"></a><a href="http:llvm.org/docs/ProgrammersManual.html">阅读文档</a></h2><p>这就是LLVM的编程指引，相对来说这个文档没那么长，但是里面的东西很重要，希望在阅读的过程中认真阅读。同时，涉及到C++部分的知识，如果有不清楚的，要自己主动的把那些知识补充学习一下。在阅读这个文档的过程中，可以去LLVM的源码中找一些实际的代码，参照着看一下，效果会更好。可以从<a href="http://androidxref.com/">http://androidxref.com/</a> 在线浏览和搜索代码，这个网站是在线浏览搜索Android源码的，LLVM的源码就在<a href="http://androidxref.com/4.2.2_r1/xref/external/llvm/">http://androidxref.com/4.2.2_r1/xref/external/llvm/</a> 这里，可以从这里搜索、跳转，都很方便。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/10/OSLab/LLVM/2.LLVM的编程指引/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/10/OSLab/LLVM/1.LLVM的IR语言/" itemprop="url">
-                  1.LLVM的IR语言
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-10T18:35:26+08:00" content="2016-11-10">
-              2016-11-10
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/" itemprop="url" rel="index">
-                    <span itemprop="name">OSLab</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/LLVM/" itemprop="url" rel="index">
-                    <span itemprop="name">LLVM</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/11/10/OSLab/LLVM/1.LLVM的IR语言/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/10/OSLab/LLVM/1.LLVM的IR语言/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="LLVM-IR"><a href="#LLVM-IR" class="headerlink" title="LLVM IR"></a>LLVM IR</h2><p>根据编译原理知识，编译器不是直接将源语言翻译为目标语言，而是翻译为一种“中间语言”，我们编译器从业人员称之为“IR”<br>传统的静态编译器分为三个阶段：前端、优化和后端。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/10/OSLab/LLVM/1.LLVM的IR语言/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/09/OSLab/LLVM/0.LLVM安装及工具链/" itemprop="url">
-                  0.LLVM安装及工具链
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-09T18:35:26+08:00" content="2016-11-09">
-              2016-11-09
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/" itemprop="url" rel="index">
-                    <span itemprop="name">OSLab</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/LLVM/" itemprop="url" rel="index">
-                    <span itemprop="name">LLVM</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/11/09/OSLab/LLVM/0.LLVM安装及工具链/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/09/OSLab/LLVM/0.LLVM安装及工具链/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
-<li>在<a href="http://llvm.org/releases/download.html">官网下载页</a>下载LLVM3.2版本的llvm3.2和clang3.2的source code压缩包</li>
-<li>解压后安装：./configure,make,sudo make install
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/09/OSLab/LLVM/0.LLVM安装及工具链/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-    
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/07/OSLab/ROS/11.ROS-Nao/" itemprop="url">
-                  11.ROS-Nao
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-07T20:35:26+08:00" content="2016-11-07">
-              2016-11-07
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/" itemprop="url" rel="index">
-                    <span itemprop="name">OSLab</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OSLab/ROS/" itemprop="url" rel="index">
+                  <a href="/categories/ROS/" itemprop="url" rel="index">
                     <span itemprop="name">ROS</span>
                   </a>
                 </span>
@@ -1510,8 +653,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/11/07/OSLab/ROS/11.ROS-Nao/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/07/OSLab/ROS/11.ROS-Nao/" itemprop="commentsCount"></span>
+                <a href="/2018/04/13/ROS/ros cartographer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/04/13/ROS/ros cartographer/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1534,9 +677,741 @@
 
       
         
-          <h2 id="安装Naoqi-SDK"><a href="#安装Naoqi-SDK" class="headerlink" title="安装Naoqi SDK"></a>安装Naoqi SDK</h2><h3 id="Naoqi"><a href="#Naoqi" class="headerlink" title="Naoqi"></a>Naoqi</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir ~/naoqi</span><br><span class="line"><span class="built_in">cd</span> ~/naoqi</span><br><span class="line">tar xzf naoqi-sdk-2.1.3.3-linux64.tar.gz</span><br><span class="line">tar xzf pynaoqi-python2.7-2.1.3.3-linux64.tar.gz</span><br><span class="line"></span><br><span class="line">~/naoqi/naoqi-sdk-2.1.3.3-linux64/naoqi</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PYTHONPATH=~/naoqi/pynaoqi-python2.7-2.1.3.3-linux64:$PYTHONPATH'</span> &gt;&gt; ~/.bashrc</span><br><span class="line"></span><br><span class="line">python</span><br><span class="line">from naoqi import ALProxy</span><br></pre></td></tr></table></figure>
+          <h3 id="官网安装教程-Cartographer-ROS-Integration"><a href="#官网安装教程-Cartographer-ROS-Integration" class="headerlink" title="官网安装教程-Cartographer ROS Integration"></a><a href="https://google-cartographer-ros.readthedocs.io/en/latest/">官网安装教程-Cartographer ROS Integration</a></h3>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/07/OSLab/ROS/11.ROS-Nao/#more" rel="contents">
+            <a class="btn" href="/2018/04/13/ROS/ros cartographer/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/04/09/VSLAM/滤波/" itemprop="url">
+                  滤波
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-04-09T18:35:26+08:00" content="2018-04-09">
+              2018-04-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/VSLAM/" itemprop="url" rel="index">
+                    <span itemprop="name">VSLAM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/04/09/VSLAM/滤波/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/04/09/VSLAM/滤波/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="高翔总结"><a href="#高翔总结" class="headerlink" title="高翔总结"></a><a href="https://www.cnblogs.com/gaoxiang12/p/5560360.html">高翔总结</a></h3><h3 id="KF（卡尔曼滤波）"><a href="#KF（卡尔曼滤波）" class="headerlink" title="KF（卡尔曼滤波）"></a>KF（卡尔曼滤波）</h3><p>线性系统，高斯噪声<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2018/04/09/VSLAM/滤波/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/04/09/VSLAM/VSLAM入门简介/" itemprop="url">
+                  VSLAM入门简介
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-04-09T18:35:26+08:00" content="2018-04-09">
+              2018-04-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/VSLAM/" itemprop="url" rel="index">
+                    <span itemprop="name">VSLAM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/04/09/VSLAM/VSLAM入门简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/04/09/VSLAM/VSLAM入门简介/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="SLAMCN"><a href="#SLAMCN" class="headerlink" title="SLAMCN"></a><a href="http://www.slamcn.org/index.php/%E9%A6%96%E9%A1%B5">SLAMCN</a></h3><h3 id="SLAM是什么？它的未来在哪里？"><a href="#SLAM是什么？它的未来在哪里？" class="headerlink" title="SLAM是什么？它的未来在哪里？"></a><a href="http://blog.sina.com.cn/s/blog_61b61d9d0102wnf2.html">SLAM是什么？它的未来在哪里？</a></h3>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2018/04/09/VSLAM/VSLAM入门简介/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/03/09/VSLAM/SLAM与深度学习/" itemprop="url">
+                  SLAM与深度学习
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-03-09T18:35:26+08:00" content="2018-03-09">
+              2018-03-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/VSLAM/" itemprop="url" rel="index">
+                    <span itemprop="name">VSLAM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/03/09/VSLAM/SLAM与深度学习/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/03/09/VSLAM/SLAM与深度学习/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="Tombone’s-Computer-Vision-Blog"><a href="#Tombone’s-Computer-Vision-Blog" class="headerlink" title="Tombone’s Computer Vision Blog"></a><a href="http://www.computervisionblog.com/2016/01/why-slam-matters-future-of-real-time.html">Tombone’s Computer Vision Blog</a></h3><p>翻译如下：<br><a href="http://blog.csdn.net/qq_18661939/article/details/51919329">ICCV研讨会：实时SLAM的未来以及深度学习与SLAM的比较</a></p>
+<p><a href="https://www.zhihu.com/question/66006923">当前深度学习和slam结合有哪些比较好的论文，有没有一些开源的代码?</a><br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2018/03/09/VSLAM/SLAM与深度学习/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/01/09/VSLAM/RTAB_MAP/" itemprop="url">
+                  RTAB_Map
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-01-09T18:35:26+08:00" content="2018-01-09">
+              2018-01-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/VSLAM/" itemprop="url" rel="index">
+                    <span itemprop="name">VSLAM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/01/09/VSLAM/RTAB_MAP/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/01/09/VSLAM/RTAB_MAP/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="RTAB是什么"><a href="#RTAB是什么" class="headerlink" title="RTAB是什么"></a>RTAB是什么</h3><p><a href="http://remyspot.blog.51cto.com/8218746/1784914/">RtabMap中文解析</a><br><a href="http://www.cnblogs.com/severnvergil/p/6671879.html">RTABMAP-ROS RGB-D的建图原理</a><br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2018/01/09/VSLAM/RTAB_MAP/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/01/09/VSLAM/重要VSLAM系统/" itemprop="url">
+                  重要VSLAM系统
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-01-09T18:35:26+08:00" content="2018-01-09">
+              2018-01-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/VSLAM/" itemprop="url" rel="index">
+                    <span itemprop="name">VSLAM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/01/09/VSLAM/重要VSLAM系统/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/01/09/VSLAM/重要VSLAM系统/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="推荐入门"><a href="#推荐入门" class="headerlink" title="推荐入门"></a>推荐入门</h3><ol>
+<li>VSLAM的子类：单目，双目/RGBD;滤波和优化</li>
+<li>清华自动化高翔，半闲居士，《视觉SLAM十四讲》</li>
+<li>四篇论文：rgbd:kinectfusion,budlefusion,qianyi.info这个网站上找robust reconstruction;lidar:cartographer(github名字,google的)，以submap的形式结合起来做出整套系统</li>
+<li><a href="http://blog.csdn.net/xiaohu50/article/details/51592503">kinect fusion</a>:kinectfusion是微软研究院利用kinect进行三维重建的项目，深入了解该算法及其实现可以为3D重建的kinect类应用提供一定的参考。该项目本身需要比较强大的CUDA显卡支持实现实时重建。 </li>
+<li><a href="https://www.cnblogs.com/yebo92/p/6266717.html">cartographer</a>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2018/01/09/VSLAM/重要VSLAM系统/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+    
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/12/09/VSLAM/生成点云/" itemprop="url">
+                  生成点云
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-12-09T18:35:26+08:00" content="2017-12-09">
+              2017-12-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/VSLAM/" itemprop="url" rel="index">
+                    <span itemprop="name">VSLAM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/12/09/VSLAM/生成点云/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/12/09/VSLAM/生成点云/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="深度摄像机的原理"><a href="#深度摄像机的原理" class="headerlink" title="深度摄像机的原理"></a>深度摄像机的原理</h2><p><a href="http://blog.csdn.net/bingoplus/article/details/56667475">RGBD-SLAM（一）——深度摄像机</a><br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/12/09/VSLAM/生成点云/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1619,7 +1494,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1628,7 +1503,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1691,7 +1566,7 @@
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
