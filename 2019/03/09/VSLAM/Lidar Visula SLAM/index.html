@@ -1,0 +1,676 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="V-LOAMVLOAM ：Visual-lidar Odometry and Mapping: Low-drift, Robust, and Fast
+别人已开源，https://github.com/daobilige-su/loam_velodyne视觉里程计用DEMO，论文见https://ri.cmu.edu/pub_files/2014/9/IROS_2014.pdf，核心思想是用深度信">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lidar Visual SLAM">
+<meta property="og:url" content="http://hujun1413.github.io/2019/03/09/VSLAM/Lidar Visula SLAM/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="V-LOAMVLOAM ：Visual-lidar Odometry and Mapping: Low-drift, Robust, and Fast
+别人已开源，https://github.com/daobilige-su/loam_velodyne视觉里程计用DEMO，论文见https://ri.cmu.edu/pub_files/2014/9/IROS_2014.pdf，核心思想是用深度信">
+<meta property="og:updated_time" content="2019-03-24T15:02:12.680Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lidar Visual SLAM">
+<meta name="twitter:description" content="V-LOAMVLOAM ：Visual-lidar Odometry and Mapping: Low-drift, Robust, and Fast
+别人已开源，https://github.com/daobilige-su/loam_velodyne视觉里程计用DEMO，论文见https://ri.cmu.edu/pub_files/2014/9/IROS_2014.pdf，核心思想是用深度信">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Lidar Visual SLAM | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Lidar Visual SLAM
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-03-09T18:35:26+08:00" content="2019-03-09">
+              2019-03-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/VSLAM/" itemprop="url" rel="index">
+                    <span itemprop="name">VSLAM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/03/09/VSLAM/Lidar Visula SLAM/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/03/09/VSLAM/Lidar Visula SLAM/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="V-LOAM"><a href="#V-LOAM" class="headerlink" title="V-LOAM"></a>V-LOAM</h3><p>VLOAM ：Visual-lidar Odometry and Mapping: Low-drift, Robust, and Fast</p>
+<p>别人已开源，<a href="https://github.com/daobilige-su/loam_velodyne" target="_blank" rel="external">https://github.com/daobilige-su/loam_velodyne</a><br>视觉里程计用DEMO，论文见<a href="https://ri.cmu.edu/pub_files/2014/9/IROS_2014.pdf，核心思想是用深度信息来辅助视觉里程计，有深度时可以不需要三角化。用iSAM做因子图优化" target="_blank" rel="external">https://ri.cmu.edu/pub_files/2014/9/IROS_2014.pdf，核心思想是用深度信息来辅助视觉里程计，有深度时可以不需要三角化。用iSAM做因子图优化</a><br>雷达里程计用LOAM，高频运动估计，低频L-M非线性优化和建图。</p>
+<a id="more"></a>
+<p>The result is that the visual odometry handles rapid motion, and the lidar odometry warrants low-drift and robustness in undesirable lighting conditions.</p>
+<p>V-LOAM uses images to compute motion prior for scan matching, while LOAM only processes laser data.<br>视觉可以为雷达获得更好的点云深度，视觉也可以为雷达提供扫描匹配的运动先验</p>
+<p>深度图指的是利用雷达的点云和vo得到的运动估计不断注册，得到一个合并后在相机坐标系下的大点云，可以用这个点云来帮助获取特征点的深度。<br>特征点的距离是取深度图中离该点最近的3个点构成的平面，求光心到平面的距离作为该特征点的距离。如果在深度图中没有该特征点的深度，则可以根据特征匹配的结果三角化出来3D点</p>
+<p>V-LOAM 源码解析（一）<br>节点名称：featureTracking<br>订阅topic：<sensor_msgs::image>（”/camera/image_raw”）<br>发布topic：1、<sensor_msgs::pointcloud2> (“/image_points_last”）<br>          2、<sensor_msgs::image>(“/image/show”)</sensor_msgs::image></sensor_msgs::pointcloud2></sensor_msgs::image></p>
+<p>节点：visualOdometry<br>功能：订阅”/image_points_last”和”/depth_cloud”消息，将图像特征与三维点云匹配，获得图像特征点深度值，然后采用非线性优化的方法迭代收敛得到两帧图像之间的变换矩阵，即融合了三维点云信息的视觉里程计。</p>
+<p>节点：processDepthmap<br>功能：根据视觉里程计topic(“/cam_to_init”)，和点云数据（”/sync_scan_cloud_filtered”），将新点云和已有点云变换到当前相机坐标系下，实现图像与点云数据的对齐</p>
+<p>节点：stackDepthPoint<br>功能：将视觉里程计中用于定位的特征点三维坐标分批存储，用于后面的局部BA优化</p>
+<p>节点：bundleAdjust<br>功能：对视觉里程计获得的odom信息进行局部BA优化，获得精度更高的odom信息</p>
+<p>节点：transformMaintenance<br>功能：视觉里程计信息帧率较高，BA优化帧率较低，将二者结合，利用BA优化的结果修正视觉里程计，可以得到帧率和精度都较高的里程计信息</p>
+<p>节点：registerPointCloud<br>功能：根据最终的里程计信息将三维激光的点云加入到odom坐标系中，获得点云地图</p>
+<h3 id="VI-LOAM"><a href="#VI-LOAM" class="headerlink" title="VI-LOAM"></a>VI-LOAM</h3><p>imu和视觉可以进行pose约束（预积分的两帧间位姿可以和视觉得到的r,t做约束），视觉可以进行camera的重投影约束（雷达可以给特征点提供已有的深度，如果雷达没深度可以三角化出深度，没有深度的特征也有一种约束方式）</p>
+<p>The motion estimation is to solve an optimization problem combining three sets of constraints: (a) From features with known depth as (6) and (7); (b) from features with unknown depth as (8); and (c) from the IMU prediction.</p>
+<h3 id="LIMO"><a href="#LIMO" class="headerlink" title="LIMO"></a>LIMO</h3><p>已开源，github见<a href="https://github.com/johannes-graeter/limo" target="_blank" rel="external">https://github.com/johannes-graeter/limo</a><br>论文见<a href="https://arxiv.org/pdf/1807.07524.pdf" target="_blank" rel="external">https://arxiv.org/pdf/1807.07524.pdf</a><br>在本研究中，我们提出了一种针对摄像机特征轨迹的激光雷达深度提取算法，并利用基于鲁棒关键帧的BA算法来估计运动。语义标记用于植被地标的离群剔除和加权，该传感器组合的能力在具有竞争力的KITTI数据集上得到了验证，排名在前15位。</p>
+<p>核心思想：用语义去剔除在动态物体上的特征点。在特征点在一个平面上时，比如在道路上时，可以根据平面检测的结果，得到特征点更好的深度信息。然后优化方程为：3d-3d和3d-2d的重投影误差</p>
+<p>没有和vloam一样使用icp，是为了体现视觉里程计和深度信息的融合。<br>LIMO is thereforethe second best LIDAR-Camera method published and the best performing method that does not use ICP based LIDAR- SLAM as refinement.<br>相对于纯vslam，结合雷达信息就是可以把雷达的点云准换到相机坐标系下，因此可以为vslam提供点云。视觉也可以为雷达获得更好的点云深度。</p>
+<p>特征提取和预处理：<br>feature tracking methodology, implemented in the viso2 library [7]<br>reject landmarks lying on moving objects，在语义图像中把属于动态物体的feature剔除</p>
+<p>尺度估计：<br>In order to estimate scale (Block S), depth corresponding to detected feature points is extracted from the LIDAR，从雷达的电云中提取出特征点的深度<br>直接从一张图中进行深度的估计</p>
+<p>先选择一个ROI记作f，然后把投影在图像的区域f上的雷达点云作为F点云。<br>把F点云进行分割前景，得到Fseg点云：只选择一部分点云来降低优化问题的规模<br>在Fseg中得到平面p，如果f在地面上，就应用一个特殊的匹配算法<br>根据f的投影线和平面p的交点求出f的深度：To accurately estimate the depth of f on the road, we rather segment points corresponding to the ground plane than to the foreground.因为特征点的深度可能不平，所以在特征点附近求出一个地面的方程，然后只取高度离平面一定范围内的点的深度。<br>f投影线和平面p的法线的角度要小于某个阈值</p>
+<h3 id="Elastic-Lidar-Fusion论文"><a href="#Elastic-Lidar-Fusion论文" class="headerlink" title="Elastic Lidar Fusion论文"></a>Elastic Lidar Fusion论文</h3><p>泡泡机器人翻译</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/09/VSLAM/Lidar SLAM/" rel="next" title="Lidar SLAM">
+                <i class="fa fa-chevron-left"></i> Lidar SLAM
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/09/VSLAM/VINS-Mono/" rel="prev" title="VINS-Mono">
+                VINS-Mono <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2019/03/09/VSLAM/Lidar Visula SLAM/"
+           data-title="Lidar Visual SLAM" data-url="http://hujun1413.github.io/2019/03/09/VSLAM/Lidar Visula SLAM/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://note.youdao.com/yws/api/personal/file/7CA800CBE0A747E08DFFEA480C31B399?method=download&shareKey=a956511eb4b1974a6270a9584ad6ab54"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#V-LOAM"><span class="nav-number">1.</span> <span class="nav-text">V-LOAM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VI-LOAM"><span class="nav-number">2.</span> <span class="nav-text">VI-LOAM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LIMO"><span class="nav-number">3.</span> <span class="nav-text">LIMO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Elastic-Lidar-Fusion论文"><span class="nav-number">4.</span> <span class="nav-text">Elastic Lidar Fusion论文</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

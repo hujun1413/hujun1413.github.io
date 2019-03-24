@@ -1,0 +1,749 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="SLAMCNSLAM是什么？它的未来在哪里？SLAM是技术，手机端的话涉及VIO
+RGBD,Lidar,imu,odom,gps。基于这些传感器做一个组合SLAM。涉及：前端的tracking和后端的优化多传感器融合是趋势，视觉结合imu等传感器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重要VSLAM系统">
+<meta property="og:url" content="http://hujun1413.github.io/2018/11/09/VSLAM/重要VSLAM系统/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="SLAMCNSLAM是什么？它的未来在哪里？SLAM是技术，手机端的话涉及VIO
+RGBD,Lidar,imu,odom,gps。基于这些传感器做一个组合SLAM。涉及：前端的tracking和后端的优化多传感器融合是趋势，视觉结合imu等传感器。">
+<meta property="og:updated_time" content="2019-03-24T13:09:10.462Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="重要VSLAM系统">
+<meta name="twitter:description" content="SLAMCNSLAM是什么？它的未来在哪里？SLAM是技术，手机端的话涉及VIO
+RGBD,Lidar,imu,odom,gps。基于这些传感器做一个组合SLAM。涉及：前端的tracking和后端的优化多传感器融合是趋势，视觉结合imu等传感器。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 重要VSLAM系统 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                重要VSLAM系统
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-11-09T18:35:26+08:00" content="2018-11-09">
+              2018-11-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/VSLAM/" itemprop="url" rel="index">
+                    <span itemprop="name">VSLAM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/11/09/VSLAM/重要VSLAM系统/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/11/09/VSLAM/重要VSLAM系统/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="SLAMCN"><a href="#SLAMCN" class="headerlink" title="SLAMCN"></a><a href="http://www.slamcn.org/index.php/%E9%A6%96%E9%A1%B5" target="_blank" rel="external">SLAMCN</a></h3><h3 id="SLAM是什么？它的未来在哪里？"><a href="#SLAM是什么？它的未来在哪里？" class="headerlink" title="SLAM是什么？它的未来在哪里？"></a><a href="http://blog.sina.com.cn/s/blog_61b61d9d0102wnf2.html" target="_blank" rel="external">SLAM是什么？它的未来在哪里？</a></h3><p>SLAM是技术，手机端的话涉及VIO</p>
+<p>RGBD,Lidar,imu,odom,gps。基于这些传感器做一个组合SLAM。涉及：前端的tracking和后端的优化<br>多传感器融合是趋势，视觉结合imu等传感器。<br><a id="more"></a></p>
+<h3 id="总结归纳"><a href="#总结归纳" class="headerlink" title="总结归纳"></a>总结归纳</h3><p>直接法的缺点：<br>怕模糊（需要全局曝光相机）<br>怕大运动（图像非凸性）<br>怕光照变化（灰度不变假设）</p>
+<p>直接法的优点：<br>速度快<br>可稠密建图</p>
+<h3 id="视觉SLAM系统"><a href="#视觉SLAM系统" class="headerlink" title="视觉SLAM系统"></a>视觉SLAM系统</h3><p>单目SLAM:     </p>
+<ol>
+<li>PTAM 2007 很牛逼的工作，论文中提出的关键帧以及多线程处理思想成为之后视觉slam标配；甚至能够实时运行在手机上。不少AR是基于ptam的；     </li>
+<li>DTAM 2011 direct  slam方法的鼻祖；    </li>
+<li>LSD-SLAM 2014年，将直接法应用到了半稠密的单目SLAM中。</li>
+<li>ORB-SLAM 2015年，代表着主流的特征点SLAM的一个高峰，属于稀疏建图。</li>
+</ol>
+<p>RGBD:     </p>
+<ol>
+<li>KinectFusion 2011     </li>
+<li>RGBD-SLAM2 2014     </li>
+<li>ElasticFusion  2015</li>
+<li>RTAB-MAP  RGB-D在CPU上实现实时稠密地图</li>
+</ol>
+<p>以单目slam为例，SLAM可分为前端和后端；前端主要负责tracking相机的姿态位置，并筛选关键帧；而后端则主要负责姿态图的优化。而优化的方法多采用G2O或者SBA。</p>
+<h3 id="一起做RGB-D-SLAM"><a href="#一起做RGB-D-SLAM" class="headerlink" title="一起做RGB-D SLAM"></a><a href="http://www.cnblogs.com/gaoxiang12/p/4719156.html" target="_blank" rel="external">一起做RGB-D SLAM</a></h3><p>机器人会议：IJRR/TRO/RAM/JFD/ICRA/IROS/ROBIO</p>
+<h3 id="主流的VSLAM"><a href="#主流的VSLAM" class="headerlink" title="主流的VSLAM"></a>主流的VSLAM</h3><p>视觉稀疏法：ORB-SLAM 、PTAM、MonoSLAM</p>
+<p>半稠密法：LSD-SLAM、DSO、SVO</p>
+<p>稠密法：DTAM、Elastic Fusion、Kintinous、DVO、RGBD-SLAM-V2、RTAB-MAP、MLM等</p>
+<p>激光：Hector SLAM、Gmapping、tinySLAM</p>
+<p>后端优化：g2o、ceres、GTSAM</p>
+<p>数据：RGB-D SLAM Dataset and Benchmark、KITTI Vision Benchmark Suite、The EuRoC MAV Dataset等。</p>
+<p>直接法：SVO、LSD-SLAM</p>
+<h4 id="MonoSLAM-2003-2007"><a href="#MonoSLAM-2003-2007" class="headerlink" title="MonoSLAM(2003-2007)"></a>MonoSLAM(2003-2007)</h4><p>2007年，A.J.Davison教授提出的第一个实时的单目视觉SLAM系统。扩展卡尔曼滤波为后端，追踪前段非常稀疏的特征点。</p>
+<p>缺点：</p>
+<ul>
+<li>应用场景很窄</li>
+<li>路标数量有限</li>
+<li>特征点稀疏非常容易丢失</li>
+<li>开发已经停止</li>
+</ul>
+<h4 id="PTAM-2007-2008"><a href="#PTAM-2007-2008" class="headerlink" title="PTAM(2007-2008)"></a>PTAM(2007-2008)</h4><p>2007年，Klein等人提出。基于FAST角点</p>
+<p>优点：</p>
+<ul>
+<li>跟踪和建图的并行化</li>
+<li>第一个使用非线性优化。</li>
+<li>同时是一个增强现实的软件</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>缺乏回环检测和重定位</li>
+<li>场景小，跟踪容易丢失</li>
+</ul>
+<h4 id="ORB-SLAM-2014-2015"><a href="#ORB-SLAM-2014-2015" class="headerlink" title="ORB-SLAM(2014-2015)"></a>ORB-SLAM(2014-2015)</h4><p>2015年，代表着主流的特征点SLAM的一个高峰，属于稀疏建图。</p>
+<p>优点：</p>
+<ul>
+<li>支持单目，双目，RGB-D。</li>
+<li>围绕ORB特征进行计算，包括视觉里程计和回环检测的ORB字典。</li>
+<li>回环检测是亮点，但要加载很大的ORB字典。</li>
+<li>创新式地使用了三个线程：实时跟踪的Tracking，局部BA(小图)，全局Pose Graph的回环检测和优化(大图)。</li>
+<li>围绕特征点进行了不少的优化。保证了特征点的均匀分布，在优化位姿时使用了一种循环优化4遍以得到更多正确匹配的方法，比PTAM更为宽松的关键帧选取策略。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>每副图像计算一遍ORB特征，非常耗时。</li>
+<li>三线程结构也给CPU带来了较重的负担，移植到嵌入式设备上有一定的困难。</li>
+<li>建图为稀疏特征点，没有开放存储和读取地图后进行重新定位的功能。</li>
+<li>稀疏特征点地图只能满足定位要求，无法提供导航，避障，交互等功能，因此仅用ORB-SLAM来处理定位问题太重量级。</li>
+</ul>
+<h4 id="LSD-SLAM-2013-2014"><a href="#LSD-SLAM-2013-2014" class="headerlink" title="LSD-SLAM(2013-2014)"></a>LSD-SLAM(2013-2014)</h4><p>2014年，J.Engle等人提出。标志着单目直接法的成功应用，将直接法应用到了半稠密的单目SLAM中。</p>
+<p>优点：</p>
+<ul>
+<li>直接法是针对像素进行的。有创见地提出了像素梯度与直接法的关系，以及像素梯度与极线方向在稠密重建中的角度关系。</li>
+<li>在CPU上实现了实时半稠密场景的重建。</li>
+<li>不是利用单个像素，而是在极线上等距离取5个点，度量其SSD。用了很多精妙的手段来保证追踪的实时性和稳定性。</li>
+<li>直接法的优点：对特征缺失区域不敏感</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>对相机内参和曝光非常敏感，在相机快速运动时容易丢失</li>
+<li>没有基于直接法的回环检测。因此必须依赖于特征点方法来进行回环检测，尚未摆脱特征点的计算。</li>
+</ul>
+<h4 id="SVO-Semi-direct-Visual-Odoemtry，半直接视觉里程计-2014"><a href="#SVO-Semi-direct-Visual-Odoemtry，半直接视觉里程计-2014" class="headerlink" title="SVO(Semi-direct Visual Odoemtry，半直接视觉里程计)(2014)"></a>SVO(Semi-direct Visual Odoemtry，半直接视觉里程计)(2014)</h4><p>2014年，Forster等人提出。基于稀疏直接法的视觉里程计。特征点和直接法混合：跟踪一些关键点（角点，没有描述子），然后像直接法那样将关键点周围4×4的小块进行块匹配，来估计相机自身的运动。</p>
+<p>SVO 2.0 2016年：<br>C. Forster, Z. Zhang, M. Gassner, M. Werlberger, and D. Scaramuzza.<br>SVO 2.0: Semi-direct visual odometry for monocular and multicamera<br>systems. TRO, 2016.</p>
+<p>优点：</p>
+<ul>
+<li>速度极快。在PC平台上能达到每秒100多帧，后续的SVO 2.0能达到每秒400帧。</li>
+<li>非常适用于无人机，手持AR/VR设备这些计算平台受限场合的定位</li>
+<li>创新之处：提出了深度滤波器的概念，并推导了基于均匀－高斯混合分布的深度滤波器。</li>
+<li>代码清晰易读</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>目标应用平台是无人机的俯视相机，所以在平视相机中表现不佳</li>
+<li>为了速度和轻量化，舍弃了后端优化和回环检测，基本没有建图功能。所以位姿估计存在累计误差，丢失后不太容易进行重定位，所以SVO只是个VO。</li>
+</ul>
+<h4 id="DSO-直接稀疏VO，2016"><a href="#DSO-直接稀疏VO，2016" class="headerlink" title="DSO(直接稀疏VO，2016)"></a>DSO(直接稀疏VO，2016)</h4><p>DSO [13]是LSD-SLAM的作者Jakob Engel放出的另一个大杀器，从其展示的实验结果看，无论是robustness，或是accuracy，或是计算速度，都完爆LSD-SLAM和ORB-SLAM，上个月又放出了code。</p>
+<h4 id="RTAB-MAP"><a href="#RTAB-MAP" class="headerlink" title="RTAB-MAP"></a>RTAB-MAP</h4><p>RGB-D在CPU上实现实时稠密地图。</p>
+<p>支持常见的RGB-D和双目传感器，提供实时的建图和定位功能</p>
+<p>集成度较高，进行二次开发比较困难，更适合作为SLAM应用而非研究使用</p>
+<h4 id="DVO-SLAM（RGBD）"><a href="#DVO-SLAM（RGBD）" class="headerlink" title="DVO-SLAM（RGBD）"></a>DVO-SLAM（RGBD）</h4><p>TUM的基于RGBD camera的VO方法 </p>
+<h4 id="RGBD-SLAM-V2"><a href="#RGBD-SLAM-V2" class="headerlink" title="RGBD-SLAM-V2"></a>RGBD-SLAM-V2</h4><h4 id="Kinect-Fusion"><a href="#Kinect-Fusion" class="headerlink" title="Kinect Fusion"></a>Kinect Fusion</h4><h4 id="Google-Cartographer"><a href="#Google-Cartographer" class="headerlink" title="Google Cartographer"></a>Google Cartographer</h4><h4 id="DTAM-RGBD"><a href="#DTAM-RGBD" class="headerlink" title="DTAM(RGBD)"></a>DTAM(RGBD)</h4><h4 id="Elastic-Fusion-RGBD-2015"><a href="#Elastic-Fusion-RGBD-2015" class="headerlink" title="Elastic Fusion(RGBD 2015)"></a>Elastic Fusion(RGBD 2015)</h4><h4 id="Kintinous-RGBD"><a href="#Kintinous-RGBD" class="headerlink" title="Kintinous(RGBD)"></a>Kintinous(RGBD)</h4><h4 id="FAB-MAP"><a href="#FAB-MAP" class="headerlink" title="FAB-MAP"></a>FAB-MAP</h4>
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/09/VSLAM/滤波/" rel="next" title="滤波">
+                <i class="fa fa-chevron-left"></i> 滤波
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/09/VSLAM/ORB-SLAM2/" rel="prev" title="ORB-SLAM2">
+                ORB-SLAM2 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/11/09/VSLAM/重要VSLAM系统/"
+           data-title="重要VSLAM系统" data-url="http://hujun1413.github.io/2018/11/09/VSLAM/重要VSLAM系统/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://note.youdao.com/yws/api/personal/file/7CA800CBE0A747E08DFFEA480C31B399?method=download&shareKey=a956511eb4b1974a6270a9584ad6ab54"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#SLAMCN"><span class="nav-number">1.</span> <span class="nav-text">SLAMCN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SLAM是什么？它的未来在哪里？"><span class="nav-number">2.</span> <span class="nav-text">SLAM是什么？它的未来在哪里？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结归纳"><span class="nav-number">3.</span> <span class="nav-text">总结归纳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视觉SLAM系统"><span class="nav-number">4.</span> <span class="nav-text">视觉SLAM系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一起做RGB-D-SLAM"><span class="nav-number">5.</span> <span class="nav-text">一起做RGB-D SLAM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主流的VSLAM"><span class="nav-number">6.</span> <span class="nav-text">主流的VSLAM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MonoSLAM-2003-2007"><span class="nav-number">6.1.</span> <span class="nav-text">MonoSLAM(2003-2007)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PTAM-2007-2008"><span class="nav-number">6.2.</span> <span class="nav-text">PTAM(2007-2008)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ORB-SLAM-2014-2015"><span class="nav-number">6.3.</span> <span class="nav-text">ORB-SLAM(2014-2015)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LSD-SLAM-2013-2014"><span class="nav-number">6.4.</span> <span class="nav-text">LSD-SLAM(2013-2014)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVO-Semi-direct-Visual-Odoemtry，半直接视觉里程计-2014"><span class="nav-number">6.5.</span> <span class="nav-text">SVO(Semi-direct Visual Odoemtry，半直接视觉里程计)(2014)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DSO-直接稀疏VO，2016"><span class="nav-number">6.6.</span> <span class="nav-text">DSO(直接稀疏VO，2016)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RTAB-MAP"><span class="nav-number">6.7.</span> <span class="nav-text">RTAB-MAP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DVO-SLAM（RGBD）"><span class="nav-number">6.8.</span> <span class="nav-text">DVO-SLAM（RGBD）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RGBD-SLAM-V2"><span class="nav-number">6.9.</span> <span class="nav-text">RGBD-SLAM-V2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kinect-Fusion"><span class="nav-number">6.10.</span> <span class="nav-text">Kinect Fusion</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Google-Cartographer"><span class="nav-number">6.11.</span> <span class="nav-text">Google Cartographer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DTAM-RGBD"><span class="nav-number">6.12.</span> <span class="nav-text">DTAM(RGBD)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Elastic-Fusion-RGBD-2015"><span class="nav-number">6.13.</span> <span class="nav-text">Elastic Fusion(RGBD 2015)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kintinous-RGBD"><span class="nav-number">6.14.</span> <span class="nav-text">Kintinous(RGBD)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FAB-MAP"><span class="nav-number">6.15.</span> <span class="nav-text">FAB-MAP</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

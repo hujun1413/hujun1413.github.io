@@ -3,17 +3,17 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2017/11/09/Navigation/%E5%AF%BC%E8%88%AA/</loc>
-    <lastmod>2018-08-27T09:09:14.513Z</lastmod>
+    <loc>http://hujun1413.github.io/2017/01/11/Linux/Linux%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E7%A8%8B%E5%BA%8F/</loc>
+    <lastmod>2019-03-24T16:37:40.713Z</lastmod>
     <data>
         <display>
-        <title>机器人导航框架</title>
-        <pubTime>2017-11-09T10:35:26.000Z</pubTime>
+        <title>《Linux设备驱动程序》笔记</title>
+        <pubTime>2017-01-11T12:35:26.000Z</pubTime>
         
          
            
              
-              <breadCrumb title="Navigation" url="http://hujun1413.github.io/categories/Navigation/"/>
+              <breadCrumb title="Linux" url="http://hujun1413.github.io/categories/Linux/"/>
           
         </display>
     </data>
@@ -21,12 +21,12 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2018/04/13/ROS/ros%20cartographer/</loc>
-    <lastmod>2018-08-27T09:08:03.804Z</lastmod>
+    <loc>http://hujun1413.github.io/2017/07/18/ROS/ROS%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2019-03-24T16:36:11.243Z</lastmod>
     <data>
         <display>
-        <title>ROS Cartographer</title>
-        <pubTime>2018-04-13T12:35:26.000Z</pubTime>
+        <title>ROS开发</title>
+        <pubTime>2017-07-18T12:35:26.000Z</pubTime>
         
          
            
@@ -39,12 +39,12 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2018/01/09/VSLAM/%E9%87%8D%E8%A6%81VSLAM%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2018-08-27T09:07:07.651Z</lastmod>
+    <loc>http://hujun1413.github.io/2018/11/09/VSLAM/ORB-SLAM2/</loc>
+    <lastmod>2019-03-24T16:34:17.649Z</lastmod>
     <data>
         <display>
-        <title>重要VSLAM系统</title>
-        <pubTime>2018-01-09T10:35:26.000Z</pubTime>
+        <title>ORB-SLAM2</title>
+        <pubTime>2018-11-09T10:35:26.000Z</pubTime>
         
          
            
@@ -57,12 +57,30 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2017/12/09/VSLAM/%E7%94%9F%E6%88%90%E7%82%B9%E4%BA%91/</loc>
-    <lastmod>2018-08-27T09:06:55.624Z</lastmod>
+    <loc>http://hujun1413.github.io/2019/03/19/%E4%BD%9C%E5%93%81%E5%B1%95%E7%A4%BA/</loc>
+    <lastmod>2019-03-24T16:33:45.291Z</lastmod>
     <data>
         <display>
-        <title>生成点云</title>
-        <pubTime>2017-12-09T10:35:26.000Z</pubTime>
+        <title>作品展示</title>
+        <pubTime>2019-03-19T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Video" url="http://hujun1413.github.io/categories/Video/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2019/03/09/VSLAM/VINS-Mono/</loc>
+    <lastmod>2019-03-24T16:30:15.611Z</lastmod>
+    <data>
+        <display>
+        <title>VINS-Mono</title>
+        <pubTime>2019-03-09T10:35:26.000Z</pubTime>
         
          
            
@@ -75,71 +93,237 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2018/04/09/VSLAM/%E6%BB%A4%E6%B3%A2/</loc>
-    <lastmod>2018-08-27T09:06:50.346Z</lastmod>
-    <data>
-        <display>
-        <title>滤波</title>
-        <pubTime>2018-04-09T10:35:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2018/04/09/VSLAM/VSLAM%E5%85%A5%E9%97%A8%E7%AE%80%E4%BB%8B/</loc>
-    <lastmod>2018-08-27T09:06:43.478Z</lastmod>
-    <data>
-        <display>
-        <title>VSLAM入门简介</title>
-        <pubTime>2018-04-09T10:35:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2018/03/09/VSLAM/SLAM%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
-    <lastmod>2018-08-27T09:06:37.671Z</lastmod>
-    <data>
-        <display>
-        <title>SLAM与深度学习</title>
-        <pubTime>2018-03-09T10:35:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2017/12/09/VSLAM/Octomap/</loc>
-    <lastmod>2018-08-27T09:06:25.492Z</lastmod>
+    <loc>http://hujun1413.github.io/2018/10/09/VSLAM/Octomap/</loc>
+    <lastmod>2019-03-24T15:03:50.144Z</lastmod>
     <data>
         <display>
         <title>OctoMap</title>
-        <pubTime>2017-12-09T10:35:26.000Z</pubTime>
+        <pubTime>2018-10-09T10:35:26.000Z</pubTime>
         
          
            
              
               <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2018/06/09/VSLAM/RTAB_MAP/</loc>
+    <lastmod>2019-03-24T15:03:30.717Z</lastmod>
+    <data>
+        <display>
+        <title>RTAB_Map</title>
+        <pubTime>2018-06-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2018/11/09/VSLAM/%E6%BB%A4%E6%B3%A2/</loc>
+    <lastmod>2019-03-24T15:02:56.693Z</lastmod>
+    <data>
+        <display>
+        <title>滤波</title>
+        <pubTime>2018-11-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2018/11/09/VSLAM/SLAM%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2019-03-24T15:02:47.403Z</lastmod>
+    <data>
+        <display>
+        <title>SLAM与深度学习</title>
+        <pubTime>2018-11-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2019/03/09/VSLAM/Lidar%20Visula%20SLAM/</loc>
+    <lastmod>2019-03-24T15:02:12.680Z</lastmod>
+    <data>
+        <display>
+        <title>Lidar Visual SLAM</title>
+        <pubTime>2019-03-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2019/03/09/VSLAM/Colmap/</loc>
+    <lastmod>2019-03-24T15:01:20.786Z</lastmod>
+    <data>
+        <display>
+        <title>SFM Revisited--Colmap</title>
+        <pubTime>2019-03-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2019/03/09/VSLAM/Lidar%20SLAM/</loc>
+    <lastmod>2019-03-24T13:31:56.665Z</lastmod>
+    <data>
+        <display>
+        <title>Lidar SLAM</title>
+        <pubTime>2019-03-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2018/04/09/VSLAM/Cartographer/</loc>
+    <lastmod>2019-03-24T13:23:27.296Z</lastmod>
+    <data>
+        <display>
+        <title>Cartographer</title>
+        <pubTime>2018-04-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2018/11/09/VSLAM/%E9%87%8D%E8%A6%81VSLAM%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2019-03-24T13:09:10.462Z</lastmod>
+    <data>
+        <display>
+        <title>重要VSLAM系统</title>
+        <pubTime>2018-11-09T10:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/09/26/Linux/Vim%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2019-03-24T12:53:33.055Z</lastmod>
+    <data>
+        <display>
+        <title>Vim基础</title>
+        <pubTime>2016-09-26T11:25:26.000Z</pubTime>
+        
+        <tag>Vim </tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://hujun1413.github.io/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2016/11/13/Linux/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E7%BC%96%E8%AF%91Linux%E5%86%85%E6%A0%B8/</loc>
+    <lastmod>2019-03-24T12:52:47.776Z</lastmod>
+    <data>
+        <display>
+        <title>虚拟机中编译Linux内核</title>
+        <pubTime>2016-11-13T12:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="Linux" url="http://hujun1413.github.io/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2018/06/13/ROS/%E7%BB%99turtlebot%E5%A2%9E%E5%8A%A0%E4%B8%80%E4%B8%AA%E4%BC%A0%E6%84%9F%E5%99%A8/</loc>
+    <lastmod>2019-03-24T12:50:45.489Z</lastmod>
+    <data>
+        <display>
+        <title>给turtlebot增加一个传感器</title>
+        <pubTime>2018-06-13T12:35:26.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://hujun1413.github.io/2018/05/28/Deep%20Learning/visdom%E5%8F%AF%E8%A7%86%E5%8C%96/</loc>
+    <lastmod>2019-03-24T12:42:28.696Z</lastmod>
+    <data>
+        <display>
+        <title>visdom可视化</title>
+        <pubTime>2018-05-28T08:25:26.000Z</pubTime>
+        
+        <tag>Pytorch </tag>
+         
+         
+           
+             
+              <breadCrumb title="Deep Learning" url="http://hujun1413.github.io/categories/Deep-Learning/"/>
           
         </display>
     </data>
@@ -225,24 +409,6 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2018/01/09/VSLAM/RTAB_MAP/</loc>
-    <lastmod>2018-08-27T09:05:02.746Z</lastmod>
-    <data>
-        <display>
-        <title>RTAB_Map</title>
-        <pubTime>2018-01-09T10:35:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="VSLAM" url="http://hujun1413.github.io/categories/VSLAM/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://hujun1413.github.io/2016/11/09/LLVM/0.LLVM%E5%AE%89%E8%A3%85%E5%8F%8A%E5%B7%A5%E5%85%B7%E9%93%BE/</loc>
     <lastmod>2018-08-27T08:54:53.665Z</lastmod>
     <data>
@@ -315,96 +481,6 @@
 
     
   <url>
-    <loc>http://hujun1413.github.io/2016/11/13/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E7%BC%96%E8%AF%91Linux%E5%86%85%E6%A0%B8/</loc>
-    <lastmod>2018-08-27T08:53:23.199Z</lastmod>
-    <data>
-        <display>
-        <title>虚拟机中编译Linux内核</title>
-        <pubTime>2016-11-13T12:35:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="操作系统" url="http://hujun1413.github.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/09/26/ROS/0.%E4%BB%80%E4%B9%88%E6%98%AFROS/</loc>
-    <lastmod>2018-08-27T08:52:54.848Z</lastmod>
-    <data>
-        <display>
-        <title>ROS是什么</title>
-        <pubTime>2016-09-26T12:33:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/11/07/ROS/1.ROS-Nao/</loc>
-    <lastmod>2018-08-27T08:52:44.232Z</lastmod>
-    <data>
-        <display>
-        <title>ROS-Nao</title>
-        <pubTime>2016-11-07T12:35:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/11/14/ROS/2.ROS-Kobuki/</loc>
-    <lastmod>2018-08-27T08:52:32.665Z</lastmod>
-    <data>
-        <display>
-        <title>ROS-Kobuki</title>
-        <pubTime>2016-11-14T12:35:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/10/13/ROS/ROS_By_Example/</loc>
-    <lastmod>2018-08-27T08:49:43.779Z</lastmod>
-    <data>
-        <display>
-        <title>ROS_By_Example笔记</title>
-        <pubTime>2016-10-13T12:35:26.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="ROS" url="http://hujun1413.github.io/categories/ROS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://hujun1413.github.io/2016/10/25/Informal_essay/CNCC%E8%AE%B2%E5%BA%A7%E8%AE%B0%E5%BD%95/</loc>
     <lastmod>2017-06-09T02:37:48.574Z</lastmod>
     <data>
@@ -430,46 +506,6 @@
         <title>Markdown基本用法</title>
         <pubTime>2016-04-07T03:25:26.000Z</pubTime>
         
-         
-           
-             
-              <breadCrumb title="随笔" url="http://hujun1413.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/04/12/Informal_essay/%E5%A4%A7%E5%88%9B%E6%80%BB%E7%BB%93/</loc>
-    <lastmod>2017-03-05T03:59:19.368Z</lastmod>
-    <data>
-        <display>
-        <title>大创总结</title>
-        <pubTime>2016-04-12T08:25:26.000Z</pubTime>
-        
-        <tag>总结 </tag>
-         
-         
-           
-             
-              <breadCrumb title="随笔" url="http://hujun1413.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://hujun1413.github.io/2016/10/25/Informal_essay/CNCC2016%E6%80%BB%E7%BB%93/</loc>
-    <lastmod>2017-03-05T03:59:18.587Z</lastmod>
-    <data>
-        <display>
-        <title>CNCC2016总结</title>
-        <pubTime>2016-10-25T08:25:26.000Z</pubTime>
-        
-        <tag>总结 </tag>
-         
          
            
              

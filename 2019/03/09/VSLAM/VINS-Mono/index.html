@@ -1,0 +1,659 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="摘要由摄像机和低成本惯性测量单元(IMU)组成的单目视觉惯性系统(VINS)构成了用于度量六自由度状态估计的最小传感器套件。然而，由于缺乏直接距离测量，在IMU处理、估计器初始化、外部标定和非线性优化等方面提出了重大挑战。在本文中，我们提出了一种鲁棒的、通用的单目视觉惯性状态估计器VINS-Mono。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VINS-Mono">
+<meta property="og:url" content="http://hujun1413.github.io/2019/03/09/VSLAM/VINS-Mono/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="摘要由摄像机和低成本惯性测量单元(IMU)组成的单目视觉惯性系统(VINS)构成了用于度量六自由度状态估计的最小传感器套件。然而，由于缺乏直接距离测量，在IMU处理、估计器初始化、外部标定和非线性优化等方面提出了重大挑战。在本文中，我们提出了一种鲁棒的、通用的单目视觉惯性状态估计器VINS-Mono。">
+<meta property="og:updated_time" content="2019-03-24T16:30:15.611Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VINS-Mono">
+<meta name="twitter:description" content="摘要由摄像机和低成本惯性测量单元(IMU)组成的单目视觉惯性系统(VINS)构成了用于度量六自由度状态估计的最小传感器套件。然而，由于缺乏直接距离测量，在IMU处理、估计器初始化、外部标定和非线性优化等方面提出了重大挑战。在本文中，我们提出了一种鲁棒的、通用的单目视觉惯性状态估计器VINS-Mono。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> VINS-Mono | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                VINS-Mono
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-03-09T18:35:26+08:00" content="2019-03-09">
+              2019-03-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/VSLAM/" itemprop="url" rel="index">
+                    <span itemprop="name">VSLAM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/03/09/VSLAM/VINS-Mono/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/03/09/VSLAM/VINS-Mono/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>由摄像机和低成本惯性测量单元(IMU)组成的单目视觉惯性系统(VINS)构成了用于度量六自由度状态估计的最小传感器套件。然而，由于缺乏直接距离测量，在IMU处理、估计器初始化、外部标定和非线性优化等方面提出了重大挑战。在本文中，我们提出了一种鲁棒的、通用的单目视觉惯性状态估计器VINS-Mono。<a id="more"></a>我们的方法从一个鲁棒的初始化开始，用于估计器初始化和故障恢复。采用一种基于紧耦合、非线性优化的方法，通过融合预计分的IMU测量数据和特征观测数据，获得高精度的视觉惯性里程计。结合我们紧耦合的公式，一个循环检测模块能够以最小的计算开销重新定位.此外，我们还执行四自由度姿态图优化，以加强全局一致性.我们验证了我们的系统在公共数据集和真实世界实验上的性能，并与其他最先进的算法进行了比较。我们还在MAV平台上执行星载闭环自主飞行，并将算法移植到基于IOS的演示中。我们强调，所提议的工作是一个可靠、完整和多功能的系统，适用于需要高精度定位的不同应用程序。我们为个人电脑和iOS移动设备开放了我们的实现方法。</p>
+<h3 id="预积分"><a href="#预积分" class="headerlink" title="预积分"></a><a href="http://note.youdao.com/noteshare?id=a891eb8387ce5db6be6af50033528173&amp;sub=CC23C8D2CCBF4520BC20737C10ECA8B7" target="_blank" rel="external">预积分</a></h3><h3 id="视觉处理前端"><a href="#视觉处理前端" class="headerlink" title="视觉处理前端"></a><a href="http://note.youdao.com/noteshare?id=5b899d35efb2299f1e609c41c4ec8c8a&amp;sub=92C5483D2F6A4712AA754B58CF9B9274" target="_blank" rel="external">视觉处理前端</a></h3><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a><a href="http://note.youdao.com/noteshare?id=5f866711f04fdf698f9256241db45a92&amp;sub=7feb2fd79f83fd8afc5ede955f95b932" target="_blank" rel="external">初始化</a></h3><h3 id="边缘化"><a href="#边缘化" class="headerlink" title="边缘化"></a>边缘化</h3><p><a href="http://https//blog.csdn.net/heyijia0327/article/details/52822104" target="_blank" rel="external">SLAM中的marginalization 和 Schur complement</a></p>
+<p>边缘化也被描述为将联合概率分布分解为边缘概率分布和条件概率分布的过程(说白了，就是利用shur补减少优化参数的过程)。</p>
+<p>舒尔补:我们没有人为的丢弃约束，所以不会丢失信息，但是计算结果的时候，我们只去更新了我们希望保留的那些变量的值。在slam的过程中，BA不断地加入新的待优化的变量，并marg旧的变量，从而使得计算量维持在一定水平。这就是sliding window filter, okvis, dso这些论文中marg的应用。</p>
+<p>要把一部分变量从多元高斯分布从分离出来，其实协方差矩阵很好分离，难分的是信息矩阵（协方差的逆），因为我们通常在SLAM里知道的是H矩阵，而不是协方差矩阵。对于H矩阵的分离，需要用到schur complement来分割。</p>
+<p>在marg的过程中，要去掉变量还要保留他的信息，把以前一个大的H矩阵丢掉一些维度压缩到一个小的H矩阵里，不可避免的就会使得原本稀疏的H矩阵变得稠密，这就是所谓的fill-in。DSO,OKVIS的作者在使用的时候都使用了一些策略来尽量维持稀疏性</p>
+<p>marg特征点的时候，我们要marg那些不被其他帧观测到的特征点。因为他们不会显著的使得H变得稠密。对于那些被其他帧观测到的特征点，要么就别设置为marg，要么就宁愿丢弃，这就是okvis和dso中用到的一些策略。</p>
+<p>first estimate jacobian:在开始新一次迭代时，计算H和J的时候，被marg掉的变量以及与marg掉的变量存在边的非marg变量的值仍然使用最开始，也就是使用于跟第一次迭代时这两种变量的初始值相同的值。不是所有的状态变量的雅克比都要fix ，只是和marg相连的那部分。</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/09/VSLAM/Lidar Visula SLAM/" rel="next" title="Lidar Visual SLAM">
+                <i class="fa fa-chevron-left"></i> Lidar Visual SLAM
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/19/作品展示/" rel="prev" title="作品展示">
+                作品展示 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2019/03/09/VSLAM/VINS-Mono/"
+           data-title="VINS-Mono" data-url="http://hujun1413.github.io/2019/03/09/VSLAM/VINS-Mono/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://note.youdao.com/yws/api/personal/file/7CA800CBE0A747E08DFFEA480C31B399?method=download&shareKey=a956511eb4b1974a6270a9584ad6ab54"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预积分"><span class="nav-number">2.</span> <span class="nav-text">预积分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视觉处理前端"><span class="nav-number">3.</span> <span class="nav-text">视觉处理前端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">4.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#边缘化"><span class="nav-number">5.</span> <span class="nav-text">边缘化</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

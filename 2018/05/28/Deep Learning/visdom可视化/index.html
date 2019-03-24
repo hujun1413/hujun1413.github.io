@@ -1,0 +1,671 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Pytorch," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="visdom可视化安装123pip install visdompython -m visdom.server #启动visdom服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="visdom可视化">
+<meta property="og:url" content="http://hujun1413.github.io/2018/05/28/Deep Learning/visdom可视化/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="visdom可视化安装123pip install visdompython -m visdom.server #启动visdom服务">
+<meta property="og:updated_time" content="2019-03-24T12:42:28.696Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="visdom可视化">
+<meta name="twitter:description" content="visdom可视化安装123pip install visdompython -m visdom.server #启动visdom服务">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> visdom可视化 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                visdom可视化
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-28T16:25:26+08:00" content="2018-05-28">
+              2018-05-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/05/28/Deep Learning/visdom可视化/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/05/28/Deep Learning/visdom可视化/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="visdom可视化"><a href="#visdom可视化" class="headerlink" title="visdom可视化"></a>visdom可视化</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip install visdom</span><br><span class="line"></span><br><span class="line">python -m visdom.server #启动visdom服务</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="API"><a href="#API" class="headerlink" title="API"></a>API</h4><p><a href="https://github.com/facebookresearch/visdom" target="_blank" rel="external">visdom官方github</a></p>
+<p><a href="http://www.pytorchtutorial.com/pytorch-visdom/#visimage" target="_blank" rel="external">PyTorch 可视化工具 Visdom 介绍</a></p>
+<p><a href="http://www.pytorchtutorial.com/using-visdom-for-visualization-in-pytorch/#plotline" target="_blank" rel="external">使用 Visdom 在 PyTorch 中进行可视化</a></p>
+<p><a href="https://ptorch.com/news/77.html" target="_blank" rel="external">在PyTorch中使用Visdom可视化工具</a></p>
+<h4 id="visdom画线图"><a href="#visdom画线图" class="headerlink" title="visdom画线图"></a>visdom画线图</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line">losses_his = [[<span class="number">1</span>],[<span class="number">2</span>],[<span class="number">4</span>],[<span class="number">9</span>]]</span><br><span class="line">x = [[<span class="number">1</span>],[<span class="number">2</span>],[<span class="number">3</span>],[<span class="number">4</span>]]</span><br><span class="line">vis.vis.line(Y=np.array(losses_his), X=np.array(x), win=<span class="string">'hujun_vis1'</span>, </span><br><span class="line">opts=dict(</span><br><span class="line">    title=<span class="string">'hujun_vis1'</span>, </span><br><span class="line">    <span class="comment">#legend=['SGD', 'Momentum', 'RMSprop', 'Adam'],</span></span><br><span class="line">    ytickmin=<span class="number">0</span>,</span><br><span class="line">    ytickmax=<span class="number">12</span>,</span><br><span class="line">    ),</span><br><span class="line">)</span><br><span class="line">    </span><br><span class="line">vis = visdom.Visdom(env=<span class="string">u'test1'</span>) <span class="comment">#visdom作图</span></span><br><span class="line">vis.line(Y=torch.from_numpy(np.array(losses_his).T), win=<span class="string">'losses'</span>, </span><br><span class="line">opts=dict(</span><br><span class="line">    title=<span class="string">'y=losses'</span>, </span><br><span class="line">    legend=[<span class="string">'SGD'</span>, <span class="string">'Momentum'</span>, <span class="string">'RMSprop'</span>, <span class="string">'Adam'</span>],</span><br><span class="line">    ytickmin=<span class="number">0</span>,</span><br><span class="line">    ytickmax=<span class="number">0.2</span>,</span><br><span class="line">    ),</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">losses_his = [[<span class="number">1</span>],[<span class="number">2</span>],[<span class="number">4</span>],[<span class="number">9</span>] <span class="comment">#一条线，N*M表示M条长度为N的线</span></span><br><span class="line">vis.vis.line(Y=t.from_numpy(np.array(losses_his)), win=<span class="string">'hujun_vis1'</span>, </span><br><span class="line">opts=dict(</span><br><span class="line">    title=<span class="string">'hujun_vis1'</span>, </span><br><span class="line">    <span class="comment">#legend=['SGD', 'Momentum', 'RMSprop', 'Adam'],</span></span><br><span class="line">    ytickmin=<span class="number">0</span>,</span><br><span class="line">    ytickmax=<span class="number">12</span>,</span><br><span class="line">    ),</span><br><span class="line">)<span class="comment">#在hujun_vis1这个pane上画线图，title为hujun_vis1</span></span><br><span class="line"></span><br><span class="line">losses_his = [[<span class="number">1</span>,<span class="number">0</span>],[<span class="number">2</span>,<span class="number">1</span>],[<span class="number">4</span>,<span class="number">3</span>],[<span class="number">9</span>,<span class="number">8</span>],[<span class="number">10</span>,<span class="number">9</span>]] <span class="comment">#两条线</span></span><br><span class="line">vis.vis.line(Y=t.from_numpy(np.array(losses_his)), win=<span class="string">'hujun_vis2'</span>, </span><br><span class="line">opts=dict(</span><br><span class="line">    title=<span class="string">'hujun_vis1'</span>, </span><br><span class="line">    <span class="comment">#legend=['SGD', 'Momentum', 'RMSprop', 'Adam'],</span></span><br><span class="line">    ytickmin=<span class="number">0</span>,</span><br><span class="line">    ytickmax=<span class="number">14</span>,</span><br><span class="line">    ),</span><br><span class="line">)<span class="comment">#在hujun_vis2这个pane上画线图，title为hujun_vis1</span></span><br><span class="line"><span class="comment">#若继续在hujun_vis1这个pane上画图，将会覆盖掉之前的。换一个pane就可以画出多个图了。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># line updates，最好更新一开始就有的线，比如一开始画了5根线，更新的就是name就最好是1,2,3,4,5</span></span><br><span class="line">win = viz.line(</span><br><span class="line">    X=np.column_stack((np.arange(<span class="number">0</span>, <span class="number">10</span>), np.arange(<span class="number">0</span>, <span class="number">10</span>))),</span><br><span class="line">    Y=np.column_stack((np.linspace(<span class="number">5</span>, <span class="number">10</span>, <span class="number">10</span>),</span><br><span class="line">                       np.linspace(<span class="number">5</span>, <span class="number">10</span>, <span class="number">10</span>) + <span class="number">5</span>)),</span><br><span class="line">    opts=dict(showlegend=<span class="keyword">True</span>)</span><br><span class="line">)</span><br><span class="line">viz.line(</span><br><span class="line">    X=np.column_stack((np.arange(<span class="number">10</span>, <span class="number">20</span>), np.arange(<span class="number">10</span>, <span class="number">20</span>))),</span><br><span class="line">    Y=np.column_stack((np.linspace(<span class="number">5</span>, <span class="number">10</span>, <span class="number">10</span>),</span><br><span class="line">                       np.linspace(<span class="number">5</span>, <span class="number">10</span>, <span class="number">10</span>) + <span class="number">5</span>)),</span><br><span class="line">    win=win,</span><br><span class="line">    update=<span class="string">'append'</span></span><br><span class="line">)</span><br><span class="line">viz.line(</span><br><span class="line">    X=np.arange(<span class="number">21</span>, <span class="number">30</span>),</span><br><span class="line">    Y=np.arange(<span class="number">1</span>, <span class="number">10</span>),</span><br><span class="line">    win=win,</span><br><span class="line">    name=<span class="string">'2'</span>,</span><br><span class="line">    update=<span class="string">'append'</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">viz.line(</span><br><span class="line">    X=np.arange(<span class="number">1</span>, <span class="number">10</span>),</span><br><span class="line">    Y=np.arange(<span class="number">11</span>, <span class="number">20</span>),</span><br><span class="line">    win=win,</span><br><span class="line">    name=<span class="string">'2'</span>,</span><br><span class="line">    update=<span class="string">'append'</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">viz.line(</span><br><span class="line">    X=np.arange(<span class="number">1</span>, <span class="number">10</span>),</span><br><span class="line">    Y=np.arange(<span class="number">12</span>, <span class="number">21</span>),</span><br><span class="line">    win=win,</span><br><span class="line">    <span class="comment">#name='3', #默认为1，即给第一条线append数据</span></span><br><span class="line">    update=<span class="string">'append'</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">#viz.line(X=np.arange(5, 10),Y=np.arange(6, 11), win=win, name='5', update='remove', opts=dict(legend=['2'], showlegend=True))</span></span><br><span class="line">viz.line(X=np.arange(<span class="number">5</span>, <span class="number">10</span>),Y=np.arange(<span class="number">6</span>, <span class="number">11</span>), win=win, name=<span class="string">'3'</span>, update=<span class="string">'append'</span>, opts=dict(showlegend=<span class="keyword">True</span>)) <span class="comment">#当name不存在时，新增一条线</span></span><br></pre></td></tr></table></figure>
+<h4 id="另一台机器远程可视化"><a href="#另一台机器远程可视化" class="headerlink" title="另一台机器远程可视化"></a>另一台机器远程可视化</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">python -m visdom.server <span class="comment">#远程服务器visdom作图</span></span><br><span class="line"></span><br><span class="line">ssh -L <span class="number">18097</span>:<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8097</span> cutcat@<span class="number">192.168</span><span class="number">.1</span><span class="number">.106</span></span><br><span class="line"></span><br><span class="line">ssh -L <span class="number">18097</span>:<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span>:<span class="number">8097</span> cscg@<span class="number">166.111</span><span class="number">.71</span><span class="number">.121</span></span><br><span class="line"><span class="comment">#通过端口映射，将远程机器的ip端口映射到本地的另一个端口</span></span><br><span class="line"><span class="comment">#在本地机器的浏览器输入127.0.0.1:18097，即可查看在远程服务器上8097端口的图</span></span><br></pre></td></tr></table></figure>
+<h4 id="指定端口"><a href="#指定端口" class="headerlink" title="指定端口"></a>指定端口</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vis = visdom.Visdom(port=<span class="number">2333</span>,env=<span class="string">'example'</span>)  <span class="comment">#port缺省值为8097，env缺省值为'main'</span></span><br><span class="line">vis.text(<span class="string">'Hello, world!'</span>)</span><br><span class="line">vis.image(np.ones((<span class="number">3</span>, <span class="number">10</span>, <span class="number">10</span>)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">python -m visdom.server -p <span class="number">2333</span></span><br><span class="line"><span class="comment"># -p参数指定端口，缺省值为8097，这里，我们指定2333端口</span></span><br></pre></td></tr></table></figure>
+<h4 id="保存env中的图"><a href="#保存env中的图" class="headerlink" title="保存env中的图"></a>保存env中的图</h4><p>点击localhost:8097网页上Environment右边的文件夹，点击Save or fork 下面的那个save按钮，即可将该env中的所有图保存为环境名.json文件，文件存在~/.visdom目录下。关闭visdom服务后，下次启动时会读取jsom文件，重新可视化该env中的图。也可以在网页上的图片上选择保存为png或者文本到本地，这样就算删除了该env，也留下了之前跑的结果。</p>
+<p>若在生成了env中的图后未点击保存，关闭visdom服务下次再启动时，将会丢失上次运行但未保存的所有图。</p>
+<p>如果想要删除，就点击localhost:8097网页上Environment右边的文件夹，点击Delete environment selected 下面的那个Delete按钮，即可将环境名.json文件从~/.visdom目录下删除。</p>
+<p>如果上次跑的图没有保存，也没有关掉visdom服务，则网页上仍会维持着上次程序跑出来的图。但如果这时又要重新在这个env中画图（如：启动一个和上次相同port和env的程序来可视化），则会覆盖掉之前跑出的图。所以在多次执行一个程序前，记得保存上次执行跑出来的图到本地，做好记录。也可以将view进行fork，或者将整个env进行fork</p>
+<p>Fork: 有过您输入了一个新的env 名字，saving会建立一个心的env – 有效的forking之前的状态。（注：这个fork等价于github的fork，跟复制的意思差不多</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Pytorch/" rel="tag">#Pytorch</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/25/Deep Learning/pytorch教程/" rel="next" title="Pytorch教程">
+                <i class="fa fa-chevron-left"></i> Pytorch教程
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/09/VSLAM/RTAB_MAP/" rel="prev" title="RTAB_Map">
+                RTAB_Map <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/05/28/Deep Learning/visdom可视化/"
+           data-title="visdom可视化" data-url="http://hujun1413.github.io/2018/05/28/Deep Learning/visdom可视化/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://note.youdao.com/yws/api/personal/file/7CA800CBE0A747E08DFFEA480C31B399?method=download&shareKey=a956511eb4b1974a6270a9584ad6ab54"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#visdom可视化"><span class="nav-number">1.</span> <span class="nav-text">visdom可视化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#API"><span class="nav-number">1.2.</span> <span class="nav-text">API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#visdom画线图"><span class="nav-number">1.3.</span> <span class="nav-text">visdom画线图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#另一台机器远程可视化"><span class="nav-number">1.4.</span> <span class="nav-text">另一台机器远程可视化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指定端口"><span class="nav-number">1.5.</span> <span class="nav-text">指定端口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保存env中的图"><span class="nav-number">1.6.</span> <span class="nav-text">保存env中的图</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

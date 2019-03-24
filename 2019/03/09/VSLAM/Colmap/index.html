@@ -1,0 +1,707 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="泡泡机器人-重新认识SfM (CVPR-16)是著名SFM开源系统COLMAP的稀疏三维重构部分的论文。
+增量式SfM是从无序图像集合中进行三维重建的常用方法。 虽然增量式SfM在所有方面都取得极大的进展，但在鲁棒性，准确性，完整性和可扩展性方面离真正的实用还有一定的差距。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SFM Revisited--Colmap">
+<meta property="og:url" content="http://hujun1413.github.io/2019/03/09/VSLAM/Colmap/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="泡泡机器人-重新认识SfM (CVPR-16)是著名SFM开源系统COLMAP的稀疏三维重构部分的论文。
+增量式SfM是从无序图像集合中进行三维重建的常用方法。 虽然增量式SfM在所有方面都取得极大的进展，但在鲁棒性，准确性，完整性和可扩展性方面离真正的实用还有一定的差距。">
+<meta property="og:updated_time" content="2019-03-24T15:01:20.786Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SFM Revisited--Colmap">
+<meta name="twitter:description" content="泡泡机器人-重新认识SfM (CVPR-16)是著名SFM开源系统COLMAP的稀疏三维重构部分的论文。
+增量式SfM是从无序图像集合中进行三维重建的常用方法。 虽然增量式SfM在所有方面都取得极大的进展，但在鲁棒性，准确性，完整性和可扩展性方面离真正的实用还有一定的差距。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> SFM Revisited--Colmap | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                SFM Revisited--Colmap
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-03-09T18:35:26+08:00" content="2019-03-09">
+              2019-03-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/VSLAM/" itemprop="url" rel="index">
+                    <span itemprop="name">VSLAM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/03/09/VSLAM/Colmap/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/03/09/VSLAM/Colmap/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="泡泡机器人-重新认识SfM-CVPR-16"><a href="#泡泡机器人-重新认识SfM-CVPR-16" class="headerlink" title="泡泡机器人-重新认识SfM (CVPR-16)"></a><a href="https://www.sohu.com/a/199305001_715754" target="_blank" rel="external">泡泡机器人-重新认识SfM (CVPR-16)</a></h3><p>是著名SFM开源系统COLMAP的稀疏三维重构部分的论文。</p>
+<p>增量式SfM是从无序图像集合中进行三维重建的常用方法。 虽然增量式SfM在所有方面都取得极大的进展，但在鲁棒性，准确性，完整性和可扩展性方面离真正的实用还有一定的差距。 </p>
+<a id="more"></a>
+<h4 id="correspondence-search"><a href="#correspondence-search" class="headerlink" title="correspondence search"></a>correspondence search</h4><p>包含特征提取-&gt;特征匹配-&gt;几何验证，得到的是verified pairs C and a graph of image projections for each point</p>
+<h4 id="Incremental-reconstruction"><a href="#Incremental-reconstruction" class="headerlink" title="Incremental reconstruction"></a>Incremental reconstruction</h4><p>输入是scene graph，输出是位姿P和重建场景X</p>
+<p>包含初始化-&gt;图像注册-&gt;三角化-&gt;BA</p>
+<p>主要挑战：</p>
+<ul>
+<li>scene graph不完整</li>
+<li>image registration失败</li>
+</ul>
+<h3 id="主要贡献"><a href="#主要贡献" class="headerlink" title="主要贡献"></a>主要贡献</h3><p>主要有五点贡献：</p>
+<ol>
+<li><p>引入几何验证策略来标记场景图中的边的类型，以此提高初始化和三角化的鲁棒性，从而增强了scene graph</p>
+</li>
+<li><p>Next best view selection：评价标准为三角化出来的点多并且均匀分布</p>
+</li>
+<li><p>一种计算成本更低，且鲁棒性更优的三角化方法：sampling-based triangulation，采用RANSAC且满足重投影小于阈值</p>
+</li>
+<li><p>迭代BA，再三角化和异常值滤波策略能够减小累计误差，从而显着提高重建完整性和准确性。每次进行局部BA,当模型变大时才进行全局BA，全局BA之后再进行重三角化</p>
+</li>
+<li><p>从无序图像集合挖掘相似视图，使之成组，从而减小BA计算量，提高BA准确性</p>
+</li>
+</ol>
+<h4 id="1-增强场景图"><a href="#1-增强场景图" class="headerlink" title="1.增强场景图"></a>1.增强场景图</h4><p>一般的方法不对图像类型进行区分，初始化和三角化的鲁棒性不高</p>
+<p>选择合适的矩阵，用GRIC这样的方法。</p>
+<p>根据NE,NH,NF的内点数，判断是一般的精确标定图，还是适合单应矩阵的图。</p>
+<p>根据三角化的角度判断是全景图还是平面图。</p>
+<p>根据在边缘处的内点数判断是WTF图（水印，时间戳，frames图）</p>
+<p>初始化只选非全景图和精确标定的图。<br>三角化时不选全景图？为什么？不能用H矩阵吗</p>
+<h4 id="2-选取下一帧最好的图像"><a href="#2-选取下一帧最好的图像" class="headerlink" title="2. 选取下一帧最好的图像"></a>2. 选取下一帧最好的图像</h4><p>一般的方法只取三角化出来的可视点的个数，这样选出来的图还是很多，因为很多图都能看到相同的结构。所以还要考虑可视点的分布。</p>
+<p>uncertainty-driven的方法</p>
+<p>三角化出来的点多且分布均匀</p>
+<p>用了一个栅格的数据结构，统计图片的得分</p>
+<h4 id="sampling-based-三角化"><a href="#sampling-based-三角化" class="headerlink" title="sampling-based 三角化"></a>sampling-based 三角化</h4><p>bundler采样所有的track elements的组合，再执行双视三角化，当三角化角度够大，再执行多视三角化，当所有的观测点都通过cheirality检查时接受三角化点。</p>
+<p>分解R和t有4种情况，其中通过cheirality检查的作为内点，。</p>
+<p>因此bundle无法将孤立的点恢复到一个track中，而且穷举的计算量太大</p>
+<p>基于RANSAC的采样方法，满足三角化的角度足够大，三角化点在a,b两个相机的深度为正，且重投影误差小于阈值t。</p>
+<p>RANSAC的优化：LO-RANSAC</p>
+<h4 id="迭代BA"><a href="#迭代BA" class="headerlink" title="迭代BA"></a>迭代BA</h4><p>在图像注册和三角化之后执行局部BA，当模型增长到一定比例时进行一次全局BA。</p>
+<p>参数：局部BA用Cauthy函数作为鲁棒的loss函数。当几百个相机时用稀疏直接求解器（sparse direct solver），当相机规模更大时，用PCG。对于网络图像，还给定一个径向畸变参数作为自标定的估计。</p>
+<p>迭代BA，再三角化和异常值滤波策略能够减小累计误差，从而显着提高重建完整性和准确性。</p>
+<p>每次进行局部BA,当模型变大时才进行全局BA</p>
+<p>全局BA之前和之后都进行重三角化，为了提高重建的完整度。保留了低于观测误差阈值的点，而不是增大三角化的阈值。</p>
+<p>迭代局部BA。一般2次就够了，BA后过滤，再次迭代</p>
+<h4 id="从无序图像集合挖掘相似视图"><a href="#从无序图像集合挖掘相似视图" class="headerlink" title="从无序图像集合挖掘相似视图"></a>从无序图像集合挖掘相似视图</h4><p>使之成组，从而减小BA计算量，提高BA准确性</p>
+<h3 id="COLMAP-documentation"><a href="#COLMAP-documentation" class="headerlink" title="COLMAP documentation"></a><a href="https://colmap.github.io/" target="_blank" rel="external">COLMAP documentation</a></h3><h4 id="图像匹配的策略"><a href="#图像匹配的策略" class="headerlink" title="图像匹配的策略"></a>图像匹配的策略</h4><p><a href="https://colmap.github.io/tutorial.html" target="_blank" rel="external">feature matching and geometric verification</a>:Exhaustive Matching, Sequential Matching, Vocabulary Tree Matching等</p>
+<p>穷举匹配（Exhaustive Matching）：当你的数据集比较小的时候（小于100张），选择这种模式。这种模式匹配速度足够快并且是最好的效果。每张图片都与其他的所有图片进行匹配。最后生成的块大小取决于你载入内存中的图片的数量。</p>
+<p>顺序匹配（Sequential Matching）：当你拍照的时候是以连续的方式（比如视频）采集图像的话，这种方式是有用的。连续帧具有视觉重叠。每一帧的图像不必和其他所有图像都进行匹配。只有连续帧匹配就OK了。该模式也有内置的循环检测，第N个图像与其视觉上最为相似的图片匹配。但需要事先训练字典树。<a href="https://demuc.de/colmap/" target="_blank" rel="external">https://demuc.de/colmap/</a> 在这里可以下载。此种方法非常适合在视频序列中大量采用的情况，相比于全局匹配模式大大降低了matching时间。</p>
+<p>字典树匹配（Vocabulary Tree Matching）：在这种匹配模式下，每张图片都与与他视觉上最相近的经过按空间顺序重新排序的邻居匹配。也需要实现训练好字典树，网页地址同上。</p>
+<p>空间匹配（Spatial Matching）：这种模式下每个图像均与其空间最近邻居进行匹配。可以在数据库中手动设置空间位置。默认情况下colmap还会从EXIF中获取GPS的相关信息并用来寻找空间上最相近的邻居。如果有准确的先验空间位置信息的话，这种是推荐的匹配模式。</p>
+<p>传递匹配（Transitive Matching）：这种匹配模式使用已经存在的特征匹配的传递关系来完成更完整的匹配图。例如如果图像A匹配B而B也匹配C，那么colmap将尝试直接匹配A到C。</p>
+<p>自定义匹配（Custom Matching）：这种模式下允许指定的单个图片去匹配其他图片或者导入指定的已匹配的信息。要指定图像对的话，必须提供一个文本文件如下（每行一对一）：</p>
+<h3 id="COLMAP-github"><a href="#COLMAP-github" class="headerlink" title="COLMAP github"></a><a href="https://colmap.github.io/" target="_blank" rel="external">COLMAP github</a></h3>
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/09/VSLAM/SLAM与深度学习/" rel="next" title="SLAM与深度学习">
+                <i class="fa fa-chevron-left"></i> SLAM与深度学习
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/09/VSLAM/Lidar SLAM/" rel="prev" title="Lidar SLAM">
+                Lidar SLAM <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2019/03/09/VSLAM/Colmap/"
+           data-title="SFM Revisited--Colmap" data-url="http://hujun1413.github.io/2019/03/09/VSLAM/Colmap/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://note.youdao.com/yws/api/personal/file/7CA800CBE0A747E08DFFEA480C31B399?method=download&shareKey=a956511eb4b1974a6270a9584ad6ab54"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#泡泡机器人-重新认识SfM-CVPR-16"><span class="nav-number">1.</span> <span class="nav-text">泡泡机器人-重新认识SfM (CVPR-16)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#correspondence-search"><span class="nav-number">1.1.</span> <span class="nav-text">correspondence search</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Incremental-reconstruction"><span class="nav-number">1.2.</span> <span class="nav-text">Incremental reconstruction</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主要贡献"><span class="nav-number">2.</span> <span class="nav-text">主要贡献</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-增强场景图"><span class="nav-number">2.1.</span> <span class="nav-text">1.增强场景图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-选取下一帧最好的图像"><span class="nav-number">2.2.</span> <span class="nav-text">2. 选取下一帧最好的图像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sampling-based-三角化"><span class="nav-number">2.3.</span> <span class="nav-text">sampling-based 三角化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#迭代BA"><span class="nav-number">2.4.</span> <span class="nav-text">迭代BA</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从无序图像集合挖掘相似视图"><span class="nav-number">2.5.</span> <span class="nav-text">从无序图像集合挖掘相似视图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#COLMAP-documentation"><span class="nav-number">3.</span> <span class="nav-text">COLMAP documentation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#图像匹配的策略"><span class="nav-number">3.1.</span> <span class="nav-text">图像匹配的策略</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#COLMAP-github"><span class="nav-number">4.</span> <span class="nav-text">COLMAP github</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

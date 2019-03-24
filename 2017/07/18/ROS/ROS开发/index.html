@@ -1,0 +1,712 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="环境配置Linux系统参考ROS与C++入门教程-搭建开发环境(QT+ros_qtc_plugin)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS开发">
+<meta property="og:url" content="http://hujun1413.github.io/2017/07/18/ROS/ROS开发/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="环境配置Linux系统参考ROS与C++入门教程-搭建开发环境(QT+ros_qtc_plugin)">
+<meta property="og:updated_time" content="2019-03-24T16:36:11.243Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ROS开发">
+<meta name="twitter:description" content="环境配置Linux系统参考ROS与C++入门教程-搭建开发环境(QT+ros_qtc_plugin)">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> ROS开发 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ROS开发
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-18T20:35:26+08:00" content="2017-07-18">
+              2017-07-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ROS/" itemprop="url" rel="index">
+                    <span itemprop="name">ROS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/18/ROS/ROS开发/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/18/ROS/ROS开发/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><h3 id="Linux系统"><a href="#Linux系统" class="headerlink" title="Linux系统"></a>Linux系统</h3><p>参考<a href="http://www.ncnynl.com/archives/201701/1277.html" target="_blank" rel="external">ROS与C++入门教程-搭建开发环境(QT+ros_qtc_plugin)</a></p>
+<a id="more"></a>
+<h2 id="将ROS代码和业务逻辑代码分离开"><a href="#将ROS代码和业务逻辑代码分离开" class="headerlink" title="将ROS代码和业务逻辑代码分离开"></a>将ROS代码和业务逻辑代码分离开</h2><p>包含自己写的roshelper.hpp库即可，里面包含创建发布器，订阅器和定时器。<br>自己写一个继承RosHelper类的子类，然后在初始化函数中调用RosHelper的函数来创建发布器，订阅器和定时器；然后将发布消息进行封装，以后的发布消息都调用封装后的函数即可。</p>
+<h2 id="tf变换的使用"><a href="#tf变换的使用" class="headerlink" title="tf变换的使用"></a><a href="http://www.guyuehome.com/355" target="_blank" rel="external">tf变换的使用</a></h2><p><a href="http://blog.csdn.net/crazyquhezheng/article/details/43346907" target="_blank" rel="external">TF,base_link, map,odom和odom 主题的关系</a><br><a href="http://blog.csdn.net/EAIBOT/article/details/51542721" target="_blank" rel="external">ROS的坐标系TF</a><br><a href="http://blog.csdn.net/light_jiang2016/article/details/55517129" target="_blank" rel="external">关于turtlebot 中tf tree的理解</a></p>
+<p>odom-&gt;base_link的坐标关系是由里程计节点计算并发布的，相当于底盘做了一个粗略的定位，得到了机器人在odom坐标系中的位置。 /odom消息是由里程计发出来的，代表底盘的粗略定位，消息中的pos是指底盘算出来的机器人在odom坐标系中的位置。</p>
+<p>map -&gt; base_link的坐标关系是由定位节点计算出来，但并不发布，而是利用接收odom-&gt;base_link的坐标关系，计算出map-&gt;odom的坐标关系（这就相当于定位节点修正了底盘定位的误差，得到修正后机器人在map坐标系下的误差），然后发布。</p>
+<p>有了底盘的odom-&gt;base_link和定位建图节点的map-&gt;odom，就可以知道map-&gt;base_link的坐标变换，也就是得到机器人在map坐标系中的位置，一般认为map坐标系是真实世界的坐标系，所以就得到了机器人在真实世界中的定位。<br>同时定位建图节点也建出了一张map坐标系下的地图，用于可视化和在真实世界中进行导航。</p>
+<p>建图定位节点接收/odom的数据，然后用SLAM方法来进行定位修正和建图，用以消除底盘粗略定位的累计误差。建图定位节点可以得到map-&gt;base_link的坐标变换，可以得到机器人在map坐标系中的位置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">tf tf_echo /base_link /map</span><br><span class="line">输出：</span><br><span class="line">At time 1527845513.918</span><br><span class="line">- Translation: [-1.782, -0.758, -0.017]</span><br><span class="line">- Rotation: in Quaternion [0.000, 0.000, 0.548, 0.837]</span><br><span class="line">            in RPY (radian) [0.000, -0.000, 1.159]</span><br><span class="line">            in RPY (degree) [0.000, -0.000, 66.392]</span><br><span class="line"></span><br><span class="line">说明：/map所在的坐标系在地面上(origin_x, origin_y, 0)位置</span><br></pre></td></tr></table></figure>
+<p>首先，编写一个用来发布tf tree的广播节点，然后编写订阅tf广播的节点，即可在订阅端利用tf进行坐标变换</p>
+<h3 id="tf广播"><a href="#tf广播" class="headerlink" title="tf广播"></a>tf广播</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tf::TransformBroadcaster broadcaster;</span><br><span class="line"> broadcaster.sendTransform(</span><br><span class="line">      tf::StampedTransform(</span><br><span class="line">        tf::Transform(tf::Quaternion(0, 0, 0, 1), tf::Vector3(0.1, 0.0, 0.2)),</span><br><span class="line">        ros::Time::now(),&quot;base_link&quot;, &quot;base_laser&quot;));</span><br></pre></td></tr></table></figure>
+<h3 id="订阅tf的节点"><a href="#订阅tf的节点" class="headerlink" title="订阅tf的节点"></a>订阅tf的节点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tf::TransformListener listener;</span><br><span class="line">sleep(1); //wait for receive message</span><br><span class="line">geometry_msgs::PointStamped base_point;</span><br><span class="line">    listener.transformPoint(&quot;base_link&quot;, laser_point, base_point);</span><br></pre></td></tr></table></figure>
+<h2 id="格式化输出"><a href="#格式化输出" class="headerlink" title="格式化输出"></a>格式化输出</h2><p>DEBUG和INFO 信息是输出到标准输出cout（或stdout）；而WARN、ERROR和 FATAL会输出到错误信息输出cerr（或stderr）。</p>
+<p>DEBUG为绿色， INFO为白色， WARN为黄色， ERROR为红色，以及FATAL为紫色。</p>
+<ul>
+<li>ROS_DEBUG_STREAM</li>
+<li><p>ROS_WARN_STREAM</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ROS_WARN_STREAM(</span><br><span class="line">    &quot;My INFO stream message with argument: &quot; &lt;&lt; val</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ROS_INFO_STREAM</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ROS_INFO_STREAM(&quot;parameter:&quot; &lt;&lt; std::endl</span><br><span class="line">&lt;&lt; &quot;        base_name: &quot; FG_CYAN &lt;&lt; base_name &lt;&lt; NO_COLOR &lt;&lt; std::endl</span><br><span class="line">&lt;&lt; &quot;     base_name_tf: &quot; FG_CYAN &lt;&lt; baseNameTF &lt;&lt; NO_COLOR &lt;&lt; std::endl</span><br><span class="line">&lt;&lt; &quot;   worker_threads: &quot; FG_CYAN &lt;&lt; worker_threads &lt;&lt; NO_COLOR);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>OUT_ERROR_STREAM</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">OUT_ERROR_STREAM(&quot;could not close device!&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="打断机制的实现"><a href="#打断机制的实现" class="headerlink" title="打断机制的实现"></a>打断机制的实现</h2><p>在消息的回调函数中，判断为何种指令，然后调用另一个类中的记录函数，记录又来了一个新的消息。在这个记录函数中可以开启一个专门的线程来做消息所代表的任务，保证在消息的回调函数执行时间足够短。在类中可以用一个消息队列来缓冲消息（不打断当前任务，当前执行完后再执行队列中的任务），也可以直接打断当前的指令（打断当前任务，即在当前任务中要知道是否有新的任务来）。</p>
+<p>以上专门开一个线程来处理消息的好处：如果主线程用来监听所有的topic，当来了一个需要处理很久的消息时，在处理消息过程中又来了很多频率很快的消息，这时缓冲消息的队列一旦满了就会丢失之后的消息。因此，最好将回调函数中的代码效率进行优化，实在优化不了就开一个线程处理接收的消息。</p>
+<h2 id="ROS-gtest"><a href="#ROS-gtest" class="headerlink" title="ROS gtest"></a>ROS gtest</h2><p><a href="http://wiki.ros.org/UnitTesting" target="_blank" rel="external">ROS UnitTesting</a></p>
+<p><a href="http://wiki.ros.org/rostest/Writing" target="_blank" rel="external">rostest/Writing</a></p>
+<p><a href="http://wiki.ros.org/gtest" target="_blank" rel="external">ROS gtest</a></p>
+<p><a href="http://blog.csdn.net/x_r_su/article/details/53184871" target="_blank" rel="external"> ROS rostest tool使用</a></p>
+<p>/tools/rosconsole/test<br>/test/test_roscpp/test/test_poll_set.cpp</p>
+<p>直接在自己的包里建一个test子目录，里面写一个gtest的测试用例shm_transport_test就可以了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if(CATKIN_ENABLE_TESTING)</span><br><span class="line">  find_package(rostest REQUIRED)</span><br><span class="line">  catkin_add_gtest(shm_test shm_test/shm_test.cpp)</span><br><span class="line">  if(TARGET shm_test)</span><br><span class="line">    target_link_libraries(shm_test $&#123;catkin_LIBRARIES&#125;)</span><br><span class="line">  endif()</span><br><span class="line">endif()</span><br></pre></td></tr></table></figure>
+<p>编译所有test:<br><code>catkin_make tests</code></p>
+<p>编译运行所有test:<br><code>catkin_make run_tests</code></p>
+<p>编译指定的某个test<br><code>catkin_make tests &lt;package name&gt;</code></p>
+<p>编译运行指定的某个test<br><code>catkin_make run_tests &lt;package name&gt;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">make run_test shm_test</span><br><span class="line">= make tests shm_test + rosrun shm_transport shm_test </span><br><span class="line">= make tests + ./devel/lib/shm_transport/shm_test</span><br></pre></td></tr></table></figure>
+<h2 id="安装ros-comm后roscore出错"><a href="#安装ros-comm后roscore出错" class="headerlink" title="安装ros_comm后roscore出错"></a><a href="http://blog.exbot.net/archives/941" target="_blank" rel="external">安装ros_comm后roscore出错</a></h2><p>roscd rosout，发现进入到刚编译好的~/catkin_ws_hujun/src/ros_comm里，而不是/opt/ros/indigo</p>
+<p>方法一（已测试，可行）：</p>
+<ol>
+<li>删除~/.bashrc中的source ~/catkin_ws_hujun/devel/setup.bash</li>
+<li>重新打开一个终端（此时.bashrc让catkin_ws_hujun不在环境变量中），进入~/catkin_ws_hujun/src</li>
+<li>删除ros_comm，同时删除所在workspace的build和devel文件夹，重新执行catkin_make，编译通过</li>
+<li>在~/.bashrc中的重新加入source ~/catkin_ws_hujun/devel/setup.bash，执行roscore即可成功</li>
+</ol>
+<p>方法二（未测试）：</p>
+<ol>
+<li>source /opt/ros/indigo/setup.bash</li>
+<li>进入~/catkin_ws_hujun/src，删除ros_comm，同时删除所在workspace的build和devel文件夹，重新执行catkin_make，编译通过</li>
+<li>打开另一终端，执行roscore即可成功</li>
+</ol>
+<h2 id="对象和constptr或ptr直接互相转换"><a href="#对象和constptr或ptr直接互相转换" class="headerlink" title="对象和constptr或ptr直接互相转换"></a>对象和constptr或ptr直接互相转换</h2><h3 id="对象转constptr"><a href="#对象转constptr" class="headerlink" title="对象转constptr"></a>对象转constptr</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">nav_msgs::OccupancyGrid a;</span><br><span class="line">a.info.origin.position.x = 1.2;</span><br><span class="line"></span><br><span class="line">nav_msgs::OccupancyGridConstPtr b = nav_msgs::OccupancyGridConstPtr(&amp;a);</span><br><span class="line">//b的地址就是a的地址，如果a被销毁，b的内容也将不复存在</span><br><span class="line"></span><br><span class="line">double c= b-&gt;info.origin.position.x;</span><br><span class="line">printf(&quot;%lf\n&quot;, c);</span><br></pre></td></tr></table></figure>
+<h3 id="constptr转对象"><a href="#constptr转对象" class="headerlink" title="constptr转对象"></a>constptr转对象</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nav_msgs::OccupancyGridConstPtr map = tool-&gt;getGlobalMap();</span><br><span class="line"></span><br><span class="line">nav_msgs::OccupancyGrid b = *map;</span><br><span class="line"></span><br><span class="line">double c= b.info.origin.position.x;</span><br><span class="line">printf(&quot;%lf\n&quot;, c);</span><br></pre></td></tr></table></figure>
+<h3 id="ptr转constptr"><a href="#ptr转constptr" class="headerlink" title="ptr转constptr"></a>ptr转constptr</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">直接赋值即可。</span><br><span class="line"></span><br><span class="line">cv_bridge::CvImagePtr cv_ptr;</span><br><span class="line">sensor_msgs::imagePtr img_ptr = cv_ptr-&gt;toImageMsg();</span><br><span class="line"></span><br><span class="line">sensor_msgs::ImageConstPtr img_constptr = img_ptr;</span><br></pre></td></tr></table></figure>
+<h3 id="constptr转ptr"><a href="#constptr转ptr" class="headerlink" title="constptr转ptr"></a>constptr转ptr</h3><p><a href="https://www.jb51.net/article/55885.htm" target="_blank" rel="external">const_cast</a>用来将类型的const、volatile和__unaligned属性移除<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const CA *pA = new CA;</span><br><span class="line">CA *pB = const_cast&lt;CA *&gt;(pA);</span><br><span class="line">pB-&gt;m_iA = 100;</span><br><span class="line">// Now the pA and the pB points to the same object</span><br></pre></td></tr></table></figure></p>
+<h2 id="仿真启动turtlebot"><a href="#仿真启动turtlebot" class="headerlink" title="仿真启动turtlebot"></a>仿真启动turtlebot</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;include file=&quot;$(find turtlebot_bringup)/launch/minimal.launch&quot;&gt;</span><br><span class="line">&lt;arg name=&quot;simulation&quot; value=&quot;true&quot; /&gt;</span><br><span class="line">&lt;/include&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="ros-time"><a href="#ros-time" class="headerlink" title="ros time"></a><a href="https://www.ncnynl.com/archives/201611/1074.html" target="_blank" rel="external">ros time</a></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">t = rospy.Time.from_sec(time.time())</span><br><span class="line">seconds = t.to_sec() #floating point</span><br><span class="line">nanoseconds = t.to_nsec()</span><br></pre></td></tr></table></figure>
+<h2 id="python-欧拉角和四元数相互转换"><a href="#python-欧拉角和四元数相互转换" class="headerlink" title="python 欧拉角和四元数相互转换"></a>python 欧拉角和四元数相互转换</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tf.transformations.euler_from_quaternion(quaternion, axes=&apos;sxyz&apos;)</span><br><span class="line">tf.transformations.quaternion_from_euler(ai, aj, ak, axes=&apos;sxyz&apos;)</span><br></pre></td></tr></table></figure>
+<h2 id="ros-tf官方api文档"><a href="#ros-tf官方api文档" class="headerlink" title="ros tf官方api文档"></a><a href="http://docs.ros.org/indigo/api/tf/html/" target="_blank" rel="external">ros tf官方api文档</a></h2>
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/15/LLVM/3.LLVM的编程技巧/" rel="next" title="LLVM的编程技巧">
+                <i class="fa fa-chevron-left"></i> LLVM的编程技巧
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/25/Navigation/move_base源码学习/" rel="prev" title="move_base源码学习">
+                move_base源码学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/07/18/ROS/ROS开发/"
+           data-title="ROS开发" data-url="http://hujun1413.github.io/2017/07/18/ROS/ROS开发/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://note.youdao.com/yws/api/personal/file/7CA800CBE0A747E08DFFEA480C31B399?method=download&shareKey=a956511eb4b1974a6270a9584ad6ab54"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境配置"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux系统"><span class="nav-number">1.1.</span> <span class="nav-text">Linux系统</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将ROS代码和业务逻辑代码分离开"><span class="nav-number">2.</span> <span class="nav-text">将ROS代码和业务逻辑代码分离开</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tf变换的使用"><span class="nav-number">3.</span> <span class="nav-text">tf变换的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#tf广播"><span class="nav-number">3.1.</span> <span class="nav-text">tf广播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#订阅tf的节点"><span class="nav-number">3.2.</span> <span class="nav-text">订阅tf的节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#格式化输出"><span class="nav-number">4.</span> <span class="nav-text">格式化输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打断机制的实现"><span class="nav-number">5.</span> <span class="nav-text">打断机制的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ROS-gtest"><span class="nav-number">6.</span> <span class="nav-text">ROS gtest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装ros-comm后roscore出错"><span class="nav-number">7.</span> <span class="nav-text">安装ros_comm后roscore出错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象和constptr或ptr直接互相转换"><span class="nav-number">8.</span> <span class="nav-text">对象和constptr或ptr直接互相转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象转constptr"><span class="nav-number">8.1.</span> <span class="nav-text">对象转constptr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#constptr转对象"><span class="nav-number">8.2.</span> <span class="nav-text">constptr转对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ptr转constptr"><span class="nav-number">8.3.</span> <span class="nav-text">ptr转constptr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#constptr转ptr"><span class="nav-number">8.4.</span> <span class="nav-text">constptr转ptr</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#仿真启动turtlebot"><span class="nav-number">9.</span> <span class="nav-text">仿真启动turtlebot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ros-time"><span class="nav-number">10.</span> <span class="nav-text">ros time</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python-欧拉角和四元数相互转换"><span class="nav-number">11.</span> <span class="nav-text">python 欧拉角和四元数相互转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ros-tf官方api文档"><span class="nav-number">12.</span> <span class="nav-text">ros tf官方api文档</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

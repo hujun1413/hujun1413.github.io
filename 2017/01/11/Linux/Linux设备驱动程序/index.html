@@ -1,0 +1,805 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="第一章–设备驱动程序简介（P9）什么是Linux设备驱动程序（P9）linux驱动处于OS和硬件之间。驱动给OS提供一组设备驱动接口函数（包括open,close,read,ioctl等）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Linux设备驱动程序》笔记">
+<meta property="og:url" content="http://hujun1413.github.io/2017/01/11/Linux/Linux设备驱动程序/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="第一章–设备驱动程序简介（P9）什么是Linux设备驱动程序（P9）linux驱动处于OS和硬件之间。驱动给OS提供一组设备驱动接口函数（包括open,close,read,ioctl等）">
+<meta property="og:updated_time" content="2019-03-24T16:37:40.713Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Linux设备驱动程序》笔记">
+<meta name="twitter:description" content="第一章–设备驱动程序简介（P9）什么是Linux设备驱动程序（P9）linux驱动处于OS和硬件之间。驱动给OS提供一组设备驱动接口函数（包括open,close,read,ioctl等）">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 《Linux设备驱动程序》笔记 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                《Linux设备驱动程序》笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-11T20:35:26+08:00" content="2017-01-11">
+              2017-01-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/11/Linux/Linux设备驱动程序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/11/Linux/Linux设备驱动程序/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="第一章–设备驱动程序简介（P9）"><a href="#第一章–设备驱动程序简介（P9）" class="headerlink" title="第一章–设备驱动程序简介（P9）"></a>第一章–设备驱动程序简介（P9）</h2><h3 id="什么是Linux设备驱动程序（P9）"><a href="#什么是Linux设备驱动程序（P9）" class="headerlink" title="什么是Linux设备驱动程序（P9）"></a><a href="http://blog.csdn.net/yapingmcu/article/details/7400262" target="_blank" rel="external">什么是Linux设备驱动程序</a>（P9）</h3><p>linux驱动处于OS和硬件之间。<br>驱动给OS提供一组设备驱动接口函数（包括open,close,read,ioctl等）</p>
+<a id="more"></a>
+<h3 id="为什么研究编写Linux驱动程序（P9）"><a href="#为什么研究编写Linux驱动程序（P9）" class="headerlink" title="为什么研究编写Linux驱动程序（P9）"></a>为什么研究编写Linux驱动程序（P9）</h3><ul>
+<li>新硬件问世或硬件过时</li>
+<li>个人用户要了解一些驱动程序知识才能访问设备</li>
+<li>硬件厂商通过提供Linux驱动程序能为自己的产品带来潜在用户群</li>
+<li>Linux开源，驱动程序源码可以在大量用户中迅速流传</li>
+</ul>
+<h3 id="设备驱动程序的作用（P10）"><a href="#设备驱动程序的作用（P10）" class="headerlink" title="设备驱动程序的作用（P10）"></a>设备驱动程序的作用（P10）</h3><ol>
+<li>驱动的作用在于提供机制，而不是提供策略（驱动灵活）<ul>
+<li>机制：需要提供什么功能</li>
+<li>策略：如何使用这些功能</li>
+</ul>
+</li>
+<li>介于应用程序和实际设备之间，设计驱动时综合考虑三方面：给用户提供尽可能多的选项，编写驱动占用的时间，尽量保持程序简单而不至于错误丛生</li>
+<li>不带策略的驱动的典型特征：同时支持同步和异步，能被多次打开，充分利用硬件特性，不具备用来“简化任务”的或提供与策略相关的软件层</li>
+</ol>
+<h3 id="内核功能划分（P12）"><a href="#内核功能划分（P12）" class="headerlink" title="内核功能划分（P12）"></a>内核功能划分（P12）</h3><ol>
+<li>进程管理：在单个或多个CPU上实现了多个进程的抽象</li>
+<li>内存管理：内核的不同部分在和内存管理子系统交互时使用一组函数调用</li>
+<li>文件系统：Linux支持多种文件系统类型，也就是在物理介质上组织数据的不同方式</li>
+<li>设备控制：除了处理器和内存等少数对象外，所有设备控制操作都由驱动完成</li>
+<li>网络功能：大部分网络操作和具体进程无关。系统负责在应用程序和网络接口之间传递数据包，并根据网络活动控制程序的执行。所有的路由和地址解析问题都由内核处理。</li>
+</ol>
+<h3 id="设备和模块的分类（P14）"><a href="#设备和模块的分类（P14）" class="headerlink" title="设备和模块的分类（P14）"></a>设备和模块的分类（P14）</h3><ol>
+<li>字符模块：能像字节流（类似文件）一样被访问的设备。字符设备驱动通常至少要实现open，close，read和write系统调用。</li>
+<li>块模块：每次只能传输一个或多个完整的块（512KB或更大），和字符驱动相比具有完全不同的接口。</li>
+<li>网络模块：网络接口可以是硬件设备，也可能是个纯软件设备（回环接口loopback）。只负责发送和接受数据包，eth0在文件系统中不存在对应的节点</li>
+</ol>
+<h3 id="驱动安全策略（P16）"><a href="#驱动安全策略（P16）" class="headerlink" title="驱动安全策略（P16）"></a>驱动安全策略（P16）</h3><ul>
+<li>系统中所有安全检查都是由内核代码进行的，系统调用init_module会检查调用进程是否具有将模块装载到内核的权利。</li>
+<li>尽量避免在驱动代码中实现安全策略。由驱动本身完成的相关安全检查：能影响全局资源的设备操作（设置中断线），可能会破坏硬件（装载固件），影响其他用户（给磁盘驱动器设置默认的块尺寸），这些都只能由root执行</li>
+</ul>
+<h2 id="第二章–构造和运行模块（P21）"><a href="#第二章–构造和运行模块（P21）" class="headerlink" title="第二章–构造和运行模块（P21）"></a>第二章–构造和运行模块（P21）</h2><h3 id="核心模块与应用程序的对比（P24）"><a href="#核心模块与应用程序的对比（P24）" class="headerlink" title="核心模块与应用程序的对比（P24）"></a>核心模块与应用程序的对比（P24）</h3><ul>
+<li>内核模块都是事件驱动的，模块只是预先注册自己以便服务于将来的某个请求。</li>
+<li>内核模块能调用的函数仅仅是由内核导出的那些函数，而不存在任何可链接的函数库。printk函数缺少对浮点数的支持。</li>
+<li>处理错误的方式不同，应用程序中的段错误是无害的，总是可以使用调试器跟踪到源代码中的问题所在，而一个内核错误即使不影响整个系统，也至少会杀死当前进程。</li>
+</ul>
+<h3 id="用户空间和内核空间（P25）"><a href="#用户空间和内核空间（P25）" class="headerlink" title="用户空间和内核空间（P25）"></a>用户空间和内核空间（P25）</h3><ul>
+<li>OS必须负责程序的独立操作并保护资源不受非法访问，在CPU中实现不同的操作模式（级别）。</li>
+<li>当应用程序执行系统调用或者被硬件中断挂起时（两者由驱动代码提供），Unix将执行模式从用户空间切换到内核空间。执行系统调用的内核代码运行在进程上下文中，它代表调用进程执行操作，能访问进程地址空间的所有数据，而处理硬件中断的内核代码和进程是异步的，与特定进程无关。</li>
+</ul>
+<h3 id="内核中的并发（P26）"><a href="#内核中的并发（P26）" class="headerlink" title="内核中的并发（P26）"></a>内核中的并发（P26）</h3><p>原因：</p>
+<ol>
+<li>Linux系统中通常正在运行多个并发进程，并且可能有多个进程同时使用我们的驱动程序。</li>
+<li>大多数设备能够中断处理器，而且中断处理程序可能在驱动正试图处理其他任务时被调用。</li>
+<li>有一些软件抽象（如内核定时器）也在异步运行着。</li>
+<li>Linux还可以运行对称多处理器(SMP)系统上，可能同时有不止一个CPU运行着驱动。</li>
+<li>内核代码是可抢占的，即使在单处理器系统上也存在类似多处理器系统的并发问题。</li>
+</ol>
+<h3 id="版本依赖（P31）"><a href="#版本依赖（P31）" class="headerlink" title="版本依赖（P31）"></a>版本依赖（P31）</h3><ul>
+<li>加载模块时会将模块与当前内核树中的vermagic.o链接，用来检查模块和正在运行的内核的兼容性。</li>
+</ul>
+<h3 id="内核符号表（P33）"><a href="#内核符号表（P33）" class="headerlink" title="内核符号表（P33）"></a>内核符号表（P33）</h3><ul>
+<li>模块被装入内核后，它所导出的任何符号都会变成内核符号表的一部分。</li>
+<li>EXPORT_SYMBOL_GPL(name)导出的模块只能被GPL许可证下的模块使用。这个宏将被扩展为一个全局变量的声明，该变量在模块可执行文件的ELF段中保存。</li>
+</ul>
+<h3 id="初始化和关闭-P36"><a href="#初始化和关闭-P36" class="headerlink" title="初始化和关闭(P36)"></a>初始化和关闭(P36)</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">static int __init record_init_module(void)</span><br><span class="line">static void __<span class="built_in">exit</span> record_<span class="built_in">exit</span>_module(void)</span><br><span class="line">module_init(record_init_module);</span><br><span class="line">module_<span class="built_in">exit</span>(record_<span class="built_in">exit</span>_module);</span><br></pre></td></tr></table></figure>
+<p>__init表示仅在初始化使用；在模块装载结束后，模块装载器会将初始化函数扔掉。</p>
+<p>只要你的模块依赖关系正确（可以通过depmod设置），你就可以通过modprobe 命令加载而不需要知道具体模块文件位置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#define __init __attribute__((__section__(&quot;.init.text&quot;)) __cold</span><br><span class="line">将作用的函数或数据放入指定名为&quot;.init.text&quot;的输入段。</span><br><span class="line">当内核启动完毕后，.init.text段中的内存会被释放掉供其他使用。</span><br><span class="line"></span><br><span class="line">输入段和输出段是相对于要生成最终的elf或binary时的Link过程说的，Link过程的输入大都是由源代码编绎生成的</span><br><span class="line">目标文件.o，那么这些.o文件中包含的段相对link过程来说就是输入段，而Link的输出一般是可执行文件elf或库等</span><br></pre></td></tr></table></figure></p>
+<p>只有内核未被配置为支持热拔插设备时，__devinit和__devinitdata才会被翻译为__init和__initdata(用于数据定义)</p>
+<p>能够注册的设施包括：串口，杂项设备，sysfs入口，/proc文件，可执行域和线路规程（line discipline）</p>
+<p>如果一个模块未定义清除函数，则内核不允许卸载该模块。</p>
+<h3 id="初始化过程中的错误处理（P37）"><a href="#初始化过程中的错误处理（P37）" class="headerlink" title="初始化过程中的错误处理（P37）"></a>初始化过程中的错误处理（P37）</h3><p>错误恢复的处理有时使用goto语句比较有效。<br>Linux中，错误编码是定义在<linux errno.h="">中的负整数。</linux></p>
+<h3 id="模块装载竞争（P40）"><a href="#模块装载竞争（P40）" class="headerlink" title="模块装载竞争（P40）"></a>模块装载竞争（P40）</h3><p>在用来支持某个设施的所有内部初始化完成之前，不要注册任何设施。</p>
+<h3 id="模块参数化（P40）"><a href="#模块参数化（P40）" class="headerlink" title="模块参数化（P40）"></a>模块参数化（P40）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">module_param(bugfile, charp, S_IRUGO);</span><br><span class="line">module_param_array(name, <span class="built_in">type</span>, num, perm)</span><br></pre></td></tr></table></figure>
+<p>如果我们需要的类型不在内核支持的模块参数类型里，模块代码中的钩子可让我们来定义这些类型。</p>
+<p>所有的模块参数都应该给定一个默认值，insmod只会在用户明确设置了参数的值的情况下才会改变参数的值。</p>
+<p>最后一个参数perm是访问许可值，它用来控制谁能访问sysfs中对模块参数的表述：</p>
+<ul>
+<li>0表示不会有对应的sysfs入口项；否则模块参数会在/sys/module中出现，并设置为给定的访问许可。</li>
+<li>S_IRUGO，任何人均可读取该参数，但不能修改</li>
+<li>S_IRUGO|S_IWUSR，允许root用户修改该参数。</li>
+<li></li>
+</ul>
+<h3 id="在用户空间编写驱动程序（P42）"><a href="#在用户空间编写驱动程序（P42）" class="headerlink" title="在用户空间编写驱动程序（P42）"></a>在用户空间编写驱动程序（P42）</h3><p>用户空间驱动程序的优缺点</p>
+<h2 id="第三章–字符设备驱动程序（P46）"><a href="#第三章–字符设备驱动程序（P46）" class="headerlink" title="第三章–字符设备驱动程序（P46）"></a>第三章–字符设备驱动程序（P46）</h2><h3 id="主设备号和次设备号（P47）"><a href="#主设备号和次设备号（P47）" class="headerlink" title="主设备号和次设备号（P47）"></a>主设备号和次设备号（P47）</h3><ul>
+<li>对字符设备的访问是通过文件系统内的设备名称进行的。那些名称被称为特殊文件、设备文件，或者简单称之为文件系统树的节点。通常位于/dev目录、</li>
+<li>ls - l的修改日期前用逗号分隔的两个数，主设备号， 从设备号</li>
+<li>尽管现代的Linux内核允许多个驱动程序共享主设备号，但大部分是“一个主设备号对应一个驱动程序”。次设备号用来后的一个指向内核设备的直接指针。</li>
+<li>dev_t（在<linux types.h="">中定义）用来保存设备编号，12+20位。使用<linux kdev_t.h="">中定义的宏获得：<ul>
+<li>MAJOR(dev_t dev) </li>
+<li>MINOR(dev_t dev) </li>
+<li>MKDEV(int major, int minor)</li>
+</ul>
+</linux></linux></li>
+</ul>
+<h3 id="分配和释放设备编号（P49）"><a href="#分配和释放设备编号（P49）" class="headerlink" title="分配和释放设备编号（P49）"></a>分配和释放设备编号（P49）</h3><ul>
+<li>静态获得设备编号：在<linux fs.h="">中，int register_chrdev_region(dev_t first, unsigned int count, char* name)，first为分配的设备编号的起始值，常为0，count为连续设备的个数，name为设备名称</linux></li>
+<li>动态分配主设备号：alloc_chrdev_region</li>
+<li>释放设备编号：unregister_chrdev_region</li>
+</ul>
+<h3 id="动态分配主设备号（P50）"><a href="#动态分配主设备号（P50）" class="headerlink" title="动态分配主设备号（P50）"></a>动态分配主设备号（P50）</h3><ul>
+<li>动态分配的缺点：由于分配的主设备号不能保证始终不变，所以无法预先创建设备节点。但分配完设备号可从/proc/devices中读取</li>
+<li>scull_load, scull_init</li>
+</ul>
+<h3 id="一些重要的数据结构（53P）"><a href="#一些重要的数据结构（53P）" class="headerlink" title="一些重要的数据结构（53P）"></a>一些重要的数据结构（53P）</h3><ul>
+<li>大部分基本的驱动程序操作涉及到三个重要的内核数据结构，分别是：file_operations,file,inode</li>
+<li>file_operations（<linux fs.h="">中）结构用来将驱动程序操作连接到设备编号，其中包含每个打开的文件和一组函数关联</linux></li>
+<li>file_operations结构或指向这类结构的指针称为fops，结构中的每个字段都必须指向驱动中实现特定操作的函数，对于不支持的操作字段置为NULL。</li>
+<li><p>file_operations结构的字段介绍：</p>
+<ol>
+<li>owner 避免在模块的操作正在被使用时卸载该模块</li>
+<li>llseek 设置为NULL,调用seek将以不可预期的方式修改file结构中的位置计数器。</li>
+<li>read 设置为NULL，调用read将出错并返回-EINVAL</li>
+<li>aio_read 初始化一个异步的读取操作，设置为NULL将通过read（同步）处理</li>
+<li>write</li>
+<li>readdir 仅用于读取目录，只对文件系统有用</li>
+<li>poll 是poll,epoll,select这三个系统调用的后端实现</li>
+<li>ioctl 提供了一种执行设备特定命令（如格式化软盘）的方法。</li>
+<li>mmap 将设备内存映射到进程地址空间</li>
+<li>open 若为NULL，打开永远成功，但系统不会通知驱动</li>
+<li>flush 调用发生在进程关闭设备文件描述符副本的时候，它执行（并等待）设备上尚未完结的操作。</li>
+<li>release file结构被释放时调用，并不是每次调用close时都会被调用</li>
+</ol>
+</li>
+<li><p>file结构（在<linux fs.h="">中）代表一个打开的文件，在open时创建，通常将该指针称为filp</linux></p>
+</li>
+<li>inode结构在内部表示文件。对单个文件，可能有许多个表示打开的文件描述符的file结构，但是都指向单个inode结构。struct cdev是表示字符设备的内核的内部结构。用iminor和imajor来获取主从设备号，而不是直接操作i_rdev</li>
+</ul>
+<h3 id="字符设备的注册（P60）"><a href="#字符设备的注册（P60）" class="headerlink" title="字符设备的注册（P60）"></a>字符设备的注册（P60）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;linux/cdev.h&gt;</span><br><span class="line">运行时获取一个独立的cdev结构：</span><br><span class="line">struct cdev *my_cdev = cdev_alloc();</span><br><span class="line">my_cdev-&gt;ops = &amp;my_fops;</span><br><span class="line"></span><br><span class="line">将cdev结构嵌入到自己的设备特定结构中：</span><br><span class="line">cdev_init(&amp;dev-&gt;cdev, &amp;scull_fops);</span><br><span class="line">dev-&gt;cdev.owner = THIS_MODULE;</span><br><span class="line">dev-&gt;cdev.ops = &amp;scull_fops;</span><br><span class="line">err = cdev_add (&amp;dev-&gt;cdev, devno, 1);</span><br><span class="line"></span><br><span class="line">cdev_del(&amp;scull_devices[i].cdev);</span><br></pre></td></tr></table></figure>
+<h3 id="open和release"><a href="#open和release" class="headerlink" title="open和release"></a>open和release</h3><h4 id="open"><a href="#open" class="headerlink" title="open"></a>open</h4><ul>
+<li>检查设备错误（设备未就绪）</li>
+<li>更新f_op指针，填写filp-&gt;private_data</li>
+</ul>
+<h4 id="release"><a href="#release" class="headerlink" title="release"></a>release</h4><ul>
+<li>释放filp-&gt;private_data中的内容</li>
+<li>最后一次close时被调用</li>
+<li>dup和fork系统调用都会在不掉用open的情况下创建已打开文件的副本。</li>
+<li>flush方法在应用程序每次调用close时都会被调用</li>
+</ul>
+<h3 id="read和write"><a href="#read和write" class="headerlink" title="read和write"></a>read和write</h3><h2 id="积累"><a href="#积累" class="headerlink" title="积累"></a>积累</h2><ul>
+<li>Unix图形显示器的管理分为X服务器+窗口和会话管理器</li>
+<li>软驱的驱动程序不带策略，它的作用是将磁盘表示为一个连续的数据块阵列。系统高层提供策略</li>
+<li>许多驱动是同用户程序一起发行的：比如，用来调整并口打印机驱动程序工作方式的tunelp程序；作为PCMCIA驱动程序包一部分的图形化cardctl工具。还会有一个客户程序库，它提供不必在驱动本身实现的功能</li>
+<li>不同进程之间的通信方式：信号，管道，进程间通信原语</li>
+<li>磁盘可以格式化为符合Linux标准的ext3文件系统，也可以格式化为常用的FAT文件系统或者其他种类</li>
+<li>字符终端（/dev/console）和串口（/dev/ttys0以及类似设备）是字符设备。字符设备可以通过文件系统节点来访问，比如/dev/tty1和/dev/lp0。</li>
+<li>偶数编号的内核版本（如2.6.x）是正式发行的稳定版本，而奇数编号的版本（如2.7.x）则是开发过程中的一个快照，将很快被下一个开发版本不同。</li>
+<li>如何将内核内存映射到用户空间（即mmap系统调用），如何将用户内存映射到内核空间（即get_user_pages），如何将这两种内存映射到设备空间（执行DMA操作）</li>
+<li>竞态问题：不同的执行顺序导致不同的，非预期行为发生。</li>
+<li>current是一个执行struct task_struct的指针，current隐藏在内核栈中，便于current被频繁引用。</li>
+<li>内核具有很小的栈，可能只有一个4096字节大小的页那么小，我们自己的函数必须和整个内核空间调用链一同共享这个栈。</li>
+<li>insmod依赖于定义在kernel/module.c中的一个系统调用，函数sys_init_module给模块分配内核内存（vmalloc负责内存分配）</li>
+<li>系统调用的名字前都带有sys_前缀</li>
+<li>modprobe也用来将模块加载到内核，但若模块引用了内核中不存在的符号时，它会在当前模块搜索路径（标准的已安装模块目录）中查找定义了这些符号的其他模块，并将这些模块也装载到内核。而insmod则会失败，提示”unresolved symbols”。</li>
+<li>lsmod读取sysfs虚拟文件系统中/proc/modules虚拟文件</li>
+<li>查看系统日志文件（/var/log/messages或者系统配置使用的文件）</li>
+<li>IA-32（Intel Architecture 32 bit），常被称为i386,x86-32,x86。</li>
+<li>SCSI接口：系统级接口的独立处理器标准。SCSI使驱动器和计算机内部安装的SCSI适配器进行通信。</li>
+<li>通过sysfs访问设备信息，在/sys目录下反映了这个机器的系统状况。sysfs文件系统是一个类似于proc文件系统的特殊文件系统，用于将系统中的设备组织成层次结构，并向用户模式程序提供详细的内核数据结构信息。</li>
+<li>不应该将非kmalloc返回的指针传递个kfree，但是将NULL传递给kfree是合法的</li>
+<li></li>
+</ul>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/14/LLVM/2.LLVM的函数/" rel="next" title="LLVM的函数">
+                <i class="fa fa-chevron-left"></i> LLVM的函数
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/15/LLVM/3.LLVM的编程技巧/" rel="prev" title="LLVM的编程技巧">
+                LLVM的编程技巧 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/11/Linux/Linux设备驱动程序/"
+           data-title="《Linux设备驱动程序》笔记" data-url="http://hujun1413.github.io/2017/01/11/Linux/Linux设备驱动程序/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://note.youdao.com/yws/api/personal/file/7CA800CBE0A747E08DFFEA480C31B399?method=download&shareKey=a956511eb4b1974a6270a9584ad6ab54"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一章–设备驱动程序简介（P9）"><span class="nav-number">1.</span> <span class="nav-text">第一章–设备驱动程序简介（P9）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Linux设备驱动程序（P9）"><span class="nav-number">1.1.</span> <span class="nav-text">什么是Linux设备驱动程序（P9）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么研究编写Linux驱动程序（P9）"><span class="nav-number">1.2.</span> <span class="nav-text">为什么研究编写Linux驱动程序（P9）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设备驱动程序的作用（P10）"><span class="nav-number">1.3.</span> <span class="nav-text">设备驱动程序的作用（P10）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内核功能划分（P12）"><span class="nav-number">1.4.</span> <span class="nav-text">内核功能划分（P12）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设备和模块的分类（P14）"><span class="nav-number">1.5.</span> <span class="nav-text">设备和模块的分类（P14）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#驱动安全策略（P16）"><span class="nav-number">1.6.</span> <span class="nav-text">驱动安全策略（P16）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二章–构造和运行模块（P21）"><span class="nav-number">2.</span> <span class="nav-text">第二章–构造和运行模块（P21）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#核心模块与应用程序的对比（P24）"><span class="nav-number">2.1.</span> <span class="nav-text">核心模块与应用程序的对比（P24）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户空间和内核空间（P25）"><span class="nav-number">2.2.</span> <span class="nav-text">用户空间和内核空间（P25）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内核中的并发（P26）"><span class="nav-number">2.3.</span> <span class="nav-text">内核中的并发（P26）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本依赖（P31）"><span class="nav-number">2.4.</span> <span class="nav-text">版本依赖（P31）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内核符号表（P33）"><span class="nav-number">2.5.</span> <span class="nav-text">内核符号表（P33）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化和关闭-P36"><span class="nav-number">2.6.</span> <span class="nav-text">初始化和关闭(P36)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化过程中的错误处理（P37）"><span class="nav-number">2.7.</span> <span class="nav-text">初始化过程中的错误处理（P37）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块装载竞争（P40）"><span class="nav-number">2.8.</span> <span class="nav-text">模块装载竞争（P40）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块参数化（P40）"><span class="nav-number">2.9.</span> <span class="nav-text">模块参数化（P40）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在用户空间编写驱动程序（P42）"><span class="nav-number">2.10.</span> <span class="nav-text">在用户空间编写驱动程序（P42）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第三章–字符设备驱动程序（P46）"><span class="nav-number">3.</span> <span class="nav-text">第三章–字符设备驱动程序（P46）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主设备号和次设备号（P47）"><span class="nav-number">3.1.</span> <span class="nav-text">主设备号和次设备号（P47）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分配和释放设备编号（P49）"><span class="nav-number">3.2.</span> <span class="nav-text">分配和释放设备编号（P49）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态分配主设备号（P50）"><span class="nav-number">3.3.</span> <span class="nav-text">动态分配主设备号（P50）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些重要的数据结构（53P）"><span class="nav-number">3.4.</span> <span class="nav-text">一些重要的数据结构（53P）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符设备的注册（P60）"><span class="nav-number">3.5.</span> <span class="nav-text">字符设备的注册（P60）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#open和release"><span class="nav-number">3.6.</span> <span class="nav-text">open和release</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#open"><span class="nav-number">3.6.1.</span> <span class="nav-text">open</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#release"><span class="nav-number">3.6.2.</span> <span class="nav-text">release</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#read和write"><span class="nav-number">3.7.</span> <span class="nav-text">read和write</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#积累"><span class="nav-number">4.</span> <span class="nav-text">积累</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,694 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="LOAM_velodyne系列学习loam中文代码注解
+主要思路分为：1. 高频的运动估计； 2. 低频的环境建图。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lidar SLAM">
+<meta property="og:url" content="http://hujun1413.github.io/2019/03/09/VSLAM/Lidar SLAM/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="LOAM_velodyne系列学习loam中文代码注解
+主要思路分为：1. 高频的运动估计； 2. 低频的环境建图。">
+<meta property="og:updated_time" content="2019-03-24T13:31:56.665Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lidar SLAM">
+<meta name="twitter:description" content="LOAM_velodyne系列学习loam中文代码注解
+主要思路分为：1. 高频的运动估计； 2. 低频的环境建图。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Lidar SLAM | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Lidar SLAM
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-03-09T18:35:26+08:00" content="2019-03-09">
+              2019-03-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/VSLAM/" itemprop="url" rel="index">
+                    <span itemprop="name">VSLAM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2019/03/09/VSLAM/Lidar SLAM/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2019/03/09/VSLAM/Lidar SLAM/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="LOAM-velodyne系列学习"><a href="#LOAM-velodyne系列学习" class="headerlink" title="LOAM_velodyne系列学习"></a>LOAM_velodyne系列学习</h3><p>loam中文代码注解</p>
+<p>主要思路分为：1. 高频的运动估计； 2. 低频的环境建图。</p>
+<a id="more"></a>
+<p>Lidar接收数据，首先进行Point Cloud Registration，Lidar Odometry以10Hz的频率进行运动估计和坐标转换，Lidar Mapping以1Hz的频率构建三维地图，Transform Integration完成位姿的优化。这样并行的结构保证了系统的实时性。</p>
+<p>整个算法分为四个模块，相对于其它直接匹配两个点云的算法，LOAM是通过提取特征点进行匹配之后计算坐标变换。具体流程为：ScanRegistration 提取特征点并排除瑕点；LaserOdometry从特征点中估计运动，然后整合数据发送给LaserMapping；LaserMapping输出的laser_cloud_surround为地图；TransformMaintenance订阅LaserOdometry与LaserMapping发布的Odometry消息，对位姿进行融合优化。后面将详细进行说明。</p>
+<p>ScanRegistration：特征点提取<br>一次扫描的点通过曲率值来分类，特征点曲率大于阈值的为边缘点；特征点曲率小于阈值的为平面点。为了使特征点均匀的分布在环境中，将一次扫描划分为4个独立的子区域。每个子区域最多提供2个边缘点和4个平面点。此外，将不稳定的特征点（瑕点）排除。</p>
+<p>LaserOdometry：进行点云数据配准，完成运动估计<br>知乎讲解得很详细<br>利用ScanRegistration中提取到的特征点，建立相邻时间点云数据之间的关联，由此推断lidar的运动。<br>找到特征线和特征面，然后用L-M方法做优化。整个L-M运动估计的迭代次数为25次，以保证运算效率。迭代部分又可分为：对特征边/面上的点进行处理，构建Jaccobian矩阵，L-M运动估计求解。</p>
+<p>LaserMapping：优化Lidar的位姿，在此基础上完成低频的环境建图<br>拿当前扫描的点云和地图中所有点云去配准，利用已构建地图对位姿估计结果进行修正，优化Lidar里程计的位姿估计结果。</p>
+<p>TransformMaintenance：对位姿进行融合优化<br>每次接收到laser_odom_to_init消息并调用回调函数laserOdometryHandler时，就发布一次integrated_to_init消息。<br>有优化结果了就拿这一时刻的优化结果作为轨迹，没有优化结果只有里程计结果了，就直接拿里程计结果作为这一时刻的轨迹。</p>
+<h3 id="LeGO-LOAM"><a href="#LeGO-LOAM" class="headerlink" title="LeGO-LOAM"></a>LeGO-LOAM</h3><p>它是一种轻量级和地面优化的激光雷达里程计和建图方法。LeGO-LOAM经过地面优化，因为它在分割和优化步骤中利用了地面的约束。我们首先应用点云分割来滤除噪声，并进行特征提取，以获得独特的平面和边缘特征。然后，采用两步Levenberg-Marquardt优化方法，使用平面和边缘特征来解决连续扫描中六个自由度变换的不同分量。</p>
+<p>将位姿图SLAM集成到LeGO-LOAM中。 每个特征点集的传感器位姿可以被建模为位姿图中的节点。<br>LeGO-LOAM初探：原理，安装和测试<br>LeGO-LOAM学习</p>
+<h3 id="Cartographer学习"><a href="#Cartographer学习" class="headerlink" title="Cartographer学习"></a>Cartographer学习</h3><p>Cartograhper的设计目的是为了解决在有限的计算资源下，能够实时地获取相对较高精度的2D地图，考虑到基于模拟策略的粒子滤波方法在较大环境时对内存和计算资源的高需求，Cartographer采用基于图网络的优化方法。精度5厘米左右</p>
+<p>首先使用本地slam算法估计初始位姿，然后使用扫描匹配检测闭环，终于通过稀疏姿态图优化（sparse pose graph optimization，原理参见论文）算法优化整个位姿序列。</p>
+<p>用Grid（2D/3D）的形式建地图；本地优化的局部匹配直接建模成一个非线性优化问题，利用IMU提供一个比较靠谱的初值；全局优化的后端用Graph来优化，用分支定界算法来加速；2D和3D的问题统一在一个框架下解决。</p>
+<h3 id="gmapping"><a href="#gmapping" class="headerlink" title="gmapping"></a>gmapping</h3><p>粒子+扫描匹配。在里程计的基础上，在机器人周围位置尝试算匹配度。<br><a href="https://people.eecs.berkeley.edu/~pabbeel/cs287-fa12/optreadings/GrisettiStachnissBurgard_gMapping_T-RO2006.pdf" target="_blank" rel="external">Rao-Blackwellized Particle Filters 论文参考</a></p>
+<p><a href="https://blog.csdn.net/roadseek_zw/article/details/53316177" target="_blank" rel="external">参考</a></p>
+<p><a href="https://wenku.baidu.com/view/3a67461550e2524de4187e4d.html" target="_blank" rel="external">百度文库代码解析</a></p>
+<pre><code>ROS 提供的 gmaping 包是用来生成地图的，它是对著名的开源 OpenSlam 包在 ROS 框架下的一个实现。
+这个包提供了对激光设备的 Slam,根据激光设备的输入和姿态数据从而建立一个基于网格的的2D地图。
+它需要从 ROS 系统监听许多 Topic，并输出一个 Topic——map(nav_msgs/OccupancyGrid)，
+这也是 RViz 的输入 Topic。
+</code></pre><h4 id="已知精确位姿（坐标和朝向）的地图创建"><a href="#已知精确位姿（坐标和朝向）的地图创建" class="headerlink" title="已知精确位姿（坐标和朝向）的地图创建:"></a>已知精确位姿（坐标和朝向）的地图创建:</h4><pre><code>机器人位置已知，通过激光雷达扫描到环境特征，即障碍物距离。
+可通过机器人坐标和朝向以及障碍物距离计算出障碍物的坐标，采用bresenham直线段扫面算法，
+障碍物所处的栅格标注为occupy，机器人所处的栅格与障碍物所处的栅格之间画直线，
+直线所到之处都为free。当然每个栅格并不是简单的非0即1，栅格的占据可用概率表示，
+若某一个栅格在激光束a扫描下标识为occupy，在激光束b扫描下也标识为occupy，
+那该栅格的占据概率就变大，反之，则变小。
+这样，机器人所处的环境就可以通过二维栅格地图来表征。
+</code></pre><h4 id="如何在已知地图的情况下采用粒子滤波算法进行精确定位，"><a href="#如何在已知地图的情况下采用粒子滤波算法进行精确定位，" class="headerlink" title="如何在已知地图的情况下采用粒子滤波算法进行精确定位，"></a>如何在已知地图的情况下采用粒子滤波算法进行精确定位，</h4><pre><code>一般包括以下几个步骤：
+（1）给定初始位姿，初始化粒子群，采用高斯分布进行随机采样；
+（2）根据运动模型模拟粒子运动；
+（3）计算粒子评分
+        每个粒子的位姿即为假设的机器人位姿，采用bresenham直线段扫面算法，
+        可计算出粒子当前位置与障碍物之间的栅格占据集合，
+        计算出的栅格占据集合与给定的地图进行匹配计算，
+        从而对每个粒子进行评分，选择得分高的粒子作为该时间点的机器人位姿。
+（4）粒子群重采样
+        将评分低的粒子舍弃，将评分高且很接近的粒子都保留下来，并对评分高的粒子进行复制，保持粒子数量不变。
+</code></pre><h3 id="fast-slam"><a href="#fast-slam" class="headerlink" title="fast slam"></a>fast slam</h3><p>粒子+卡尔曼</p>
+<h3 id="hector-slam"><a href="#hector-slam" class="headerlink" title="hector slam"></a>hector slam</h3><p>扫描匹配。完全不用里程计，算匹配概率</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/09/VSLAM/Colmap/" rel="next" title="SFM Revisited--Colmap">
+                <i class="fa fa-chevron-left"></i> SFM Revisited--Colmap
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/09/VSLAM/Lidar Visula SLAM/" rel="prev" title="Lidar Visual SLAM">
+                Lidar Visual SLAM <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2019/03/09/VSLAM/Lidar SLAM/"
+           data-title="Lidar SLAM" data-url="http://hujun1413.github.io/2019/03/09/VSLAM/Lidar SLAM/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://note.youdao.com/yws/api/personal/file/7CA800CBE0A747E08DFFEA480C31B399?method=download&shareKey=a956511eb4b1974a6270a9584ad6ab54"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#LOAM-velodyne系列学习"><span class="nav-number">1.</span> <span class="nav-text">LOAM_velodyne系列学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LeGO-LOAM"><span class="nav-number">2.</span> <span class="nav-text">LeGO-LOAM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cartographer学习"><span class="nav-number">3.</span> <span class="nav-text">Cartographer学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gmapping"><span class="nav-number">4.</span> <span class="nav-text">gmapping</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#已知精确位姿（坐标和朝向）的地图创建"><span class="nav-number">4.1.</span> <span class="nav-text">已知精确位姿（坐标和朝向）的地图创建:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何在已知地图的情况下采用粒子滤波算法进行精确定位，"><span class="nav-number">4.2.</span> <span class="nav-text">如何在已知地图的情况下采用粒子滤波算法进行精确定位，</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fast-slam"><span class="nav-number">5.</span> <span class="nav-text">fast slam</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hector-slam"><span class="nav-number">6.</span> <span class="nav-text">hector slam</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

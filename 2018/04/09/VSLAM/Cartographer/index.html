@@ -1,0 +1,676 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Cartographer学习谷歌 slam 地图库-cartographer-源码分析
+cartographer和karto-slam">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cartographer">
+<meta property="og:url" content="http://hujun1413.github.io/2018/04/09/VSLAM/Cartographer/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="Cartographer学习谷歌 slam 地图库-cartographer-源码分析
+cartographer和karto-slam">
+<meta property="og:updated_time" content="2019-03-24T13:23:27.296Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cartographer">
+<meta name="twitter:description" content="Cartographer学习谷歌 slam 地图库-cartographer-源码分析
+cartographer和karto-slam">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Cartographer | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Cartographer
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-04-09T18:35:26+08:00" content="2018-04-09">
+              2018-04-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/VSLAM/" itemprop="url" rel="index">
+                    <span itemprop="name">VSLAM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/04/09/VSLAM/Cartographer/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/04/09/VSLAM/Cartographer/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Cartographer学习"><a href="#Cartographer学习" class="headerlink" title="Cartographer学习"></a><a href="https://www.cnblogs.com/yebo92/p/6266717.html" target="_blank" rel="external">Cartographer学习</a></h3><p><a href="https://zhuanlan.zhihu.com/p/27631583" target="_blank" rel="external">谷歌 slam 地图库-cartographer-源码分析</a></p>
+<p><a href="https://blog.csdn.net/zyh821351004/article/details/52421005" target="_blank" rel="external">cartographer和karto-slam</a></p>
+<a id="more"></a>
+<p><a href="http://www.luyixian.cn/news_show_3265.aspx" target="_blank" rel="external">cartographer算法理解</a></p>
+<p><a href="https://blog.csdn.net/u013721521/article/details/81477005" target="_blank" rel="external">算法整体结构</a></p>
+<p><a href="https://blog.csdn.net/roadseek_zw/article/details/66968762" target="_blank" rel="external">Cartographer 代码阅读分析</a></p>
+<p>首先使用本地slam算法估计初始位姿，然后使用扫描匹配检测闭环，终于通过稀疏姿态图优化（sparse pose graph optimization，原理参见论文）算法优化整个位姿序列。</p>
+<p>如果走丢了（定位失败），算法里似乎没有恢复的方法，不能全局定位，它写了个PerformGlobalLocalization，但是没看见使用；</p>
+<h4 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h4><p>catographer利用IMU构建预测模型，ScanMatcher与Odom（可选）构建观测模型，采取UKF进行运动预测。 </p>
+<p>通过一次角速度和加速度的prediction得到当前时刻的pose的估计。<br>使用和loop closure相同的匹配方法得到一个pose。<br>imu预测的pose和loop closure匹配方法得到的pose融合后得到一个coarse的pose。</p>
+<h4 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h4><p>Local SLAM部分获得了很多Submap.</p>
+<p>ScanMatcher部分：cartographer采取的双搜索方式进行，先用一次real-time correlative scan matcher（三维窗口遍历寻优），再构建优化等式，利用Ceres优化求解。</p>
+<p>本地优化里调用了一个重要的函数LocalTrajectoryBuilder::ScanMatch（），这个函数首先对激光数据进行了投射处理、栅格化滤波，然后实时在线优化real_time_correlative_scan<em>matcher</em>.Match，这个优化是可选的，优化方式比较简单，就是在之前预测位姿附近开一个三维窗口，然后在这个三维窗口内，均匀播撒候选粒子，对每个粒子计算匹配得分，选取最高得分的粒子作为优化的位姿。该优化的位姿还要传入一个ceres_scan<em>matcher</em>.Match(）在子地图中完成局部优化，最终得到本地优化后的位姿。ceres_scan<em>matcher</em>.Match()是将局部地图的scan matching作为一个二次型优化问题，由ceres slover解决</p>
+<h4 id="全局图优化"><a href="#全局图优化" class="headerlink" title="全局图优化"></a>全局图优化</h4><p>closing loop， 采用了 SPA（Sparse Pose Adjustment）进行后端loop closure。这个过程中有一个很重要的过程是的scan和submap的匹配，这里采用了BBS（Branch-and-bound scan matching）， 利用分支定界进行全局的闭环检测完成优化，它可大幅提高精度和速度。</p>
+<h3 id="官网安装教程-Cartographer-ROS-Integration"><a href="#官网安装教程-Cartographer-ROS-Integration" class="headerlink" title="官网安装教程-Cartographer ROS Integration"></a><a href="https://google-cartographer-ros.readthedocs.io/en/latest/" target="_blank" rel="external">官网安装教程-Cartographer ROS Integration</a></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install wstool and rosdep.</span></span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install -y python-wstool python-rosdep ninja-build</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create a new workspace in 'catkin_ws'.</span></span><br><span class="line">mkdir catkin_ws</span><br><span class="line"><span class="built_in">cd</span> catkin_ws</span><br><span class="line">wstool init src</span><br><span class="line"></span><br><span class="line"><span class="comment"># Merge the cartographer_ros.rosinstall file and fetch code for dependencies.</span></span><br><span class="line"><span class="comment">#wstool merge -t src https://raw.githubusercontent.com/googlecartographer/cartographer_ros/master/cartographer_ros.rosinstall</span></span><br><span class="line"><span class="comment">#wstool update -t src</span></span><br><span class="line"></span><br><span class="line">由于ceres-solver的地址为https://ceres-solver.googlesource.com/ceres-solver，不翻墙下载不到，所以创建一个名字为a.rosinstall的文件，内容为：</span><br><span class="line">- git: &#123;<span class="built_in">local</span>-name: cartographer, uri: <span class="string">'https://github.com/googlecartographer/cartographer.git'</span>&#125;</span><br><span class="line">- git: &#123;<span class="built_in">local</span>-name: cartographer_ros, uri: <span class="string">'https://github.com/googlecartographer/cartographer_ros.git'</span>&#125;</span><br><span class="line">- git: &#123;<span class="built_in">local</span>-name: ceres-solver, uri: <span class="string">'https://github.com/ceres-solver/ceres-solver.git'</span>, version: <span class="string">'1.13.0'</span>&#125;</span><br><span class="line"></span><br><span class="line">所以执行：</span><br><span class="line">wstool merge -t src a.rosinstall</span><br><span class="line">wstool update -t src</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install proto3.</span></span><br><span class="line">src/cartographer/scripts/install_proto3.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install deb dependencies.</span></span><br><span class="line"><span class="comment"># The command 'sudo rosdep init' will print an error if you have already</span></span><br><span class="line"><span class="comment"># executed it since installing ROS. This error can be ignored.</span></span><br><span class="line">sudo rosdep init</span><br><span class="line">rosdep update</span><br><span class="line">rosdep install --from-paths src --ignore-src --rosdistro=<span class="variable">$&#123;ROS_DISTRO&#125;</span> -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># Build and install.</span></span><br><span class="line">catkin_make_isolated --install --use-ninja</span><br><span class="line"><span class="built_in">source</span> install_isolated/setup.bash</span><br></pre></td></tr></table></figure>
+<p>安装cartographer遇到Unrecognized syntax identifier “proto3”. This parser only recognizes “proto2”问题<br>需要将protobuf从2.x换成3.x版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">protoc --version，如果输出是libprotoc 2.6.0</span><br><span class="line">which protoc，如果输出是/usr/local/protoc，则执行下面的：</span><br><span class="line">sudo mv /usr/bin/protoc  /usr/bin/protoc.bk </span><br><span class="line"></span><br><span class="line">重新编译protobuf，然后protoc --version输出得到libprotoc 3.4.0即可</span><br><span class="line">然后执行which protoc</span><br><span class="line">输出：/usr/local/bin/protoc</span><br><span class="line">最后执行</span><br><span class="line">$ sudo ln -s /usr/local/bin/protoc /usr/bin/protoc</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/googlecartographer/cartographer/issues/1395" target="_blank" rel="external">catkin_make_isolated –install –use-ninja遇到undefined reference to google::protobuf::internal::ArenaImpl::AddCleanup(void*, void ()(void))’问题</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">删除build，devel，install文件夹，重新编译</span><br><span class="line">catkin_make_isolated --install --use-ninja</span><br><span class="line"></span><br><span class="line">source install_isolated/setup.bash</span><br></pre></td></tr></table></figure></p>
+<p>将<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">将CMakeLists.txt中的find_package(Eigen3 REQUIRED)</span><br><span class="line">替换成：</span><br><span class="line">include_directories( &quot;/usr/include/eigen3&quot; )</span><br><span class="line">#find_package(Eigen3 REQUIRED)</span><br><span class="line"></span><br><span class="line">因为Eigen3全是头文件，所以可以直接在CMakeLists.txt中添加eigen3的路径</span><br></pre></td></tr></table></figure></p>
+<h3 id="apt-get安装"><a href="#apt-get安装" class="headerlink" title="apt-get安装"></a>apt-get安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install ros-indigo-cartographer-ros</span><br></pre></td></tr></table></figure>
+<h3 id="cartographer-turtlebot"><a href="#cartographer-turtlebot" class="headerlink" title="cartographer_turtlebot"></a><a href="https://github.com/googlecartographer/cartographer_turtlebot" target="_blank" rel="external">cartographer_turtlebot</a></h3><p>为什么要使用cartographer_turtlebot，而不是直接用cartographer_ROS</p>
+<p>除了多出几个turtlebot的配置文件省去你调参的麻烦以外，cartographer_turtlebot还多了flat_world_imu_node这个函数，官方的解释是’imu_data_raw’ topic传递的Kobuki的IMU信息因为驱动的问题会导致乱顺序，这个函数去掉了乱序的信息。</p>
+<p>有个开关叫TRAJECTORY_BUILDER_2D.use_imu_data，如果不用imu的话，构图的时候一定要移动的很慢、很慢，使用了imu就可以让小车飞快的跑。在cartographer_turtlebot中能找到使用方法</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/25/Navigation/move_base源码学习/" rel="next" title="move_base源码学习">
+                <i class="fa fa-chevron-left"></i> move_base源码学习
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/25/Deep Learning/GAN/" rel="prev" title="GAN">
+                GAN <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/04/09/VSLAM/Cartographer/"
+           data-title="Cartographer" data-url="http://hujun1413.github.io/2018/04/09/VSLAM/Cartographer/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://note.youdao.com/yws/api/personal/file/7CA800CBE0A747E08DFFEA480C31B399?method=download&shareKey=a956511eb4b1974a6270a9584ad6ab54"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cartographer学习"><span class="nav-number">1.</span> <span class="nav-text">Cartographer学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前端"><span class="nav-number">1.1.</span> <span class="nav-text">前端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后端"><span class="nav-number">1.2.</span> <span class="nav-text">后端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全局图优化"><span class="nav-number">1.3.</span> <span class="nav-text">全局图优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#官网安装教程-Cartographer-ROS-Integration"><span class="nav-number">2.</span> <span class="nav-text">官网安装教程-Cartographer ROS Integration</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apt-get安装"><span class="nav-number">3.</span> <span class="nav-text">apt-get安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cartographer-turtlebot"><span class="nav-number">4.</span> <span class="nav-text">cartographer_turtlebot</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

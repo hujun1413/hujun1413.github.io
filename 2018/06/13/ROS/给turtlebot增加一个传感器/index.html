@@ -1,0 +1,669 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hujun1413,stick to your dream" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="胡君的个人博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="参考ros中利用gazebo进行gmapping仿真:kobuki+kinect -&amp;gt; kobuki+rplidar
+ROS中给turtlebot加两个传感器：kinect+hokuyo，进行gazebo仿真">
+<meta property="og:type" content="article">
+<meta property="og:title" content="给turtlebot增加一个传感器">
+<meta property="og:url" content="http://hujun1413.github.io/2018/06/13/ROS/给turtlebot增加一个传感器/index.html">
+<meta property="og:site_name" content="胡君的个人博客">
+<meta property="og:description" content="参考ros中利用gazebo进行gmapping仿真:kobuki+kinect -&amp;gt; kobuki+rplidar
+ROS中给turtlebot加两个传感器：kinect+hokuyo，进行gazebo仿真">
+<meta property="og:updated_time" content="2019-03-24T12:50:45.489Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="给turtlebot增加一个传感器">
+<meta name="twitter:description" content="参考ros中利用gazebo进行gmapping仿真:kobuki+kinect -&amp;gt; kobuki+rplidar
+ROS中给turtlebot加两个传感器：kinect+hokuyo，进行gazebo仿真">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 给turtlebot增加一个传感器 | 胡君的个人博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">胡君的个人博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">你必须非常努力才能看起来毫不费力</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                给turtlebot增加一个传感器
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-06-13T20:35:26+08:00" content="2018-06-13">
+              2018-06-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ROS/" itemprop="url" rel="index">
+                    <span itemprop="name">ROS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2018/06/13/ROS/给turtlebot增加一个传感器/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/06/13/ROS/给turtlebot增加一个传感器/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://blog.csdn.net/zyh821351004/article/details/48846179" target="_blank" rel="external">ros中利用gazebo进行gmapping仿真:kobuki+kinect -&gt; kobuki+rplidar</a></p>
+<p><a href="https://blog.csdn.net/qq_36355662/article/details/61413860" target="_blank" rel="external">ROS中给turtlebot加两个传感器：kinect+hokuyo，进行gazebo仿真</a></p>
+<a id="more"></a>
+<h3 id="让turtlebot带雷达和asua-xtion-pro"><a href="#让turtlebot带雷达和asua-xtion-pro" class="headerlink" title="让turtlebot带雷达和asua_xtion_pro"></a>让turtlebot带雷达和asua_xtion_pro</h3><p>roslaunch turtlebot_bringup minimal.launch是用于启动机器人robot.launch.xml和底盘mobile_base.launch.xml</p>
+<p>minimal.launch中的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;arg name=&quot;base&quot; value=&quot;$(arg base)&quot; /&gt;</span><br><span class="line">&lt;arg name=&quot;stacks&quot; value=&quot;$(arg stacks)&quot; /&gt;</span><br><span class="line">&lt;arg name=&quot;3d_sensor&quot; value=&quot;$(arg 3d_sensor)&quot; /&gt; #rplidar,asua_xtion_pro,kinect2等</span><br><span class="line">&lt;arg name=&quot;serialport&quot; value=&quot;$(arg serialport)&quot; /&gt; #底盘的设备端口，如/dev/ttyUSB0</span><br></pre></td></tr></table></figure></p>
+<p>可以通过在~/.bashrc中设置TURTLEBOT_BASE，TURTLEBOT_STACKS，TURTLEBOT_3D_SENSOR，TURTLEBOT_SERIAL_PORT来赋值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export TURTLEBOT_BASE=kobuki</span><br><span class="line">export TURTLEBOT_STACKS=hexagons</span><br><span class="line">export TURTLEBOT_3D_SENSOR=asus_xtion_pro</span><br><span class="line">export TURTLEBOT_SERIAL_PORT=/dev/ttyUSB0</span><br></pre></td></tr></table></figure></p>
+<p>robot.launch中调用description.launch.xml来建立机器人的各关节和传感器的坐标系描述，调用robot_state_publisher来读取robot_description文件并发布tf tree。</p>
+<p>description.launch.xml调用$(find turtlebot<em>description)/robots/$(arg base)</em>$(arg stacks)_$(arg 3d_sensor).urdf.xacro’文件来定义机器人的关节和传感器，可以在turtlebot_description)/robots下定义新的.urdf.xacro文件来代表拥有不同关节和传感器的机器人</p>
+<p>例如：<br>在kobuki_hexagons_asus_xtion_pro.urdf.xacro文件中，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;xacro:include filename=&quot;$(find turtlebot_description)/urdf/turtlebot_library.urdf.xacro&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;kobuki/&gt;</span><br><span class="line">&lt;stack_hexagons                 parent=&quot;base_link&quot;/&gt;</span><br><span class="line">&lt;sensor_asus_xtion_pro          parent=&quot;base_link&quot;/&gt;</span><br><span class="line">&lt;sensor_rplidar           parent=&quot;base_link&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>代表拥有kobuki底盘，hexagons 平台，asua_xtion_pro深度摄像头,rplidar雷达的turtlebot机器人。</p>
+<p>urdf/turtlebot_library.urdf.xacro文件的内容为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">&lt;xacro:include filename=&quot;$(find turtlebot_description)/urdf/sensors/asus_xtion_pro_offset.urdf.xacro&quot;/&gt;  </span><br><span class="line">&lt;xacro:include filename=&quot;$(find turtlebot_description)/urdf/sensors/rplidar.urdf.xacro&quot;/&gt;  </span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>调用了turtlebot_description/urdf/stack/hexagons.urdf.xacro和turtlebot_description/urdf/sensor/asus_xtion_pro.urdf.xacro和turtlebot_description/urdf/sensor/rplidar.urdf.xacro文件。<br>这几个文件都是平台和传感器的描述和坐标变换。</p>
+<p>如果以后需要增加一个新的传感器，只需要在turtlebot_description/urdf/sensor文件夹下增加一个[sensor_name].urdf.xacro文件，里面写好该传感器的描述和坐标系转换，然后在urdf/turtlebot_library.urdf.xacro文件中include新增加的传感器描述文件，然后在选择的像kobuki_hexagons_asus_xtion<em>pro.urdf.xacro这样的文件中，加入一行<br>`&lt;sensor</em>[sensor_name]            parent=”base_link”/&gt;`</p>
+<p>这样robot_state_publisher就会自动读取机器人的各关节和传感器，并发送tf tree。</p>
+<p>注意：asus_xtion_pro.urdf.xacro文件中会用到turtlebot_properies.urdf.xacro中的cam_px等变量，代表相机相对base_link的位置。</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/09/VSLAM/RTAB_MAP/" rel="next" title="RTAB_Map">
+                <i class="fa fa-chevron-left"></i> RTAB_Map
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/13/ROS/修改turtlebot2的description以改变tf tree/" rel="prev" title="修改turtlebot2的description以改变tf tree">
+                修改turtlebot2的description以改变tf tree <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2018/06/13/ROS/给turtlebot增加一个传感器/"
+           data-title="给turtlebot增加一个传感器" data-url="http://hujun1413.github.io/2018/06/13/ROS/给turtlebot增加一个传感器/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://note.youdao.com/yws/api/personal/file/7CA800CBE0A747E08DFFEA480C31B399?method=download&shareKey=a956511eb4b1974a6270a9584ad6ab54"
+               alt="hujun1413" />
+          <p class="site-author-name" itemprop="name">hujun1413</p>
+          <p class="site-description motion-element" itemprop="description">轻吟浅唱，我在岁月中踽踽独行</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+            <div class="links-of-blogroll-title">友情链接</div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://github.com/hujun1413" target="_blank">我的GitHub</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.csdn.net/hujun1994" target="_blank">我的CSDN</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://weibo.com/2918019673" target="_blank">我的微博</a>
+                </li>
+              
+            </ul>
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#让turtlebot带雷达和asua-xtion-pro"><span class="nav-number">2.</span> <span class="nav-text">让turtlebot带雷达和asua_xtion_pro</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">hujun1413</span>
+
+   &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1258400302'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1258400302' type='text/javascript'%3E%3C/script%3E"));</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hujun1413"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
