@@ -88,7 +88,7 @@
 <meta property="og:url" content="http://hujun1413.github.io/2019/03/09/VSLAM/VINS-Mono/index.html">
 <meta property="og:site_name" content="胡君的个人博客">
 <meta property="og:description" content="摘要由摄像机和低成本惯性测量单元(IMU)组成的单目视觉惯性系统(VINS)构成了用于度量六自由度状态估计的最小传感器套件。然而，由于缺乏直接距离测量，在IMU处理、估计器初始化、外部标定和非线性优化等方面提出了重大挑战。在本文中，我们提出了一种鲁棒的、通用的单目视觉惯性状态估计器VINS-Mono。">
-<meta property="og:updated_time" content="2019-03-24T16:30:15.611Z">
+<meta property="og:updated_time" content="2019-04-26T17:50:19.462Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VINS-Mono">
 <meta name="twitter:description" content="摘要由摄像机和低成本惯性测量单元(IMU)组成的单目视觉惯性系统(VINS)构成了用于度量六自由度状态估计的最小传感器套件。然而，由于缺乏直接距离测量，在IMU处理、估计器初始化、外部标定和非线性优化等方面提出了重大挑战。在本文中，我们提出了一种鲁棒的、通用的单目视觉惯性状态估计器VINS-Mono。">
@@ -305,13 +305,54 @@
 
       
         <h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>由摄像机和低成本惯性测量单元(IMU)组成的单目视觉惯性系统(VINS)构成了用于度量六自由度状态估计的最小传感器套件。然而，由于缺乏直接距离测量，在IMU处理、估计器初始化、外部标定和非线性优化等方面提出了重大挑战。在本文中，我们提出了一种鲁棒的、通用的单目视觉惯性状态估计器VINS-Mono。<a id="more"></a>我们的方法从一个鲁棒的初始化开始，用于估计器初始化和故障恢复。采用一种基于紧耦合、非线性优化的方法，通过融合预计分的IMU测量数据和特征观测数据，获得高精度的视觉惯性里程计。结合我们紧耦合的公式，一个循环检测模块能够以最小的计算开销重新定位.此外，我们还执行四自由度姿态图优化，以加强全局一致性.我们验证了我们的系统在公共数据集和真实世界实验上的性能，并与其他最先进的算法进行了比较。我们还在MAV平台上执行星载闭环自主飞行，并将算法移植到基于IOS的演示中。我们强调，所提议的工作是一个可靠、完整和多功能的系统，适用于需要高精度定位的不同应用程序。我们为个人电脑和iOS移动设备开放了我们的实现方法。</p>
-<h3 id="预积分"><a href="#预积分" class="headerlink" title="预积分"></a><a href="http://note.youdao.com/noteshare?id=a891eb8387ce5db6be6af50033528173&amp;sub=CC23C8D2CCBF4520BC20737C10ECA8B7" target="_blank" rel="external">预积分</a></h3><h3 id="视觉处理前端"><a href="#视觉处理前端" class="headerlink" title="视觉处理前端"></a><a href="http://note.youdao.com/noteshare?id=5b899d35efb2299f1e609c41c4ec8c8a&amp;sub=92C5483D2F6A4712AA754B58CF9B9274" target="_blank" rel="external">视觉处理前端</a></h3><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a><a href="http://note.youdao.com/noteshare?id=5f866711f04fdf698f9256241db45a92&amp;sub=7feb2fd79f83fd8afc5ede955f95b932" target="_blank" rel="external">初始化</a></h3><h3 id="边缘化"><a href="#边缘化" class="headerlink" title="边缘化"></a>边缘化</h3><p><a href="http://https//blog.csdn.net/heyijia0327/article/details/52822104" target="_blank" rel="external">SLAM中的marginalization 和 Schur complement</a></p>
+<h3 id="预积分"><a href="#预积分" class="headerlink" title="预积分"></a><a href="http://note.youdao.com/noteshare?id=a891eb8387ce5db6be6af50033528173&amp;sub=CC23C8D2CCBF4520BC20737C10ECA8B7" target="_blank" rel="external">预积分</a></h3><p>状态传播需要bk帧下的旋转，平移和速度，当这些开始的状态发生改变的时候，就需要重新传播IMU观测值，上式就是IMU重传递公式，需要在p,q,v变化时重新积分。</p>
+<p>但是，如果把相邻两帧图像之间的一段时间的IMU预先积分起来, 得到两帧之间的IMU相对运动, 也就是把多个IMU观测变成一个运动观测, 它是不随某一时刻的绝对位姿改变而发生改变的。这时坐标系从bk+1帧相对于世界坐标系b0变成了bk+1帧相对于bk帧</p>
+<h3 id="视觉处理前端"><a href="#视觉处理前端" class="headerlink" title="视觉处理前端"></a><a href="http://note.youdao.com/noteshare?id=5b899d35efb2299f1e609c41c4ec8c8a&amp;sub=92C5483D2F6A4712AA754B58CF9B9274" target="_blank" rel="external">视觉处理前端</a></h3><ol>
+<li>KLT金字塔稀疏光流算法对现有特征进行跟踪。</li>
+</ol>
+<p>去除图像边缘的点和跟踪失败的点，记录每个点跟踪成功的次数。</p>
+<p>检测新的角点特征以保持每个图像中特征的最小数目(max_cnt=150)。如果少于max_cnt则用cv::goodFeatureToTrack来补充角点到150个</p>
+<p>通过设置两个相邻特征之间像素的最小间隔（25）来执行均匀的特征分布。</p>
+<p>二维特征是不失真的，然后在通过异常点剔除后投射到一个单位球面上。</p>
+<p>利用基本矩阵（F）模型的RANSAC进行外点剔除。</p>
+<p>feature_tracker_node.cpp的main函数为入口</p>
+<p>步骤1：readParameters(n);读取参数，是config-&gt;euroc-&gt;euroc_config.yaml中的一些配置参数。</p>
+<p>步骤2: trackerData[i].readIntrinsicParameter(CAM_NAMES[i]);在这里NUM_OF_CAM设置成常量1，只有一个摄像头（单目），读取相机内参。</p>
+<p>步骤3:判断是否加入鱼眼mask来去除边缘噪声（fisheye=1则load一个圆形mask来去除边缘噪声）</p>
+<p>步骤4: ros::Subscriber sub_img = n.subscribe(IMAGE_TOPIC, 100, img_callback);订阅话题和发布话题，监听IMAGE_TOPIC（/cam0/image_raw），有图像发布到这个话题上的时候，执行回调函数，这里直接进入到img_callback函数中接收图像，前端视觉的算法基本在这个回调函数中。</p>
+<p> img_callback(const sensor_msgs::ImageConstPtr &amp;img_msg)接收图像<br>步骤1: 频率控制，保证每秒钟处理的image不多于freq（10hz）。<br>步骤2: 处理单目相机：<br>步骤2.1: trackerData[i].readImage(ptr-&gt;image.rowRange(ROW <em> i, ROW </em>(i + 1)));读取到的图像数据存储到trackerData中，读取完之后如果图像太亮或太黑（EQUALIZE=1），使用createCLAHE对图像进行自适应直方图均衡化，如果图像正常，设置成当前图像。在读取图像的时候进行光流跟踪和特征点的提取。<br>FeatureTracker类中处理的主要函数就是readImage()，这里涉及到3个img(prev_img, cur_img, forw_img)和pts(prev_pts,cur_pts, forw_pts)，两者是相似的。刚开始看不是太好理解，cur和forw分别是LK光流跟踪的前后两帧，forw才是真正的“当前”帧，cur实际上是上一帧，而prev是上一次发布的帧，它实际上是光流跟踪以后，prev和forw根据Fundamental Matrix做RANSAC剔除outlier用的，也就是rejectWithF()函数（不太懂）. readImage()的处理流程为:</p>
+<p>①先调用cv::createCLAHE对图像做直方图均衡化(如果equalize=1，表示太亮或则太暗)</p>
+<p>②调用calcOpticalFlowPyrLK()：用LKT金字塔光流追踪法，跟踪cur_pts到forw_pts,根据status,把跟踪失败的点剔除(注意:prev, cur,forw, ids, track_cnt都要剔除),这里还加了个inBorder判断,把跟踪到图像边缘的点也剔除掉.</p>
+<p>③如果不需要发布特征点,则到这步就完了,把当前帧forw赋给上一帧cur, 然后退出.如果需要发布特征点(PUB_THIS_FRAME=1), 则执行下面的步骤</p>
+<p>④先调用rejectWithF()：对prev_pts和forw_pts做ransac剔除outlier.(实际就是调用了findFundamentalMat函数), 在光流追踪成功就记被追踪+1，数值代表被追踪的次数，数值越大，说明被追踪的就越久</p>
+<p>⑤调用setMask()： 先对跟踪点forw_pts按跟踪次数降排序, 然后依次选点, 选一个点, 在mask中将该点周围一定半径的区域设为0, 后面不再选取该区域内的点.，保证两个特征点之间的距离不小于min_disk(25)。有点类似与non-max suppression, 但区别是这里保留track_cnt最高的点。</p>
+<p>⑥goodFeaturesToTrack+addPoints()：检测新的角点特征以保持每个图像中特征的最小数目(max_cnt=150)。如果少于max_cnt则用cv::goodFeatureToTrack来补充角点。在mask中不为0的区域,调用goodFeaturesToTrack提取新的角点n_pts,通过addPoints()函数push到forw_pts中, id初始化为-1,track_cnt初始化为1.</p>
+<p>⑦undistortedPoints()：根据相机模型对特征点去畸变和计算归一化坐标，计算每个特征点的速度。</p>
+<p>整体来说需要注意的是：光流跟踪在②中完成，角点提取在⑥中完成</p>
+<p>步骤2.2:判断是否需要显示畸变。</p>
+<p>步骤2.3:将特征点矫正（相机模型camodocal）后归一化平面的3D点（此时没有尺度信息，3D点p.z=1），像素2D点，以及特征的id，封装成ros的sensor_msgs::PointCloud消息类型的feature_points实例中；将图像封装到cv_bridge::CvImageConstPtr类型的ptr实例中</p>
+<p>步骤3: 发布消息的数据<br>pub_img.publish(feature_points);<br>如果show_track=1则pub_match.publish(ptr-&gt;toImageMsg())<br>将处理完的图像信息用PointCloud实例feature_points和Image的实例ptr消息类型，发布到”feature”和”feature_img”的topic（此步骤在main函数中完成）</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a><a href="http://note.youdao.com/noteshare?id=5f866711f04fdf698f9256241db45a92&amp;sub=7feb2fd79f83fd8afc5ede955f95b932" target="_blank" rel="external">初始化</a></h3><p>初始化之前，需要相机和IMU之间的外参是估计过的。估计方法为：<br>纯视觉sfm得到相邻两个关键帧之间相机坐标系下的相对旋转，IMU预积分得到相邻两个关键帧之间IMU坐标系下的相对旋转，这两个旋转之间差一个相机和IMU之间的旋转外参，因此可以建立约束求解相机和IMU之间的相对旋转</p>
+<p>初始化时，先用纯视觉sfm得到关键帧的位姿。</p>
+<p>将纯视觉得到的旋转和预积分得到的旋转进行约束对齐，可以校正陀螺仪的偏置。</p>
+<p>在初始阶段选择忽略加速度计偏置项。因为加速度计偏置与重力耦合，由于重力向量相对于平台动力学的大量级，以及初始阶段相对较短，这些偏置项很难被观测到。</p>
+<p>将纯视觉得到的位姿和预积分得到的位姿与速度进行约束对齐，已知相机和IMU之间的外参</p>
+<p>可以求的关键帧的速度vbk(在当前bk坐标系下的速度)，重力方向在c0(第一帧位置，即原点，也就是世界坐标系)坐标系上的分量gc0和单目尺度因子s。</p>
+<p>重力向量的精调:由于重力的模长固定，所以重力向量在一个球面上，可由重力向量正切空间的一对正交基来参数化。3自由度变2自由度。</p>
+<h3 id="边缘化"><a href="#边缘化" class="headerlink" title="边缘化"></a><a href="http://note.youdao.com/noteshare?id=c67f9f11b0ededea27eb1afd9fccd640&amp;sub=0e1251fe415e6d0de5eea725b40d4c76" target="_blank" rel="external">边缘化</a></h3><p>Vins-mono的边缘化策略：<br>如果第二个最新的帧是关键帧，则保留该帧，然后将窗口中最老的帧和它对应的测量值进行边缘化，这时相机首次观测到的feature也要移除。边缘化的测量值作为先验信息。</p>
+<p>如果第二个最新的帧不是关键帧，则丢弃该帧的视觉测量，以维持系统的稀疏性；但是保留这个非关键帧的IMU测量值，以保留加速度信息来保证尺度的可观测性。</p>
+<p>但是，当系统处于速度较大的恒速运动时，加速度信息会伴随着旧帧移除，因此会发生尺度的漂移。(沈老师也在视频中提到，系统对恒速运动处理的还不是很好)。 </p>
+<p><a href="http://https//blog.csdn.net/heyijia0327/article/details/52822104" target="_blank" rel="external">SLAM中的marginalization 和 Schur complement</a></p>
 <p>边缘化也被描述为将联合概率分布分解为边缘概率分布和条件概率分布的过程(说白了，就是利用shur补减少优化参数的过程)。</p>
 <p>舒尔补:我们没有人为的丢弃约束，所以不会丢失信息，但是计算结果的时候，我们只去更新了我们希望保留的那些变量的值。在slam的过程中，BA不断地加入新的待优化的变量，并marg旧的变量，从而使得计算量维持在一定水平。这就是sliding window filter, okvis, dso这些论文中marg的应用。</p>
 <p>要把一部分变量从多元高斯分布从分离出来，其实协方差矩阵很好分离，难分的是信息矩阵（协方差的逆），因为我们通常在SLAM里知道的是H矩阵，而不是协方差矩阵。对于H矩阵的分离，需要用到schur complement来分割。</p>
 <p>在marg的过程中，要去掉变量还要保留他的信息，把以前一个大的H矩阵丢掉一些维度压缩到一个小的H矩阵里，不可避免的就会使得原本稀疏的H矩阵变得稠密，这就是所谓的fill-in。DSO,OKVIS的作者在使用的时候都使用了一些策略来尽量维持稀疏性</p>
 <p>marg特征点的时候，我们要marg那些不被其他帧观测到的特征点。因为他们不会显著的使得H变得稠密。对于那些被其他帧观测到的特征点，要么就别设置为marg，要么就宁愿丢弃，这就是okvis和dso中用到的一些策略。</p>
 <p>first estimate jacobian:在开始新一次迭代时，计算H和J的时候，被marg掉的变量以及与marg掉的变量存在边的非marg变量的值仍然使用最开始，也就是使用于跟第一次迭代时这两种变量的初始值相同的值。不是所有的状态变量的雅克比都要fix ，只是和marg相连的那部分。</p>
+<h3 id="后端优化"><a href="#后端优化" class="headerlink" title="后端优化"></a><a href="">后端优化</a></h3><p>imu测量残差=视觉slam估计得到的位姿-Imu预积分的测量值</p>
+<p>视觉测量残差=单位球面上的向量之差（在i帧图像中的深度归一化坐标-在j帧图像中的深度归一化坐标），然后投影到正切平面上，得到一个自由度为2的视觉测量残差</p>
+<p>边缘化先验，参考<a href="https://www.zybuluo.com/Xiaobuyi/note/866099#442-%E4%B8%A4%E7%A7%8D%E8%BE%B9%E7%BC%98%E5%8C%96%E6%8E%AA%E6%96%BD" target="_blank" rel="external">这里</a></p>
+<p>可以这样理解：LastMargin计算出的residual与jacobian成为先验信息，这些先验信息蕴含了系统从运行以来的所有历史Sliding Window中的变量产生的约束。<br>优化变量应该朝减小先验的residual的方向进行。</p>
 
       
     </div>
@@ -335,8 +376,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/09/VSLAM/Lidar Visula SLAM/" rel="next" title="Lidar Visual SLAM">
-                <i class="fa fa-chevron-left"></i> Lidar Visual SLAM
+              <a href="/2019/03/09/VSLAM/Lidar SLAM/" rel="next" title="Lidar SLAM">
+                <i class="fa fa-chevron-left"></i> Lidar SLAM
               </a>
             
           </div>
@@ -425,7 +466,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -434,7 +475,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -489,7 +530,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预积分"><span class="nav-number">2.</span> <span class="nav-text">预积分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视觉处理前端"><span class="nav-number">3.</span> <span class="nav-text">视觉处理前端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">4.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#边缘化"><span class="nav-number">5.</span> <span class="nav-text">边缘化</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#预积分"><span class="nav-number">2.</span> <span class="nav-text">预积分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视觉处理前端"><span class="nav-number">3.</span> <span class="nav-text">视觉处理前端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">4.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#边缘化"><span class="nav-number">5.</span> <span class="nav-text">边缘化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后端优化"><span class="nav-number">6.</span> <span class="nav-text">后端优化</span></a></li></ol></div>
             
           </div>
         </section>

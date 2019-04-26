@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="胡君的个人博客">
 <meta property="og:description" content="Tombone’s Computer Vision Blog翻译如下：ICCV研讨会：实时SLAM的未来以及深度学习与SLAM的比较
 当前深度学习和slam结合有哪些比较好的论文，有没有一些开源的代码?">
-<meta property="og:updated_time" content="2019-03-24T15:02:47.403Z">
+<meta property="og:updated_time" content="2019-04-26T17:38:34.049Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SLAM与深度学习">
 <meta name="twitter:description" content="Tombone’s Computer Vision Blog翻译如下：ICCV研讨会：实时SLAM的未来以及深度学习与SLAM的比较
@@ -319,8 +319,8 @@
 <p>将几何与深度学习结合。<br><a href="https://alexgkendall.com/computer_vision/have_we_forgotten_about_geometry_in_computer_vision/" target="_blank" rel="external">Have We Forgotten about Geometry in Computer Vision?</a><br>求解深度，求解两帧间变换，特征点描述和提取，重定位</p>
 <p><a href="https://zhuanlan.zhihu.com/p/29864012" target="_blank" rel="external">单目深度估计-深度学习</a></p>
 <p><a href="http://campar.in.tum.de/Chair/ProjectCNNSLAM" target="_blank" rel="external">CNN-SLAM实时稠密单目SLAM</a></p>
-<h3 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h3><h4 id="DeepVO-Towards-End-to-End-Visual-Odometry-with-Deep-Recurrent-Convolutional-Neural-Networks"><a href="#DeepVO-Towards-End-to-End-Visual-Odometry-with-Deep-Recurrent-Convolutional-Neural-Networks" class="headerlink" title="DeepVO: Towards End-to-End Visual Odometry with Deep Recurrent Convolutional Neural Networks"></a>DeepVO: Towards End-to-End Visual Odometry with Deep Recurrent Convolutional Neural Networks</h4><p>CNN和RNN结合，实现了一个端到端的VO<br>听说复现的效果不好，需考虑</p>
-<p>我的改进idea：将Deep RNN换成更好的注意力模型</p>
+<h3 id="如何评价基于深度学习的DeepVO，VINet，VidLoc？"><a href="#如何评价基于深度学习的DeepVO，VINet，VidLoc？" class="headerlink" title="如何评价基于深度学习的DeepVO，VINet，VidLoc？"></a><a href="http://www.360doc.com/content/19/0318/16/62848200_822465453.shtml" target="_blank" rel="external">如何评价基于深度学习的DeepVO，VINet，VidLoc？</a></h3><h3 id="深度学习结合的SLAM研究现状"><a href="#深度学习结合的SLAM研究现状" class="headerlink" title="深度学习结合的SLAM研究现状"></a><a href="https://github.com/Ewenwan/MVision/blob/master/vSLAM/VS_SLAM/readme.md" target="_blank" rel="external">深度学习结合的SLAM研究现状</a></h3><h3 id="论文"><a href="#论文" class="headerlink" title="论文"></a>论文</h3><h4 id="DeepVO-Towards-End-to-End-Visual-Odometry-with-Deep-Recurrent-Convolutional-Neural-Networks"><a href="#DeepVO-Towards-End-to-End-Visual-Odometry-with-Deep-Recurrent-Convolutional-Neural-Networks" class="headerlink" title="DeepVO: Towards End-to-End Visual Odometry with Deep Recurrent Convolutional Neural Networks"></a>DeepVO: Towards End-to-End Visual Odometry with Deep Recurrent Convolutional Neural Networks</h4><p>CNN和RNN结合，实现了一个端到端的VO<br>听说复现的效果不好，需考虑</p>
+<p>我的改进idea：将Deep RNN换成更好的注意力模型，结合DenseNet</p>
 <p><a href="http://www.dataguru.cn/article-12415-1.html" target="_blank" rel="external">注意力机制介绍</a></p>
 
       
@@ -345,16 +345,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/09/VSLAM/ORB-SLAM2/" rel="next" title="ORB-SLAM2">
-                <i class="fa fa-chevron-left"></i> ORB-SLAM2
+              <a href="/2018/10/09/VSLAM/Octomap/" rel="next" title="OctoMap">
+                <i class="fa fa-chevron-left"></i> OctoMap
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/09/VSLAM/Colmap/" rel="prev" title="SFM Revisited--Colmap">
-                SFM Revisited--Colmap <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/09/VSLAM/ORB-SLAM2/" rel="prev" title="ORB-SLAM2">
+                ORB-SLAM2 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -435,7 +435,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -444,7 +444,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -499,7 +499,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tombone’s-Computer-Vision-Blog"><span class="nav-number">1.</span> <span class="nav-text">Tombone’s Computer Vision Blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slam与深度学习结合"><span class="nav-number">2.</span> <span class="nav-text">slam与深度学习结合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#论文"><span class="nav-number">3.</span> <span class="nav-text">论文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DeepVO-Towards-End-to-End-Visual-Odometry-with-Deep-Recurrent-Convolutional-Neural-Networks"><span class="nav-number">3.1.</span> <span class="nav-text">DeepVO: Towards End-to-End Visual Odometry with Deep Recurrent Convolutional Neural Networks</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tombone’s-Computer-Vision-Blog"><span class="nav-number">1.</span> <span class="nav-text">Tombone’s Computer Vision Blog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slam与深度学习结合"><span class="nav-number">2.</span> <span class="nav-text">slam与深度学习结合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何评价基于深度学习的DeepVO，VINet，VidLoc？"><span class="nav-number">3.</span> <span class="nav-text">如何评价基于深度学习的DeepVO，VINet，VidLoc？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深度学习结合的SLAM研究现状"><span class="nav-number">4.</span> <span class="nav-text">深度学习结合的SLAM研究现状</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#论文"><span class="nav-number">5.</span> <span class="nav-text">论文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#DeepVO-Towards-End-to-End-Visual-Odometry-with-Deep-Recurrent-Convolutional-Neural-Networks"><span class="nav-number">5.1.</span> <span class="nav-text">DeepVO: Towards End-to-End Visual Odometry with Deep Recurrent Convolutional Neural Networks</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

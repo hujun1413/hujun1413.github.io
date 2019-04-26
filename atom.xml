@@ -61,64 +61,62 @@
     <link href="http://hujun1413.github.io/2019/03/09/VSLAM/VINS-Mono/"/>
     <id>http://hujun1413.github.io/2019/03/09/VSLAM/VINS-Mono/</id>
     <published>2019-03-09T10:35:26.000Z</published>
-    <updated>2019-03-24T16:30:15.611Z</updated>
+    <updated>2019-04-26T17:50:19.462Z</updated>
     
     <content type="html">&lt;h3 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h3&gt;&lt;p&gt;由摄像机和低成本惯性测量单元(IMU)组成的单目视觉惯性系统(VINS)构成了用于度量六自由度状态估计的最小传感器套件。然而，由于缺乏直接距离测量，在IMU处理、估计器初始化、外部标定和非线性优化等方面提出了重大挑战。在本文中，我们提出了一种鲁棒的、通用的单目视觉惯性状态估计器VINS-Mono。&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;我们的方法从一个鲁棒的初始化开始，用于估计器初始化和故障恢复。采用一种基于紧耦合、非线性优化的方法，通过融合预计分的IMU测量数据和特征观测数据，获得高精度的视觉惯性里程计。结合我们紧耦合的公式，一个循环检测模块能够以最小的计算开销重新定位.此外，我们还执行四自由度姿态图优化，以加强全局一致性.我们验证了我们的系统在公共数据集和真实世界实验上的性能，并与其他最先进的算法进行了比较。我们还在MAV平台上执行星载闭环自主飞行，并将算法移植到基于IOS的演示中。我们强调，所提议的工作是一个可靠、完整和多功能的系统，适用于需要高精度定位的不同应用程序。我们为个人电脑和iOS移动设备开放了我们的实现方法。&lt;/p&gt;
-&lt;h3 id=&quot;预积分&quot;&gt;&lt;a href=&quot;#预积分&quot; class=&quot;headerlink&quot; title=&quot;预积分&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=a891eb8387ce5db6be6af50033528173&amp;amp;sub=CC23C8D2CCBF4520BC20737C10ECA8B7&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;预积分&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;视觉处理前端&quot;&gt;&lt;a href=&quot;#视觉处理前端&quot; class=&quot;headerlink&quot; title=&quot;视觉处理前端&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=5b899d35efb2299f1e609c41c4ec8c8a&amp;amp;sub=92C5483D2F6A4712AA754B58CF9B9274&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;视觉处理前端&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;初始化&quot;&gt;&lt;a href=&quot;#初始化&quot; class=&quot;headerlink&quot; title=&quot;初始化&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=5f866711f04fdf698f9256241db45a92&amp;amp;sub=7feb2fd79f83fd8afc5ede955f95b932&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;初始化&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;边缘化&quot;&gt;&lt;a href=&quot;#边缘化&quot; class=&quot;headerlink&quot; title=&quot;边缘化&quot;&gt;&lt;/a&gt;边缘化&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;http://https//blog.csdn.net/heyijia0327/article/details/52822104&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SLAM中的marginalization 和 Schur complement&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;预积分&quot;&gt;&lt;a href=&quot;#预积分&quot; class=&quot;headerlink&quot; title=&quot;预积分&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=a891eb8387ce5db6be6af50033528173&amp;amp;sub=CC23C8D2CCBF4520BC20737C10ECA8B7&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;预积分&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;状态传播需要bk帧下的旋转，平移和速度，当这些开始的状态发生改变的时候，就需要重新传播IMU观测值，上式就是IMU重传递公式，需要在p,q,v变化时重新积分。&lt;/p&gt;
+&lt;p&gt;但是，如果把相邻两帧图像之间的一段时间的IMU预先积分起来, 得到两帧之间的IMU相对运动, 也就是把多个IMU观测变成一个运动观测, 它是不随某一时刻的绝对位姿改变而发生改变的。这时坐标系从bk+1帧相对于世界坐标系b0变成了bk+1帧相对于bk帧&lt;/p&gt;
+&lt;h3 id=&quot;视觉处理前端&quot;&gt;&lt;a href=&quot;#视觉处理前端&quot; class=&quot;headerlink&quot; title=&quot;视觉处理前端&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=5b899d35efb2299f1e609c41c4ec8c8a&amp;amp;sub=92C5483D2F6A4712AA754B58CF9B9274&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;视觉处理前端&lt;/a&gt;&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;KLT金字塔稀疏光流算法对现有特征进行跟踪。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;去除图像边缘的点和跟踪失败的点，记录每个点跟踪成功的次数。&lt;/p&gt;
+&lt;p&gt;检测新的角点特征以保持每个图像中特征的最小数目(max_cnt=150)。如果少于max_cnt则用cv::goodFeatureToTrack来补充角点到150个&lt;/p&gt;
+&lt;p&gt;通过设置两个相邻特征之间像素的最小间隔（25）来执行均匀的特征分布。&lt;/p&gt;
+&lt;p&gt;二维特征是不失真的，然后在通过异常点剔除后投射到一个单位球面上。&lt;/p&gt;
+&lt;p&gt;利用基本矩阵（F）模型的RANSAC进行外点剔除。&lt;/p&gt;
+&lt;p&gt;feature_tracker_node.cpp的main函数为入口&lt;/p&gt;
+&lt;p&gt;步骤1：readParameters(n);读取参数，是config-&amp;gt;euroc-&amp;gt;euroc_config.yaml中的一些配置参数。&lt;/p&gt;
+&lt;p&gt;步骤2: trackerData[i].readIntrinsicParameter(CAM_NAMES[i]);在这里NUM_OF_CAM设置成常量1，只有一个摄像头（单目），读取相机内参。&lt;/p&gt;
+&lt;p&gt;步骤3:判断是否加入鱼眼mask来去除边缘噪声（fisheye=1则load一个圆形mask来去除边缘噪声）&lt;/p&gt;
+&lt;p&gt;步骤4: ros::Subscriber sub_img = n.subscribe(IMAGE_TOPIC, 100, img_callback);订阅话题和发布话题，监听IMAGE_TOPIC（/cam0/image_raw），有图像发布到这个话题上的时候，执行回调函数，这里直接进入到img_callback函数中接收图像，前端视觉的算法基本在这个回调函数中。&lt;/p&gt;
+&lt;p&gt; img_callback(const sensor_msgs::ImageConstPtr &amp;amp;img_msg)接收图像&lt;br&gt;步骤1: 频率控制，保证每秒钟处理的image不多于freq（10hz）。&lt;br&gt;步骤2: 处理单目相机：&lt;br&gt;步骤2.1: trackerData[i].readImage(ptr-&amp;gt;image.rowRange(ROW &lt;em&gt; i, ROW &lt;/em&gt;(i + 1)));读取到的图像数据存储到trackerData中，读取完之后如果图像太亮或太黑（EQUALIZE=1），使用createCLAHE对图像进行自适应直方图均衡化，如果图像正常，设置成当前图像。在读取图像的时候进行光流跟踪和特征点的提取。&lt;br&gt;FeatureTracker类中处理的主要函数就是readImage()，这里涉及到3个img(prev_img, cur_img, forw_img)和pts(prev_pts,cur_pts, forw_pts)，两者是相似的。刚开始看不是太好理解，cur和forw分别是LK光流跟踪的前后两帧，forw才是真正的“当前”帧，cur实际上是上一帧，而prev是上一次发布的帧，它实际上是光流跟踪以后，prev和forw根据Fundamental Matrix做RANSAC剔除outlier用的，也就是rejectWithF()函数（不太懂）. readImage()的处理流程为:&lt;/p&gt;
+&lt;p&gt;①先调用cv::createCLAHE对图像做直方图均衡化(如果equalize=1，表示太亮或则太暗)&lt;/p&gt;
+&lt;p&gt;②调用calcOpticalFlowPyrLK()：用LKT金字塔光流追踪法，跟踪cur_pts到forw_pts,根据status,把跟踪失败的点剔除(注意:prev, cur,forw, ids, track_cnt都要剔除),这里还加了个inBorder判断,把跟踪到图像边缘的点也剔除掉.&lt;/p&gt;
+&lt;p&gt;③如果不需要发布特征点,则到这步就完了,把当前帧forw赋给上一帧cur, 然后退出.如果需要发布特征点(PUB_THIS_FRAME=1), 则执行下面的步骤&lt;/p&gt;
+&lt;p&gt;④先调用rejectWithF()：对prev_pts和forw_pts做ransac剔除outlier.(实际就是调用了findFundamentalMat函数), 在光流追踪成功就记被追踪+1，数值代表被追踪的次数，数值越大，说明被追踪的就越久&lt;/p&gt;
+&lt;p&gt;⑤调用setMask()： 先对跟踪点forw_pts按跟踪次数降排序, 然后依次选点, 选一个点, 在mask中将该点周围一定半径的区域设为0, 后面不再选取该区域内的点.，保证两个特征点之间的距离不小于min_disk(25)。有点类似与non-max suppression, 但区别是这里保留track_cnt最高的点。&lt;/p&gt;
+&lt;p&gt;⑥goodFeaturesToTrack+addPoints()：检测新的角点特征以保持每个图像中特征的最小数目(max_cnt=150)。如果少于max_cnt则用cv::goodFeatureToTrack来补充角点。在mask中不为0的区域,调用goodFeaturesToTrack提取新的角点n_pts,通过addPoints()函数push到forw_pts中, id初始化为-1,track_cnt初始化为1.&lt;/p&gt;
+&lt;p&gt;⑦undistortedPoints()：根据相机模型对特征点去畸变和计算归一化坐标，计算每个特征点的速度。&lt;/p&gt;
+&lt;p&gt;整体来说需要注意的是：光流跟踪在②中完成，角点提取在⑥中完成&lt;/p&gt;
+&lt;p&gt;步骤2.2:判断是否需要显示畸变。&lt;/p&gt;
+&lt;p&gt;步骤2.3:将特征点矫正（相机模型camodocal）后归一化平面的3D点（此时没有尺度信息，3D点p.z=1），像素2D点，以及特征的id，封装成ros的sensor_msgs::PointCloud消息类型的feature_points实例中；将图像封装到cv_bridge::CvImageConstPtr类型的ptr实例中&lt;/p&gt;
+&lt;p&gt;步骤3: 发布消息的数据&lt;br&gt;pub_img.publish(feature_points);&lt;br&gt;如果show_track=1则pub_match.publish(ptr-&amp;gt;toImageMsg())&lt;br&gt;将处理完的图像信息用PointCloud实例feature_points和Image的实例ptr消息类型，发布到”feature”和”feature_img”的topic（此步骤在main函数中完成）&lt;/p&gt;
+&lt;h3 id=&quot;初始化&quot;&gt;&lt;a href=&quot;#初始化&quot; class=&quot;headerlink&quot; title=&quot;初始化&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=5f866711f04fdf698f9256241db45a92&amp;amp;sub=7feb2fd79f83fd8afc5ede955f95b932&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;初始化&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;初始化之前，需要相机和IMU之间的外参是估计过的。估计方法为：&lt;br&gt;纯视觉sfm得到相邻两个关键帧之间相机坐标系下的相对旋转，IMU预积分得到相邻两个关键帧之间IMU坐标系下的相对旋转，这两个旋转之间差一个相机和IMU之间的旋转外参，因此可以建立约束求解相机和IMU之间的相对旋转&lt;/p&gt;
+&lt;p&gt;初始化时，先用纯视觉sfm得到关键帧的位姿。&lt;/p&gt;
+&lt;p&gt;将纯视觉得到的旋转和预积分得到的旋转进行约束对齐，可以校正陀螺仪的偏置。&lt;/p&gt;
+&lt;p&gt;在初始阶段选择忽略加速度计偏置项。因为加速度计偏置与重力耦合，由于重力向量相对于平台动力学的大量级，以及初始阶段相对较短，这些偏置项很难被观测到。&lt;/p&gt;
+&lt;p&gt;将纯视觉得到的位姿和预积分得到的位姿与速度进行约束对齐，已知相机和IMU之间的外参&lt;/p&gt;
+&lt;p&gt;可以求的关键帧的速度vbk(在当前bk坐标系下的速度)，重力方向在c0(第一帧位置，即原点，也就是世界坐标系)坐标系上的分量gc0和单目尺度因子s。&lt;/p&gt;
+&lt;p&gt;重力向量的精调:由于重力的模长固定，所以重力向量在一个球面上，可由重力向量正切空间的一对正交基来参数化。3自由度变2自由度。&lt;/p&gt;
+&lt;h3 id=&quot;边缘化&quot;&gt;&lt;a href=&quot;#边缘化&quot; class=&quot;headerlink&quot; title=&quot;边缘化&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://note.youdao.com/noteshare?id=c67f9f11b0ededea27eb1afd9fccd640&amp;amp;sub=0e1251fe415e6d0de5eea725b40d4c76&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;边缘化&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Vins-mono的边缘化策略：&lt;br&gt;如果第二个最新的帧是关键帧，则保留该帧，然后将窗口中最老的帧和它对应的测量值进行边缘化，这时相机首次观测到的feature也要移除。边缘化的测量值作为先验信息。&lt;/p&gt;
+&lt;p&gt;如果第二个最新的帧不是关键帧，则丢弃该帧的视觉测量，以维持系统的稀疏性；但是保留这个非关键帧的IMU测量值，以保留加速度信息来保证尺度的可观测性。&lt;/p&gt;
+&lt;p&gt;但是，当系统处于速度较大的恒速运动时，加速度信息会伴随着旧帧移除，因此会发生尺度的漂移。(沈老师也在视频中提到，系统对恒速运动处理的还不是很好)。 &lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://https//blog.csdn.net/heyijia0327/article/details/52822104&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SLAM中的marginalization 和 Schur complement&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;边缘化也被描述为将联合概率分布分解为边缘概率分布和条件概率分布的过程(说白了，就是利用shur补减少优化参数的过程)。&lt;/p&gt;
 &lt;p&gt;舒尔补:我们没有人为的丢弃约束，所以不会丢失信息，但是计算结果的时候，我们只去更新了我们希望保留的那些变量的值。在slam的过程中，BA不断地加入新的待优化的变量，并marg旧的变量，从而使得计算量维持在一定水平。这就是sliding window filter, okvis, dso这些论文中marg的应用。&lt;/p&gt;
 &lt;p&gt;要把一部分变量从多元高斯分布从分离出来，其实协方差矩阵很好分离，难分的是信息矩阵（协方差的逆），因为我们通常在SLAM里知道的是H矩阵，而不是协方差矩阵。对于H矩阵的分离，需要用到schur complement来分割。&lt;/p&gt;
 &lt;p&gt;在marg的过程中，要去掉变量还要保留他的信息，把以前一个大的H矩阵丢掉一些维度压缩到一个小的H矩阵里，不可避免的就会使得原本稀疏的H矩阵变得稠密，这就是所谓的fill-in。DSO,OKVIS的作者在使用的时候都使用了一些策略来尽量维持稀疏性&lt;/p&gt;
 &lt;p&gt;marg特征点的时候，我们要marg那些不被其他帧观测到的特征点。因为他们不会显著的使得H变得稠密。对于那些被其他帧观测到的特征点，要么就别设置为marg，要么就宁愿丢弃，这就是okvis和dso中用到的一些策略。&lt;/p&gt;
 &lt;p&gt;first estimate jacobian:在开始新一次迭代时，计算H和J的时候，被marg掉的变量以及与marg掉的变量存在边的非marg变量的值仍然使用最开始，也就是使用于跟第一次迭代时这两种变量的初始值相同的值。不是所有的状态变量的雅克比都要fix ，只是和marg相连的那部分。&lt;/p&gt;
+&lt;h3 id=&quot;后端优化&quot;&gt;&lt;a href=&quot;#后端优化&quot; class=&quot;headerlink&quot; title=&quot;后端优化&quot;&gt;&lt;/a&gt;&lt;a href=&quot;&quot;&gt;后端优化&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;imu测量残差=视觉slam估计得到的位姿-Imu预积分的测量值&lt;/p&gt;
+&lt;p&gt;视觉测量残差=单位球面上的向量之差（在i帧图像中的深度归一化坐标-在j帧图像中的深度归一化坐标），然后投影到正切平面上，得到一个自由度为2的视觉测量残差&lt;/p&gt;
+&lt;p&gt;边缘化先验，参考&lt;a href=&quot;https://www.zybuluo.com/Xiaobuyi/note/866099#442-%E4%B8%A4%E7%A7%8D%E8%BE%B9%E7%BC%98%E5%8C%96%E6%8E%AA%E6%96%BD&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;可以这样理解：LastMargin计算出的residual与jacobian成为先验信息，这些先验信息蕴含了系统从运行以来的所有历史Sliding Window中的变量产生的约束。&lt;br&gt;优化变量应该朝减小先验的residual的方向进行。&lt;/p&gt;
 </content>
     
     <summary type="html">
     
       &lt;h3 id=&quot;摘要&quot;&gt;&lt;a href=&quot;#摘要&quot; class=&quot;headerlink&quot; title=&quot;摘要&quot;&gt;&lt;/a&gt;摘要&lt;/h3&gt;&lt;p&gt;由摄像机和低成本惯性测量单元(IMU)组成的单目视觉惯性系统(VINS)构成了用于度量六自由度状态估计的最小传感器套件。然而，由于缺乏直接距离测量，在IMU处理、估计器初始化、外部标定和非线性优化等方面提出了重大挑战。在本文中，我们提出了一种鲁棒的、通用的单目视觉惯性状态估计器VINS-Mono。
-    
-    </summary>
-    
-      <category term="VSLAM" scheme="http://hujun1413.github.io/categories/VSLAM/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Lidar Visual SLAM</title>
-    <link href="http://hujun1413.github.io/2019/03/09/VSLAM/Lidar%20Visula%20SLAM/"/>
-    <id>http://hujun1413.github.io/2019/03/09/VSLAM/Lidar Visula SLAM/</id>
-    <published>2019-03-09T10:35:26.000Z</published>
-    <updated>2019-03-24T15:02:12.680Z</updated>
-    
-    <content type="html">&lt;h3 id=&quot;V-LOAM&quot;&gt;&lt;a href=&quot;#V-LOAM&quot; class=&quot;headerlink&quot; title=&quot;V-LOAM&quot;&gt;&lt;/a&gt;V-LOAM&lt;/h3&gt;&lt;p&gt;VLOAM ：Visual-lidar Odometry and Mapping: Low-drift, Robust, and Fast&lt;/p&gt;
-&lt;p&gt;别人已开源，&lt;a href=&quot;https://github.com/daobilige-su/loam_velodyne&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/daobilige-su/loam_velodyne&lt;/a&gt;&lt;br&gt;视觉里程计用DEMO，论文见&lt;a href=&quot;https://ri.cmu.edu/pub_files/2014/9/IROS_2014.pdf，核心思想是用深度信息来辅助视觉里程计，有深度时可以不需要三角化。用iSAM做因子图优化&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://ri.cmu.edu/pub_files/2014/9/IROS_2014.pdf，核心思想是用深度信息来辅助视觉里程计，有深度时可以不需要三角化。用iSAM做因子图优化&lt;/a&gt;&lt;br&gt;雷达里程计用LOAM，高频运动估计，低频L-M非线性优化和建图。&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;The result is that the visual odometry handles rapid motion, and the lidar odometry warrants low-drift and robustness in undesirable lighting conditions.&lt;/p&gt;
-&lt;p&gt;V-LOAM uses images to compute motion prior for scan matching, while LOAM only processes laser data.&lt;br&gt;视觉可以为雷达获得更好的点云深度，视觉也可以为雷达提供扫描匹配的运动先验&lt;/p&gt;
-&lt;p&gt;深度图指的是利用雷达的点云和vo得到的运动估计不断注册，得到一个合并后在相机坐标系下的大点云，可以用这个点云来帮助获取特征点的深度。&lt;br&gt;特征点的距离是取深度图中离该点最近的3个点构成的平面，求光心到平面的距离作为该特征点的距离。如果在深度图中没有该特征点的深度，则可以根据特征匹配的结果三角化出来3D点&lt;/p&gt;
-&lt;p&gt;V-LOAM 源码解析（一）&lt;br&gt;节点名称：featureTracking&lt;br&gt;订阅topic：&lt;sensor_msgs::image&gt;（”/camera/image_raw”）&lt;br&gt;发布topic：1、&lt;sensor_msgs::pointcloud2&gt; (“/image_points_last”）&lt;br&gt;          2、&lt;sensor_msgs::image&gt;(“/image/show”)&lt;/sensor_msgs::image&gt;&lt;/sensor_msgs::pointcloud2&gt;&lt;/sensor_msgs::image&gt;&lt;/p&gt;
-&lt;p&gt;节点：visualOdometry&lt;br&gt;功能：订阅”/image_points_last”和”/depth_cloud”消息，将图像特征与三维点云匹配，获得图像特征点深度值，然后采用非线性优化的方法迭代收敛得到两帧图像之间的变换矩阵，即融合了三维点云信息的视觉里程计。&lt;/p&gt;
-&lt;p&gt;节点：processDepthmap&lt;br&gt;功能：根据视觉里程计topic(“/cam_to_init”)，和点云数据（”/sync_scan_cloud_filtered”），将新点云和已有点云变换到当前相机坐标系下，实现图像与点云数据的对齐&lt;/p&gt;
-&lt;p&gt;节点：stackDepthPoint&lt;br&gt;功能：将视觉里程计中用于定位的特征点三维坐标分批存储，用于后面的局部BA优化&lt;/p&gt;
-&lt;p&gt;节点：bundleAdjust&lt;br&gt;功能：对视觉里程计获得的odom信息进行局部BA优化，获得精度更高的odom信息&lt;/p&gt;
-&lt;p&gt;节点：transformMaintenance&lt;br&gt;功能：视觉里程计信息帧率较高，BA优化帧率较低，将二者结合，利用BA优化的结果修正视觉里程计，可以得到帧率和精度都较高的里程计信息&lt;/p&gt;
-&lt;p&gt;节点：registerPointCloud&lt;br&gt;功能：根据最终的里程计信息将三维激光的点云加入到odom坐标系中，获得点云地图&lt;/p&gt;
-&lt;h3 id=&quot;VI-LOAM&quot;&gt;&lt;a href=&quot;#VI-LOAM&quot; class=&quot;headerlink&quot; title=&quot;VI-LOAM&quot;&gt;&lt;/a&gt;VI-LOAM&lt;/h3&gt;&lt;p&gt;imu和视觉可以进行pose约束（预积分的两帧间位姿可以和视觉得到的r,t做约束），视觉可以进行camera的重投影约束（雷达可以给特征点提供已有的深度，如果雷达没深度可以三角化出深度，没有深度的特征也有一种约束方式）&lt;/p&gt;
-&lt;p&gt;The motion estimation is to solve an optimization problem combining three sets of constraints: (a) From features with known depth as (6) and (7); (b) from features with unknown depth as (8); and (c) from the IMU prediction.&lt;/p&gt;
-&lt;h3 id=&quot;LIMO&quot;&gt;&lt;a href=&quot;#LIMO&quot; class=&quot;headerlink&quot; title=&quot;LIMO&quot;&gt;&lt;/a&gt;LIMO&lt;/h3&gt;&lt;p&gt;已开源，github见&lt;a href=&quot;https://github.com/johannes-graeter/limo&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/johannes-graeter/limo&lt;/a&gt;&lt;br&gt;论文见&lt;a href=&quot;https://arxiv.org/pdf/1807.07524.pdf&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://arxiv.org/pdf/1807.07524.pdf&lt;/a&gt;&lt;br&gt;在本研究中，我们提出了一种针对摄像机特征轨迹的激光雷达深度提取算法，并利用基于鲁棒关键帧的BA算法来估计运动。语义标记用于植被地标的离群剔除和加权，该传感器组合的能力在具有竞争力的KITTI数据集上得到了验证，排名在前15位。&lt;/p&gt;
-&lt;p&gt;核心思想：用语义去剔除在动态物体上的特征点。在特征点在一个平面上时，比如在道路上时，可以根据平面检测的结果，得到特征点更好的深度信息。然后优化方程为：3d-3d和3d-2d的重投影误差&lt;/p&gt;
-&lt;p&gt;没有和vloam一样使用icp，是为了体现视觉里程计和深度信息的融合。&lt;br&gt;LIMO is thereforethe second best LIDAR-Camera method published and the best performing method that does not use ICP based LIDAR- SLAM as refinement.&lt;br&gt;相对于纯vslam，结合雷达信息就是可以把雷达的点云准换到相机坐标系下，因此可以为vslam提供点云。视觉也可以为雷达获得更好的点云深度。&lt;/p&gt;
-&lt;p&gt;特征提取和预处理：&lt;br&gt;feature tracking methodology, implemented in the viso2 library [7]&lt;br&gt;reject landmarks lying on moving objects，在语义图像中把属于动态物体的feature剔除&lt;/p&gt;
-&lt;p&gt;尺度估计：&lt;br&gt;In order to estimate scale (Block S), depth corresponding to detected feature points is extracted from the LIDAR，从雷达的电云中提取出特征点的深度&lt;br&gt;直接从一张图中进行深度的估计&lt;/p&gt;
-&lt;p&gt;先选择一个ROI记作f，然后把投影在图像的区域f上的雷达点云作为F点云。&lt;br&gt;把F点云进行分割前景，得到Fseg点云：只选择一部分点云来降低优化问题的规模&lt;br&gt;在Fseg中得到平面p，如果f在地面上，就应用一个特殊的匹配算法&lt;br&gt;根据f的投影线和平面p的交点求出f的深度：To accurately estimate the depth of f on the road, we rather segment points corresponding to the ground plane than to the foreground.因为特征点的深度可能不平，所以在特征点附近求出一个地面的方程，然后只取高度离平面一定范围内的点的深度。&lt;br&gt;f投影线和平面p的法线的角度要小于某个阈值&lt;/p&gt;
-&lt;h3 id=&quot;Elastic-Lidar-Fusion论文&quot;&gt;&lt;a href=&quot;#Elastic-Lidar-Fusion论文&quot; class=&quot;headerlink&quot; title=&quot;Elastic Lidar Fusion论文&quot;&gt;&lt;/a&gt;Elastic Lidar Fusion论文&lt;/h3&gt;&lt;p&gt;泡泡机器人翻译&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;V-LOAM&quot;&gt;&lt;a href=&quot;#V-LOAM&quot; class=&quot;headerlink&quot; title=&quot;V-LOAM&quot;&gt;&lt;/a&gt;V-LOAM&lt;/h3&gt;&lt;p&gt;VLOAM ：Visual-lidar Odometry and Mapping: Low-drift, Robust, and Fast&lt;/p&gt;
-&lt;p&gt;别人已开源，&lt;a href=&quot;https://github.com/daobilige-su/loam_velodyne&quot;&gt;https://github.com/daobilige-su/loam_velodyne&lt;/a&gt;&lt;br&gt;视觉里程计用DEMO，论文见&lt;a href=&quot;https://ri.cmu.edu/pub_files/2014/9/IROS_2014.pdf，核心思想是用深度信息来辅助视觉里程计，有深度时可以不需要三角化。用iSAM做因子图优化&quot;&gt;https://ri.cmu.edu/pub_files/2014/9/IROS_2014.pdf，核心思想是用深度信息来辅助视觉里程计，有深度时可以不需要三角化。用iSAM做因子图优化&lt;/a&gt;&lt;br&gt;雷达里程计用LOAM，高频运动估计，低频L-M非线性优化和建图。&lt;/p&gt;
     
     </summary>
     
@@ -263,185 +261,40 @@
   </entry>
   
   <entry>
-    <title>SLAM与深度学习</title>
-    <link href="http://hujun1413.github.io/2018/11/09/VSLAM/SLAM%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://hujun1413.github.io/2018/11/09/VSLAM/SLAM与深度学习/</id>
-    <published>2018-11-09T10:35:26.000Z</published>
-    <updated>2019-03-24T15:02:47.403Z</updated>
+    <title>Lidar Visual SLAM</title>
+    <link href="http://hujun1413.github.io/2019/03/09/VSLAM/Lidar%20Visula%20SLAM/"/>
+    <id>http://hujun1413.github.io/2019/03/09/VSLAM/Lidar Visula SLAM/</id>
+    <published>2019-03-09T10:35:26.000Z</published>
+    <updated>2019-03-24T15:02:12.680Z</updated>
     
-    <content type="html">&lt;h3 id=&quot;Tombone’s-Computer-Vision-Blog&quot;&gt;&lt;a href=&quot;#Tombone’s-Computer-Vision-Blog&quot; class=&quot;headerlink&quot; title=&quot;Tombone’s Computer Vision Blog&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.computervisionblog.com/2016/01/why-slam-matters-future-of-real-time.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Tombone’s Computer Vision Blog&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;翻译如下：&lt;br&gt;&lt;a href=&quot;http://blog.csdn.net/qq_18661939/article/details/51919329&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ICCV研讨会：实时SLAM的未来以及深度学习与SLAM的比较&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.zhihu.com/question/66006923&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;当前深度学习和slam结合有哪些比较好的论文，有没有一些开源的代码?&lt;/a&gt;&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;slam与深度学习结合&quot;&gt;&lt;a href=&quot;#slam与深度学习结合&quot; class=&quot;headerlink&quot; title=&quot;slam与深度学习结合&quot;&gt;&lt;/a&gt;slam与深度学习结合&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/u010821666/article/details/78749356&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;使用深度学习方法替换SLAM中的模块&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;用深度学习方法替换传统slam中的一个/几个模块：&lt;br&gt;目前还不能达到超越传统方法的效果，相较传统SLAM并没有很明显的优势（标注的数据集少且不全，使用视频做训练数据的非常少。SLAM中很多问题都是数学问题，深度学习并不擅长等等原因）。&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/u010821666/article/details/78793225&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;语义SLAM &amp;amp; 端到端&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;在传统SLAM之上加入语义信息&lt;br&gt;语义SLAM算是在扩展了传统SLAM问题的研究内容，现在出现了一些将语义信息集成到SLAM的研究，比如说用SLAM系统中得到的图像之间的几何一致性促进图像语义分割，也可以用语义分割/建图的结果促进SLAM的定位/闭环等，前者已经有了一些研究，不过还是集中于室内场景，后者貌似还没有什么相关研究。如果SLAM和语义分割能够相互促进相辅相成，应该能达到好的效果。&lt;/p&gt;
-&lt;p&gt;另：使用SLAM帮助构建大规模的图像之间有对应关系的数据集，可以降低深度学习数据集的标注难度吧，应该也是一个SLAM助力深度学习的思路。&lt;/p&gt;
-&lt;p&gt;1、利用学习的方法辅助几何方法。比如有学习的方法估计出深度信息，学习特征等等，特别是在几何法有时不行的时候。可以增强系统的鲁棒性。TUM实验室的CNN-Slam就是这个范畴，如果没记错的话。2、直接端到端学的，比如PoseNet，DeepVO，UnDeepVO3、语义Slam。不太了解，感觉机器学习做语义分割的很多，结合一下做语义Slam应该可以关联很多。&lt;/p&gt;
-&lt;p&gt;提高特征点稳定性（减少outlier）和自动提取不同层级的特征点（点、线、面、物体），&lt;br&gt;快速生成密集的地图（而非稀疏的三维点云）&lt;br&gt;结合语义信息和图像分割&lt;br&gt;生成动态地图（可以实时更新、表达动态物体）&lt;br&gt;降低SLAM调参的难度&lt;/p&gt;
-&lt;p&gt;将几何与深度学习结合。&lt;br&gt;&lt;a href=&quot;https://alexgkendall.com/computer_vision/have_we_forgotten_about_geometry_in_computer_vision/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Have We Forgotten about Geometry in Computer Vision?&lt;/a&gt;&lt;br&gt;求解深度，求解两帧间变换，特征点描述和提取，重定位&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/29864012&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;单目深度估计-深度学习&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://campar.in.tum.de/Chair/ProjectCNNSLAM&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CNN-SLAM实时稠密单目SLAM&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;论文&quot;&gt;&lt;a href=&quot;#论文&quot; class=&quot;headerlink&quot; title=&quot;论文&quot;&gt;&lt;/a&gt;论文&lt;/h3&gt;&lt;h4 id=&quot;DeepVO-Towards-End-to-End-Visual-Odometry-with-Deep-Recurrent-Convolutional-Neural-Networks&quot;&gt;&lt;a href=&quot;#DeepVO-Towards-End-to-End-Visual-Odometry-with-Deep-Recurrent-Convolutional-Neural-Networks&quot; class=&quot;headerlink&quot; title=&quot;DeepVO: Towards End-to-End Visual Odometry with Deep Recurrent Convolutional Neural Networks&quot;&gt;&lt;/a&gt;DeepVO: Towards End-to-End Visual Odometry with Deep Recurrent Convolutional Neural Networks&lt;/h4&gt;&lt;p&gt;CNN和RNN结合，实现了一个端到端的VO&lt;br&gt;听说复现的效果不好，需考虑&lt;/p&gt;
-&lt;p&gt;我的改进idea：将Deep RNN换成更好的注意力模型&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://www.dataguru.cn/article-12415-1.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;注意力机制介绍&lt;/a&gt;&lt;/p&gt;
+    <content type="html">&lt;h3 id=&quot;V-LOAM&quot;&gt;&lt;a href=&quot;#V-LOAM&quot; class=&quot;headerlink&quot; title=&quot;V-LOAM&quot;&gt;&lt;/a&gt;V-LOAM&lt;/h3&gt;&lt;p&gt;VLOAM ：Visual-lidar Odometry and Mapping: Low-drift, Robust, and Fast&lt;/p&gt;
+&lt;p&gt;别人已开源，&lt;a href=&quot;https://github.com/daobilige-su/loam_velodyne&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/daobilige-su/loam_velodyne&lt;/a&gt;&lt;br&gt;视觉里程计用DEMO，论文见&lt;a href=&quot;https://ri.cmu.edu/pub_files/2014/9/IROS_2014.pdf，核心思想是用深度信息来辅助视觉里程计，有深度时可以不需要三角化。用iSAM做因子图优化&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://ri.cmu.edu/pub_files/2014/9/IROS_2014.pdf，核心思想是用深度信息来辅助视觉里程计，有深度时可以不需要三角化。用iSAM做因子图优化&lt;/a&gt;&lt;br&gt;雷达里程计用LOAM，高频运动估计，低频L-M非线性优化和建图。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;The result is that the visual odometry handles rapid motion, and the lidar odometry warrants low-drift and robustness in undesirable lighting conditions.&lt;/p&gt;
+&lt;p&gt;V-LOAM uses images to compute motion prior for scan matching, while LOAM only processes laser data.&lt;br&gt;视觉可以为雷达获得更好的点云深度，视觉也可以为雷达提供扫描匹配的运动先验&lt;/p&gt;
+&lt;p&gt;深度图指的是利用雷达的点云和vo得到的运动估计不断注册，得到一个合并后在相机坐标系下的大点云，可以用这个点云来帮助获取特征点的深度。&lt;br&gt;特征点的距离是取深度图中离该点最近的3个点构成的平面，求光心到平面的距离作为该特征点的距离。如果在深度图中没有该特征点的深度，则可以根据特征匹配的结果三角化出来3D点&lt;/p&gt;
+&lt;p&gt;V-LOAM 源码解析（一）&lt;br&gt;节点名称：featureTracking&lt;br&gt;订阅topic：&lt;sensor_msgs::image&gt;（”/camera/image_raw”）&lt;br&gt;发布topic：1、&lt;sensor_msgs::pointcloud2&gt; (“/image_points_last”）&lt;br&gt;          2、&lt;sensor_msgs::image&gt;(“/image/show”)&lt;/sensor_msgs::image&gt;&lt;/sensor_msgs::pointcloud2&gt;&lt;/sensor_msgs::image&gt;&lt;/p&gt;
+&lt;p&gt;节点：visualOdometry&lt;br&gt;功能：订阅”/image_points_last”和”/depth_cloud”消息，将图像特征与三维点云匹配，获得图像特征点深度值，然后采用非线性优化的方法迭代收敛得到两帧图像之间的变换矩阵，即融合了三维点云信息的视觉里程计。&lt;/p&gt;
+&lt;p&gt;节点：processDepthmap&lt;br&gt;功能：根据视觉里程计topic(“/cam_to_init”)，和点云数据（”/sync_scan_cloud_filtered”），将新点云和已有点云变换到当前相机坐标系下，实现图像与点云数据的对齐&lt;/p&gt;
+&lt;p&gt;节点：stackDepthPoint&lt;br&gt;功能：将视觉里程计中用于定位的特征点三维坐标分批存储，用于后面的局部BA优化&lt;/p&gt;
+&lt;p&gt;节点：bundleAdjust&lt;br&gt;功能：对视觉里程计获得的odom信息进行局部BA优化，获得精度更高的odom信息&lt;/p&gt;
+&lt;p&gt;节点：transformMaintenance&lt;br&gt;功能：视觉里程计信息帧率较高，BA优化帧率较低，将二者结合，利用BA优化的结果修正视觉里程计，可以得到帧率和精度都较高的里程计信息&lt;/p&gt;
+&lt;p&gt;节点：registerPointCloud&lt;br&gt;功能：根据最终的里程计信息将三维激光的点云加入到odom坐标系中，获得点云地图&lt;/p&gt;
+&lt;h3 id=&quot;VI-LOAM&quot;&gt;&lt;a href=&quot;#VI-LOAM&quot; class=&quot;headerlink&quot; title=&quot;VI-LOAM&quot;&gt;&lt;/a&gt;VI-LOAM&lt;/h3&gt;&lt;p&gt;imu和视觉可以进行pose约束（预积分的两帧间位姿可以和视觉得到的r,t做约束），视觉可以进行camera的重投影约束（雷达可以给特征点提供已有的深度，如果雷达没深度可以三角化出深度，没有深度的特征也有一种约束方式）&lt;/p&gt;
+&lt;p&gt;The motion estimation is to solve an optimization problem combining three sets of constraints: (a) From features with known depth as (6) and (7); (b) from features with unknown depth as (8); and (c) from the IMU prediction.&lt;/p&gt;
+&lt;h3 id=&quot;LIMO&quot;&gt;&lt;a href=&quot;#LIMO&quot; class=&quot;headerlink&quot; title=&quot;LIMO&quot;&gt;&lt;/a&gt;LIMO&lt;/h3&gt;&lt;p&gt;已开源，github见&lt;a href=&quot;https://github.com/johannes-graeter/limo&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/johannes-graeter/limo&lt;/a&gt;&lt;br&gt;论文见&lt;a href=&quot;https://arxiv.org/pdf/1807.07524.pdf&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://arxiv.org/pdf/1807.07524.pdf&lt;/a&gt;&lt;br&gt;在本研究中，我们提出了一种针对摄像机特征轨迹的激光雷达深度提取算法，并利用基于鲁棒关键帧的BA算法来估计运动。语义标记用于植被地标的离群剔除和加权，该传感器组合的能力在具有竞争力的KITTI数据集上得到了验证，排名在前15位。&lt;/p&gt;
+&lt;p&gt;核心思想：用语义去剔除在动态物体上的特征点。在特征点在一个平面上时，比如在道路上时，可以根据平面检测的结果，得到特征点更好的深度信息。然后优化方程为：3d-3d和3d-2d的重投影误差&lt;/p&gt;
+&lt;p&gt;没有和vloam一样使用icp，是为了体现视觉里程计和深度信息的融合。&lt;br&gt;LIMO is thereforethe second best LIDAR-Camera method published and the best performing method that does not use ICP based LIDAR- SLAM as refinement.&lt;br&gt;相对于纯vslam，结合雷达信息就是可以把雷达的点云准换到相机坐标系下，因此可以为vslam提供点云。视觉也可以为雷达获得更好的点云深度。&lt;/p&gt;
+&lt;p&gt;特征提取和预处理：&lt;br&gt;feature tracking methodology, implemented in the viso2 library [7]&lt;br&gt;reject landmarks lying on moving objects，在语义图像中把属于动态物体的feature剔除&lt;/p&gt;
+&lt;p&gt;尺度估计：&lt;br&gt;In order to estimate scale (Block S), depth corresponding to detected feature points is extracted from the LIDAR，从雷达的电云中提取出特征点的深度&lt;br&gt;直接从一张图中进行深度的估计&lt;/p&gt;
+&lt;p&gt;先选择一个ROI记作f，然后把投影在图像的区域f上的雷达点云作为F点云。&lt;br&gt;把F点云进行分割前景，得到Fseg点云：只选择一部分点云来降低优化问题的规模&lt;br&gt;在Fseg中得到平面p，如果f在地面上，就应用一个特殊的匹配算法&lt;br&gt;根据f的投影线和平面p的交点求出f的深度：To accurately estimate the depth of f on the road, we rather segment points corresponding to the ground plane than to the foreground.因为特征点的深度可能不平，所以在特征点附近求出一个地面的方程，然后只取高度离平面一定范围内的点的深度。&lt;br&gt;f投影线和平面p的法线的角度要小于某个阈值&lt;/p&gt;
+&lt;h3 id=&quot;Elastic-Lidar-Fusion论文&quot;&gt;&lt;a href=&quot;#Elastic-Lidar-Fusion论文&quot; class=&quot;headerlink&quot; title=&quot;Elastic Lidar Fusion论文&quot;&gt;&lt;/a&gt;Elastic Lidar Fusion论文&lt;/h3&gt;&lt;p&gt;泡泡机器人翻译&lt;/p&gt;
 </content>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;Tombone’s-Computer-Vision-Blog&quot;&gt;&lt;a href=&quot;#Tombone’s-Computer-Vision-Blog&quot; class=&quot;headerlink&quot; title=&quot;Tombone’s Computer Vision Blog&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.computervisionblog.com/2016/01/why-slam-matters-future-of-real-time.html&quot;&gt;Tombone’s Computer Vision Blog&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;翻译如下：&lt;br&gt;&lt;a href=&quot;http://blog.csdn.net/qq_18661939/article/details/51919329&quot;&gt;ICCV研讨会：实时SLAM的未来以及深度学习与SLAM的比较&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.zhihu.com/question/66006923&quot;&gt;当前深度学习和slam结合有哪些比较好的论文，有没有一些开源的代码?&lt;/a&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="VSLAM" scheme="http://hujun1413.github.io/categories/VSLAM/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>ORB-SLAM2</title>
-    <link href="http://hujun1413.github.io/2018/11/09/VSLAM/ORB-SLAM2/"/>
-    <id>http://hujun1413.github.io/2018/11/09/VSLAM/ORB-SLAM2/</id>
-    <published>2018-11-09T10:35:26.000Z</published>
-    <updated>2019-03-24T16:34:17.649Z</updated>
-    
-    <content type="html">&lt;h3 id=&quot;ORB-SLAM2&quot;&gt;&lt;a href=&quot;#ORB-SLAM2&quot; class=&quot;headerlink&quot; title=&quot;ORB-SLAM2&quot;&gt;&lt;/a&gt;ORB-SLAM2&lt;/h3&gt;&lt;p&gt;ROS版本：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo chmod 777 ORBvoc.txt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo chmod 777 TUM1.yaml&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;话题名字为：/camera/rgb/image_color和/camera/depth/image，修改ROS/ORB_SLAM2/src/ros_rgbd.cc文件中的监听话题名，再./build_ros.sh。（编译可能出错）&lt;/p&gt;
-&lt;p&gt;（需要用opencv2.4.9来进行编译），即在CMakeList.txt中写成&lt;br&gt;find_package(OpenCV 2.4.9 EXACT REQUIRED)&lt;/p&gt;
-&lt;h4 id=&quot;ROS版本：&quot;&gt;&lt;a href=&quot;#ROS版本：&quot; class=&quot;headerlink&quot; title=&quot;ROS版本：&quot;&gt;&lt;/a&gt;ROS版本：&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;RGBD：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;roscore&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd ~/hujun_file/ORB_SLAM2/Examples/ROS/ORB_SLAM2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rosrun ORB_SLAM2 RGBD ORBvoc.txt TUM1.yaml&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rosbag play --clock hujun_file/bag/create_map/rgbd_dataset_freiburg1_xyz.bag&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Stereo:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd ~/hujun_file/ORB_SLAM2/Examples/ROS/ORB_SLAM2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rosrun ORB_SLAM2 Stereo Vocabulary/ORBvoc.txt Examples/Stereo/EuRoC.yaml true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rosbag play --pause ~/hujun_file/bag/MH_01_easy.bag cam0/image_raw:=/camera/left/image_raw /cam1/image_raw:=/camera/right/image_raw&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Monocular:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rosrun ORB_SLAM2 Mono Vocabulary/ORBvoc.txt Examples/Monocular/EuRoC.yaml /cam0/image_raw #注意这里需要手动传入监听的图像话题&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;AR_Demo:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;运行出错&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rosrun ORB_SLAM2 MonoAR Vocabulary/ORBvoc.txt Examples/Monocular/EuRoC.yaml&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rosbag play --pause ~/hujun_file/bag/MH_01_easy.bag cam0/image_raw:=/camera/image_raw&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;非ROS版本：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RGB-D:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./Examples/RGB-D/rgbd_tum Vocabulary/ORBvoc.txt Examples/RGB-D/TUM1.yaml ../rgbd_dataset_freiburg1_xyz ../rgbd_dataset_freiburg1_xyz/associations.txt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Stereo:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./Examples/Stereo/stereo_euroc Vocabulary/ORBvoc.txt Examples/Stereo/EuRoC.yaml ~/hujun_file/bag/mav0/cam0/data ~/hujun_file/bag/mav0/cam1/data Examples/Monocular/EuRoC_TimeStamps/MH01.txt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Monocular:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./Examples/Monocular/mono_euroc Vocabulary/ORBvoc.txt Examples/Monocular/EuRoC.yaml ~/hujun_file/bag/mav0/cam0/data Examples/Monocular/EuRoC_TimeStamps/MH01.txt&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;ORB-SLAM吴博注释版&lt;br&gt;ORBSlam2中的闭环检测和后端优化LoopClosing&lt;/p&gt;
-&lt;h4 id=&quot;源码阅读记录&quot;&gt;&lt;a href=&quot;#源码阅读记录&quot; class=&quot;headerlink&quot; title=&quot;源码阅读记录&quot;&gt;&lt;/a&gt;源码阅读记录&lt;/h4&gt;&lt;p&gt;ORB-SLAM2详解（一）简介&lt;br&gt;ORB-SLAM2 程序解读&lt;br&gt;ORB-SLAM2详解（二）代码逻辑&lt;br&gt;RGB-D： 泡泡机器人ORB-SLAM2源码详解&lt;/p&gt;
-&lt;h5 id=&quot;自动地图初始化&quot;&gt;&lt;a href=&quot;#自动地图初始化&quot; class=&quot;headerlink&quot; title=&quot;自动地图初始化&quot;&gt;&lt;/a&gt;自动地图初始化&lt;/h5&gt;&lt;p&gt;系统的第一步是初始化，ORB_SLAM使用的是一种自动初始化方法。这里同时计算两个模型：用于平面场景的单应性矩阵H和用于非平面场景的基础矩阵F，然后通过一个评分规则来选择合适的模型，恢复相机的旋转矩阵R和平移向量t。&lt;/p&gt;
-&lt;h5 id=&quot;找到初始对应点&quot;&gt;&lt;a href=&quot;#找到初始对应点&quot; class=&quot;headerlink&quot; title=&quot;找到初始对应点&quot;&gt;&lt;/a&gt;找到初始对应点&lt;/h5&gt;&lt;p&gt;Tracking.cc 600行SearchForInitialization&lt;/p&gt;
-&lt;h6 id=&quot;同时计算两个模型&quot;&gt;&lt;a href=&quot;#同时计算两个模型&quot; class=&quot;headerlink&quot; title=&quot;同时计算两个模型&quot;&gt;&lt;/a&gt;同时计算两个模型&lt;/h6&gt;&lt;p&gt;调用Initializer.cc中的Initializer::Initialized函数进行初始化工作。同时计算H和F的线程，当场景是一个平面、或近似为一个平面、或者视差较小的时候，可以使用单应性矩阵H，而使用基础矩阵F恢复运动，需要场景是一个非平面、视差大的场景。 ORB_SLAM2关键算法分析1——基础矩阵F和单应矩阵H初始化位姿&lt;/p&gt;
-&lt;h5 id=&quot;跟踪点在一个范围内做金字塔&quot;&gt;&lt;a href=&quot;#跟踪点在一个范围内做金字塔&quot; class=&quot;headerlink&quot; title=&quot;跟踪点在一个范围内做金字塔&quot;&gt;&lt;/a&gt;跟踪点在一个范围内做金字塔&lt;/h5&gt;&lt;p&gt;每层金字塔的特征点数是有要求的，保证在特征点稠密的地方特征点不会太多，在特征点稀疏的地方特征点不会太少。&lt;/p&gt;
-&lt;p&gt;ORB-SLAM2之地图保存、加载和重定位&lt;/p&gt;
-&lt;h4 id=&quot;将ORB-SLAM2用于导航&quot;&gt;&lt;a href=&quot;#将ORB-SLAM2用于导航&quot; class=&quot;headerlink&quot; title=&quot;将ORB_SLAM2用于导航&quot;&gt;&lt;/a&gt;将ORB_SLAM2用于导航&lt;/h4&gt;&lt;p&gt;2D的栅格地图 或者 3D点云生成的octomap 适合用于机器人导航&lt;/p&gt;
-&lt;p&gt;首先运行ORB_SLAM2得到机器人的定位和一些识别出的路标。然后利用所选取的关键帧进行拼接得到点云地图，将点云转换成octomap即可用于导航&lt;br&gt;ORB_SLAM实时显示octomap&lt;br&gt;原始的orb-slam2只能显示稀疏点云，所以加了一个pcl_viewer和点云拼接的线程，来实现实时显示拼接关键帧的点云图像。&lt;/p&gt;
-&lt;p&gt;ORB_SLAM实时发布点云–高博的ORBSLAM2_with_pointcloud_map&lt;br&gt;编译安装高翔的ORBSLAM2_with_pointcloud_map，获取点云地图&lt;br&gt;ORBSLAM2_with_pointcloud_map-master通过RGBD跑TUM数据集&lt;br&gt;Octomap 在ROS环境下实时显示&lt;/p&gt;
-&lt;h4 id=&quot;Kinect2跑ORB-SLAM2&quot;&gt;&lt;a href=&quot;#Kinect2跑ORB-SLAM2&quot; class=&quot;headerlink&quot; title=&quot;Kinect2跑ORB_SLAM2&quot;&gt;&lt;/a&gt;Kinect2跑ORB_SLAM2&lt;/h4&gt;&lt;p&gt;编译Kinect v2，跑通kinect2&lt;br&gt;标定：没标定过的kinect2，深度图和彩色图之间是不保证一一对应的。标定后得到kinect2彩色头、深度头、红外头的内参和外参。&lt;br&gt;编译orb-slam2，跑通orb-slam2&lt;br&gt;在Kinect2上运行orb-slam2&lt;br&gt;写一下kinect参数到yaml&lt;br&gt;直接跑orb的ros demo/修改kinect_viewer的代码&lt;/p&gt;
-&lt;h4 id=&quot;利用ORB-SLAM2得到的路标点来得到可用于路径轨迹的地图&quot;&gt;&lt;a href=&quot;#利用ORB-SLAM2得到的路标点来得到可用于路径轨迹的地图&quot; class=&quot;headerlink&quot; title=&quot;利用ORB_SLAM2得到的路标点来得到可用于路径轨迹的地图&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://www.zhihu.com/question/68430075/answer/265121749&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;利用ORB_SLAM2得到的路标点来得到可用于路径轨迹的地图&lt;/a&gt;&lt;/h4&gt;</content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;ORB-SLAM2&quot;&gt;&lt;a href=&quot;#ORB-SLAM2&quot; class=&quot;headerlink&quot; title=&quot;ORB-SLAM2&quot;&gt;&lt;/a&gt;ORB-SLAM2&lt;/h3&gt;&lt;p&gt;ROS版本：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo chmod 777 ORBvoc.txt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo chmod 777 TUM1.yaml&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="VSLAM" scheme="http://hujun1413.github.io/categories/VSLAM/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>重要VSLAM系统</title>
-    <link href="http://hujun1413.github.io/2018/11/09/VSLAM/%E9%87%8D%E8%A6%81VSLAM%E7%B3%BB%E7%BB%9F/"/>
-    <id>http://hujun1413.github.io/2018/11/09/VSLAM/重要VSLAM系统/</id>
-    <published>2018-11-09T10:35:26.000Z</published>
-    <updated>2019-03-24T13:09:10.462Z</updated>
-    
-    <content type="html">&lt;h3 id=&quot;SLAMCN&quot;&gt;&lt;a href=&quot;#SLAMCN&quot; class=&quot;headerlink&quot; title=&quot;SLAMCN&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.slamcn.org/index.php/%E9%A6%96%E9%A1%B5&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SLAMCN&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;SLAM是什么？它的未来在哪里？&quot;&gt;&lt;a href=&quot;#SLAM是什么？它的未来在哪里？&quot; class=&quot;headerlink&quot; title=&quot;SLAM是什么？它的未来在哪里？&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://blog.sina.com.cn/s/blog_61b61d9d0102wnf2.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;SLAM是什么？它的未来在哪里？&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;SLAM是技术，手机端的话涉及VIO&lt;/p&gt;
-&lt;p&gt;RGBD,Lidar,imu,odom,gps。基于这些传感器做一个组合SLAM。涉及：前端的tracking和后端的优化&lt;br&gt;多传感器融合是趋势，视觉结合imu等传感器。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;总结归纳&quot;&gt;&lt;a href=&quot;#总结归纳&quot; class=&quot;headerlink&quot; title=&quot;总结归纳&quot;&gt;&lt;/a&gt;总结归纳&lt;/h3&gt;&lt;p&gt;直接法的缺点：&lt;br&gt;怕模糊（需要全局曝光相机）&lt;br&gt;怕大运动（图像非凸性）&lt;br&gt;怕光照变化（灰度不变假设）&lt;/p&gt;
-&lt;p&gt;直接法的优点：&lt;br&gt;速度快&lt;br&gt;可稠密建图&lt;/p&gt;
-&lt;h3 id=&quot;视觉SLAM系统&quot;&gt;&lt;a href=&quot;#视觉SLAM系统&quot; class=&quot;headerlink&quot; title=&quot;视觉SLAM系统&quot;&gt;&lt;/a&gt;视觉SLAM系统&lt;/h3&gt;&lt;p&gt;单目SLAM:     &lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;PTAM 2007 很牛逼的工作，论文中提出的关键帧以及多线程处理思想成为之后视觉slam标配；甚至能够实时运行在手机上。不少AR是基于ptam的；     &lt;/li&gt;
-&lt;li&gt;DTAM 2011 direct  slam方法的鼻祖；    &lt;/li&gt;
-&lt;li&gt;LSD-SLAM 2014年，将直接法应用到了半稠密的单目SLAM中。&lt;/li&gt;
-&lt;li&gt;ORB-SLAM 2015年，代表着主流的特征点SLAM的一个高峰，属于稀疏建图。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;RGBD:     &lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;KinectFusion 2011     &lt;/li&gt;
-&lt;li&gt;RGBD-SLAM2 2014     &lt;/li&gt;
-&lt;li&gt;ElasticFusion  2015&lt;/li&gt;
-&lt;li&gt;RTAB-MAP  RGB-D在CPU上实现实时稠密地图&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;以单目slam为例，SLAM可分为前端和后端；前端主要负责tracking相机的姿态位置，并筛选关键帧；而后端则主要负责姿态图的优化。而优化的方法多采用G2O或者SBA。&lt;/p&gt;
-&lt;h3 id=&quot;一起做RGB-D-SLAM&quot;&gt;&lt;a href=&quot;#一起做RGB-D-SLAM&quot; class=&quot;headerlink&quot; title=&quot;一起做RGB-D SLAM&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.cnblogs.com/gaoxiang12/p/4719156.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;一起做RGB-D SLAM&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;机器人会议：IJRR/TRO/RAM/JFD/ICRA/IROS/ROBIO&lt;/p&gt;
-&lt;h3 id=&quot;主流的VSLAM&quot;&gt;&lt;a href=&quot;#主流的VSLAM&quot; class=&quot;headerlink&quot; title=&quot;主流的VSLAM&quot;&gt;&lt;/a&gt;主流的VSLAM&lt;/h3&gt;&lt;p&gt;视觉稀疏法：ORB-SLAM 、PTAM、MonoSLAM&lt;/p&gt;
-&lt;p&gt;半稠密法：LSD-SLAM、DSO、SVO&lt;/p&gt;
-&lt;p&gt;稠密法：DTAM、Elastic Fusion、Kintinous、DVO、RGBD-SLAM-V2、RTAB-MAP、MLM等&lt;/p&gt;
-&lt;p&gt;激光：Hector SLAM、Gmapping、tinySLAM&lt;/p&gt;
-&lt;p&gt;后端优化：g2o、ceres、GTSAM&lt;/p&gt;
-&lt;p&gt;数据：RGB-D SLAM Dataset and Benchmark、KITTI Vision Benchmark Suite、The EuRoC MAV Dataset等。&lt;/p&gt;
-&lt;p&gt;直接法：SVO、LSD-SLAM&lt;/p&gt;
-&lt;h4 id=&quot;MonoSLAM-2003-2007&quot;&gt;&lt;a href=&quot;#MonoSLAM-2003-2007&quot; class=&quot;headerlink&quot; title=&quot;MonoSLAM(2003-2007)&quot;&gt;&lt;/a&gt;MonoSLAM(2003-2007)&lt;/h4&gt;&lt;p&gt;2007年，A.J.Davison教授提出的第一个实时的单目视觉SLAM系统。扩展卡尔曼滤波为后端，追踪前段非常稀疏的特征点。&lt;/p&gt;
-&lt;p&gt;缺点：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;应用场景很窄&lt;/li&gt;
-&lt;li&gt;路标数量有限&lt;/li&gt;
-&lt;li&gt;特征点稀疏非常容易丢失&lt;/li&gt;
-&lt;li&gt;开发已经停止&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;PTAM-2007-2008&quot;&gt;&lt;a href=&quot;#PTAM-2007-2008&quot; class=&quot;headerlink&quot; title=&quot;PTAM(2007-2008)&quot;&gt;&lt;/a&gt;PTAM(2007-2008)&lt;/h4&gt;&lt;p&gt;2007年，Klein等人提出。基于FAST角点&lt;/p&gt;
-&lt;p&gt;优点：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;跟踪和建图的并行化&lt;/li&gt;
-&lt;li&gt;第一个使用非线性优化。&lt;/li&gt;
-&lt;li&gt;同时是一个增强现实的软件&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;缺点：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;缺乏回环检测和重定位&lt;/li&gt;
-&lt;li&gt;场景小，跟踪容易丢失&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;ORB-SLAM-2014-2015&quot;&gt;&lt;a href=&quot;#ORB-SLAM-2014-2015&quot; class=&quot;headerlink&quot; title=&quot;ORB-SLAM(2014-2015)&quot;&gt;&lt;/a&gt;ORB-SLAM(2014-2015)&lt;/h4&gt;&lt;p&gt;2015年，代表着主流的特征点SLAM的一个高峰，属于稀疏建图。&lt;/p&gt;
-&lt;p&gt;优点：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;支持单目，双目，RGB-D。&lt;/li&gt;
-&lt;li&gt;围绕ORB特征进行计算，包括视觉里程计和回环检测的ORB字典。&lt;/li&gt;
-&lt;li&gt;回环检测是亮点，但要加载很大的ORB字典。&lt;/li&gt;
-&lt;li&gt;创新式地使用了三个线程：实时跟踪的Tracking，局部BA(小图)，全局Pose Graph的回环检测和优化(大图)。&lt;/li&gt;
-&lt;li&gt;围绕特征点进行了不少的优化。保证了特征点的均匀分布，在优化位姿时使用了一种循环优化4遍以得到更多正确匹配的方法，比PTAM更为宽松的关键帧选取策略。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;缺点：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;每副图像计算一遍ORB特征，非常耗时。&lt;/li&gt;
-&lt;li&gt;三线程结构也给CPU带来了较重的负担，移植到嵌入式设备上有一定的困难。&lt;/li&gt;
-&lt;li&gt;建图为稀疏特征点，没有开放存储和读取地图后进行重新定位的功能。&lt;/li&gt;
-&lt;li&gt;稀疏特征点地图只能满足定位要求，无法提供导航，避障，交互等功能，因此仅用ORB-SLAM来处理定位问题太重量级。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;LSD-SLAM-2013-2014&quot;&gt;&lt;a href=&quot;#LSD-SLAM-2013-2014&quot; class=&quot;headerlink&quot; title=&quot;LSD-SLAM(2013-2014)&quot;&gt;&lt;/a&gt;LSD-SLAM(2013-2014)&lt;/h4&gt;&lt;p&gt;2014年，J.Engle等人提出。标志着单目直接法的成功应用，将直接法应用到了半稠密的单目SLAM中。&lt;/p&gt;
-&lt;p&gt;优点：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;直接法是针对像素进行的。有创见地提出了像素梯度与直接法的关系，以及像素梯度与极线方向在稠密重建中的角度关系。&lt;/li&gt;
-&lt;li&gt;在CPU上实现了实时半稠密场景的重建。&lt;/li&gt;
-&lt;li&gt;不是利用单个像素，而是在极线上等距离取5个点，度量其SSD。用了很多精妙的手段来保证追踪的实时性和稳定性。&lt;/li&gt;
-&lt;li&gt;直接法的优点：对特征缺失区域不敏感&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;缺点：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;对相机内参和曝光非常敏感，在相机快速运动时容易丢失&lt;/li&gt;
-&lt;li&gt;没有基于直接法的回环检测。因此必须依赖于特征点方法来进行回环检测，尚未摆脱特征点的计算。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;SVO-Semi-direct-Visual-Odoemtry，半直接视觉里程计-2014&quot;&gt;&lt;a href=&quot;#SVO-Semi-direct-Visual-Odoemtry，半直接视觉里程计-2014&quot; class=&quot;headerlink&quot; title=&quot;SVO(Semi-direct Visual Odoemtry，半直接视觉里程计)(2014)&quot;&gt;&lt;/a&gt;SVO(Semi-direct Visual Odoemtry，半直接视觉里程计)(2014)&lt;/h4&gt;&lt;p&gt;2014年，Forster等人提出。基于稀疏直接法的视觉里程计。特征点和直接法混合：跟踪一些关键点（角点，没有描述子），然后像直接法那样将关键点周围4×4的小块进行块匹配，来估计相机自身的运动。&lt;/p&gt;
-&lt;p&gt;SVO 2.0 2016年：&lt;br&gt;C. Forster, Z. Zhang, M. Gassner, M. Werlberger, and D. Scaramuzza.&lt;br&gt;SVO 2.0: Semi-direct visual odometry for monocular and multicamera&lt;br&gt;systems. TRO, 2016.&lt;/p&gt;
-&lt;p&gt;优点：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;速度极快。在PC平台上能达到每秒100多帧，后续的SVO 2.0能达到每秒400帧。&lt;/li&gt;
-&lt;li&gt;非常适用于无人机，手持AR/VR设备这些计算平台受限场合的定位&lt;/li&gt;
-&lt;li&gt;创新之处：提出了深度滤波器的概念，并推导了基于均匀－高斯混合分布的深度滤波器。&lt;/li&gt;
-&lt;li&gt;代码清晰易读&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;缺点：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;目标应用平台是无人机的俯视相机，所以在平视相机中表现不佳&lt;/li&gt;
-&lt;li&gt;为了速度和轻量化，舍弃了后端优化和回环检测，基本没有建图功能。所以位姿估计存在累计误差，丢失后不太容易进行重定位，所以SVO只是个VO。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4 id=&quot;DSO-直接稀疏VO，2016&quot;&gt;&lt;a href=&quot;#DSO-直接稀疏VO，2016&quot; class=&quot;headerlink&quot; title=&quot;DSO(直接稀疏VO，2016)&quot;&gt;&lt;/a&gt;DSO(直接稀疏VO，2016)&lt;/h4&gt;&lt;p&gt;DSO [13]是LSD-SLAM的作者Jakob Engel放出的另一个大杀器，从其展示的实验结果看，无论是robustness，或是accuracy，或是计算速度，都完爆LSD-SLAM和ORB-SLAM，上个月又放出了code。&lt;/p&gt;
-&lt;h4 id=&quot;RTAB-MAP&quot;&gt;&lt;a href=&quot;#RTAB-MAP&quot; class=&quot;headerlink&quot; title=&quot;RTAB-MAP&quot;&gt;&lt;/a&gt;RTAB-MAP&lt;/h4&gt;&lt;p&gt;RGB-D在CPU上实现实时稠密地图。&lt;/p&gt;
-&lt;p&gt;支持常见的RGB-D和双目传感器，提供实时的建图和定位功能&lt;/p&gt;
-&lt;p&gt;集成度较高，进行二次开发比较困难，更适合作为SLAM应用而非研究使用&lt;/p&gt;
-&lt;h4 id=&quot;DVO-SLAM（RGBD）&quot;&gt;&lt;a href=&quot;#DVO-SLAM（RGBD）&quot; class=&quot;headerlink&quot; title=&quot;DVO-SLAM（RGBD）&quot;&gt;&lt;/a&gt;DVO-SLAM（RGBD）&lt;/h4&gt;&lt;p&gt;TUM的基于RGBD camera的VO方法 &lt;/p&gt;
-&lt;h4 id=&quot;RGBD-SLAM-V2&quot;&gt;&lt;a href=&quot;#RGBD-SLAM-V2&quot; class=&quot;headerlink&quot; title=&quot;RGBD-SLAM-V2&quot;&gt;&lt;/a&gt;RGBD-SLAM-V2&lt;/h4&gt;&lt;h4 id=&quot;Kinect-Fusion&quot;&gt;&lt;a href=&quot;#Kinect-Fusion&quot; class=&quot;headerlink&quot; title=&quot;Kinect Fusion&quot;&gt;&lt;/a&gt;Kinect Fusion&lt;/h4&gt;&lt;h4 id=&quot;Google-Cartographer&quot;&gt;&lt;a href=&quot;#Google-Cartographer&quot; class=&quot;headerlink&quot; title=&quot;Google Cartographer&quot;&gt;&lt;/a&gt;Google Cartographer&lt;/h4&gt;&lt;h4 id=&quot;DTAM-RGBD&quot;&gt;&lt;a href=&quot;#DTAM-RGBD&quot; class=&quot;headerlink&quot; title=&quot;DTAM(RGBD)&quot;&gt;&lt;/a&gt;DTAM(RGBD)&lt;/h4&gt;&lt;h4 id=&quot;Elastic-Fusion-RGBD-2015&quot;&gt;&lt;a href=&quot;#Elastic-Fusion-RGBD-2015&quot; class=&quot;headerlink&quot; title=&quot;Elastic Fusion(RGBD 2015)&quot;&gt;&lt;/a&gt;Elastic Fusion(RGBD 2015)&lt;/h4&gt;&lt;h4 id=&quot;Kintinous-RGBD&quot;&gt;&lt;a href=&quot;#Kintinous-RGBD&quot; class=&quot;headerlink&quot; title=&quot;Kintinous(RGBD)&quot;&gt;&lt;/a&gt;Kintinous(RGBD)&lt;/h4&gt;&lt;h4 id=&quot;FAB-MAP&quot;&gt;&lt;a href=&quot;#FAB-MAP&quot; class=&quot;headerlink&quot; title=&quot;FAB-MAP&quot;&gt;&lt;/a&gt;FAB-MAP&lt;/h4&gt;</content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;SLAMCN&quot;&gt;&lt;a href=&quot;#SLAMCN&quot; class=&quot;headerlink&quot; title=&quot;SLAMCN&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.slamcn.org/index.php/%E9%A6%96%E9%A1%B5&quot;&gt;SLAMCN&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;SLAM是什么？它的未来在哪里？&quot;&gt;&lt;a href=&quot;#SLAM是什么？它的未来在哪里？&quot; class=&quot;headerlink&quot; title=&quot;SLAM是什么？它的未来在哪里？&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://blog.sina.com.cn/s/blog_61b61d9d0102wnf2.html&quot;&gt;SLAM是什么？它的未来在哪里？&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;SLAM是技术，手机端的话涉及VIO&lt;/p&gt;
-&lt;p&gt;RGBD,Lidar,imu,odom,gps。基于这些传感器做一个组合SLAM。涉及：前端的tracking和后端的优化&lt;br&gt;多传感器融合是趋势，视觉结合imu等传感器。&lt;br&gt;
+      &lt;h3 id=&quot;V-LOAM&quot;&gt;&lt;a href=&quot;#V-LOAM&quot; class=&quot;headerlink&quot; title=&quot;V-LOAM&quot;&gt;&lt;/a&gt;V-LOAM&lt;/h3&gt;&lt;p&gt;VLOAM ：Visual-lidar Odometry and Mapping: Low-drift, Robust, and Fast&lt;/p&gt;
+&lt;p&gt;别人已开源，&lt;a href=&quot;https://github.com/daobilige-su/loam_velodyne&quot;&gt;https://github.com/daobilige-su/loam_velodyne&lt;/a&gt;&lt;br&gt;视觉里程计用DEMO，论文见&lt;a href=&quot;https://ri.cmu.edu/pub_files/2014/9/IROS_2014.pdf，核心思想是用深度信息来辅助视觉里程计，有深度时可以不需要三角化。用iSAM做因子图优化&quot;&gt;https://ri.cmu.edu/pub_files/2014/9/IROS_2014.pdf，核心思想是用深度信息来辅助视觉里程计，有深度时可以不需要三角化。用iSAM做因子图优化&lt;/a&gt;&lt;br&gt;雷达里程计用LOAM，高频运动估计，低频L-M非线性优化和建图。&lt;/p&gt;
     
     </summary>
     
@@ -494,6 +347,211 @@
   </entry>
   
   <entry>
+    <title>重要VSLAM系统</title>
+    <link href="http://hujun1413.github.io/2018/11/09/VSLAM/%E9%87%8D%E8%A6%81VSLAM%E7%B3%BB%E7%BB%9F/"/>
+    <id>http://hujun1413.github.io/2018/11/09/VSLAM/重要VSLAM系统/</id>
+    <published>2018-11-09T10:35:26.000Z</published>
+    <updated>2019-04-26T17:37:49.521Z</updated>
+    
+    <content type="html">&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;主流的VSLAM&quot;&gt;&lt;a href=&quot;#主流的VSLAM&quot; class=&quot;headerlink&quot; title=&quot;主流的VSLAM&quot;&gt;&lt;/a&gt;主流的VSLAM&lt;/h2&gt;&lt;p&gt;特征点法：MonoSLAM(2003-2007)、PTAM(2007-2008)、ORB-SLAM(2014-2015) &lt;/p&gt;
+&lt;p&gt;直接法：DTAM(稠密直接法，2011)、LSD-SLAM(稀疏直接，2013-2014)、DSO(LSD改进，稀疏直接VO，2016)&lt;/p&gt;
+&lt;p&gt;半直接：特征点和直接法混合：跟踪一些关键点，然后像直接法那样进行块匹配。SVO(半直接视觉里程计, 2014)&lt;/p&gt;
+&lt;p&gt;RGBD稠密法：DTAM(ICCV 2011)、&lt;a href=&quot;https://www.microsoft.com/en-us/research/project/kinectfusion-project-page/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Kinect Fusion&lt;/a&gt;(2011)、&lt;a href=&quot;https://github.com/mp3guy/Kintinuous&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Kintinous&lt;/a&gt;(2012-2014)、&lt;a href=&quot;https://github.com/tum-vision/dvo_slam&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;DVO-SLAM&lt;/a&gt;（IROS 2013）、&lt;a href=&quot;https://github.com/felixendres/rgbdslam_v2&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;RGB-D SLAM V2&lt;/a&gt;(2014)、&lt;a href=&quot;https://github.com/mp3guy/ElasticFusion&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Elastic Fusion&lt;/a&gt;(2015)、InfiniTAM v3(2017)、BundleFusion(2017)&lt;/p&gt;
+&lt;p&gt;后端优化：g2o、ceres、GTSAM&lt;/p&gt;
+&lt;p&gt;数据集：RGB-D SLAM Dataset and Benchmark、KITTI Vision Benchmark Suite、The EuRoC MAV Dataset等。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qq_41839222/article/details/86483071&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;主流开源方案对比&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;MonoSLAM-2003-2007&quot;&gt;&lt;a href=&quot;#MonoSLAM-2003-2007&quot; class=&quot;headerlink&quot; title=&quot;MonoSLAM(2003-2007)&quot;&gt;&lt;/a&gt;MonoSLAM(2003-2007)&lt;/h4&gt;&lt;p&gt;2007年，A.J.Davison教授提出的第一个实时的单目视觉SLAM系统。&lt;/p&gt;
+&lt;p&gt;扩展卡尔曼滤波为后端，以相机当前状态和所有路标点为状态量，更新其均值和方差。&lt;/p&gt;
+&lt;p&gt;追踪前段非常稀疏的特征点。（Shi-Tomasi角点）&lt;/p&gt;
+&lt;p&gt;缺点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;应用场景很窄&lt;/li&gt;
+&lt;li&gt;路标数量有限&lt;/li&gt;
+&lt;li&gt;特征点稀疏非常容易丢失&lt;/li&gt;
+&lt;li&gt;开发已经停止&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;PTAM-2007-2008&quot;&gt;&lt;a href=&quot;#PTAM-2007-2008&quot; class=&quot;headerlink&quot; title=&quot;PTAM(2007-2008)&quot;&gt;&lt;/a&gt;PTAM(2007-2008)&lt;/h4&gt;&lt;p&gt;2007年，Klein等人提出。基于FAST角点。&lt;/p&gt;
+&lt;p&gt;论文中提出的关键帧以及多线程处理思想成为之后视觉slam标配；甚至能够实时运行在手机上。不少AR是基于ptam的；&lt;/p&gt;
+&lt;p&gt;前端线程（Tracking）：通过匀速运动模型预测当前帧方位，搜索FAST角点，并根据匹配关系优化帧方位，若跟踪失败开始重定位，跟踪成功则判断是否满足关键帧条件。&lt;br&gt;后端线程（Mapping）：沿极线匹配不同关键帧之间的图像特征点，通过三角化恢复三维位置，并对所有关键帧和三维点运行BA。&lt;/p&gt;
+&lt;p&gt;特点：&lt;br&gt;1、提出并实现了跟踪和建图过程的并行化，首次区分出前后端的概念。&lt;br&gt;2、第一个使用非线性优化，引入了关键帧机制：把几个关键图像串起来，然后优化其轨迹和地图。&lt;br&gt;3、PTAM同时是一个增强现实软件：根据估计的相机位姿，可以在虚拟的平面上放置虚拟物体。&lt;/p&gt;
+&lt;p&gt;优点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;跟踪和建图的并行化&lt;/li&gt;
+&lt;li&gt;第一个使用非线性优化。&lt;/li&gt;
+&lt;li&gt;同时是一个增强现实的软件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;缺点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;缺乏回环检测和重定位&lt;/li&gt;
+&lt;li&gt;场景小，跟踪容易丢失&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;ORB-SLAM-2014-2015&quot;&gt;&lt;a href=&quot;#ORB-SLAM-2014-2015&quot; class=&quot;headerlink&quot; title=&quot;ORB-SLAM(2014-2015)&quot;&gt;&lt;/a&gt;ORB-SLAM(2014-2015)&lt;/h4&gt;&lt;p&gt;2015年，代表着主流的特征点SLAM的一个高峰，属于稀疏建图。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/raulmur/ORB_SLAM2&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ORB-SLAM2&lt;/a&gt;：支持单目，双目，RGB-D相机&lt;/p&gt;
+&lt;p&gt;三线程的SLAM方案：&lt;br&gt;Tracking线程：对新来的图像提取ORB特征点，并与最近的关键帧进行比较，计算特征点的位置并粗略估计相机位姿；&lt;br&gt;Local Mapping线程：求解BA问题，包括局部空间内的特征点和相机位姿；&lt;br&gt;Loop Closing (and Full BA)线程：对全局的地图与关键帧进行回环检测，消除累计误差，优化只有相机位姿组成的位姿图。&lt;/p&gt;
+&lt;p&gt;优点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;支持单目，双目，RGB-D。良好的泛用性。&lt;/li&gt;
+&lt;li&gt;围绕ORB特征进行计算，包括视觉里程计和回环检测的ORB字典。ORB特征：不像SIFT和SURF那样费时，相比Harris角点又具有良好的旋转和缩放不变性；ORB提供描述子，在大范围运动时能进行回环检测和重定位；&lt;/li&gt;
+&lt;li&gt;单目具有自动选择系统初始化方案：基于对极几何还是基于单应性；双目和RGBD的初始化很快，且原地不动就能完成。&lt;/li&gt;
+&lt;li&gt;关键帧的选取：先用宽松的判断条件加入新的关键帧和三维点以保证后续帧的鲁邦跟踪，再删除冗余关键帧和不稳定三维点以保证BA效率和精度。&lt;/li&gt;
+&lt;li&gt;回环检测是亮点，但要加载很大的ORB字典。&lt;/li&gt;
+&lt;li&gt;创新式地使用了三个线程：实时跟踪的Tracking，局部BA(小图)，全局Pose Graph的回环检测和优化(大图)。&lt;/li&gt;
+&lt;li&gt;围绕特征点进行了不少的优化。保证了特征点的均匀分布，在优化位姿时使用了一种循环优化4遍以得到更多正确匹配的方法，比PTAM更为宽松的关键帧选取策略。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;优点：&lt;br&gt;1、在静态环境下定位准确，系统非常稳定， 单目和双目版本都可以达到实时；&lt;br&gt;2、代码可读性强，易扩展， 网上也有实现和imu融合的版本。&lt;/p&gt;
+&lt;p&gt;缺点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每副图像计算一遍ORB特征，非常耗时。&lt;/li&gt;
+&lt;li&gt;三线程结构也给CPU带来了较重的负担，移植到嵌入式设备上有一定的困难。&lt;/li&gt;
+&lt;li&gt;建图为稀疏特征点，没有开放存储和读取地图后进行重新定位的功能。&lt;/li&gt;
+&lt;li&gt;稀疏特征点地图只能满足定位要求，无法提供导航，避障，交互等功能，因此仅用ORB-SLAM来处理定位问题太重量级。&lt;/li&gt;
+&lt;li&gt;对动态物体很敏感，有动态物体时非常容易跟踪失败；&lt;/li&gt;
+&lt;li&gt;纯旋转也容易丢失。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;LSD-SLAM-2013-2014&quot;&gt;&lt;a href=&quot;#LSD-SLAM-2013-2014&quot; class=&quot;headerlink&quot; title=&quot;LSD-SLAM(2013-2014)&quot;&gt;&lt;/a&gt;LSD-SLAM(2013-2014)&lt;/h4&gt;&lt;p&gt;2014年，J.Engle等人提出。标志着单目直接法的成功应用，将直接法应用到了半稠密的单目SLAM中。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://vision.in.tum.de/research/vslam/lsdslam&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;LSD-SLAM&lt;/a&gt;：支持单目，双目，RGB-D相机&lt;/p&gt;
+&lt;p&gt;1、提出了地图梯度与直接法的关系，以及像素梯度与极线方向在稠密重建中的角度关系；&lt;br&gt;2、在CPU上实现了实时半稠密场景的重建；&lt;br&gt;3、具有回环检测功能；&lt;br&gt;4、一些技巧保证追踪的实时性与稳定性：&lt;br&gt;在极线上等距离取5个点，度量其SSD；深度估计时，首先用随机数初始化深度，在估计完后又把深度均值归一化以调整尺度；度量深度不确定性时，不仅考虑三角化的几何关系，还考虑了极线与深度的夹角，归纳成一个光度不确定项；关键帧之间的约束使用了相似变换群及与之对应的李代数显式表达出尺度，在后端优化中可以将不同的尺度的场景考虑进来，减小尺度漂移现象。&lt;/p&gt;
+&lt;p&gt;优点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;直接法是针对像素进行的。有创见地提出了像素梯度与直接法的关系，以及像素梯度与极线方向在稠密重建中的角度关系。&lt;/li&gt;
+&lt;li&gt;在CPU上实现了实时半稠密场景的重建。&lt;/li&gt;
+&lt;li&gt;不是利用单个像素，而是在极线上等距离取5个点，度量其SSD。用了很多精妙的手段来保证追踪的实时性和稳定性。&lt;/li&gt;
+&lt;li&gt;直接法的优点：对特征缺失区域不敏感&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;缺点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对相机内参和曝光非常敏感&lt;/li&gt;
+&lt;li&gt;在相机快速运动时容易丢失&lt;/li&gt;
+&lt;li&gt;没有基于直接法的回环检测。因此必须依赖于特征点方法来进行回环检测，尚未摆脱特征点的计算。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;SVO-Semi-direct-Visual-Odoemtry，半直接视觉里程计-2014&quot;&gt;&lt;a href=&quot;#SVO-Semi-direct-Visual-Odoemtry，半直接视觉里程计-2014&quot; class=&quot;headerlink&quot; title=&quot;SVO(Semi-direct Visual Odoemtry，半直接视觉里程计)(2014)&quot;&gt;&lt;/a&gt;SVO(Semi-direct Visual Odoemtry，半直接视觉里程计)(2014)&lt;/h4&gt;&lt;p&gt;2014年，Forster等人提出。基于稀疏直接法的视觉里程计。特征点和直接法混合：跟踪一些关键点（角点，没有描述子），然后像直接法那样将关键点周围4×4的小块进行块匹配，来估计相机自身的运动。&lt;/p&gt;
+&lt;p&gt;SVO 2.0 2016年：&lt;br&gt;C. Forster, Z. Zhang, M. Gassner, M. Werlberger, and D. Scaramuzza.&lt;br&gt;SVO 2.0: Semi-direct visual odometry for monocular and multicamera&lt;br&gt;systems. TRO, 2016.&lt;/p&gt;
+&lt;p&gt;优点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;速度极快。在PC平台上能达到每秒100多帧，后续的SVO 2.0能达到每秒400帧。&lt;/li&gt;
+&lt;li&gt;非常适用于无人机，手持AR/VR设备这些计算平台受限场合的定位&lt;/li&gt;
+&lt;li&gt;创新之处：提出了深度滤波器的概念，并推导了基于均匀－高斯混合分布的深度滤波器，用于关键点的位置估计，并使用了逆深度作为参数化形式。&lt;/li&gt;
+&lt;li&gt;代码清晰易读&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;缺点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;目标应用平台是无人机的俯视相机，相机运动主要为水平和上下移动，所以在平视相机中表现不佳。如单目初始化时使用了分解H矩阵，需要假设特征点位于平面上；在关键帧选择时，使用了平移量作为确定新的关键帧的策略，而没有考虑旋转量。&lt;/li&gt;
+&lt;li&gt;为了速度和轻量化，舍弃了后端优化和回环检测，基本没有建图功能。&lt;/li&gt;
+&lt;li&gt;位姿估计存在累计误差，丢失后不太容易进行重定位，所以SVO只是个VO，误差大。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;DSO-直接稀疏VO，2016&quot;&gt;&lt;a href=&quot;#DSO-直接稀疏VO，2016&quot; class=&quot;headerlink&quot; title=&quot;DSO(直接稀疏VO，2016)&quot;&gt;&lt;/a&gt;DSO(直接稀疏VO，2016)&lt;/h4&gt;&lt;p&gt;DSO [13]是LSD-SLAM的作者Jakob Engel放出的另一个大杀器，从其展示的实验结果看，无论是robustness，或是accuracy，或是计算速度，都完爆LSD-SLAM和ORB-SLAM。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://vision.in.tum.de/research/vslam/dso&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;DSO&lt;/a&gt;：单目&lt;/p&gt;
+&lt;p&gt;慕尼黑工业大学（TUM）计算机视觉实验室发布的一个稀疏直接法的视觉里程计。&lt;/p&gt;
+&lt;p&gt;后端使用一个由若干个关键帧组成的滑动窗口。除了维护这个窗口中的关键帧与地图点外，还会维护与优化相关的结构。特别地，这里指Gauss-Newton或Levenburg-Marquardt方法中的Hessian矩阵和b向量（仅先验部分）。&lt;/p&gt;
+&lt;p&gt;提出了光度标定，认为对相机的曝光时间、暗角、伽马响应等参数进行标定后，能够让直接法更加鲁棒。对于未进行光度标定的相机，DSO也会在优化中动态估计光度参数。&lt;/p&gt;
+&lt;p&gt;优点：可以生成相当稠密的点云，速度在正常运行的时候很快&lt;/p&gt;
+&lt;p&gt;缺点：&lt;br&gt;1、对场景光照要求高，要求尽量保持曝光时间的稳定&lt;br&gt;2、不是个完整的SLAM，它没有回环检测、地图重用、丢失后的重定位。&lt;br&gt;3、初始化部分也比较慢，当然双目或RGBD相机会容易很多。&lt;br&gt;4、代码可扩展性比较差&lt;/p&gt;
+&lt;p&gt;DSO在准确性，稳定性和速度上都比LSD好。LSD的优势在于回环检测。&lt;/p&gt;
+&lt;h4 id=&quot;DTAM-ICCV-2011&quot;&gt;&lt;a href=&quot;#DTAM-ICCV-2011&quot; class=&quot;headerlink&quot; title=&quot;DTAM(ICCV 2011)&quot;&gt;&lt;/a&gt;DTAM(ICCV 2011)&lt;/h4&gt;&lt;p&gt;DTAM is a system for real-time camera tracking and reconstruction which relies not on feature extraction but dense, every pixel methods. &lt;/p&gt;
+&lt;p&gt;直接法的鼻祖，稠密法；&lt;/p&gt;
+&lt;h4 id=&quot;MLM-ICRA-2016&quot;&gt;&lt;a href=&quot;#MLM-ICRA-2016&quot; class=&quot;headerlink&quot; title=&quot;MLM(ICRA 2016)&quot;&gt;&lt;/a&gt;MLM(ICRA 2016)&lt;/h4&gt;&lt;p&gt;单目稠密，CPU实时&lt;/p&gt;
+&lt;h4 id=&quot;code-slam-CVPR-2018&quot;&gt;&lt;a href=&quot;#code-slam-CVPR-2018&quot; class=&quot;headerlink&quot; title=&quot;code-slam(CVPR 2018)&quot;&gt;&lt;/a&gt;code-slam(CVPR 2018)&lt;/h4&gt;&lt;p&gt;帝国理工2018CVPR论文，基于深度学习的单目Dense SLAM&lt;/p&gt;
+&lt;h4 id=&quot;soft-slam&quot;&gt;&lt;a href=&quot;#soft-slam&quot; class=&quot;headerlink&quot; title=&quot;soft-slam&quot;&gt;&lt;/a&gt;soft-slam&lt;/h4&gt;&lt;p&gt;双目slam，精度和速度比orb-slam好&lt;/p&gt;
+&lt;h3 id=&quot;RGB-D&quot;&gt;&lt;a href=&quot;#RGB-D&quot; class=&quot;headerlink&quot; title=&quot;RGB-D&quot;&gt;&lt;/a&gt;RGB-D&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/gaoxiang12/p/4719156.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;一起做RGB-D SLAM&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;qianyi.info这个网站上找robust reconstruction&lt;/p&gt;
+&lt;h4 id=&quot;BundleFusion-2017&quot;&gt;&lt;a href=&quot;#BundleFusion-2017&quot; class=&quot;headerlink&quot; title=&quot;BundleFusion(2017)&quot;&gt;&lt;/a&gt;BundleFusion(2017)&lt;/h4&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/niessner/BundleFusion&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;BundleFusion&lt;/a&gt;：RGB-D相机&lt;br&gt;TOG 2017&lt;/p&gt;
+&lt;p&gt;斯坦福大学、微软研究院和德国mpii共同开发的BundleFusion：实时全局一致的3D重建，使用动态表面重新整合技术。&lt;/p&gt;
+&lt;h4 id=&quot;InfiniTAM-v3-2017&quot;&gt;&lt;a href=&quot;#InfiniTAM-v3-2017&quot; class=&quot;headerlink&quot; title=&quot;InfiniTAM v3(2017)&quot;&gt;&lt;/a&gt;InfiniTAM v3(2017)&lt;/h4&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/victorprad/InfiniTAM&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;InfiniTAM–github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;InfiniTAM an open source, multi-platform framework for real-time, large-scale depth fusion and tracking, released under an Oxford University Innovation Academic License.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.robots.ox.ac.uk/~victor/infinitam/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;InfiniTAM&lt;/a&gt; v3在2017年8月中旬出的，几乎代表行业最高水准。实现可以考虑基于InfiniTAM v3，源码很适合学习，二次开发。用于网格重构。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.voidcn.com/article/p-swumqymg-bd.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;InfiniTAM&lt;/a&gt;是基于voxel hashing基础上做的。&lt;br&gt;先对voxel hashing介绍，&lt;br&gt;参考文献：”Real-time 3D Reconstruction at Scale using Voxel Hashing”&lt;/p&gt;
+&lt;h4 id=&quot;Elastic-Fusion-2015&quot;&gt;&lt;a href=&quot;#Elastic-Fusion-2015&quot; class=&quot;headerlink&quot; title=&quot;Elastic Fusion(2015)&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://github.com/mp3guy/ElasticFusion&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Elastic Fusion&lt;/a&gt;(2015)&lt;/h4&gt;&lt;p&gt;Facebook Reality Labs的Thomas Whelan博士开发&lt;/p&gt;
+&lt;h4 id=&quot;RGB-D-SLAM-V2-2014&quot;&gt;&lt;a href=&quot;#RGB-D-SLAM-V2-2014&quot; class=&quot;headerlink&quot; title=&quot;RGB-D SLAM V2(2014)&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://github.com/felixendres/rgbdslam_v2&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;RGB-D SLAM V2&lt;/a&gt;(2014)&lt;/h4&gt;&lt;h4 id=&quot;DVO-SLAM（IROS-2013）&quot;&gt;&lt;a href=&quot;#DVO-SLAM（IROS-2013）&quot; class=&quot;headerlink&quot; title=&quot;DVO-SLAM（IROS 2013）&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://github.com/tum-vision/dvo_slam&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;DVO-SLAM&lt;/a&gt;（IROS 2013）&lt;/h4&gt;&lt;p&gt;TUM的基于RGBD camera的Dense VO和SLAM方法&lt;/p&gt;
+&lt;h4 id=&quot;Kintinous-2012-2014&quot;&gt;&lt;a href=&quot;#Kintinous-2012-2014&quot; class=&quot;headerlink&quot; title=&quot;Kintinous(2012-2014)&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://github.com/mp3guy/Kintinuous&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Kintinous&lt;/a&gt;(2012-2014)&lt;/h4&gt;&lt;h4 id=&quot;Kinect-Fusion-2011&quot;&gt;&lt;a href=&quot;#Kinect-Fusion-2011&quot; class=&quot;headerlink&quot; title=&quot;Kinect Fusion(2011)&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://www.microsoft.com/en-us/research/project/kinectfusion-project-page/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Kinect Fusion&lt;/a&gt;(2011)&lt;/h4&gt;&lt;p&gt;帝国理工（ICL）和和微软研究院&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/xiaohu50/article/details/51592503&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;kinect fusion&lt;/a&gt;:kinectfusion是微软研究院利用kinect进行三维重建的项目，深入了解该算法及其实现可以为3D重建的kinect类应用提供一定的参考。该项目本身需要比较强大的CUDA显卡支持实现实时重建。 &lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;主流的VSLAM&quot;&gt;&lt;a href=&quot;#主流的VSLAM&quot; class=&quot;headerlink&quot; title=&quot;主流的VSLAM&quot;&gt;&lt;/a&gt;主流的VSLAM&lt;/h2&gt;&lt;p&gt;特征点法：MonoSLAM(2003-2007)、PTA
+    
+    </summary>
+    
+      <category term="VSLAM" scheme="http://hujun1413.github.io/categories/VSLAM/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ORB-SLAM2</title>
+    <link href="http://hujun1413.github.io/2018/11/09/VSLAM/ORB-SLAM2/"/>
+    <id>http://hujun1413.github.io/2018/11/09/VSLAM/ORB-SLAM2/</id>
+    <published>2018-11-09T10:35:26.000Z</published>
+    <updated>2019-03-24T16:34:17.649Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;ORB-SLAM2&quot;&gt;&lt;a href=&quot;#ORB-SLAM2&quot; class=&quot;headerlink&quot; title=&quot;ORB-SLAM2&quot;&gt;&lt;/a&gt;ORB-SLAM2&lt;/h3&gt;&lt;p&gt;ROS版本：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo chmod 777 ORBvoc.txt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo chmod 777 TUM1.yaml&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;话题名字为：/camera/rgb/image_color和/camera/depth/image，修改ROS/ORB_SLAM2/src/ros_rgbd.cc文件中的监听话题名，再./build_ros.sh。（编译可能出错）&lt;/p&gt;
+&lt;p&gt;（需要用opencv2.4.9来进行编译），即在CMakeList.txt中写成&lt;br&gt;find_package(OpenCV 2.4.9 EXACT REQUIRED)&lt;/p&gt;
+&lt;h4 id=&quot;ROS版本：&quot;&gt;&lt;a href=&quot;#ROS版本：&quot; class=&quot;headerlink&quot; title=&quot;ROS版本：&quot;&gt;&lt;/a&gt;ROS版本：&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;RGBD：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;roscore&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd ~/hujun_file/ORB_SLAM2/Examples/ROS/ORB_SLAM2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rosrun ORB_SLAM2 RGBD ORBvoc.txt TUM1.yaml&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rosbag play --clock hujun_file/bag/create_map/rgbd_dataset_freiburg1_xyz.bag&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Stereo:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cd ~/hujun_file/ORB_SLAM2/Examples/ROS/ORB_SLAM2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rosrun ORB_SLAM2 Stereo Vocabulary/ORBvoc.txt Examples/Stereo/EuRoC.yaml true&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rosbag play --pause ~/hujun_file/bag/MH_01_easy.bag cam0/image_raw:=/camera/left/image_raw /cam1/image_raw:=/camera/right/image_raw&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Monocular:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rosrun ORB_SLAM2 Mono Vocabulary/ORBvoc.txt Examples/Monocular/EuRoC.yaml /cam0/image_raw #注意这里需要手动传入监听的图像话题&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;AR_Demo:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;运行出错&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rosrun ORB_SLAM2 MonoAR Vocabulary/ORBvoc.txt Examples/Monocular/EuRoC.yaml&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rosbag play --pause ~/hujun_file/bag/MH_01_easy.bag cam0/image_raw:=/camera/image_raw&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;非ROS版本：&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;RGB-D:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./Examples/RGB-D/rgbd_tum Vocabulary/ORBvoc.txt Examples/RGB-D/TUM1.yaml ../rgbd_dataset_freiburg1_xyz ../rgbd_dataset_freiburg1_xyz/associations.txt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Stereo:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./Examples/Stereo/stereo_euroc Vocabulary/ORBvoc.txt Examples/Stereo/EuRoC.yaml ~/hujun_file/bag/mav0/cam0/data ~/hujun_file/bag/mav0/cam1/data Examples/Monocular/EuRoC_TimeStamps/MH01.txt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Monocular:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;./Examples/Monocular/mono_euroc Vocabulary/ORBvoc.txt Examples/Monocular/EuRoC.yaml ~/hujun_file/bag/mav0/cam0/data Examples/Monocular/EuRoC_TimeStamps/MH01.txt&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;ORB-SLAM吴博注释版&lt;br&gt;ORBSlam2中的闭环检测和后端优化LoopClosing&lt;/p&gt;
+&lt;h4 id=&quot;源码阅读记录&quot;&gt;&lt;a href=&quot;#源码阅读记录&quot; class=&quot;headerlink&quot; title=&quot;源码阅读记录&quot;&gt;&lt;/a&gt;源码阅读记录&lt;/h4&gt;&lt;p&gt;ORB-SLAM2详解（一）简介&lt;br&gt;ORB-SLAM2 程序解读&lt;br&gt;ORB-SLAM2详解（二）代码逻辑&lt;br&gt;RGB-D： 泡泡机器人ORB-SLAM2源码详解&lt;/p&gt;
+&lt;h5 id=&quot;自动地图初始化&quot;&gt;&lt;a href=&quot;#自动地图初始化&quot; class=&quot;headerlink&quot; title=&quot;自动地图初始化&quot;&gt;&lt;/a&gt;自动地图初始化&lt;/h5&gt;&lt;p&gt;系统的第一步是初始化，ORB_SLAM使用的是一种自动初始化方法。这里同时计算两个模型：用于平面场景的单应性矩阵H和用于非平面场景的基础矩阵F，然后通过一个评分规则来选择合适的模型，恢复相机的旋转矩阵R和平移向量t。&lt;/p&gt;
+&lt;h5 id=&quot;找到初始对应点&quot;&gt;&lt;a href=&quot;#找到初始对应点&quot; class=&quot;headerlink&quot; title=&quot;找到初始对应点&quot;&gt;&lt;/a&gt;找到初始对应点&lt;/h5&gt;&lt;p&gt;Tracking.cc 600行SearchForInitialization&lt;/p&gt;
+&lt;h6 id=&quot;同时计算两个模型&quot;&gt;&lt;a href=&quot;#同时计算两个模型&quot; class=&quot;headerlink&quot; title=&quot;同时计算两个模型&quot;&gt;&lt;/a&gt;同时计算两个模型&lt;/h6&gt;&lt;p&gt;调用Initializer.cc中的Initializer::Initialized函数进行初始化工作。同时计算H和F的线程，当场景是一个平面、或近似为一个平面、或者视差较小的时候，可以使用单应性矩阵H，而使用基础矩阵F恢复运动，需要场景是一个非平面、视差大的场景。 ORB_SLAM2关键算法分析1——基础矩阵F和单应矩阵H初始化位姿&lt;/p&gt;
+&lt;h5 id=&quot;跟踪点在一个范围内做金字塔&quot;&gt;&lt;a href=&quot;#跟踪点在一个范围内做金字塔&quot; class=&quot;headerlink&quot; title=&quot;跟踪点在一个范围内做金字塔&quot;&gt;&lt;/a&gt;跟踪点在一个范围内做金字塔&lt;/h5&gt;&lt;p&gt;每层金字塔的特征点数是有要求的，保证在特征点稠密的地方特征点不会太多，在特征点稀疏的地方特征点不会太少。&lt;/p&gt;
+&lt;p&gt;ORB-SLAM2之地图保存、加载和重定位&lt;/p&gt;
+&lt;h4 id=&quot;将ORB-SLAM2用于导航&quot;&gt;&lt;a href=&quot;#将ORB-SLAM2用于导航&quot; class=&quot;headerlink&quot; title=&quot;将ORB_SLAM2用于导航&quot;&gt;&lt;/a&gt;将ORB_SLAM2用于导航&lt;/h4&gt;&lt;p&gt;2D的栅格地图 或者 3D点云生成的octomap 适合用于机器人导航&lt;/p&gt;
+&lt;p&gt;首先运行ORB_SLAM2得到机器人的定位和一些识别出的路标。然后利用所选取的关键帧进行拼接得到点云地图，将点云转换成octomap即可用于导航&lt;br&gt;ORB_SLAM实时显示octomap&lt;br&gt;原始的orb-slam2只能显示稀疏点云，所以加了一个pcl_viewer和点云拼接的线程，来实现实时显示拼接关键帧的点云图像。&lt;/p&gt;
+&lt;p&gt;ORB_SLAM实时发布点云–高博的ORBSLAM2_with_pointcloud_map&lt;br&gt;编译安装高翔的ORBSLAM2_with_pointcloud_map，获取点云地图&lt;br&gt;ORBSLAM2_with_pointcloud_map-master通过RGBD跑TUM数据集&lt;br&gt;Octomap 在ROS环境下实时显示&lt;/p&gt;
+&lt;h4 id=&quot;Kinect2跑ORB-SLAM2&quot;&gt;&lt;a href=&quot;#Kinect2跑ORB-SLAM2&quot; class=&quot;headerlink&quot; title=&quot;Kinect2跑ORB_SLAM2&quot;&gt;&lt;/a&gt;Kinect2跑ORB_SLAM2&lt;/h4&gt;&lt;p&gt;编译Kinect v2，跑通kinect2&lt;br&gt;标定：没标定过的kinect2，深度图和彩色图之间是不保证一一对应的。标定后得到kinect2彩色头、深度头、红外头的内参和外参。&lt;br&gt;编译orb-slam2，跑通orb-slam2&lt;br&gt;在Kinect2上运行orb-slam2&lt;br&gt;写一下kinect参数到yaml&lt;br&gt;直接跑orb的ros demo/修改kinect_viewer的代码&lt;/p&gt;
+&lt;h4 id=&quot;利用ORB-SLAM2得到的路标点来得到可用于路径轨迹的地图&quot;&gt;&lt;a href=&quot;#利用ORB-SLAM2得到的路标点来得到可用于路径轨迹的地图&quot; class=&quot;headerlink&quot; title=&quot;利用ORB_SLAM2得到的路标点来得到可用于路径轨迹的地图&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://www.zhihu.com/question/68430075/answer/265121749&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;利用ORB_SLAM2得到的路标点来得到可用于路径轨迹的地图&lt;/a&gt;&lt;/h4&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;ORB-SLAM2&quot;&gt;&lt;a href=&quot;#ORB-SLAM2&quot; class=&quot;headerlink&quot; title=&quot;ORB-SLAM2&quot;&gt;&lt;/a&gt;ORB-SLAM2&lt;/h3&gt;&lt;p&gt;ROS版本：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;sudo chmod 777 ORBvoc.txt&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sudo chmod 777 TUM1.yaml&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="VSLAM" scheme="http://hujun1413.github.io/categories/VSLAM/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SLAM与深度学习</title>
+    <link href="http://hujun1413.github.io/2018/11/09/VSLAM/SLAM%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://hujun1413.github.io/2018/11/09/VSLAM/SLAM与深度学习/</id>
+    <published>2018-11-09T10:35:26.000Z</published>
+    <updated>2019-04-26T17:38:34.049Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;Tombone’s-Computer-Vision-Blog&quot;&gt;&lt;a href=&quot;#Tombone’s-Computer-Vision-Blog&quot; class=&quot;headerlink&quot; title=&quot;Tombone’s Computer Vision Blog&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.computervisionblog.com/2016/01/why-slam-matters-future-of-real-time.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Tombone’s Computer Vision Blog&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;翻译如下：&lt;br&gt;&lt;a href=&quot;http://blog.csdn.net/qq_18661939/article/details/51919329&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ICCV研讨会：实时SLAM的未来以及深度学习与SLAM的比较&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.zhihu.com/question/66006923&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;当前深度学习和slam结合有哪些比较好的论文，有没有一些开源的代码?&lt;/a&gt;&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;slam与深度学习结合&quot;&gt;&lt;a href=&quot;#slam与深度学习结合&quot; class=&quot;headerlink&quot; title=&quot;slam与深度学习结合&quot;&gt;&lt;/a&gt;slam与深度学习结合&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/u010821666/article/details/78749356&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;使用深度学习方法替换SLAM中的模块&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;用深度学习方法替换传统slam中的一个/几个模块：&lt;br&gt;目前还不能达到超越传统方法的效果，相较传统SLAM并没有很明显的优势（标注的数据集少且不全，使用视频做训练数据的非常少。SLAM中很多问题都是数学问题，深度学习并不擅长等等原因）。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/u010821666/article/details/78793225&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;语义SLAM &amp;amp; 端到端&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在传统SLAM之上加入语义信息&lt;br&gt;语义SLAM算是在扩展了传统SLAM问题的研究内容，现在出现了一些将语义信息集成到SLAM的研究，比如说用SLAM系统中得到的图像之间的几何一致性促进图像语义分割，也可以用语义分割/建图的结果促进SLAM的定位/闭环等，前者已经有了一些研究，不过还是集中于室内场景，后者貌似还没有什么相关研究。如果SLAM和语义分割能够相互促进相辅相成，应该能达到好的效果。&lt;/p&gt;
+&lt;p&gt;另：使用SLAM帮助构建大规模的图像之间有对应关系的数据集，可以降低深度学习数据集的标注难度吧，应该也是一个SLAM助力深度学习的思路。&lt;/p&gt;
+&lt;p&gt;1、利用学习的方法辅助几何方法。比如有学习的方法估计出深度信息，学习特征等等，特别是在几何法有时不行的时候。可以增强系统的鲁棒性。TUM实验室的CNN-Slam就是这个范畴，如果没记错的话。2、直接端到端学的，比如PoseNet，DeepVO，UnDeepVO3、语义Slam。不太了解，感觉机器学习做语义分割的很多，结合一下做语义Slam应该可以关联很多。&lt;/p&gt;
+&lt;p&gt;提高特征点稳定性（减少outlier）和自动提取不同层级的特征点（点、线、面、物体），&lt;br&gt;快速生成密集的地图（而非稀疏的三维点云）&lt;br&gt;结合语义信息和图像分割&lt;br&gt;生成动态地图（可以实时更新、表达动态物体）&lt;br&gt;降低SLAM调参的难度&lt;/p&gt;
+&lt;p&gt;将几何与深度学习结合。&lt;br&gt;&lt;a href=&quot;https://alexgkendall.com/computer_vision/have_we_forgotten_about_geometry_in_computer_vision/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Have We Forgotten about Geometry in Computer Vision?&lt;/a&gt;&lt;br&gt;求解深度，求解两帧间变换，特征点描述和提取，重定位&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/29864012&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;单目深度估计-深度学习&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://campar.in.tum.de/Chair/ProjectCNNSLAM&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;CNN-SLAM实时稠密单目SLAM&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;如何评价基于深度学习的DeepVO，VINet，VidLoc？&quot;&gt;&lt;a href=&quot;#如何评价基于深度学习的DeepVO，VINet，VidLoc？&quot; class=&quot;headerlink&quot; title=&quot;如何评价基于深度学习的DeepVO，VINet，VidLoc？&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.360doc.com/content/19/0318/16/62848200_822465453.shtml&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;如何评价基于深度学习的DeepVO，VINet，VidLoc？&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;深度学习结合的SLAM研究现状&quot;&gt;&lt;a href=&quot;#深度学习结合的SLAM研究现状&quot; class=&quot;headerlink&quot; title=&quot;深度学习结合的SLAM研究现状&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://github.com/Ewenwan/MVision/blob/master/vSLAM/VS_SLAM/readme.md&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;深度学习结合的SLAM研究现状&lt;/a&gt;&lt;/h3&gt;&lt;h3 id=&quot;论文&quot;&gt;&lt;a href=&quot;#论文&quot; class=&quot;headerlink&quot; title=&quot;论文&quot;&gt;&lt;/a&gt;论文&lt;/h3&gt;&lt;h4 id=&quot;DeepVO-Towards-End-to-End-Visual-Odometry-with-Deep-Recurrent-Convolutional-Neural-Networks&quot;&gt;&lt;a href=&quot;#DeepVO-Towards-End-to-End-Visual-Odometry-with-Deep-Recurrent-Convolutional-Neural-Networks&quot; class=&quot;headerlink&quot; title=&quot;DeepVO: Towards End-to-End Visual Odometry with Deep Recurrent Convolutional Neural Networks&quot;&gt;&lt;/a&gt;DeepVO: Towards End-to-End Visual Odometry with Deep Recurrent Convolutional Neural Networks&lt;/h4&gt;&lt;p&gt;CNN和RNN结合，实现了一个端到端的VO&lt;br&gt;听说复现的效果不好，需考虑&lt;/p&gt;
+&lt;p&gt;我的改进idea：将Deep RNN换成更好的注意力模型，结合DenseNet&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.dataguru.cn/article-12415-1.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;注意力机制介绍&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Tombone’s-Computer-Vision-Blog&quot;&gt;&lt;a href=&quot;#Tombone’s-Computer-Vision-Blog&quot; class=&quot;headerlink&quot; title=&quot;Tombone’s Computer Vision Blog&quot;&gt;&lt;/a&gt;&lt;a href=&quot;http://www.computervisionblog.com/2016/01/why-slam-matters-future-of-real-time.html&quot;&gt;Tombone’s Computer Vision Blog&lt;/a&gt;&lt;/h3&gt;&lt;p&gt;翻译如下：&lt;br&gt;&lt;a href=&quot;http://blog.csdn.net/qq_18661939/article/details/51919329&quot;&gt;ICCV研讨会：实时SLAM的未来以及深度学习与SLAM的比较&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.zhihu.com/question/66006923&quot;&gt;当前深度学习和slam结合有哪些比较好的论文，有没有一些开源的代码?&lt;/a&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="VSLAM" scheme="http://hujun1413.github.io/categories/VSLAM/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>OctoMap</title>
     <link href="http://hujun1413.github.io/2018/10/09/VSLAM/Octomap/"/>
     <id>http://hujun1413.github.io/2018/10/09/VSLAM/Octomap/</id>
@@ -518,6 +576,42 @@
     </summary>
     
       <category term="VSLAM" scheme="http://hujun1413.github.io/categories/VSLAM/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>给turtlebot增加一个传感器</title>
+    <link href="http://hujun1413.github.io/2018/06/13/ROS/%E7%BB%99turtlebot%E5%A2%9E%E5%8A%A0%E4%B8%80%E4%B8%AA%E4%BC%A0%E6%84%9F%E5%99%A8/"/>
+    <id>http://hujun1413.github.io/2018/06/13/ROS/给turtlebot增加一个传感器/</id>
+    <published>2018-06-13T12:35:26.000Z</published>
+    <updated>2019-03-24T12:50:45.489Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;参考&quot;&gt;&lt;a href=&quot;#参考&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/zyh821351004/article/details/48846179&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ros中利用gazebo进行gmapping仿真:kobuki+kinect -&amp;gt; kobuki+rplidar&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qq_36355662/article/details/61413860&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ROS中给turtlebot加两个传感器：kinect+hokuyo，进行gazebo仿真&lt;/a&gt;&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h3 id=&quot;让turtlebot带雷达和asua-xtion-pro&quot;&gt;&lt;a href=&quot;#让turtlebot带雷达和asua-xtion-pro&quot; class=&quot;headerlink&quot; title=&quot;让turtlebot带雷达和asua_xtion_pro&quot;&gt;&lt;/a&gt;让turtlebot带雷达和asua_xtion_pro&lt;/h3&gt;&lt;p&gt;roslaunch turtlebot_bringup minimal.launch是用于启动机器人robot.launch.xml和底盘mobile_base.launch.xml&lt;/p&gt;
+&lt;p&gt;minimal.launch中的&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;arg name=&amp;quot;base&amp;quot; value=&amp;quot;$(arg base)&amp;quot; /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;arg name=&amp;quot;stacks&amp;quot; value=&amp;quot;$(arg stacks)&amp;quot; /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;arg name=&amp;quot;3d_sensor&amp;quot; value=&amp;quot;$(arg 3d_sensor)&amp;quot; /&amp;gt; #rplidar,asua_xtion_pro,kinect2等&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;arg name=&amp;quot;serialport&amp;quot; value=&amp;quot;$(arg serialport)&amp;quot; /&amp;gt; #底盘的设备端口，如/dev/ttyUSB0&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;可以通过在~/.bashrc中设置TURTLEBOT_BASE，TURTLEBOT_STACKS，TURTLEBOT_3D_SENSOR，TURTLEBOT_SERIAL_PORT来赋值&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;export TURTLEBOT_BASE=kobuki&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export TURTLEBOT_STACKS=hexagons&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export TURTLEBOT_3D_SENSOR=asus_xtion_pro&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export TURTLEBOT_SERIAL_PORT=/dev/ttyUSB0&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;robot.launch中调用description.launch.xml来建立机器人的各关节和传感器的坐标系描述，调用robot_state_publisher来读取robot_description文件并发布tf tree。&lt;/p&gt;
+&lt;p&gt;description.launch.xml调用$(find turtlebot&lt;em&gt;description)/robots/$(arg base)&lt;/em&gt;$(arg stacks)_$(arg 3d_sensor).urdf.xacro’文件来定义机器人的关节和传感器，可以在turtlebot_description)/robots下定义新的.urdf.xacro文件来代表拥有不同关节和传感器的机器人&lt;/p&gt;
+&lt;p&gt;例如：&lt;br&gt;在kobuki_hexagons_asus_xtion_pro.urdf.xacro文件中，&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;xacro:include filename=&amp;quot;$(find turtlebot_description)/urdf/turtlebot_library.urdf.xacro&amp;quot; /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;kobuki/&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;stack_hexagons                 parent=&amp;quot;base_link&amp;quot;/&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;sensor_asus_xtion_pro          parent=&amp;quot;base_link&amp;quot;/&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;sensor_rplidar           parent=&amp;quot;base_link&amp;quot;/&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;代表拥有kobuki底盘，hexagons 平台，asua_xtion_pro深度摄像头,rplidar雷达的turtlebot机器人。&lt;/p&gt;
+&lt;p&gt;urdf/turtlebot_library.urdf.xacro文件的内容为：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;xacro:include filename=&amp;quot;$(find turtlebot_description)/urdf/sensors/asus_xtion_pro_offset.urdf.xacro&amp;quot;/&amp;gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;xacro:include filename=&amp;quot;$(find turtlebot_description)/urdf/sensors/rplidar.urdf.xacro&amp;quot;/&amp;gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;调用了turtlebot_description/urdf/stack/hexagons.urdf.xacro和turtlebot_description/urdf/sensor/asus_xtion_pro.urdf.xacro和turtlebot_description/urdf/sensor/rplidar.urdf.xacro文件。&lt;br&gt;这几个文件都是平台和传感器的描述和坐标变换。&lt;/p&gt;
+&lt;p&gt;如果以后需要增加一个新的传感器，只需要在turtlebot_description/urdf/sensor文件夹下增加一个[sensor_name].urdf.xacro文件，里面写好该传感器的描述和坐标系转换，然后在urdf/turtlebot_library.urdf.xacro文件中include新增加的传感器描述文件，然后在选择的像kobuki_hexagons_asus_xtion&lt;em&gt;pro.urdf.xacro这样的文件中，加入一行&lt;br&gt;`&amp;lt;sensor&lt;/em&gt;[sensor_name]            parent=”base_link”/&amp;gt;`&lt;/p&gt;
+&lt;p&gt;这样robot_state_publisher就会自动读取机器人的各关节和传感器，并发送tf tree。&lt;/p&gt;
+&lt;p&gt;注意：asus_xtion_pro.urdf.xacro文件中会用到turtlebot_properies.urdf.xacro中的cam_px等变量，代表相机相对base_link的位置。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;参考&quot;&gt;&lt;a href=&quot;#参考&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/zyh821351004/article/details/48846179&quot;&gt;ros中利用gazebo进行gmapping仿真:kobuki+kinect -&amp;gt; kobuki+rplidar&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qq_36355662/article/details/61413860&quot;&gt;ROS中给turtlebot加两个传感器：kinect+hokuyo，进行gazebo仿真&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="ROS" scheme="http://hujun1413.github.io/categories/ROS/"/>
     
     
   </entry>
@@ -558,42 +652,6 @@
     
       &lt;h3 id=&quot;调用什么文件来显示机器人及其身上的坐标系转换&quot;&gt;&lt;a href=&quot;#调用什么文件来显示机器人及其身上的坐标系转换&quot; class=&quot;headerlink&quot; title=&quot;调用什么文件来显示机器人及其身上的坐标系转换&quot;&gt;&lt;/a&gt;调用什么文件来显示机器人及其身上的坐标系转换&lt;/h3&gt;&lt;p&gt;在turtlebot_description包中，urdf/turtlebot_library.urdf.xacro文件中引用了基本所有的机器人组件。&lt;/p&gt;
 &lt;p&gt;一般的，minimal.launch是用于启动机器人robot.launch.xml和底盘mobile_base.launch.xml&lt;br&gt;
-    
-    </summary>
-    
-      <category term="ROS" scheme="http://hujun1413.github.io/categories/ROS/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>给turtlebot增加一个传感器</title>
-    <link href="http://hujun1413.github.io/2018/06/13/ROS/%E7%BB%99turtlebot%E5%A2%9E%E5%8A%A0%E4%B8%80%E4%B8%AA%E4%BC%A0%E6%84%9F%E5%99%A8/"/>
-    <id>http://hujun1413.github.io/2018/06/13/ROS/给turtlebot增加一个传感器/</id>
-    <published>2018-06-13T12:35:26.000Z</published>
-    <updated>2019-03-24T12:50:45.489Z</updated>
-    
-    <content type="html">&lt;h3 id=&quot;参考&quot;&gt;&lt;a href=&quot;#参考&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/zyh821351004/article/details/48846179&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ros中利用gazebo进行gmapping仿真:kobuki+kinect -&amp;gt; kobuki+rplidar&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qq_36355662/article/details/61413860&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ROS中给turtlebot加两个传感器：kinect+hokuyo，进行gazebo仿真&lt;/a&gt;&lt;/p&gt;
-&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h3 id=&quot;让turtlebot带雷达和asua-xtion-pro&quot;&gt;&lt;a href=&quot;#让turtlebot带雷达和asua-xtion-pro&quot; class=&quot;headerlink&quot; title=&quot;让turtlebot带雷达和asua_xtion_pro&quot;&gt;&lt;/a&gt;让turtlebot带雷达和asua_xtion_pro&lt;/h3&gt;&lt;p&gt;roslaunch turtlebot_bringup minimal.launch是用于启动机器人robot.launch.xml和底盘mobile_base.launch.xml&lt;/p&gt;
-&lt;p&gt;minimal.launch中的&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;arg name=&amp;quot;base&amp;quot; value=&amp;quot;$(arg base)&amp;quot; /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;arg name=&amp;quot;stacks&amp;quot; value=&amp;quot;$(arg stacks)&amp;quot; /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;arg name=&amp;quot;3d_sensor&amp;quot; value=&amp;quot;$(arg 3d_sensor)&amp;quot; /&amp;gt; #rplidar,asua_xtion_pro,kinect2等&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;arg name=&amp;quot;serialport&amp;quot; value=&amp;quot;$(arg serialport)&amp;quot; /&amp;gt; #底盘的设备端口，如/dev/ttyUSB0&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;可以通过在~/.bashrc中设置TURTLEBOT_BASE，TURTLEBOT_STACKS，TURTLEBOT_3D_SENSOR，TURTLEBOT_SERIAL_PORT来赋值&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;export TURTLEBOT_BASE=kobuki&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export TURTLEBOT_STACKS=hexagons&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export TURTLEBOT_3D_SENSOR=asus_xtion_pro&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export TURTLEBOT_SERIAL_PORT=/dev/ttyUSB0&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;robot.launch中调用description.launch.xml来建立机器人的各关节和传感器的坐标系描述，调用robot_state_publisher来读取robot_description文件并发布tf tree。&lt;/p&gt;
-&lt;p&gt;description.launch.xml调用$(find turtlebot&lt;em&gt;description)/robots/$(arg base)&lt;/em&gt;$(arg stacks)_$(arg 3d_sensor).urdf.xacro’文件来定义机器人的关节和传感器，可以在turtlebot_description)/robots下定义新的.urdf.xacro文件来代表拥有不同关节和传感器的机器人&lt;/p&gt;
-&lt;p&gt;例如：&lt;br&gt;在kobuki_hexagons_asus_xtion_pro.urdf.xacro文件中，&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;xacro:include filename=&amp;quot;$(find turtlebot_description)/urdf/turtlebot_library.urdf.xacro&amp;quot; /&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;kobuki/&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;stack_hexagons                 parent=&amp;quot;base_link&amp;quot;/&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;sensor_asus_xtion_pro          parent=&amp;quot;base_link&amp;quot;/&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;sensor_rplidar           parent=&amp;quot;base_link&amp;quot;/&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;代表拥有kobuki底盘，hexagons 平台，asua_xtion_pro深度摄像头,rplidar雷达的turtlebot机器人。&lt;/p&gt;
-&lt;p&gt;urdf/turtlebot_library.urdf.xacro文件的内容为：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;xacro:include filename=&amp;quot;$(find turtlebot_description)/urdf/sensors/asus_xtion_pro_offset.urdf.xacro&amp;quot;/&amp;gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;lt;xacro:include filename=&amp;quot;$(find turtlebot_description)/urdf/sensors/rplidar.urdf.xacro&amp;quot;/&amp;gt;  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;...&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;调用了turtlebot_description/urdf/stack/hexagons.urdf.xacro和turtlebot_description/urdf/sensor/asus_xtion_pro.urdf.xacro和turtlebot_description/urdf/sensor/rplidar.urdf.xacro文件。&lt;br&gt;这几个文件都是平台和传感器的描述和坐标变换。&lt;/p&gt;
-&lt;p&gt;如果以后需要增加一个新的传感器，只需要在turtlebot_description/urdf/sensor文件夹下增加一个[sensor_name].urdf.xacro文件，里面写好该传感器的描述和坐标系转换，然后在urdf/turtlebot_library.urdf.xacro文件中include新增加的传感器描述文件，然后在选择的像kobuki_hexagons_asus_xtion&lt;em&gt;pro.urdf.xacro这样的文件中，加入一行&lt;br&gt;`&amp;lt;sensor&lt;/em&gt;[sensor_name]            parent=”base_link”/&amp;gt;`&lt;/p&gt;
-&lt;p&gt;这样robot_state_publisher就会自动读取机器人的各关节和传感器，并发送tf tree。&lt;/p&gt;
-&lt;p&gt;注意：asus_xtion_pro.urdf.xacro文件中会用到turtlebot_properies.urdf.xacro中的cam_px等变量，代表相机相对base_link的位置。&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;参考&quot;&gt;&lt;a href=&quot;#参考&quot; class=&quot;headerlink&quot; title=&quot;参考&quot;&gt;&lt;/a&gt;参考&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/zyh821351004/article/details/48846179&quot;&gt;ros中利用gazebo进行gmapping仿真:kobuki+kinect -&amp;gt; kobuki+rplidar&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://blog.csdn.net/qq_36355662/article/details/61413860&quot;&gt;ROS中给turtlebot加两个传感器：kinect+hokuyo，进行gazebo仿真&lt;/a&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1721,7 +1779,7 @@
 &lt;p&gt;&lt;a href=&quot;http://hujun1413.github.io/&quot; title=&quot;胡君博客&quot;&gt;胡君的个人博客&lt;/a&gt;&lt;a href=&quot;link&quot; title=&quot;Optional title&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;“Optional title”为显示标题。&lt;br&gt;在你将鼠标放到链接上后，会显示一个小框提示Optional title 里的内容。&lt;/p&gt;
 &lt;p&gt;&lt;del&gt;胡君的个人博客&lt;a href=&quot;http://hujun1413.github.io/&quot;&gt;http://hujun1413.github.io/&lt;/a&gt;&lt;/del&gt;&lt;/p&gt;
-&lt;p&gt;胡君的邮箱&lt;a href=&quot;&amp;#x6d;&amp;#x61;&amp;#105;&amp;#x6c;&amp;#116;&amp;#111;&amp;#x3a;&amp;#x33;&amp;#53;&amp;#57;&amp;#51;&amp;#x32;&amp;#x38;&amp;#50;&amp;#52;&amp;#x32;&amp;#64;&amp;#113;&amp;#x71;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#x6d;&quot;&gt;&amp;#x33;&amp;#53;&amp;#57;&amp;#51;&amp;#x32;&amp;#x38;&amp;#50;&amp;#52;&amp;#x32;&amp;#64;&amp;#113;&amp;#x71;&amp;#x2e;&amp;#x63;&amp;#111;&amp;#x6d;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;胡君的邮箱&lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#x69;&amp;#x6c;&amp;#116;&amp;#x6f;&amp;#58;&amp;#x33;&amp;#53;&amp;#x39;&amp;#51;&amp;#50;&amp;#56;&amp;#50;&amp;#52;&amp;#50;&amp;#64;&amp;#113;&amp;#113;&amp;#46;&amp;#99;&amp;#111;&amp;#109;&quot;&gt;&amp;#x33;&amp;#53;&amp;#x39;&amp;#51;&amp;#50;&amp;#56;&amp;#50;&amp;#52;&amp;#50;&amp;#64;&amp;#113;&amp;#113;&amp;#46;&amp;#99;&amp;#111;&amp;#109;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&quot;http://hujun1413.github.io/&quot;&gt;之后定义链接&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;cool one like this.&lt;/p&gt;
